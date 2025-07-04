@@ -81,8 +81,7 @@ class Flow<T : Any> internal constructor()
      */
     fun register(coroutineContext : CoroutineContext, action : (T) -> Unit) : () -> Unit
     {
-        val flowElement =
-            FlowElement<T>(coroutineContext) { value -> action(value) }
+        val flowElement = FlowElement<T>(coroutineContext, action)
         synchronized(this.elements) { this.elements[flowElement.id] = flowElement }
         return { cancel(flowElement.id) }
     }
