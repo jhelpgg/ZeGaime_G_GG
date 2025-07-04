@@ -9,17 +9,37 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
+/**
+ * Observable of a value
+ *
+ * It is a value that can be observed. When the value changed, observers are alerted
+ *
+ * To create an instance, use [ObservableSource]
+ * @param T Type of value observed
+ * @property value Current value
+ */
 class Observable<T : Any> internal constructor(initialValue : T)
 {
+    /** Current value */
     var value : T = initialValue
         private set
 
+    /** List of registered observers */
     private val elements = IntMap<ObservableElement<T>>()
+    /** Parent observable, if any */
     private var observableParent : Observable<*>? = null
 
     /** Id in parent if [observableParent] not `null` */
     private var idInParent = -1
 
+    /**
+     * Create an observable that its value is a transformation of this observable value.
+     *
+     * The transformation is done in given [CoroutineContext]
+     * @param coroutineContext Context where transformation is done
+     * @param action Transformation action
+     * @return Deferred that will contains the created observable
+     */
     fun <R : Any> then(coroutineContext : CoroutineContext, action : (T) -> R) : Deferred<Observable<R>> =
         CoroutineScope(coroutineContext).async {
             val source = ObservableSource<R>(action(this@Observable.value))
@@ -32,9 +52,22 @@ class Observable<T : Any> internal constructor(initialValue : T)
             source.observable
         }
 
+    /**
+     * Create an observable that its value is a transformation of this observable value
+     * @param action Transformation action
+     * @return Deferred that will contains the created observable
+     */
     fun <R : Any> then(action : (T) -> R) : Deferred<Observable<R>> =
         this.then(Dispatchers.Default, action)
 
+    /**
+     * Register an observer of value changes
+     *
+     * The action will be trigger in the given context
+     * @param coroutineContext Context where action is executed
+     * @param action Action to execute when value changed
+     * @return A function to call to unregister the observer
+     */
     fun register(coroutineContext : CoroutineContext, action : (T) -> Unit) : () -> Unit
     {
         val observableElement = ObservableElement<T>(coroutineContext, action)
@@ -49,6 +82,11 @@ class Observable<T : Any> internal constructor(initialValue : T)
         return { cancel(observableElement.id) }
     }
 
+    /**
+     * Register an observer of value changes
+     * @param action Action to execute when value changed
+     * @return A function to call to unregister the observer
+     */
     fun register(action : (T) -> Unit) : () -> Unit  =
         this.register(Dispatchers.Default, action)
 
@@ -66,6 +104,10 @@ class Observable<T : Any> internal constructor(initialValue : T)
         this.idInParent = -1
     }
 
+    /**
+     * Publish a new value to observers
+     * @param value New value
+     */
     internal fun publish(value : T)
     {
         synchronized(this.elements) {
@@ -81,9 +123,9 @@ class Observable<T : Any> internal constructor(initialValue : T)
     }
 
     /**
-     * Cancels a children flow
+     * Cancels a children observable
      *
-     * @param id Flow ID to cancel
+     * @param id Observable ID to cancel
      */
     private fun cancel(id : Int)
     {
