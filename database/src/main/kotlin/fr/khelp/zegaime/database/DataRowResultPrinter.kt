@@ -24,8 +24,8 @@ private fun rowString(row: Array<String>, maxWidths: IntArray): String
 
 /**
  * Print row result in ascci table format.
- * The result is print from its current line to the end
- * The result is consumed at the end og this method
+ * The result is printed from its current line to the end
+ * The result is consumed at the end of this method
  */
 fun printDataRowResult(dataRowResult: DataRowResult, printStream: PrintStream)
 {
