@@ -9,189 +9,154 @@ import org.junit.jupiter.api.Test
 class IterationsTests
 {
     @Test
-    fun `iterator select generic`()
+    fun `iterator select`()
     {
-        val iterator = listOf(42, 73, 85, 44, 666, 999).listIterator()
-        val iteratorSelect = iterator.select { value -> value % 2 == 0 }
-
-        val iteratorSelected =
-            Assertions.assertInstanceOf(IteratorSelected::class.java, iteratorSelect) as IteratorSelected<Int>
-        Assertions.assertTrue(iteratorSelected.criteria(88))
-        Assertions.assertTrue(iteratorSelected.criteria(22))
-        Assertions.assertFalse(iteratorSelected.criteria(11))
-        Assertions.assertFalse(iteratorSelected.criteria(99))
-        Assertions.assertEquals(iterator, iteratorSelected.iterator)
-
-        val collected = ArrayList<Int>()
-
-        for (value in iteratorSelected)
-        {
-            collected.add(value)
-        }
-
-        Assertions.assertEquals(3, collected.size)
-        Assertions.assertEquals(42, collected[0])
-        Assertions.assertEquals(44, collected[1])
-        Assertions.assertEquals(666, collected[2])
-    }
-
-    @Test
-    fun `iterator select with IteratorSelected`()
-    {
-        val iterator = listOf(42, 73, 85, 44, 666, 999).listIterator()
-        val iteratorSelect = iterator.select { value -> value % 2 == 0 }
-        val iteratorSelect2 = iteratorSelect.select { value -> value >= 50 }
-
-        val iteratorSelected =
-            Assertions.assertInstanceOf(IteratorSelected::class.java, iteratorSelect2) as IteratorSelected<Int>
-        Assertions.assertTrue(iteratorSelected.criteria(88))
-        Assertions.assertFalse(iteratorSelected.criteria(22))
-        Assertions.assertFalse(iteratorSelected.criteria(11))
-        Assertions.assertFalse(iteratorSelected.criteria(99))
-        Assertions.assertEquals(iterator, iteratorSelected.iterator)
-
-        val collected = ArrayList<Int>()
-
-        for (value in iteratorSelected)
-        {
-            collected.add(value)
-        }
-
-        Assertions.assertEquals(1, collected.size)
-        Assertions.assertEquals(666, collected[0])
+        val source = listOf(42, 73, 85, 44, 666, 999)
+        val iterator = source.iterator().select { it % 2 == 0 }
+        Assertions.assertTrue(iterator.hasNext())
+        Assertions.assertEquals(42, iterator.next())
+        Assertions.assertTrue(iterator.hasNext())
+        Assertions.assertEquals(44, iterator.next())
+        Assertions.assertTrue(iterator.hasNext())
+        Assertions.assertEquals(666, iterator.next())
+        Assertions.assertFalse(iterator.hasNext())
     }
 
     @Test
     fun `iterator transform`()
     {
-        val iterator = listOf(41, 72, 84, 43, 665, 998).listIterator()
-        val collected = ArrayList<Int>()
-
-        for (value in iterator.transform { value -> value + 1 })
-        {
-            collected.add(value)
-        }
-
-        Assertions.assertEquals(3, collected.size)
-        Assertions.assertEquals(42, collected[0])
-        Assertions.assertEquals(44, collected[1])
-        Assertions.assertEquals(666, collected[2])
+        val source = listOf(1, 2, 3)
+        val iterator = source.iterator().transform { "N:$it" }
+        Assertions.assertTrue(iterator.hasNext())
+        Assertions.assertEquals("N:1", iterator.next())
+        Assertions.assertTrue(iterator.hasNext())
+        Assertions.assertEquals("N:2", iterator.next())
+        Assertions.assertTrue(iterator.hasNext())
+        Assertions.assertEquals("N:3", iterator.next())
+        Assertions.assertFalse(iterator.hasNext())
     }
 
     @Test
     fun `iterator selectInstance`()
     {
-        val iterator =
-            listOf<TestParent>(TestChild1("Child 1.1"),
-                               TestChild2("Child 2.1"),
-                               TestChild1("Child 1.2"),
-                               TestChild1("Child 1.3"),
-                               TestChild2("Child 2.2"))
-                .listIterator()
-
-        val collected = ArrayList<TestChild1>()
-
-        for (test in iterator.selectInstance<TestParent, TestChild1>())
-        {
-            collected.add(test)
-        }
-
-        Assertions.assertEquals(3, collected.size)
-        Assertions.assertEquals("Child 1.1", collected[0].name)
-        Assertions.assertEquals("Child 1.2", collected[1].name)
-        Assertions.assertEquals("Child 1.3", collected[2].name)
+        val source =
+            listOf(TestChild1("c1"), TestChild2("2"), TestParent("p"), TestChild1("c2"))
+        val iterator = source.iterator().selectInstance<TestParent, TestChild1>()
+        Assertions.assertTrue(iterator.hasNext())
+        Assertions.assertEquals("c1", iterator.next().name)
+        Assertions.assertTrue(iterator.hasNext())
+        Assertions.assertEquals("c2", iterator.next().name)
+        Assertions.assertFalse(iterator.hasNext())
     }
 
     @Test
-    fun `iterable select generic`()
+    fun `iterable select`()
     {
-        val iterable = listOf(42, 73, 85, 44, 666, 999)
-        val iterableSelect = iterable.select { value -> value % 2 == 0 }
-
-        val iterableSelected =
-            Assertions.assertInstanceOf(IterableSelected::class.java, iterableSelect) as IterableSelected<Int>
-        Assertions.assertTrue(iterableSelected.criteria(88))
-        Assertions.assertTrue(iterableSelected.criteria(22))
-        Assertions.assertFalse(iterableSelected.criteria(11))
-        Assertions.assertFalse(iterableSelected.criteria(99))
-        Assertions.assertEquals(iterable, iterableSelected.iterable)
-
-        val collected = ArrayList<Int>()
-
-        for (value in iterableSelected)
-        {
-            collected.add(value)
-        }
-
-        Assertions.assertEquals(3, collected.size)
-        Assertions.assertEquals(42, collected[0])
-        Assertions.assertEquals(44, collected[1])
-        Assertions.assertEquals(666, collected[2])
-    }
-
-    @Test
-    fun `iterable select with IterableSelected`()
-    {
-        val iterable = listOf(42, 73, 85, 44, 666, 999)
-        val iterableSelect = iterable.select { value -> value % 2 == 0 }
-        val iterableSelect2 = iterableSelect.select { value -> value >= 50 }
-
-        val iterableSelected =
-            Assertions.assertInstanceOf(IterableSelected::class.java, iterableSelect2) as IterableSelected<Int>
-        Assertions.assertTrue(iterableSelected.criteria(88))
-        Assertions.assertFalse(iterableSelected.criteria(22))
-        Assertions.assertFalse(iterableSelected.criteria(11))
-        Assertions.assertFalse(iterableSelected.criteria(99))
-        Assertions.assertEquals(iterable, iterableSelected.iterable)
-
-        val collected = ArrayList<Int>()
-
-        for (value in iterableSelected)
-        {
-            collected.add(value)
-        }
-
-        Assertions.assertEquals(1, collected.size)
-        Assertions.assertEquals(666, collected[0])
+        val source = listOf(42, 73, 85, 44, 666, 999)
+        val iterable = source.select { it % 2 == 0 }
+        val result = iterable.toList()
+        Assertions.assertEquals(3, result.size)
+        Assertions.assertEquals(42, result[0])
+        Assertions.assertEquals(44, result[1])
+        Assertions.assertEquals(666, result[2])
     }
 
     @Test
     fun `iterable transform`()
     {
-        val iterable = listOf(41, 72, 84, 43, 665, 998)
-        val collected = ArrayList<Int>()
-
-        for (value in iterable.transform { value -> value + 1 })
-        {
-            collected.add(value)
-        }
-
-        Assertions.assertEquals(3, collected.size)
-        Assertions.assertEquals(42, collected[0])
-        Assertions.assertEquals(44, collected[1])
-        Assertions.assertEquals(666, collected[2])
+        val source = listOf(1, 2, 3)
+        val iterable = source.transform { "N:$it" }
+        val result = iterable.toList()
+        Assertions.assertEquals(3, result.size)
+        Assertions.assertEquals("N:1", result[0])
+        Assertions.assertEquals("N:2", result[1])
+        Assertions.assertEquals("N:3", result[2])
     }
 
     @Test
     fun `iterable selectInstance`()
     {
-        val iterable =
-            listOf<TestParent>(TestChild1("Child 1.1"),
-                               TestChild2("Child 2.1"),
-                               TestChild1("Child 1.2"),
-                               TestChild1("Child 1.3"),
-                               TestChild2("Child 2.2"))
+        val source =
+            listOf(TestChild1("c1"), TestChild2("2"), TestParent("p"), TestChild1("c2"))
+        val iterable = source.selectInstance<TestParent,TestChild1>()
+        val result = iterable.toList()
+        Assertions.assertEquals(2, result.size)
+        Assertions.assertEquals("c1", result[0].name)
+        Assertions.assertEquals("c2", result[1].name)
+    }
 
-        val collected = ArrayList<TestChild1>()
+    @Test
+    fun `empty iterator select`()
+    {
+        val source = emptyList<Int>()
+        val iterator = source.iterator().select { it % 2 == 0 }
+        Assertions.assertFalse(iterator.hasNext())
+    }
 
-        for (test in iterable.selectInstance<TestParent, TestChild1>())
-        {
-            collected.add(test)
-        }
+    @Test
+    fun `empty iterator transform`()
+    {
+        val source = emptyList<Int>()
+        val iterator = source.iterator().transform { "N:$it" }
+        Assertions.assertFalse(iterator.hasNext())
+    }
 
-        Assertions.assertEquals(3, collected.size)
-        Assertions.assertEquals("Child 1.1", collected[0].name)
-        Assertions.assertEquals("Child 1.2", collected[1].name)
-        Assertions.assertEquals("Child 1.3", collected[2].name)
+    @Test
+    fun `empty iterator selectInstance`()
+    {
+        val source = emptyList<TestParent>()
+        val iterator = source.iterator().selectInstance<TestParent, TestChild1>()
+        Assertions.assertFalse(iterator.hasNext())
+    }
+
+    @Test
+    fun `empty iterable select`()
+    {
+        val source = emptyList<Int>()
+        val iterable = source.select { it % 2 == 0 }
+        Assertions.assertTrue(iterable.toList().isEmpty())
+    }
+
+    @Test
+    fun `empty iterable transform`()
+    {
+        val source = emptyList<Int>()
+        val iterable = source.transform { "N:$it" }
+        Assertions.assertTrue(iterable.toList().isEmpty())
+    }
+
+    @Test
+    fun `empty iterable selectInstance`()
+    {
+        val source = emptyList<TestParent>()
+        val iterable = source.selectInstance<TestParent, TestChild1>()
+        Assertions.assertTrue(iterable.toList().isEmpty())
+    }
+
+    @Test
+    fun `no match iterator select`()
+    {
+        val source = listOf(1, 3, 5)
+        val iterator = source.iterator().select { it % 2 == 0 }
+        Assertions.assertFalse(iterator.hasNext())
+    }
+
+    @Test
+    fun `no match iterable select`()
+    {
+        val source = listOf(1, 3, 5)
+        val iterable = source.select { it % 2 == 0 }
+        Assertions.assertTrue(iterable.toList().isEmpty())
+    }
+
+    @Test
+    fun `combined select`()
+    {
+        val source = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+        val iterable = source.select { it > 3 }.select { it < 8 }.select { it % 2 == 0 }
+        val result = iterable.toList()
+        Assertions.assertEquals(2, result.size)
+        Assertions.assertEquals(4, result[0])
+        Assertions.assertEquals(6, result[1])
     }
 }

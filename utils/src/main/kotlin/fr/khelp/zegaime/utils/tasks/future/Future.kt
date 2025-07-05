@@ -28,6 +28,9 @@ class Future<T : Any> internal constructor(private val promise : Promise<T>)
     /** Listeners of future events */
     private val listeners = ArrayList<Pair<CoroutineContext, () -> Unit>>()
 
+    /** Lock to block threads that wait for completion */
+    private val lock = Object()
+
     /**
      * Play an action after the result succeed
      *
@@ -502,6 +505,24 @@ class Future<T : Any> internal constructor(private val promise : Promise<T>)
     }
 
     /**
+     * Wait future completion
+     *
+     * Block calling thread until completion
+     *
+     * @return Future status after completion
+     */
+    fun waitForCompletion() : FutureStatus<T> =
+        synchronized(this.lock)
+        {
+            while (this.futuresStatusSource.value is FutureComputing)
+            {
+                this.lock.wait()
+            }
+
+            this.futuresStatusSource.value
+        }
+
+    /**
      * Called when the result is known
      *
      * @param value Computed result
@@ -548,5 +569,10 @@ class Future<T : Any> internal constructor(private val promise : Promise<T>)
         }
 
         this.listeners.clear()
+
+        synchronized(this.lock)
+        {
+            this.lock.notifyAll()
+        }
     }
 }
