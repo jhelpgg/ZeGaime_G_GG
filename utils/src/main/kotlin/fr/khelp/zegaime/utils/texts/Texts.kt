@@ -61,6 +61,19 @@ private val HOLE_INDEX_GROUP = DIGIT.oneOrMore()
     .group()
 private val HOLE_REGEX = '{'.regularExpression + HOLE_INDEX_GROUP + '}'
 
+/**
+ * Replace holes in text by given replacements
+ *
+ * A hole is define by `{<index>}`.
+ *
+ * For example:
+ *
+ * `replaceHoles("Hello {0}, welcome to {1}", "John", "New York")` will produce `"Hello John, welcome to New York"`
+ *
+ * @param textWithHole Text with holes to replace
+ * @param replacement Replacement to use
+ * @return Text with holes replaced
+ */
 fun replaceHoles(textWithHole : String, vararg replacement : String) : String
 {
     val stringBuilder = StringBuilder()

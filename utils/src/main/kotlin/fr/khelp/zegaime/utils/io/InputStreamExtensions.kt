@@ -47,6 +47,7 @@ fun InputStream.readFully(byteArray: ByteArray, offset: Int = 0, length: Int = b
 
 /**
  * Read at maximum given number of bytes. The method respect the number required if stream have enough dtata left.
+ * @param number Number of bytes to read
  * @return Bytes read
  */
 fun InputStream.readSomeBytes(number: Int): ByteArray

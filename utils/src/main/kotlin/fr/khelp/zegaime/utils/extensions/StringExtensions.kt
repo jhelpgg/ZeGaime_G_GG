@@ -12,14 +12,18 @@ import fr.khelp.zegaime.utils.texts.UnionCharactersInterval
 import java.util.Base64
 import java.util.Locale
 
+/** UTF8 representation of the String */
 val String.utf8 get() = this.toByteArray(Charsets.UTF_8)
 
+/** Decode a base 64 String to its byte array representation */
 val String.base64
     get() = Base64.getDecoder()
         .decode(this)
 
+/** String as a regular expression */
 val String.regularExpression : RegularExpression get() = RegularExpression.text(this)
 
+/** String as a regular expression and ignore case */
 val String.ignoreCaseRegularExpression : RegularExpression
     get()
     {

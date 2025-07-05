@@ -10,6 +10,11 @@ import fr.khelp.zegaime.utils.texts.EmptyCharactersInterval
 import fr.khelp.zegaime.utils.texts.SimpleCharactersInterval
 import fr.khelp.zegaime.utils.texts.UnionCharactersInterval
 
+/**
+ * Create an interval that is the union of this interval and the given one
+ * @param charactersInterval Interval to add
+ * @return The union of the two intervals
+ */
 operator fun CharactersInterval.plus(charactersInterval : CharactersInterval) : CharactersInterval
 {
     if (this == EmptyCharactersInterval)

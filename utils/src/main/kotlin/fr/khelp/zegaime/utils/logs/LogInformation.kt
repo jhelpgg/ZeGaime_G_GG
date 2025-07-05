@@ -3,6 +3,14 @@ package fr.khelp.zegaime.utils.logs
 import java.io.PrintStream
 import java.util.*
 
+/**
+ * Information for printing a log message
+ * @param logLevel Log level
+ * @param stackTraceElement Stack trace element where the log is called
+ * @param message Message to print
+ * @param throwable Throwable to print its stack trace
+ * @param printStream Stream where print the log
+ */
 data class LogInformation(val logLevel: LogLevel = LogLevel.VERBOSE,
                           val stackTraceElement: StackTraceElement,
                           val message: Array<out Any?>? = null,

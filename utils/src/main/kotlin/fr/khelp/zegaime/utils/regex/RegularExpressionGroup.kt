@@ -6,15 +6,22 @@ import fr.khelp.zegaime.utils.texts.CharactersInterval
 
 /**
  * Capturing group to capture things in regular expression
+ * @param regularExpression Regular expression captured by the group
  */
 class RegularExpressionGroup internal constructor(internal val regularExpression : RegularExpression) :
     RegularExpressionElement()
 {
+    /** Indicates if it is the first time the group is used in string representation */
     internal var firstUse : Boolean = true
+    /** Group ID */
     internal var groupID : Int = -1
+    /** Parent regular expression that contains this group */
     internal var parent : RegularExpression? = null
         private set
 
+    /**
+     * Combine with regular expression
+     */
     operator fun plus(regularExpression : RegularExpression) : RegularExpression =
         when
         {

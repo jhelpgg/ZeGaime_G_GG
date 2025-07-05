@@ -55,6 +55,14 @@ fun <P1 : Any, P2 : Any, R : Any> ((P1, P2) -> R).parallel(parameter1 : P1, para
                                                            taskContext : TaskContext = TaskContext.INDEPENDENT) : Future<R> =
     { this(parameter1, parameter2) }.parallel(taskContext)
 
+/**
+ * Launch a task after a delay
+ *
+ * @param time Delay in milliseconds
+ * @param taskContext Context to launch the task
+ * @param action Task to play
+ * @return Future to track the task
+ */
 fun <R : Any> delay(time : Long, taskContext : TaskContext, action : () -> R) : Future<R>
 {
     val promise = Promise<R>()
@@ -76,5 +84,12 @@ fun <R : Any> delay(time : Long, taskContext : TaskContext, action : () -> R) : 
     return promise.future
 }
 
+/**
+ * Launch a task after a delay
+ *
+ * @param time Delay in milliseconds
+ * @param action Task to play
+ * @return Future to track the task
+ */
 fun <R : Any> delay(time : Long, action : () -> R) : Future<R> =
     delay(time, TaskContext.INDEPENDENT, action)

@@ -5,6 +5,7 @@ import java.io.File
 import java.io.IOException
 import java.util.Stack
 
+/** Indicates if the file is a virtual link */
 val File.isVirtualLink : Boolean
     get()
     {

@@ -5,13 +5,21 @@ import fr.khelp.zegaime.utils.regex.RegularExpressionGroup
 import fr.khelp.zegaime.utils.texts.CharactersInterval
 import fr.khelp.zegaime.utils.texts.SimpleCharactersInterval
 
+/** The character as an interval */
 val Char.interval : CharactersInterval get() = SimpleCharactersInterval(this, this)
 
+/** Interval with the character in lower and upper case version */
 val Char.ignoreCaseInterval : CharactersInterval get() = this.toLowerCase().interval + this.toUpperCase()
 
+/**
+ * Add character to an interval
+ */
 operator fun Char.plus(charactersInterval : CharactersInterval) : CharactersInterval =
     charactersInterval + this
 
+/**
+ * String representation in unicode `\uHHHH`
+ */
 fun Char.toUnicode() : String
 {
     val stringBuilder = StringBuilder(6)

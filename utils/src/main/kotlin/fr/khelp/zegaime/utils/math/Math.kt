@@ -70,6 +70,17 @@ fun isNul(value : Double) = abs(value) <= EPSILON
  */
 fun isNul(value : Float) = abs(value) <= EPSILON_FLOAT
 
+/**
+ * Compare two floats.
+ *
+ * It returns:
+ * * **< 0** if value1 < value2
+ * * **0** if value1 ~ value2
+ * * **> 0** if value1 > value2
+ * @param value1 First value
+ * @param value2 Second value
+ * @return Comparison result
+ */
 fun compare(value1 : Float, value2 : Float) : Int
 {
     val diff = value1 - value2
@@ -82,6 +93,17 @@ fun compare(value1 : Float, value2 : Float) : Int
     }
 }
 
+/**
+ * Compare two doubles.
+ *
+ * It returns:
+ * * **< 0** if value1 < value2
+ * * **0** if value1 ~ value2
+ * * **> 0** if value1 > value2
+ * @param value1 First value
+ * @param value2 Second value
+ * @return Comparison result
+ */
 fun compare(value1 : Double, value2 : Double) : Int
 {
     val diff = value1 - value2
@@ -112,6 +134,12 @@ fun equals(value1 : Double, value2 : Double) = isNul(value1 - value2)
  */
 fun equals(value1 : Float, value2 : Float) = isNul(value1 - value2)
 
+/**
+ * Compute the minimum of two characters
+ * @param char1 First character
+ * @param char2 Second character
+ * @return The minimum
+ */
 fun min(char1 : Char, char2 : Char) : Char =
     if (char1 <= char2)
     {
@@ -122,6 +150,12 @@ fun min(char1 : Char, char2 : Char) : Char =
         char2
     }
 
+/**
+ * Compute the maximum of two characters
+ * @param char1 First character
+ * @param char2 Second character
+ * @return The maximum
+ */
 fun max(char1 : Char, char2 : Char) : Char =
     if (char1 >= char2)
     {
@@ -132,6 +166,11 @@ fun max(char1 : Char, char2 : Char) : Char =
         char2
     }
 
+/**
+ * Compute the sign of an integer
+ * @param int Integer to get the sign
+ * @return The sign
+ */
 fun sign(int : Int) : Int =
     when
     {
@@ -140,6 +179,11 @@ fun sign(int : Int) : Int =
         else     -> 1
     }
 
+/**
+ * Compute the sign of a long
+ * @param long Long to get the sign
+ * @return The sign
+ */
 fun sign(long : Long) : Int =
     when
     {
@@ -148,6 +192,11 @@ fun sign(long : Long) : Int =
         else       -> 1
     }
 
+/**
+ * Compute the sign of a float
+ * @param float Float to get the sign
+ * @return The sign
+ */
 fun sign(float : Float) : Int =
     when
     {
@@ -156,6 +205,11 @@ fun sign(float : Float) : Int =
         else         -> 1
     }
 
+/**
+ * Compute the sign of a double
+ * @param double Double to get the sign
+ * @return The sign
+ */
 fun sign(double : Double) : Int =
     when
     {
@@ -164,10 +218,26 @@ fun sign(double : Double) : Int =
         else          -> 1
     }
 
+/**
+ * Compute the square of a float
+ * @param number Float to square
+ * @return The square
+ */
 fun square(number : Float) : Float = number * number
 
+/**
+ * Compute the square of a double
+ * @param number Double to square
+ * @return The square
+ */
 fun square(number : Double) : Double = number * number
 
+/**
+ * Compute the intersected area of two rectangles
+ * @param rectangle1 First rectangle
+ * @param rectangle2 Second rectangle
+ * @return The intersected area
+ */
 fun computeIntersectedArea(rectangle1 : Rectangle, rectangle2 : Rectangle) : Int
 {
     val xMin1 = rectangle1.x

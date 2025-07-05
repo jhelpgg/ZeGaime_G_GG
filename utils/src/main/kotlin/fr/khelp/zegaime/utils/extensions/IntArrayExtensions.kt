@@ -4,6 +4,10 @@ import java.io.ByteArrayOutputStream
 
 /**
  * String representation with customizable header, separator and footer
+ * @param header String before the content
+ * @param separator String between elements
+ * @param footer String after the content
+ * @return The string representation
  */
 fun IntArray.string(header: String = "[", separator: String = ", ", footer: String = "]"): String
 {

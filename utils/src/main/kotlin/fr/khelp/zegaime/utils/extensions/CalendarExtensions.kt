@@ -2,6 +2,9 @@ package fr.khelp.zegaime.utils.extensions
 
 import java.util.Calendar
 
+/**
+ * Full string representation of calendar
+ */
 fun Calendar.fullString() : String
 {
     val stringBuilder = StringBuilder()
@@ -21,12 +24,21 @@ fun Calendar.fullString() : String
     return stringBuilder.toString()
 }
 
+/**
+ * Create a calendar with a date
+ */
 fun calendar(year : Int, month : Int, day : Int) : Calendar =
     calendar(year, month, day, 0, 0, 0, 0)
 
+/**
+ * Create a calendar with a date and time
+ */
 fun calendar(year : Int, month : Int, day : Int, hour : Int, minute : Int, second : Int) : Calendar =
     calendar(year, month, day, hour, minute, second, 0)
 
+/**
+ * Create a calendar with a date and time with milliseconds
+ */
 fun calendar(year : Int, month : Int, day : Int, hour : Int, minute : Int, second : Int, milliseconds : Int) : Calendar
 {
     val calendar = Calendar.getInstance()
@@ -35,6 +47,7 @@ fun calendar(year : Int, month : Int, day : Int, hour : Int, minute : Int, secon
     return calendar
 }
 
+/** Year of calendar */
 var Calendar.year : Int
     get() = this[Calendar.YEAR]
     set(value)
@@ -42,6 +55,7 @@ var Calendar.year : Int
         this[Calendar.YEAR] = value
     }
 
+/** Month of calendar (1-12) */
 var Calendar.month : Int
     get() = this[Calendar.MONTH] + 1
     set(value)
@@ -49,6 +63,7 @@ var Calendar.month : Int
         this[Calendar.MONTH] = value - 1
     }
 
+/** Day of month of calendar */
 var Calendar.day : Int
     get() = this[Calendar.DAY_OF_MONTH]
     set(value)
@@ -56,6 +71,7 @@ var Calendar.day : Int
         this[Calendar.DAY_OF_MONTH] = value
     }
 
+/** Hour of day of calendar */
 var Calendar.hour : Int
     get() = this[Calendar.HOUR_OF_DAY]
     set(value)
@@ -63,6 +79,7 @@ var Calendar.hour : Int
         this[Calendar.HOUR_OF_DAY] = value
     }
 
+/** Minute of calendar */
 var Calendar.minute : Int
     get() = this[Calendar.MINUTE]
     set(value)
@@ -70,6 +87,7 @@ var Calendar.minute : Int
         this[Calendar.MINUTE] = value
     }
 
+/** Second of calendar */
 var Calendar.second : Int
     get() = this[Calendar.SECOND]
     set(value)
@@ -77,6 +95,7 @@ var Calendar.second : Int
         this[Calendar.SECOND] = value
     }
 
+/** Millisecond of calendar */
 var Calendar.millisecond : Int
     get() = this[Calendar.MILLISECOND]
     set(value)
@@ -84,6 +103,7 @@ var Calendar.millisecond : Int
         this[Calendar.MILLISECOND] = value
     }
 
+/** Age in year from this calendar date and today */
 val Calendar.age : Int
     get()
     {

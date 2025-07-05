@@ -3,16 +3,21 @@ package fr.khelp.zegaime.utils.extensions
 import java.io.ByteArrayInputStream
 import java.util.Base64
 
+/** UTF8 representation of byte array */
 val ByteArray.utf8 get() = String(this, Charsets.UTF_8)
 
+/** Base64 representation of byte array */
 val ByteArray.base64
-    get() = Base64.getEncoder()
-        .encodeToString(this)
+    get() = Base64.getEncoder().encodeToString(this)
 
 /**
  * String representation with customizable header, separator and footer
+ * @param header String before the content
+ * @param separator String between elements
+ * @param footer String after the content
+ * @return The string representation
  */
-fun ByteArray.string(header: String = "[", separator: String = ", ", footer: String = "]"): String
+fun ByteArray.string(header : String = "[", separator : String = ", ", footer : String = "]") : String
 {
     val stringBuilder = StringBuilder()
     stringBuilder.append(header)
@@ -32,7 +37,7 @@ fun ByteArray.string(header: String = "[", separator: String = ", ", footer: Str
     return stringBuilder.toString()
 }
 
-fun ByteArray.same(other: ByteArray): Boolean
+fun ByteArray.same(other : ByteArray) : Boolean
 {
     val size = this.size
 
@@ -52,7 +57,7 @@ fun ByteArray.same(other: ByteArray): Boolean
     return true
 }
 
-fun ByteArray.parseToIntArray(): IntArray
+fun ByteArray.parseToIntArray() : IntArray
 {
     val byteArrayInputStream = ByteArrayInputStream(this)
     return IntArray(this.size / 4) {

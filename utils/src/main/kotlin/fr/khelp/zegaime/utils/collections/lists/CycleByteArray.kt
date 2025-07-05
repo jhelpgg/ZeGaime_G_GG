@@ -7,13 +7,18 @@ import kotlin.math.min
 
 /**
  * Byte array where elements are internally manage in cycle
+ * @param startSize Start size of the array
  */
 class CycleByteArray(startSize : Int = 4096)
 {
+    /** The byte array */
     private var array = ByteArray(max(8, startSize))
+    /** Current read index */
     private var readIndex = 0
+    /** Current write index */
     private var writeIndex = 0
 
+    /** Number of bytes available to read */
     val size
         get() =
             if (this.writeIndex >= this.readIndex)
@@ -25,10 +30,16 @@ class CycleByteArray(startSize : Int = 4096)
                 this.array.size - this.readIndex + this.writeIndex
             }
 
+    /** Indicates if the array is empty */
     val empty get() = this.size == 0
 
+    /** Indicates if the array is not empty */
     val notEmpty get() = this.size != 0
 
+    /**
+     * Write a byte in the array
+     * @param byte Byte to write
+     */
     fun write(byte : Byte)
     {
         this.expandIfNeed(1)
@@ -36,6 +47,13 @@ class CycleByteArray(startSize : Int = 4096)
         this.writeIndex = (this.writeIndex + 1) % this.array.size
     }
 
+    /**
+     * Write a part of byte array in the array
+     * @param byteArray Array to read bytes from
+     * @param offset Start index in given array
+     * @param length Number of bytes to read
+     * @return Number of bytes written
+     */
     fun write(byteArray : ByteArray, offset : Int = 0, length : Int = byteArray.size - offset) : Int
     {
         var len = length
