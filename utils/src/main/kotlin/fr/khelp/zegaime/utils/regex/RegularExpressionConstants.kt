@@ -1,9 +1,12 @@
 package fr.khelp.zegaime.utils.regex
 
 import fr.khelp.zegaime.utils.extensions.allCharactersExcludeThose
+import fr.khelp.zegaime.utils.extensions.atMost
+import fr.khelp.zegaime.utils.extensions.between
 import fr.khelp.zegaime.utils.extensions.oneOrMore
 import fr.khelp.zegaime.utils.extensions.plus
 import fr.khelp.zegaime.utils.extensions.regularExpression
+import fr.khelp.zegaime.utils.extensions.zeroOrMore
 import fr.khelp.zegaime.utils.texts.digitInterval
 import fr.khelp.zegaime.utils.texts.letterInterval
 import fr.khelp.zegaime.utils.texts.letterOrDigitInterval
