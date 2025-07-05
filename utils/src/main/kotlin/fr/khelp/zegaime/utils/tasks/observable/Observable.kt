@@ -1,11 +1,11 @@
 package fr.khelp.zegaime.utils.tasks.observable
 
 import fr.khelp.zegaime.utils.collections.maps.IntMap
+import fr.khelp.zegaime.utils.tasks.TaskContext
+import fr.khelp.zegaime.utils.tasks.future.Future
+import fr.khelp.zegaime.utils.tasks.parallel
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -26,6 +26,7 @@ class Observable<T : Any> internal constructor(initialValue : T)
 
     /** List of registered observers */
     private val elements = IntMap<ObservableElement<T>>()
+
     /** Parent observable, if any */
     private var observableParent : Observable<*>? = null
 
@@ -36,46 +37,47 @@ class Observable<T : Any> internal constructor(initialValue : T)
      * Create an observable that its value is a transformation of this observable value.
      *
      * The transformation is done in given [CoroutineContext]
-     * @param coroutineContext Context where transformation is done
+     * @param taskContext Context where transformation is done
      * @param action Transformation action
-     * @return Deferred that will contains the created observable
+     * @return Future that will contains the created observable
      */
-    fun <R : Any> then(coroutineContext : CoroutineContext, action : (T) -> R) : Deferred<Observable<R>> =
-        CoroutineScope(coroutineContext).async {
+    fun <R : Any> then(taskContext : TaskContext, action : (T) -> R) : Future<Observable<R>> =
+        {
             val source = ObservableSource<R>(action(this@Observable.value))
-            val observableElement = ObservableElement<T>(coroutineContext) { value -> source.value = action(value) }
+            val observableElement =
+                ObservableElement<T>(taskContext.coroutineContext) { value -> source.value = action(value) }
             synchronized(this@Observable.elements) {
                 this@Observable.elements[observableElement.id] = observableElement
             }
             source.observable.observableParent = this@Observable
             source.observable.idInParent = observableElement.id
             source.observable
-        }
+        }.parallel(taskContext)
 
     /**
      * Create an observable that its value is a transformation of this observable value
      * @param action Transformation action
-     * @return Deferred that will contains the created observable
+     * @return Future that will contains the created observable
      */
-    fun <R : Any> then(action : (T) -> R) : Deferred<Observable<R>> =
-        this.then(Dispatchers.Default, action)
+    fun <R : Any> then(action : (T) -> R) : Future<Observable<R>> =
+        this.then(TaskContext.INDEPENDENT, action)
 
     /**
      * Register an observer of value changes
      *
      * The action will be trigger in the given context
-     * @param coroutineContext Context where action is executed
+     * @param taskContext Context where action is executed
      * @param action Action to execute when value changed
      * @return A function to call to unregister the observer
      */
-    fun register(coroutineContext : CoroutineContext, action : (T) -> Unit) : () -> Unit
+    fun register(taskContext : TaskContext, action : (T) -> Unit) : () -> Unit
     {
-        val observableElement = ObservableElement<T>(coroutineContext, action)
+        val observableElement = ObservableElement<T>(taskContext.coroutineContext, action)
         synchronized(this@Observable.elements) {
             this@Observable.elements[observableElement.id] = observableElement
         }
 
-        CoroutineScope(coroutineContext).launch {
+        CoroutineScope(taskContext.coroutineContext).launch {
             action(this@Observable.value)
         }
 
@@ -87,8 +89,8 @@ class Observable<T : Any> internal constructor(initialValue : T)
      * @param action Action to execute when value changed
      * @return A function to call to unregister the observer
      */
-    fun register(action : (T) -> Unit) : () -> Unit  =
-        this.register(Dispatchers.Default, action)
+    fun register(action : (T) -> Unit) : () -> Unit =
+        this.register(TaskContext.INDEPENDENT, action)
 
     /**
      * Cancels the link to it flow parent
@@ -111,6 +113,8 @@ class Observable<T : Any> internal constructor(initialValue : T)
     internal fun publish(value : T)
     {
         synchronized(this.elements) {
+            this.value = value
+
             runBlocking {
                 for (element in this@Observable.elements.values())
                 {

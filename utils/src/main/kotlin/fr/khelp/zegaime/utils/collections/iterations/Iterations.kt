@@ -27,7 +27,7 @@ fun <S : Any, D : Any> Iterator<S>.transform(transformation: (S) -> D): Iterator
 inline fun <T : Any, reified D : T> Iterator<T>.selectInstance(): Iterator<D> = this.select { element -> element is D }.transform { element -> element as D }
 
 /**
- * View an iterable that shows only elements match the given criteria.
+ * View iterable that shows only elements match the given criteria.
  *
  * Faster and take less memory than [Iterable.filter]
  */

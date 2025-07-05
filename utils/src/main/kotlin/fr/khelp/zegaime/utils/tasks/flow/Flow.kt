@@ -1,9 +1,8 @@
 package fr.khelp.zegaime.utils.tasks.flow
 
 import fr.khelp.zegaime.utils.collections.maps.IntMap
-import kotlin.coroutines.CoroutineContext
+import fr.khelp.zegaime.utils.tasks.TaskContext
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -36,23 +35,23 @@ class Flow<T : Any> internal constructor()
      */
     fun <R : Any> then(action : (T) -> R) : Flow<R>
     {
-        return then(Dispatchers.Default, action)
+        return then(TaskContext.INDEPENDENT, action)
     }
 
     /**
      * Creates a flow that transforms this flow result each time its emit and emits the results
      *
-     * @param coroutineContext Coroutine context where play the action
+     * @param taskContext Coroutine context where play the action
      * @param action Action transform the flow results
      *
      * @return Flow result
      */
-    fun <R : Any> then(coroutineContext : CoroutineContext, action : (T) -> R) : Flow<R>
+    fun <R : Any> then(taskContext : TaskContext, action : (T) -> R) : Flow<R>
     {
         val flowSource = FlowSource<R>()
         val flow = flowSource.flow
         val flowElement =
-            FlowElement<T>(coroutineContext) { value -> flowSource.publish(action(value)) }
+            FlowElement<T>(taskContext.coroutineContext) { value -> flowSource.publish(action(value)) }
         flow.flowParent = this
         flow.idInParent = flowElement.id
         synchronized(this.elements) { this.elements[flowElement.id] = flowElement }
@@ -68,20 +67,20 @@ class Flow<T : Any> internal constructor()
      */
     fun register(action : (T) -> Unit) : () -> Unit
     {
-        return register(Dispatchers.Default, action)
+        return register(TaskContext.INDEPENDENT, action)
     }
 
     /**
      * Registers an action to do when a value emits
      *
-     * @param coroutineContext Coroutine context where play the action
+     * @param taskContext Coroutine context where play the action
      * @param action Action to do when value emits
      *
      * @return A lambda to call for unregistering the action
      */
-    fun register(coroutineContext : CoroutineContext, action : (T) -> Unit) : () -> Unit
+    fun register(taskContext : TaskContext, action : (T) -> Unit) : () -> Unit
     {
-        val flowElement = FlowElement<T>(coroutineContext, action)
+        val flowElement = FlowElement<T>(taskContext.coroutineContext, action)
         synchronized(this.elements) { this.elements[flowElement.id] = flowElement }
         return { cancel(flowElement.id) }
     }
