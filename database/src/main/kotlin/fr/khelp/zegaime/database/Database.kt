@@ -251,7 +251,7 @@ class Database private constructor(login : String, password : String, val path :
 
     /**
      * Create a table.
-     * See documentation to know lmore about table creation DSL syntax
+     * See documentation to know more about table creation DSL syntax
      * @return Created table
      */
     @CreateTableDSL

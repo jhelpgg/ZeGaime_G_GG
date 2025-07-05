@@ -13,6 +13,7 @@ dependencies {
     api(project(":utils"))
     implementation(project(":security"))
     implementation(files("libs/hsqldb.jar"))
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.0")
     testImplementation(kotlin("test"))
 }
 

@@ -106,4 +106,7 @@ class RSAPublicKey
 
         return sign.verify(temp)
     }
+
+    override fun toString() : String =
+        this.publicKey.toString()
 }

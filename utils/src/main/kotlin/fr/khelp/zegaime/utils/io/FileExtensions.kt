@@ -57,7 +57,7 @@ fun File.createFile() : Boolean
         return true
     }
 
-    if (!this.parentFile.createDirectory())
+    if (this.parentFile != null && !this.parentFile.createDirectory())
     {
         return false
     }
