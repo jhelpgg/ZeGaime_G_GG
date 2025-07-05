@@ -11,8 +11,6 @@ repositories {
 
 dependencies {
     api(project(":utils"))
-    implementation(project(":security"))
-    implementation(files("libs/hsqldb.jar"))
     testImplementation(kotlin("test"))
 }
 
