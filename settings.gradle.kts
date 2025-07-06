@@ -5,3 +5,4 @@ rootProject.name = "ZeGaime"
 include("utils")
 include("database")
 include("security")
+include("preferences")
