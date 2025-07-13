@@ -22,7 +22,7 @@ class Mutex
      *
      * Action may wait its turn
      */
-    operator fun <T> invoke(action : () -> T) : T
+    operator fun <T:Any> invoke(action : () -> T) : T
     {
         var exceptionHappen : Exception? = null
         var result : T? = null
