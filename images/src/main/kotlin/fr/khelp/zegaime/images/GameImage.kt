@@ -20,6 +20,7 @@ import java.awt.TexturePaint
 import java.awt.geom.Rectangle2D
 import java.awt.image.BufferedImage
 import java.io.InputStream
+import java.io.OutputStream
 import java.util.concurrent.atomic.AtomicInteger
 import javax.imageio.ImageIO
 import javax.swing.Icon
@@ -84,6 +85,17 @@ class GameImage(val width : Int, val height : Int) : Icon
             {
                 GameImage.DUMMY
             }
+    }
+
+    /**
+     * Save the image in desired image format
+     *
+     * @param outputStream Stream where write the image
+     * @param imageFormat Image format destination
+     */
+    fun save(outputStream : OutputStream, imageFormat : ImageFormat)
+    {
+        ImageIO.write(this.image, imageFormat.formatName, outputStream)
     }
 
     /**
