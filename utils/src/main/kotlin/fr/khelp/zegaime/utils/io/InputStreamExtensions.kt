@@ -12,7 +12,7 @@ import java.util.Objects
  *
  * @return Number bytes read. Usually the required [length]. It is lower if no enough bytes left in stream.
  */
-fun InputStream.readFully(byteArray: ByteArray, offset: Int = 0, length: Int = byteArray.size - offset): Int
+fun InputStream.readFully(byteArray : ByteArray, offset : Int = 0, length : Int = byteArray.size - offset) : Int
 {
     Objects.checkFromIndexSize(offset, byteArray.size, length)
 
@@ -50,7 +50,7 @@ fun InputStream.readFully(byteArray: ByteArray, offset: Int = 0, length: Int = b
  * @param number Number of bytes to read
  * @return Bytes read
  */
-fun InputStream.readSomeBytes(number: Int): ByteArray
+fun InputStream.readSomeBytes(number : Int) : ByteArray
 {
     val array = ByteArray(number)
     val read = this.readFully(array)
@@ -63,7 +63,7 @@ fun InputStream.readSomeBytes(number: Int): ByteArray
     return array
 }
 
-fun InputStream.readInt(): Int
+fun InputStream.readInt() : Int
 {
     val data = this.readSomeBytes(4)
 
@@ -78,9 +78,15 @@ fun InputStream.readInt(): Int
             (data[3].toInt() and 0xFF)
 }
 
-fun InputStream.readByteArray(): ByteArray
+fun InputStream.readByteArray() : ByteArray
 {
     val size = this.readInt()
+
+    if (size == 0)
+    {
+        return ByteArray(0)
+    }
+
     val data = this.readSomeBytes(size)
 
     if (data.size < size)
@@ -91,5 +97,5 @@ fun InputStream.readByteArray(): ByteArray
     return data
 }
 
-fun InputStream.readBigInteger(): BigInteger =
+fun InputStream.readBigInteger() : BigInteger =
     BigInteger(this.readByteArray())

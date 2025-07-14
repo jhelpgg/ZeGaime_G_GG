@@ -6,6 +6,7 @@ import fr.khelp.zegaime.sounds.SoundState
 import fr.khelp.zegaime.utils.tasks.observable.Observable
 import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
 import fr.khelp.zegaime.utils.tasks.parallel
+import fr.khelp.zegaime.utils.tasks.sleep
 import java.io.File
 import javax.sound.sampled.AudioInputStream
 import javax.sound.sampled.Clip
@@ -132,16 +133,16 @@ internal class SoundOther(file : File) : SoundInterface
     /**
      * Sound playing task
      */
-    private fun playTask()
+    private suspend fun playTask()
     {
-        Thread.sleep(8)
+        sleep(8)
         this.clip.start()
-        Thread.sleep(8)
+        sleep(8)
 
         while (this.playing && this.clip.isRunning)
         {
             this.soundProgressSource.value = SoundProgress(this.position, this.totalSize)
-            Thread.sleep(128)
+            sleep(128)
         }
 
         this.clip.stop()

@@ -53,8 +53,8 @@ class TasksTests
     fun `parallel cancellation`()
     {
         val executed = AtomicBoolean(false)
-        val task = {
-            Thread.sleep(1000)
+        val task = suspend {
+            sleep(1000)
             executed.set(true)
         }
         val future = task.parallel()

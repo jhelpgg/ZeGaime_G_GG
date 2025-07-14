@@ -35,6 +35,36 @@ fun <R : Any> (() -> R).parallel(taskContext : TaskContext = TaskContext.INDEPEN
 /**
  * Play a task in a separate thread
  *
+ * @param taskContext Task context to use for the task. By default, an independent thread
+ * @return Future to track, the task result
+ */
+fun <R : Any> (suspend () -> R).parallel(taskContext : TaskContext = TaskContext.INDEPENDENT) : Future<R>
+{
+    val promise = Promise<R>()
+
+    val job = CoroutineScope(taskContext.coroutineContext).launch {
+        try
+        {
+            promise.result(this@parallel())
+        }
+        catch (exception : Exception)
+        {
+            promise.failure(exception)
+        }
+    }
+
+    promise.onCancel { reason -> job.cancel(reason) }
+    return promise.future
+}
+
+suspend fun sleep(delayMilliseconds : Long)
+{
+    kotlinx.coroutines.delay(delayMilliseconds)
+}
+
+/**
+ * Play a task in a separate thread
+ *
  * @param parameter Parameter to give at the task
  * @param taskContext Task context to use for the task. By default, an independent thread
  * @return Future to track, the task result

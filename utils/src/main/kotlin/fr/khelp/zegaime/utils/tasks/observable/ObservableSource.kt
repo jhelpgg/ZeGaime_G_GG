@@ -21,4 +21,15 @@ class ObservableSource<T : Any>(initialValue : T)
         {
             this.observable.publish(value)
         }
+
+    fun setValueIf(value : T, condition : (T) -> Boolean) : Boolean
+    {
+        if (condition(this.value))
+        {
+            this.value = value
+            return true
+        }
+
+        return false
+    }
 }

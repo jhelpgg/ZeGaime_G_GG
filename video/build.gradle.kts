@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     api(project(":utils"))
+    api(project(":images"))
     testImplementation(kotlin("test"))
 }
 
