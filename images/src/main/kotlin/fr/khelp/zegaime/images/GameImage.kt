@@ -7,6 +7,8 @@ import fr.khelp.zegaime.images.color.TRANSPARENT
 import fr.khelp.zegaime.images.color.argb
 import fr.khelp.zegaime.images.color.ayuv
 import fr.khelp.zegaime.images.color.toArgb
+import fr.khelp.zegaime.images.raster.RasterImage
+import fr.khelp.zegaime.images.raster.RasterImageType
 import fr.khelp.zegaime.utils.argumentCheck
 import fr.khelp.zegaime.utils.tasks.observable.Observable
 import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
@@ -26,7 +28,8 @@ import javax.imageio.ImageIO
 import javax.swing.Icon
 import kotlin.math.max
 
-class GameImage(val width : Int, val height : Int) : Icon
+class GameImage(val width : Int, val height : Int) : RasterImage,
+                                                     Icon
 {
     companion object
     {
@@ -489,6 +492,19 @@ class GameImage(val width : Int, val height : Int) : Icon
         image.setRGB(0, 0, this.width, this.height, pixels, 0, this.width)
         return image
     }
+
+    override fun clear()
+    {
+        this.clear(TRANSPARENT)
+    }
+
+    override fun width() : Int = this.width
+
+    override fun height() : Int = this.height
+
+    override fun imageType() : RasterImageType = RasterImageType.GAME_IMAGE
+
+    override fun toGameImage() : GameImage = this
 
     private fun manipulatePixels(pixelsModifier : (IntArray) -> Unit)
     {
