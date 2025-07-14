@@ -27,6 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import javax.imageio.ImageIO
 import javax.swing.Icon
 import kotlin.math.max
+import kotlin.math.min
 
 class GameImage(val width : Int, val height : Int) : RasterImage,
                                                      Icon
@@ -184,7 +185,11 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
 
     override fun getIconHeight() : Int = this.height
 
-    fun grabPixels(x : Int = 0, y : Int = 0, width : Int = this.width - x, height : Int = this.height - y) : IntArray
+    fun grabPixels(x : Int = 0,
+                   y : Int = 0,
+                   width : Int = this.width - x,
+                   height : Int = this.height - y,
+                   offset : Int = 0) : IntArray
     {
         if (x < 0 || width <= 0 || y < 0 || height <= 0 || x + width > this.width || y + height > this.height)
         {
@@ -193,7 +198,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         }
 
         val pixels = IntArray(width * height)
-        this.image.getRGB(x, y, width, height, pixels, 0, width)
+        this.image.getRGB(x, y, width, height, pixels, offset, width)
         return pixels
     }
 
@@ -491,6 +496,36 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         val pixels = this.grabPixels()
         image.setRGB(0, 0, this.width, this.height, pixels, 0, this.width)
         return image
+    }
+
+    fun clearRectangle(imageX : Int, imageY : Int, imageWidth : Int, imageHeight : Int, color : Int)
+    {
+        val minX = imageX.coerceIn(0 until this.width)
+        val minY = imageY.coerceIn(0 until this.height)
+        val realWidth = min(imageWidth, this.width - minX)
+        val realHeight = min(imageHeight, this.height - minY)
+
+        if (realWidth <= 0 || realHeight <= 0)
+        {
+            return
+        }
+
+        this.manipulatePixels { pixels ->
+            var line = minX + minY * this.width
+
+            for (y in 0 until realHeight)
+            {
+                var pixel = line
+
+                for (x in 0 until realWidth)
+                {
+                    pixels[pixel] = color
+                    pixel++
+                }
+
+                line += this.width
+            }
+        }
     }
 
     override fun clear()
