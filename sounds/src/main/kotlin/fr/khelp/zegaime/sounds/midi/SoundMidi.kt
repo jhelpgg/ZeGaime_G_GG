@@ -13,9 +13,10 @@ import javax.sound.midi.MidiSystem
 import javax.sound.midi.Sequencer
 
 /**
- * Plays MIDI sounds
+ * A sound that can be played from a MIDI file.
  *
- * @param file MIDI sound file
+ * @param file The MIDI sound file.
+ * 
  */
 internal class SoundMidi(file : File) : SoundInterface
 {
@@ -71,9 +72,9 @@ internal class SoundMidi(file : File) : SoundInterface
     }
 
     /**
-     * Destroy the sound, to free some memory
+     * Destroys the sound to free some memory.
      *
-     * Can't use the sound after that
+     * The sound can't be used after that.
      */
     override fun destroy()
     {
@@ -93,7 +94,7 @@ internal class SoundMidi(file : File) : SoundInterface
     }
 
     /**
-     * Play the sound
+     * Plays the sound.
      */
     override fun play()
     {
@@ -116,9 +117,9 @@ internal class SoundMidi(file : File) : SoundInterface
     }
 
     /**
-     * Stop the sound.
+     * Stops the sound.
      *
-     * The sound will start from the beginning if play again
+     * The sound will start from the beginning if played again.
      */
     override fun stop()
     {
@@ -132,9 +133,9 @@ internal class SoundMidi(file : File) : SoundInterface
     }
 
     /**
-     * Pause the sound.
+     * Pauses the sound.
      *
-     * The sound will start where it pauses if start again
+     * The sound will start where it paused if started again.
      */
     override fun pause()
     {
@@ -148,7 +149,7 @@ internal class SoundMidi(file : File) : SoundInterface
     }
 
     /**
-     * Await the end of sound playing
+     * Awaits the end of the sound playing.
      */
     private fun waitEndRunningTask()
     {

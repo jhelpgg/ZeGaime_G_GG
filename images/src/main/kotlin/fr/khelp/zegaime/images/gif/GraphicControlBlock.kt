@@ -4,7 +4,11 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * Extension block describe graphics configuration
+ * Represents a graphic control extension block in a GIF file.
+ *
+ * @property disposalMethod The disposal method.
+ * @property transparencyIndex The transparency index.
+ * 
  */
 internal class GraphicControlBlock : BlockExtension()
 {
@@ -24,10 +28,10 @@ internal class GraphicControlBlock : BlockExtension()
         private set
 
     /**
-     * Read stream to extract block information
-     * @param inputStream Stream to read
-     * @throws IOException If stream not contains valid data for graphic control block extension
-     * @see Block.read
+     * Reads the stream to extract the block information.
+     *
+     * @param inputStream The stream to read from.
+     * @throws IOException If the stream does not contain valid data for a graphic control block extension.
      */
     @Throws(IOException::class)
     override fun read(inputStream: InputStream)
@@ -63,9 +67,10 @@ internal class GraphicControlBlock : BlockExtension()
     }
 
     /**
-     * Obtain the image time
-     * @param defaultTime Default time to return if time is undefined
-     * @return Image time in milliseconds
+     * Returns the image time.
+     *
+     * @param defaultTime The default time to return if the time is undefined.
+     * @return The image time in milliseconds.
      */
     fun time(defaultTime: Long) = if (this.time == 0L) defaultTime else this.time
 }

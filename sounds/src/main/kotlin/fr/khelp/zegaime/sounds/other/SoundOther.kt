@@ -12,9 +12,10 @@ import javax.sound.sampled.AudioInputStream
 import javax.sound.sampled.Clip
 
 /**
- * Generic sound supported natively by the JVM
+ * A generic sound supported natively by the JVM.
  *
- * @param file Sound file
+ * @param file The sound file.
+ * 
  */
 internal class SoundOther(file : File) : SoundInterface
 {
@@ -65,9 +66,9 @@ internal class SoundOther(file : File) : SoundInterface
     }
 
     /**
-     * Destroy the sound to free some memory
+     * Destroys the sound to free some memory.
      *
-     * Can't use the sound after that
+     * The sound can't be used after that.
      */
     override fun destroy()
     {
@@ -84,7 +85,7 @@ internal class SoundOther(file : File) : SoundInterface
     }
 
     /**
-     * Play the sound
+     * Plays the sound.
      */
     override fun play()
     {
@@ -103,7 +104,7 @@ internal class SoundOther(file : File) : SoundInterface
     }
 
     /**
-     * Stop the sound
+     * Stops the sound.
      */
     override fun stop()
     {
@@ -117,7 +118,7 @@ internal class SoundOther(file : File) : SoundInterface
     }
 
     /**
-     * Pause the sound
+     * Pauses the sound.
      */
     override fun pause()
     {

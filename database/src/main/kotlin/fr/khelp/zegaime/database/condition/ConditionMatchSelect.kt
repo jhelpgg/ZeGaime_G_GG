@@ -6,9 +6,24 @@ import fr.khelp.zegaime.database.query.Match
 import fr.khelp.zegaime.utils.argumentCheck
 
 /**
- * Create condition that select rows, in given column, wih values match the result of given selection
+ * Creates a condition that checks if the column's value is present in the result of a subquery.
  *
- * See documentation for match DSL syntax
+ * This is equivalent to the `IN` operator in SQL.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_ID IN {
+ *     select(otherTable, listOf(COLUMN_ID)) {
+ *         where { COLUMN_NAME EQUALS "test" }
+ *     }
+ * }
+ * ```
+ *
+ * @param matchCreator A lambda function to create the subquery.
+ * @return A new condition.
+ * @throws IllegalStateException if the subquery does not select anything.
+ * @throws IllegalArgumentException if the subquery selects more than one column.
+ * @throws IllegalArgumentException if the column's data type is not compatible with the subquery's result type.
  */
 @MatchDSL
 infix fun Column.IN(matchCreator : Match.() -> Unit) : Condition

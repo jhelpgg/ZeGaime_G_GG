@@ -9,10 +9,12 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * GIF color table
- * @param colorResolution Color resolution level
- * @param ordered Indicates if table is ordered or not
- * @param size Table size
+ * Represents a color table in a GIF file.
+ *
+ * @property colorResolution The color resolution of the table.
+ * @property ordered Indicates if the table is ordered.
+ * @property size The size of the table.
+ * 
  */
 class GIFColorTable(val colorResolution : Int, val ordered : Boolean, size : Int)
 {
@@ -23,14 +25,15 @@ class GIFColorTable(val colorResolution : Int, val ordered : Boolean, size : Int
     private val colors = IntArray(this.size)
 
     /**
-     * Obtain a color
-     * @param index Color index
-     * @return The color
+     * Returns the color at the given index.
+     *
+     * @param index The index of the color.
+     * @return The color.
      */
     fun color(index : Int) = this.colors[index % this.size]
 
     /**
-     * Initialize color table to default values
+     * Initializes the color table to default values.
      */
     fun initializeDefault()
     {
@@ -62,10 +65,10 @@ class GIFColorTable(val colorResolution : Int, val ordered : Boolean, size : Int
     }
 
     /**
-     * Read color table from stream
+     * Reads the color table from an input stream.
      *
-     * @param inputStream Stream to read
-     * @throws IOException If stream not contains a valid color table
+     * @param inputStream The input stream to read from.
+     * @throws IOException If the stream does not contain a valid color table.
      */
     @Throws(IOException::class)
     fun read(inputStream : InputStream)

@@ -1,22 +1,22 @@
 package fr.khelp.zegaime.images.font
 
 /**
- * Choice for bold and italic to decide to keep as defined by a stream or force a value
+ * Represents the possible values for the bold and italic properties of a font.
  */
 enum class FontValue
 {
     /**
-     * Force the value to be `true` (It transforms the font at need)
+     * Forces the value to be `true` (transforms the font if needed).
      */
     TRUE,
 
     /**
-     * Force the value to be `false` (It transforms the font at need)
+     * Forces the value to be `false` (transforms the font if needed).
      */
     FALSE,
 
     /**
-     * Use what is defined in the stream value
+     * Uses the value defined in the stream.
      */
     AS_DEFINED
 }

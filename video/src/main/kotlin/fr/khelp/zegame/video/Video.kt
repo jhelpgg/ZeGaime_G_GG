@@ -7,6 +7,28 @@ import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
 import fr.khelp.zegaime.utils.tasks.parallel
 import fr.khelp.zegaime.utils.tasks.sleep
 
+/**
+ * Represents a video.
+ *
+ * **Creation example:**
+ * This class is not meant to be instantiated directly.
+ * Use the `videoReader` function.
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val video = videoReader(inputStream)
+ * video.play()
+ * ```
+ *
+ * @property width The width of the video.
+ * @property height The height of the video.
+ * @property fps The frames per second of the video.
+ * @property totalMilliseconds The total duration of the video in milliseconds.
+ * @property image The current image of the video.
+ * @property progress An observable that emits the current progress of the video.
+ * @property playing An observable that emits `true` if the video is playing, `false` otherwise.
+ * @property positionMilliseconds The current position of the video in milliseconds.
+ */
 class Video internal constructor(val width : Int, val height : Int, val fps : Int, private val images : List<GameImage>)
 {
     val totalMilliseconds : Long = (this.images.size * 1_000L) / this.fps
@@ -39,6 +61,9 @@ class Video internal constructor(val width : Int, val height : Int, val fps : In
         synchronized(this.lock) { this.update() }
     }
 
+    /**
+     * Plays the video.
+     */
     fun play()
     {
         synchronized(this.lock)
@@ -50,6 +75,9 @@ class Video internal constructor(val width : Int, val height : Int, val fps : In
         }
     }
 
+    /**
+     * Pauses the video.
+     */
     fun pause()
     {
         synchronized(this.lock)
@@ -61,6 +89,9 @@ class Video internal constructor(val width : Int, val height : Int, val fps : In
         }
     }
 
+    /**
+     * Stops the video.
+     */
     fun stop()
     {
         synchronized(this.lock)

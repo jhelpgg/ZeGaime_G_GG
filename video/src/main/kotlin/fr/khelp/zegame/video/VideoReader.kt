@@ -6,6 +6,17 @@ import fr.khelp.zegaime.utils.io.readInt
 import java.io.ByteArrayInputStream
 import java.io.InputStream
 
+/**
+ * Reads a video from an input stream.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val video = videoReader(inputStream)
+ * ```
+ *
+ * @param inputStream The input stream to read the video from.
+ * @return The video read.
+ */
 fun videoReader(inputStream : InputStream) : Video
 {
     val width = inputStream.readInt()

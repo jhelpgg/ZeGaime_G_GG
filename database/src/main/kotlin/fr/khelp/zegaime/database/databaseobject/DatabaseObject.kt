@@ -17,13 +17,61 @@ import fr.khelp.zegaime.utils.tasks.delay
 import fr.khelp.zegaime.utils.tasks.future.Future
 import java.util.Calendar
 
+/**
+ * Represents an object stored in the database.
+ *
+ * This is an abstract class that should be extended by any class that needs to be stored in the database.
+ * The fields of the class will be automatically mapped to the columns of the table.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * @TableName("users")
+ * class User(database: Database, val name: String, val age: Int) : DatabaseObject(database)
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val user = User(database, "John", 30).waitCreated()
+ * val id = user.databaseID
+ * ```
+ *
+ * @property database The database instance.
+ * @property databaseID The ID of the object in the database. It is -1 if the object is not yet stored.
+ */
 abstract class DatabaseObject(internal val database : Database)
 {
     companion object
     {
+        /**
+         * Returns the table associated with the given class.
+         *
+         * **Usage example:**
+         * ```kotlin
+         * val table = DatabaseObject.table(database, User::class.java)
+         * ```
+         *
+         * @param database The database instance.
+         * @param clazz The class of the database object.
+         * @return The table associated with the given class.
+         */
         fun table(database : Database, clazz : Class<out DatabaseObject>) : Table =
             DataObjectManager.tableDescription(database, clazz).table
 
+        /**
+         * Selects objects from the database.
+         *
+         * **Usage example:**
+         * ```kotlin
+         * val users = DatabaseObject.select<User>(database) {
+         *     where { "age" GREATER_THAN 18 }
+         * }
+         * ```
+         *
+         * @param DO The type of the database object to select.
+         * @param database The database instance.
+         * @param whereCreator A lambda function to define the where clause.
+         * @return A result set of the selected objects.
+         */
         @WhereDatabaseObjectDSL
         inline fun <reified DO : DatabaseObject> select(database : Database,
                                                         whereCreator : WhereDatabaseObject<DO>.() -> Unit) : DatabaseObjectResult<DO>
@@ -37,6 +85,21 @@ abstract class DatabaseObject(internal val database : Database)
             return DatabaseObjectResult(database, DO::class, result)
         }
 
+        /**
+         * Deletes objects from the database.
+         *
+         * **Usage example:**
+         * ```kotlin
+         * val deletedRows = DatabaseObject.delete<User>(database) {
+         *     where { User::age LESS_THAN 18 }
+         * }
+         * ```
+         *
+         * @param DO The type of the database object to delete.
+         * @param database The database instance.
+         * @param deleteCreator A lambda function to define the where clause.
+         * @return The number of deleted rows.
+         */
         @WhereDatabaseObjectDSL
         inline fun <reified DO : DatabaseObject> delete(database : Database,
                                                         deleteCreator : WhereDatabaseObject<DO>.() -> Unit) : Int
@@ -47,6 +110,17 @@ abstract class DatabaseObject(internal val database : Database)
             return table.delete { where { condition = deleteDatabaseObject.condition } }
         }
 
+        /**
+         * Deletes a database object from the database.
+         *
+         * **Usage example:**
+         * ```kotlin
+         * val deleted = DatabaseObject.delete(user)
+         * ```
+         *
+         * @param databaseObject The database object to delete.
+         * @return `true` if the object was deleted successfully, `false` otherwise.
+         */
         fun <DO : DatabaseObject> delete(databaseObject : DO) : Boolean
         {
             val table = DatabaseObject.table(databaseObject.database, databaseObject.javaClass)
@@ -65,13 +139,38 @@ abstract class DatabaseObject(internal val database : Database)
         this.futureResult = delay(16) { this.update(true) }
     }
 
+    /**
+     * Waits for the object to be created in the database.
+     *
+     * This method should be called after creating a new database object to ensure that it is stored in the database
+     * before being used.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val user = User(database, "John", 30).waitCreated()
+     * ```
+     *
+     * @return The database object itself.
+     */
     fun <DO : DatabaseObject> waitCreated() : DO
     {
         this.futureResult.waitForCompletion()
-        @Suppress("UNCHECKED_CAST")
+        ("UNCHECKED_CAST")
         return this as DO
     }
 
+    /**
+     * Updates the object in the database.
+     *
+     * This method is called automatically when a field of the object is modified.
+     * It can also be called manually to force an update.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * user.age = 31
+     * user.update()
+     * ```
+     */
     protected fun update()
     {
         this.update(false)

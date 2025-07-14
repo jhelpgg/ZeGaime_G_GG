@@ -9,10 +9,22 @@ import fr.khelp.zegaime.utils.stateCheck
 import java.lang.reflect.Modifier
 import java.util.Calendar
 
+/**
+ * Internal object for managing database objects.
+ *
+ * This object is responsible for creating and updating the table descriptions for database objects.
+ * 
+ */
 internal object DataObjectManager
 {
     private val tables = HashMap<String, TableDescription>()
 
+    /**
+     * Returns the table description for the given database object.
+     *
+     * @param databaseObject The database object.
+     * @return The table description.
+     */
     internal fun tableDescription(databaseObject: DatabaseObject): TableDescription
     {
         val key = "${databaseObject.database.path}:${databaseObject::class.java.name}"
@@ -29,10 +41,26 @@ internal object DataObjectManager
                                                  "")
     }
 
+    /**
+     * Returns the table description for the given class.
+     *
+     * @param database The database instance.
+     * @param classDatabaseObject The class of the database object.
+     * @return The table description.
+     */
     internal fun tableDescription(database: Database,
                                   classDatabaseObject: Class<out DatabaseObject>): TableDescription =
         this.createUpdateTableDescription(database, classDatabaseObject, "", "")
 
+    /**
+     * Creates or updates the table description for the given class.
+     *
+     * @param database The database instance.
+     * @param classDatabaseObject The class of the database object.
+     * @param foreignTable The name of the foreign table.
+     * @param foreignColumn The name of the foreign column.
+     * @return The table description.
+     */
     private fun createUpdateTableDescription(database: Database,
                                              classDatabaseObject: Class<out DatabaseObject>,
                                              foreignTable: String,
@@ -125,7 +153,7 @@ internal object DataObjectManager
 
                 if (type.isArray && DatabaseObject::class.java.isAssignableFrom(type.componentType))
                 {
-                    @Suppress("UNCHECKED_CAST")
+                    ("UNCHECKED_CAST")
                     createUpdateTableDescription(database,
                                                  type.componentType as Class<out DatabaseObject>,
                                                  "",
@@ -134,7 +162,7 @@ internal object DataObjectManager
                 }
                 else if (DatabaseObject::class.java.isAssignableFrom(type))
                 {
-                    @Suppress("UNCHECKED_CAST")
+                    ("UNCHECKED_CAST")
                     createUpdateTableDescription(database, type as Class<out DatabaseObject>, tableName, columnName)
                     columnName AS DataType.INTEGER
                 }

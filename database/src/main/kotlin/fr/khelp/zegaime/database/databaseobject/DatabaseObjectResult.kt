@@ -8,6 +8,31 @@ import java.lang.reflect.Array
 import java.util.Calendar
 import kotlin.reflect.KClass
 
+/**
+ * Represents the result of a select query on a database object.
+ *
+ * This class is an iterator over the selected objects.
+ *
+ * **Creation example:**
+ * This class is not meant to be instantiated directly.
+ * It is returned by the `DatabaseObject.select` method.
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val users = DatabaseObject.select<User>(database) {
+ *     where { "age" GREATER_THAN 18 }
+ * }
+ * while (users.hasNext) {
+ *     val user = users.next()
+ *     // ...
+ * }
+ * users.close()
+ * ```
+ *
+ * @param DO The type of the database object.
+ * @property closed Indicates if the result set is closed.
+ * @property hasNext Indicates if there are more objects in the result set.
+ */
 class DatabaseObjectResult<DO : DatabaseObject>(private val database : Database,
                                                 private val dataObjectClass : KClass<DO>,
                                                 private val rowResult : DataRowResult)
@@ -16,11 +41,29 @@ class DatabaseObjectResult<DO : DatabaseObject>(private val database : Database,
 
     val hasNext get() = this.rowResult.hasNext
 
+    /**
+     * Closes the result set.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * users.close()
+     * ```
+     */
     fun close()
     {
         this.rowResult.close()
     }
 
+    /**
+     * Returns the next object in the result set.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val user = users.next()
+     * ```
+     *
+     * @return The next object in the result set.
+     */
     fun next() : DO
     {
         val constructor = this.dataObjectClass.constructors.first()

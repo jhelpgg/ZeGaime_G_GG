@@ -6,6 +6,24 @@ import fr.khelp.zegaime.utils.regex.ANY
 import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
 import java.util.Locale
 
+/**
+ * Represents a text resource file.
+ *
+ * This class is used to load and access text resources for different languages.
+ *
+ * **Creation example:**
+ * This class is not meant to be instantiated directly.
+ * It is created by the `Resources.resourcesText` method.
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val resourcesText = resources.resourcesText("texts/myTexts")
+ * val myText = resourcesText["myKey"]
+ * ```
+ *
+ * @property resources The resources manager.
+ * @property observableChange An observable that emits a value when the texts change.
+ */
 class ResourcesText internal constructor(private var basePath : String, val resources : Resources)
 {
     companion object
@@ -20,6 +38,12 @@ class ResourcesText internal constructor(private var basePath : String, val reso
         private val TEXT_REGEX =
             ResourcesText.STANDARD_TEXT_HEADER.regularExpression + ResourcesText.TEXT_GROUP + ResourcesText.STANDARD_TEXT_FOOTER.regularExpression
 
+        /**
+         * Creates a standard text key.
+         *
+         * @param text The text.
+         * @return The standard text key.
+         */
         fun standardTextKey(text : String) : String =
             "${ResourcesText.STANDARD_TEXT_HEADER}$text${ResourcesText.STANDARD_TEXT_FOOTER}"
     }
@@ -34,6 +58,17 @@ class ResourcesText internal constructor(private var basePath : String, val reso
         Resources.languageObservableData.observable.register(this::loadTexts)
     }
 
+    /**
+     * Returns the text for the given key.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val myText = resourcesText["myKey"]
+     * ```
+     *
+     * @param key The key of the text.
+     * @return The text for the given key.
+     */
     operator fun get(key : String) : String
     {
         val matcher = ResourcesText.TEXT_REGEX.matcher(key)

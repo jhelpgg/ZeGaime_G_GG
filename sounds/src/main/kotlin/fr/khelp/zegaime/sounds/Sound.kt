@@ -3,9 +3,23 @@ package fr.khelp.zegaime.sounds
 import fr.khelp.zegaime.utils.tasks.observable.Observable
 
 /**
- * Represents a sound
+ * Represents a sound.
  *
- * @property soundInterface Sound interface instance to use
+ * **Creation example:**
+ * This class is not meant to be instantiated directly.
+ * Use the `soundFromStream` method.
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val sound = soundFromStream({ myInputStream }, "mySound.wav")
+ * sound.play()
+ * ```
+ *
+ * @property soundStateObservable An observable that emits the current state of the sound.
+ * @property soundProgressObservable An observable that emits the current progress of the sound.
+ * @property totalSize The total size of the sound in bytes.
+ * @property position The current position of the sound in bytes.
+ * @property destroyOnEnd Indicates if the sound should be destroyed when it reaches the end.
  */
 class Sound internal constructor(private val soundInterface : SoundInterface)
 {
@@ -39,7 +53,7 @@ class Sound internal constructor(private val soundInterface : SoundInterface)
     private var wasPlaying = false
 
     /**
-     * Play the sound
+     * Plays the sound.
      */
     fun play()
     {
@@ -47,9 +61,9 @@ class Sound internal constructor(private val soundInterface : SoundInterface)
     }
 
     /**
-     * Loop the sound a number of time
+     * Loops the sound a number of times.
      *
-     * @param loop Number of loops. By default, "infinite" loops
+     * @param loop The number of loops. By default, it loops "infinitely".
      */
     fun loop(loop : Int = Int.MAX_VALUE)
     {
@@ -58,7 +72,7 @@ class Sound internal constructor(private val soundInterface : SoundInterface)
     }
 
     /**
-     * Pause the sound
+     * Pauses the sound.
      */
     fun pause()
     {
@@ -66,7 +80,7 @@ class Sound internal constructor(private val soundInterface : SoundInterface)
     }
 
     /**
-     * Stop the sound and loops
+     * Stops the sound and any loops.
      */
     fun stop()
     {
@@ -75,9 +89,9 @@ class Sound internal constructor(private val soundInterface : SoundInterface)
     }
 
     /**
-     * Destroy the sound to free some memory
+     * Destroys the sound to free some memory.
      *
-     * The sound can't be used after that
+     * The sound can't be used after that.
      */
     fun destroy()
     {
@@ -86,9 +100,9 @@ class Sound internal constructor(private val soundInterface : SoundInterface)
     }
 
     /**
-     * Called each time sound state changed
+     * Called each time the sound state changes.
      *
-     * @param soundState New sound state
+     * @param soundState The new sound state.
      */
     private fun soundSateChanged(soundState : SoundState)
     {

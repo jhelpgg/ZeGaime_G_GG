@@ -3,6 +3,13 @@ package fr.khelp.zegaime.database
 import java.io.PrintStream
 import kotlin.math.max
 
+/**
+ * Creates a string representation of a row.
+ *
+ * @param row The row to represent.
+ * @param maxWidths The maximum widths of the columns.
+ * @return The string representation of the row.
+ */
 private fun rowString(row: Array<String>, maxWidths: IntArray): String
 {
     val stringBuilder = StringBuilder()
@@ -23,9 +30,19 @@ private fun rowString(row: Array<String>, maxWidths: IntArray): String
 }
 
 /**
- * Print row result in ascci table format.
- * The result is printed from its current line to the end
- * The result is consumed at the end of this method
+ * Prints a row result in ASCII table format.
+ *
+ * The result is printed from its current line to the end.
+ * The result is consumed at the end of this method.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val result = table.select { ... }
+ * printDataRowResult(result, System.out)
+ * ```
+ *
+ * @param dataRowResult The row result to print.
+ * @param printStream The print stream to use.
  */
 fun printDataRowResult(dataRowResult: DataRowResult, printStream: PrintStream)
 {

@@ -11,7 +11,27 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * Data for a GIF
+ * Represents the data of a GIF file.
+ *
+ * This class is used to read and parse a GIF file.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val dataGIF = DataGIF()
+ * dataGIF.read(inputStream)
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val dataGIF = DataGIF()
+ * dataGIF.read(inputStream)
+ * dataGIF.collectImages(visitor)
+ * ```
+ *
+ * @property aspectRatio The aspect ratio of the GIF.
+ * @property version The version of the GIF.
+ * @property width The width of the GIF.
+ * @property height The height of the GIF.
  */
 class DataGIF
 {
@@ -53,10 +73,11 @@ class DataGIF
         private set
 
     /**
-     * Read image header
+     * Reads the image header.
      *
-     * @param inputStream Stream to read
-     * @throws IOException If header is invalid
+     * @param inputStream The stream to read from.
+     * @throws IOException If the header is invalid.
+     * 
      */
     @Throws(IOException::class)
     internal fun readHeader(inputStream : InputStream)
@@ -77,10 +98,11 @@ class DataGIF
     }
 
     /**
-     * Read logical screen information
+     * Reads the logical screen information.
      *
-     * @param inputStream Stream to read
-     * @throws IOException If stream contains invalid data for logical screen
+     * @param inputStream The stream to read from.
+     * @throws IOException If the stream contains invalid data for the logical screen.
+     * 
      */
     @Throws(IOException::class)
     internal fun readLogicalScreen(inputStream : InputStream)
@@ -126,9 +148,14 @@ class DataGIF
     }
 
     /**
-     * Collect images from data GIF
+     * Collects the images from the GIF data.
      *
-     * @param dataGIFVisitor Visitor to signal progression
+     * **Usage example:**
+     * ```kotlin
+     * dataGIF.collectImages(visitor)
+     * ```
+     *
+     * @param dataGIFVisitor The visitor to signal the progression.
      */
     fun collectImages(dataGIFVisitor : DataGIFVisitor)
     {
@@ -244,10 +271,15 @@ class DataGIF
     }
 
     /**
-     * Read stream to fill data GIF
+     * Reads the stream to fill the GIF data.
      *
-     * @param inputStream Stream to read
-     * @throws IOException If stream not a valid GIF
+     * **Usage example:**
+     * ```kotlin
+     * dataGIF.read(inputStream)
+     * ```
+     *
+     * @param inputStream The stream to read from.
+     * @throws IOException If the stream is not a valid GIF.
      */
     @Throws(IOException::class)
     fun read(inputStream : InputStream)
@@ -267,12 +299,12 @@ class DataGIF
 }
 
 /**
- * Compute size of an GIF image.
+ * Computes the size of a GIF image.
  *
- * If the given file is not a GIF image file, `null` is return
+ * If the given file is not a GIF image file, `null` is returned.
  *
- * @param file Image GIF file
- * @return GIF image size OR `null` if given file not a valid GIF image file
+ * @param file The GIF image file.
+ * @return The size of the GIF image, or `null` if the file is not a valid GIF image.
  */
 fun computeGifSize(file : File?) : Dimension?
 {
@@ -294,9 +326,9 @@ fun computeGifSize(file : File?) : Dimension?
 }
 
 /**
- * Indicates if a file is a GIF image file
+ * Indicates if a file is a GIF image file.
  *
- * @param file Tested file
- * @return `true` if the file is a GIF image file
+ * @param file The file to test.
+ * @return `true` if the file is a GIF image file, `false` otherwise.
  */
 fun isGIF(file : File?) = computeGifSize(file) != null

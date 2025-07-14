@@ -13,19 +13,39 @@ import java.security.spec.RSAPublicKeySpec
 import javax.crypto.Cipher
 
 /**
- * RSA public key can be shared to user.
+ * Represents an RSA public key, which can be shared with users.
  *
- * Used to encrypt data for [RSAKeyPair] owner
+ * It is used to encrypt data for the owner of the corresponding [RSAKeyPair].
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val publicKey = RSAPublicKey(inputStream)
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val encryptedStream = RSAEncryptOutputStream(publicKey, outputStream)
+ * encryptedStream.write(data)
+ * encryptedStream.close()
+ * ```
  */
 class RSAPublicKey
 {
     private val publicKey : PublicKey
 
+    /**
+     * 
+     */
     internal constructor(publicKey : PublicKey)
     {
         this.publicKey = publicKey
     }
 
+    /**
+     * Creates an RSA public key from an input stream.
+     *
+     * @param inputStream The input stream to read the key from.
+     */
     constructor(inputStream : InputStream)
     {
         val keyFactory = KeyFactory.getInstance(ALGORITHM_RSA)
@@ -37,6 +57,11 @@ class RSAPublicKey
         this.publicKey = keyFactory.generatePublic(publicKeySpec)
     }
 
+    /**
+     * Saves the public key to an output stream.
+     *
+     * @param outputStream The output stream to write the key to.
+     */
     fun save(outputStream : OutputStream)
     {
         val keyFactory = KeyFactory.getInstance(ALGORITHM_RSA)
@@ -49,6 +74,12 @@ class RSAPublicKey
         outputStream.flush()
     }
 
+    /**
+     * Returns a cipher for encryption.
+     *
+     * @return A cipher for encryption.
+     * 
+     */
     internal fun cipher() : Cipher
     {
         val cipher = Cipher.getInstance(RSA_CIPHER)
@@ -56,6 +87,12 @@ class RSAPublicKey
         return cipher
     }
 
+    /**
+     * Encrypts an input stream.
+     *
+     * @param clearStream The input stream to encrypt.
+     * @param encryptedStream The output stream to write the encrypted data to.
+     */
     fun encrypt(clearStream : InputStream, encryptedStream : OutputStream)
     {
         val cipher = Cipher.getInstance(RSA_CIPHER)
@@ -76,6 +113,13 @@ class RSAPublicKey
         encryptedStream.flush()
     }
 
+    /**
+     * Verifies a signature.
+     *
+     * @param message The message that was signed.
+     * @param signature The signature to verify.
+     * @return `true` if the signature is valid, `false` otherwise.
+     */
     fun validSignature(message : InputStream, signature : InputStream) : Boolean
     {
         val sign = Signature.getInstance(RSA_SIGNATURE)

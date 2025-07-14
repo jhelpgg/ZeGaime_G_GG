@@ -7,7 +7,15 @@ import fr.khelp.zegaime.database.type.DataType
 import java.util.Calendar
 
 /**
- * Create condition that select rows, in given column, wih values are lower to given parameter
+ * Creates a condition that checks if the column's value is lower than the given string.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_NAME LOWER "test"
+ * ```
+ *
+ * @param string The string to compare with.
+ * @return A new condition.
  */
 infix fun Column.LOWER(string : String) : Condition
 {
@@ -16,7 +24,15 @@ infix fun Column.LOWER(string : String) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are lower to given parameter
+ * Creates a condition that checks if the column's value is lower than the given byte.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_VALUE LOWER 1.toByte()
+ * ```
+ *
+ * @param value The byte to compare with.
+ * @return A new condition.
  */
 infix fun Column.LOWER(value : Byte) : Condition
 {
@@ -25,7 +41,15 @@ infix fun Column.LOWER(value : Byte) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are lower to given parameter
+ * Creates a condition that checks if the column's value is lower than the given short.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_VALUE LOWER 1.toShort()
+ * ```
+ *
+ * @param value The short to compare with.
+ * @return A new condition.
  */
 infix fun Column.LOWER(value : Short) : Condition
 {
@@ -34,7 +58,15 @@ infix fun Column.LOWER(value : Short) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are lower to given parameter
+ * Creates a condition that checks if the column's value is lower than the given integer.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_AGE LOWER 18
+ * ```
+ *
+ * @param value The integer to compare with.
+ * @return A new condition.
  */
 infix fun Column.LOWER(value : Int) : Condition
 {
@@ -43,7 +75,17 @@ infix fun Column.LOWER(value : Int) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are lower to given parameter
+ * Creates a condition that checks if the column's value is lower than the given long.
+ *
+.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_TIMESTAMP LOWER 1234567890L
+ * ```
+ *
+ * @param value The long to compare with.
+ * @return A new condition.
  */
 infix fun Column.LOWER(value : Long) : Condition
 {
@@ -52,7 +94,15 @@ infix fun Column.LOWER(value : Long) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are lower to given parameter
+ * Creates a condition that checks if the column's value is lower than the given float.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_PRICE LOWER 12.34f
+ * ```
+ *
+ * @param value The float to compare with.
+ * @return A new condition.
  */
 infix fun Column.LOWER(value : Float) : Condition
 {
@@ -61,7 +111,15 @@ infix fun Column.LOWER(value : Float) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are lower to given parameter
+ * Creates a condition that checks if the column's value is lower than the given double.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_PRICE LOWER 12.34
+ * ```
+ *
+ * @param value The double to compare with.
+ * @return A new condition.
  */
 infix fun Column.LOWER(value : Double) : Condition
 {
@@ -70,7 +128,15 @@ infix fun Column.LOWER(value : Double) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are lower to given parameter
+ * Creates a condition that checks if the column's value is lower than the given calendar.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_DATE LOWER Calendar.getInstance()
+ * ```
+ *
+ * @param value The calendar to compare with.
+ * @return A new condition.
  */
 infix fun Column.LOWER(value : Calendar) : Condition
 {
@@ -79,7 +145,15 @@ infix fun Column.LOWER(value : Calendar) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are lower to given parameter
+ * Creates a condition that checks if the column's value is lower than the given date.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_DATE LOWER DataDate(2023, 1, 1)
+ * ```
+ *
+ * @param value The date to compare with.
+ * @return A new condition.
  */
 infix fun Column.LOWER(value : DataDate) : Condition
 {
@@ -88,7 +162,15 @@ infix fun Column.LOWER(value : DataDate) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are lower to given parameter
+ * Creates a condition that checks if the column's value is lower than the given time.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_TIME LOWER DataTime(12, 0, 0)
+ * ```
+ *
+ * @param value The time to compare with.
+ * @return A new condition.
  */
 infix fun Column.LOWER(value : DataTime) : Condition
 {

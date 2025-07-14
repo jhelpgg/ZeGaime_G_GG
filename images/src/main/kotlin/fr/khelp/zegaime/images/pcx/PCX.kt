@@ -14,31 +14,48 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * PCX image.
+ * Represents a PCX image.
  *
- * It loads in memory a PCX image file and stores PCX information and uncompressed image data.
+ * It loads a PCX image file in memory and stores its information and uncompressed image data.
  *
- * It is possible to create an [GameImage] from this loader with method [createImage]
+ * An [GameImage] can be created from this loader with the [createImage] method.
  *
- * The loader here is the combination of
+ * The loader here is a combination of:
  * * [PCX header](http://www.fileformat.info/format/pcx/corion.htm)
  * * [PCX image data information](http://en.wikipedia.org/wiki/PCX)
  * * tests
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val pcx = PCX(inputStream)
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val image = pcx.createImage()
+ * ```
+ *
+ * @property height The height of the image.
+ * @property manufacturer The manufacturer code.
+ * @property manufacturerName The name of the manufacturer.
+ * @property version The PCX version code.
+ * @property versionName The name of the version.
+ * @property width The width of the image.
  */
 class PCX internal constructor()
 {
     companion object
     {
         /**
-         * Read one word from an array
+         * Reads one word from an array.
          *
-         * @param array  Array where read
-         * @param offset Offset where start read the word
-         * @return Read word
+         * @param array The array to read from.
+         * @param offset The offset where to start reading the word.
+         * @return The word read.
          */
         private fun word(array : ByteArray, offset : Int) : Int
         {
-            return array[offset] or (array[offset + 1] shl 8)
+            return array[offset].toUnsignedInt() or (array[offset + 1].toUnsignedInt() shl 8)
         }
     }
 
@@ -768,10 +785,10 @@ class PCX internal constructor()
     }
 
     /**
-     * Read the 256 color palette
+     * Reads the 256 color palette.
      *
-     * @param inputStream Stream to read
-     * @throws IOException On reading issue
+     * @param inputStream The stream to read from.
+     * @throws IOException On reading issue.
      */
     @Throws(IOException::class)
     private fun read256Palette(inputStream : InputStream)
@@ -819,10 +836,10 @@ class PCX internal constructor()
     }
 
     /**
-     * Read PCX header
+     * Reads the PCX header.
      *
-     * @param inputStream Stream to read
-     * @throws IOException On reading issue
+     * @param inputStream The stream to read from.
+     * @throws IOException On reading issue.
      */
     @Throws(IOException::class)
     internal fun readHeader(inputStream : InputStream)
@@ -893,10 +910,10 @@ class PCX internal constructor()
     }
 
     /**
-     * Read image data and uncompress them
+     * Reads the image data and uncompresses them.
      *
-     * @param inputStream Stream to read
-     * @throws IOException On reading issue
+     * @param inputStream The stream to read from.
+     * @throws IOException On reading issue.
      */
     @Throws(IOException::class)
     private fun readImageData(inputStream : InputStream)
@@ -945,10 +962,15 @@ class PCX internal constructor()
     }
 
     /**
-     * Create a new image from PCX information
+     * Creates a new image from the PCX information.
      *
-     * @return Created image
-     * @throws IllegalStateException If how create image for this specific PCX information is unknown
+     * **Usage example:**
+     * ```kotlin
+     * val image = pcx.createImage()
+     * ```
+     *
+     * @return The created image.
+     * @throws IllegalStateException If how to create the image for this specific PCX information is unknown.
      */
     fun createImage() : GameImage
     {

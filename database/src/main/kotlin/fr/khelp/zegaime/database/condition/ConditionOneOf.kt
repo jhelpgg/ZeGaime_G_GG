@@ -13,7 +13,15 @@ import fr.khelp.zegaime.utils.extensions.transformLong
 import java.util.Calendar
 
 /**
- * Create condition that select rows, in given column, wih values are primary key inside given array
+ * Creates a condition that checks if the column's value is one of the given IDs.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_ID ONE_OF_ID intArrayOf(1, 2, 3)
+ * ```
+ *
+ * @param selection The array of IDs to compare with.
+ * @return A new condition.
  */
 infix fun Column.ONE_OF_ID(selection : IntArray) : Condition
 {
@@ -30,7 +38,15 @@ infix fun Column.ONE_OF_ID(selection : IntArray) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are inside given array
+ * Creates a condition that checks if the column's value is one of the given strings.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_NAME ONE_OF arrayOf("test1", "test2")
+ * ```
+ *
+ * @param selection The array of strings to compare with.
+ * @return A new condition.
  */
 infix fun Column.ONE_OF(selection : Array<String>) : Condition
 {
@@ -47,7 +63,15 @@ infix fun Column.ONE_OF(selection : Array<String>) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are inside given array
+ * Creates a condition that checks if the column's value is one of the given booleans.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_ACTIVE ONE_OF booleanArrayOf(true, false)
+ * ```
+ *
+ * @param selection The array of booleans to compare with.
+ * @return A new condition.
  */
 infix fun Column.ONE_OF(selection : BooleanArray) : Condition
 {
@@ -64,7 +88,15 @@ infix fun Column.ONE_OF(selection : BooleanArray) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are inside given array
+ * Creates a condition that checks if the column's value is one of the given bytes.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_VALUE ONE_OF byteArrayOf(1.toByte(), 2.toByte())
+ * ```
+ *
+ * @param selection The array of bytes to compare with.
+ * @return A new condition.
  */
 infix fun Column.ONE_OF(selection : ByteArray) : Condition
 {
@@ -81,7 +113,15 @@ infix fun Column.ONE_OF(selection : ByteArray) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are inside given array
+ * Creates a condition that checks if the column's value is one of the given shorts.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_VALUE ONE_OF shortArrayOf(1.toShort(), 2.toShort())
+ * ```
+ *
+ * @param selection The array of shorts to compare with.
+ * @return A new condition.
  */
 infix fun Column.ONE_OF(selection : ShortArray) : Condition
 {
@@ -98,7 +138,15 @@ infix fun Column.ONE_OF(selection : ShortArray) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are inside given array
+ * Creates a condition that checks if the column's value is one of the given integers.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_AGE ONE_OF intArrayOf(18, 19, 20)
+ * ```
+ *
+ * @param selection The array of integers to compare with.
+ * @return A new condition.
  */
 infix fun Column.ONE_OF(selection : IntArray) : Condition
 {
@@ -115,7 +163,15 @@ infix fun Column.ONE_OF(selection : IntArray) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are inside given array
+ * Creates a condition that checks if the column's value is one of the given longs.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_TIMESTAMP ONE_OF longArrayOf(1234567890L, 1234567891L)
+ * ```
+ *
+ * @param selection The array of longs to compare with.
+ * @return A new condition.
  */
 infix fun Column.ONE_OF(selection : LongArray) : Condition
 {
@@ -132,7 +188,15 @@ infix fun Column.ONE_OF(selection : LongArray) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are inside given array
+ * Creates a condition that checks if the column's value is one of the given floats.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_PRICE ONE_OF floatArrayOf(12.34f, 56.78f)
+ * ```
+ *
+ * @param selection The array of floats to compare with.
+ * @return A new condition.
  */
 infix fun Column.ONE_OF(selection : FloatArray) : Condition
 {
@@ -149,7 +213,15 @@ infix fun Column.ONE_OF(selection : FloatArray) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are inside given array
+ * Creates a condition that checks if the column's value is one of the given doubles.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_PRICE ONE_OF doubleArrayOf(12.34, 56.78)
+ * ```
+ *
+ * @param selection The array of doubles to compare with.
+ * @return A new condition.
  */
 infix fun Column.ONE_OF(selection : DoubleArray) : Condition
 {
@@ -166,7 +238,15 @@ infix fun Column.ONE_OF(selection : DoubleArray) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are inside given array
+ * Creates a condition that checks if the column's value is one of the given byte arrays.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_DATA ONE_OF arrayOf(byteArrayOf(1, 2, 3), byteArrayOf(4, 5, 6))
+ * ```
+ *
+ * @param selection The array of byte arrays to compare with.
+ * @return A new condition.
  */
 infix fun Column.ONE_OF(selection : Array<ByteArray>) : Condition
 {
@@ -186,7 +266,15 @@ infix fun Column.ONE_OF(selection : Array<ByteArray>) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are inside given array
+ * Creates a condition that checks if the column's value is one of the given integer arrays.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_DATA ONE_OF arrayOf(intArrayOf(1, 2, 3), intArrayOf(4, 5, 6))
+ * ```
+ *
+ * @param selection The array of integer arrays to compare with.
+ * @return A new condition.
  */
 infix fun Column.ONE_OF(selection : Array<IntArray>) : Condition
 {
@@ -206,7 +294,15 @@ infix fun Column.ONE_OF(selection : Array<IntArray>) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are inside given array
+ * Creates a condition that checks if the column's value is one of the given calendars.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_DATE ONE_OF arrayOf(Calendar.getInstance(), Calendar.getInstance())
+ * ```
+ *
+ * @param selection The array of calendars to compare with.
+ * @return A new condition.
  */
 infix fun Column.ONE_OF(selection : Array<Calendar>) : Condition
 {
@@ -226,7 +322,15 @@ infix fun Column.ONE_OF(selection : Array<Calendar>) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are inside given array
+ * Creates a condition that checks if the column's value is one of the given dates.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_DATE ONE_OF arrayOf(DataDate(2023, 1, 1), DataDate(2023, 1, 2))
+ * ```
+ *
+ * @param selection The array of dates to compare with.
+ * @return A new condition.
  */
 infix fun Column.ONE_OF(selection : Array<DataDate>) : Condition
 {
@@ -246,7 +350,15 @@ infix fun Column.ONE_OF(selection : Array<DataDate>) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are inside given array
+ * Creates a condition that checks if the column's value is one of the given times.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_TIME ONE_OF arrayOf(DataTime(12, 0, 0), DataTime(13, 0, 0))
+ * ```
+ *
+ * @param selection The array of times to compare with.
+ * @return A new condition.
  */
 infix fun Column.ONE_OF(selection : Array<DataTime>) : Condition
 {
@@ -266,7 +378,16 @@ infix fun Column.ONE_OF(selection : Array<DataTime>) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are inside given array
+ * Creates a condition that checks if the column's value is one of the given enums.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * enum class MyEnum { A, B }
+ * val condition = COLUMN_ENUM ONE_OF arrayOf(MyEnum.A, MyEnum.B)
+ * ```
+ *
+ * @param selection The array of enums to compare with.
+ * @return A new condition.
  */
 infix fun <E : Enum<E>> Column.ONE_OF(selection : Array<E>) : Condition
 {
@@ -279,8 +400,8 @@ infix fun <E : Enum<E>> Column.ONE_OF(selection : Array<E>) : Condition
         else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${
-                          selection.transformArray { array -> "${array::class.java.name}:${array.name}" }
-                              .string("('", "', '", "')")
+                          selection.transformArray { array -> "'${array::class.java.name}:${array.name}'" }
+                              .string("(", ", ", ")")
                       }")
     }
 }

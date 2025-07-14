@@ -3,49 +3,48 @@ package fr.khelp.zegaime.sounds
 import fr.khelp.zegaime.utils.tasks.observable.Observable
 
 /**
- * A sound.
+ * Represents a sound.
  *
- * Sound position represents a part of the sound, not a duration.
- *
- * Each part have same duration, so if you want to reach the middle of sound, use middle position, ...
+ * The sound position represents a part of the sound, not a duration.
+ * Each part has the same duration, so to reach the middle of the sound, use the middle position.
+ * 
  */
 internal interface SoundInterface
 {
-    /** Sound total size */
+    /** The total size of the sound. */
     val totalSize : Long
 
-    /** Sound position */
+    /** The current position of the sound. */
     var position : Long
 
-    /** Sound current state */
+    /** The current state of the sound. */
     val soundState : Observable<SoundState>
 
-    /** Sound current progress */
+    /** The current progress of the sound. */
     val soundProgress : Observable<SoundProgress>
 
     /**
-     * Properly destroy the sound.
+     * Properly destroys the sound.
      *
-     * Free memory and thread associated with the sound playing.
-     *
-     * Can't use the sound after this call
+     * This frees the memory and thread associated with playing the sound.
+     * The sound cannot be used after this call.
      */
     fun destroy()
 
     /**
-     * Play the sound.
+     * Plays the sound.
      *
-     * Launch the playing and return immediately.
+     * This launches the playback and returns immediately.
      */
     fun play()
 
     /**
-     * Stop the sound
+     * Stops the sound.
      */
     fun stop()
 
     /**
-     * Pause the sound
+     * Pauses the sound.
      */
     fun pause()
 }

@@ -12,16 +12,28 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * Image 4 bit definition
- * @param width Image width
- * @param height Image height
+ * Represents a 4-bit image.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val image = Image4Bit(100, 100)
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * image.colorIndex(10, 10, 15)
+ * val gameImage = image.toGameImage()
+ * ```
+ *
+ * @property width The width of the image.
+ * @property height The height of the image.
  */
 class Image4Bit(val width : Int, val height : Int) : RasterImage
 {
     companion object
     {
         /**
-         * Default color table if none given
+         * The default color table if none is given.
          */
         private val DEFAULT_COLOR_TABLE =
             intArrayOf(0xFF_00_00_00.toInt(), 0xFF_FF_FF_FF.toInt(),
@@ -33,7 +45,7 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
                        0xFF_80_FF_FF.toInt(), 0xFF_FF_80_FF.toInt(), 0xFF_FF_FF_80.toInt())
 
         /**
-         * Color table size
+         * The size of the color table.
          */
         const val COLOR_TABLE_SIZE = 16
     }
@@ -56,7 +68,7 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
     }
 
     /**
-     * Clear the image
+     * Clears the image with a transparent color.
      */
     override fun clear()
     {
@@ -67,29 +79,39 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
     }
 
     /**
-     * Image width
+     * Returns the width of the image.
      */
     override fun width() = this.width
 
     /**
-     * Image height
+     * Returns the height of the image.
      */
     override fun height() = this.height
 
     /**
-     * Obtain color from color table
+     * Returns the color at the given index in the color table.
      *
-     * @param colorIndex Color table index
-     * @return Color
+     * **Usage example:**
+     * ```kotlin
+     * val color = image[15]
+     * ```
+     *
+     * @param colorIndex The index of the color in the color table.
+     * @return The color.
      */
     operator fun get(colorIndex : Int) = this.colorTable[colorIndex]
 
     /**
-     * Obtain color table index of image pixel
+     * Returns the color index of the pixel at the given coordinates.
      *
-     * @param x X
-     * @param y Y
-     * @return Color table index
+     * **Usage example:**
+     * ```kotlin
+     * val index = image.colorIndex(10, 10)
+     * ```
+     *
+     * @param x The x coordinate of the pixel.
+     * @param y The y coordinate of the pixel.
+     * @return The color index of the pixel.
      */
     fun colorIndex(x : Int, y : Int) : Int
     {
@@ -111,13 +133,14 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
     }
 
     /**
-     * Image type
+     * Returns the type of the image.
      */
     override fun imageType() = RasterImageType.IMAGE_4_BITS
 
     /**
-     * Convert to image
-     * @return The image
+     * Converts the image to a [GameImage].
+     *
+     * @return The converted image.
      */
     override fun toGameImage() : GameImage
     {
@@ -157,10 +180,11 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
     }
 
     /**
-     * Parse bitmap stream to image data
+     * Parses a bitmap stream to the image data.
      *
-     * @param inputStream Stream to parse
-     * @throws IOException On reading issue
+     * @param inputStream The stream to parse.
+     * @throws IOException On reading issue.
+     * 
      */
     @Throws(IOException::class)
     fun parseBitmapStream(inputStream : InputStream)
@@ -220,10 +244,11 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
     }
 
     /**
-     * Parse bitmap compressed stream to image data
+     * Parses a compressed bitmap stream to the image data.
      *
-     * @param inputStream Stream to read
-     * @throws IOException On reading issue
+     * @param inputStream The stream to parse.
+     * @throws IOException On reading issue.
+     * 
      */
     @Throws(IOException::class)
     fun parseBitmapStreamCompressed(inputStream : InputStream)
@@ -410,9 +435,15 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
     }
 
     /**
-     * Change a color
-     * @param colorIndex
-     * @param color New color
+     * Sets the color at the given index in the color table.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image[15] = Color.RED.argb
+     * ```
+     *
+     * @param colorIndex The index of the color in the color table.
+     * @param color The new color.
      */
     operator fun set(colorIndex : Int, color : Int)
     {
@@ -420,11 +451,16 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
     }
 
     /**
-     * Change color index in image pixel
+     * Sets the color index of the pixel at the given coordinates.
      *
-     * @param x          X
-     * @param y          Y
-     * @param colorIndex Color index
+     * **Usage example:**
+     * ```kotlin
+     * image.colorIndex(10, 10, 15)
+     * ```
+     *
+     * @param x The x coordinate of the pixel.
+     * @param y The y coordinate of the pixel.
+     * @param colorIndex The new color index of the pixel.
      */
     fun colorIndex(x : Int, y : Int, colorIndex : Int)
     {
@@ -454,10 +490,15 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
     }
 
     /**
-     * Change several colors in color table
+     * Sets several colors in the color table.
      *
-     * @param colorIndexStart Color index to start to override
-     * @param colors          Colors to set
+     * **Usage example:**
+     * ```kotlin
+     * image.colors(0, Color.RED.argb, Color.GREEN.argb, Color.BLUE.argb)
+     * ```
+     *
+     * @param colorIndexStart The index in the color table where to start writing.
+     * @param colors The colors to set.
      */
     fun colors(colorIndexStart : Int, vararg colors : Int)
     {
@@ -466,12 +507,12 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
     }
 
     /**
-     * Convert color table to default one
+     * Converts the color table to the default one.
      */
     fun toDefaultTableColor() = System.arraycopy(Image4Bit.DEFAULT_COLOR_TABLE, 0, this.colorTable, 0, 16)
 
     /**
-     * Convert color table to gray table
+     * Converts the color table to a gray scale table.
      */
     fun toGrayTableColor()
     {

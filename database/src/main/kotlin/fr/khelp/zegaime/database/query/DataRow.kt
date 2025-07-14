@@ -15,9 +15,25 @@ import java.sql.ResultSet
 import java.util.Calendar
 
 /**
- * Presents a row result
+ * Represents a row in a result set.
  *
- * See documentation for row result DSL syntax
+ * This class provides methods to get the values of the columns of the current row.
+ *
+ * **Creation example:**
+ * This class is not meant to be instantiated directly.
+ * It is provided by the `DataRowResult.next` method.
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * result.next {
+ *     val name = getString(COLUMN_NAME)
+ *     val age = getInt(COLUMN_AGE)
+ *     // ...
+ * }
+ * ```
+ *
+ * @property table The table from which the result was obtained.
+ * @property numberOfColumns The number of columns in the row.
  */
 class DataRow internal constructor(private val resultSet : ResultSet, private val select : Select, val table : Table)
 {
@@ -25,11 +41,43 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     /**Number of columns in the answer*/
     val numberOfColumns = this.select.numberColumns
 
-    /**Column index in the answer*/
+    /**
+     * Returns the index of the column with the given name.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val nameIndex = columnIndex("name")
+     * ```
+     *
+     * @param columnName The name of the column.
+     * @return The index of the column.
+     */
     fun columnIndex(columnName : String) = this.select.columnIndex(columnName)
 
+    /**
+     * Returns the index of the given column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val nameIndex = columnIndex(COLUMN_NAME)
+     * ```
+     *
+     * @param column The column.
+     * @return The index of the column.
+     */
     fun columnIndex(column : Column) = this.select.columnIndex(column)
 
+    /**
+     * Returns the 1-based index of the column with the given name.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val nameIndex = columnRange("name")
+     * ```
+     *
+     * @param columnName The name of the column.
+     * @return The 1-based index of the column.
+     */
     fun columnRange(columnName : String) : Int
     {
         val index = this.columnIndex(columnName)
@@ -43,6 +91,17 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
         }
     }
 
+    /**
+     * Returns the 1-based index of the given column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val nameIndex = columnRange(COLUMN_NAME)
+     * ```
+     *
+     * @param column The column.
+     * @return The 1-based index of the column.
+     */
     fun columnRange(column : Column) : Int
     {
         val index = this.columnIndex(column)
@@ -56,11 +115,29 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
         }
     }
 
-    /**Column at index in the answer*/
+    /**
+     * Returns the column at the given 1-based index.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val column = column(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column.
+     * @return The column at the given index.
+     */
     fun column(columnRange : Int) = this.select[columnRange - 1]
 
     /**
-     * Read table row ID from specified column
+     * Reads the ID from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val id = getID(COLUMN_ID)
+     * ```
+     *
+     * @param column The column to read from.
+     * @return The ID.
      */
     @RowResultDSL
     fun getID(column : Column) : Int
@@ -72,16 +149,32 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column range
+     * Reads the ID from the specified column range.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val id = getID(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The ID.
      */
     @RowResultDSL
     fun getID(columnRange : Int) =
         this.getID(this.select[columnRange - 1])
 
     /**
-     * Read table row ID from specified column
+     * Reads the string from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val name = getString(COLUMN_NAME)
+     * ```
+     *
+     * @param column The column to read from.
+     * @return The string.
      */
     @RowResultDSL
     fun getString(column : Column) : String
@@ -93,16 +186,32 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column range
+     * Reads the string from the specified column range.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val name = getString(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The string.
      */
     @RowResultDSL
     fun getString(columnRange : Int) =
         this.getString(this.select[columnRange - 1])
 
     /**
-     * Read table row ID from specified column
+     * Reads the boolean from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val active = getBoolean(COLUMN_ACTIVE)
+     * ```
+     *
+     * @param column The column to read from.
+     * @return The boolean.
      */
     @RowResultDSL
     fun getBoolean(column : Column) : Boolean
@@ -114,16 +223,32 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column range
+     * Reads the boolean from the specified column range.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val active = getBoolean(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The boolean.
      */
     @RowResultDSL
     fun getBoolean(columnRange : Int) =
         this.getBoolean(this.select[columnRange - 1])
 
     /**
-     * Read table row ID from specified column
+     * Reads the byte from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val value = getByte(COLUMN_VALUE)
+     * ```
+     *
+     * @param column The column to read from.
+     * @return The byte.
      */
     @RowResultDSL
     fun getByte(column : Column) : Byte
@@ -135,16 +260,32 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column range
+     * Reads the byte from the specified column range.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val value = getByte(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The byte.
      */
     @RowResultDSL
     fun getByte(columnRange : Int) =
         this.getByte(this.select[columnRange - 1])
 
     /**
-     * Read table row ID from specified column
+     * Reads the short from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val value = getShort(COLUMN_VALUE)
+     * ```
+     *
+     * @param column The column to read from.
+     * @return The short.
      */
     @RowResultDSL
     fun getShort(column : Column) : Short
@@ -156,16 +297,32 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column range
+     * Reads the short from the specified column range.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val value = getShort(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The short.
      */
     @RowResultDSL
     fun getShort(columnRange : Int) =
         this.getShort(this.select[columnRange - 1])
 
     /**
-     * Read table row ID from specified column
+     * Reads the integer from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val age = getInt(COLUMN_AGE)
+     * ```
+     *
+     * @param column The column to read from.
+     * @return The integer.
      */
     @RowResultDSL
     fun getInt(column : Column) : Int
@@ -177,16 +334,32 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column range
+     * Reads the integer from the specified column range.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val age = getInt(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The integer.
      */
     @RowResultDSL
     fun getInt(columnRange : Int) =
         this.getInt(this.select[columnRange - 1])
 
     /**
-     * Read table row ID from specified column
+     * Reads the long from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val timestamp = getLong(COLUMN_TIMESTAMP)
+     * ```
+     *
+     * @param column The column to read from.
+     * @return The long.
      */
     @RowResultDSL
     fun getLong(column : Column) : Long
@@ -198,16 +371,32 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column range
+     * Reads the long from the specified column range.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val timestamp = getLong(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The long.
      */
     @RowResultDSL
     fun getLong(columnRange : Int) =
         this.getLong(this.select[columnRange - 1])
 
     /**
-     * Read table row ID from specified column
+     * Reads the float from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val price = getFloat(COLUMN_PRICE)
+     * ```
+     *
+     * @param column The column to read from.
+     * @return The float.
      */
     @RowResultDSL
     fun getFloat(column : Column) : Float
@@ -220,16 +409,32 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column range
+     * Reads the float from the specified column range.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val price = getFloat(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The float.
      */
     @RowResultDSL
     fun getFloat(columnRange : Int) =
         this.getFloat(this.select[columnRange - 1])
 
     /**
-     * Read table row ID from specified column
+     * Reads the double from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val price = getDouble(COLUMN_PRICE)
+     * ```
+     *
+     * @param column The column to read from.
+     * @return The double.
      */
     @RowResultDSL
     fun getDouble(column : Column) : Double
@@ -241,16 +446,32 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column range
+     * Reads the double from the specified column range.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val price = getDouble(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The double.
      */
     @RowResultDSL
     fun getDouble(columnRange : Int) =
         this.getDouble(this.select[columnRange - 1])
 
     /**
-     * Read table row ID from specified column
+     * Reads the byte array from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val data = getByteArray(COLUMN_DATA)
+     * ```
+     *
+     * @param column The column to read from.
+     * @return The byte array.
      */
     @RowResultDSL
     fun getByteArray(column : Column) : ByteArray
@@ -262,7 +483,15 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column
+     * Reads the integer array from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val data = getIntArray(COLUMN_DATA)
+     * ```
+     *
+     * @param column The column to read from.
+     * @return The integer array.
      */
     @RowResultDSL
     fun getIntArray(column : Column) : IntArray
@@ -274,20 +503,49 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column range
+     * Reads the byte array from the specified column range.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val data = getByteArray(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The byte array.
      */
     @RowResultDSL
     fun getByteArray(columnRange : Int) =
         this.getByteArray(this.select[columnRange - 1])
 
+    /**
+     * Reads the integer array from the specified column range.
+     *
+     * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val data = getIntArray(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The integer array.
+     */
     @RowResultDSL
     fun getIntArray(columnRange : Int) =
         this.getIntArray(this.select[columnRange - 1])
 
     /**
-     * Read table row ID from specified column
+     * Reads the calendar from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val date = getCalendar(COLUMN_DATE)
+     * ```
+     *
+     * @param column The column to read from.
+     * @return The calendar.
      */
     @RowResultDSL
     fun getCalendar(column : Column) : Calendar
@@ -301,16 +559,32 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column range
+     * Reads the calendar from the specified column range.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val date = getCalendar(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The calendar.
      */
     @RowResultDSL
     fun getCalendar(columnRange : Int) =
         this.getCalendar(this.select[columnRange - 1])
 
     /**
-     * Read table row ID from specified column
+     * Reads the date from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val date = getDate(COLUMN_DATE)
+     * ```
+     *
+     * @param column The column to read from.
+     * @return The date.
      */
     @RowResultDSL
     fun getDate(column : Column) : DataDate
@@ -322,16 +596,32 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column range
+     * Reads the date from the specified column range.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val date = getDate(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The date.
      */
     @RowResultDSL
     fun getDate(columnRange : Int) =
         this.getDate(this.select[columnRange - 1])
 
     /**
-     * Read table row ID from specified column
+     * Reads the time from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val time = getTime(COLUMN_TIME)
+     * ```
+     *
+     * @param column The column to read from.
+     * @return The time.
      */
     @RowResultDSL
     fun getTime(column : Column) : DataTime
@@ -343,16 +633,33 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column range
+     * Reads the time from the specified column range.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val time = getTime(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The time.
      */
     @RowResultDSL
     fun getTime(columnRange : Int) =
         this.getTime(this.select[columnRange - 1])
 
     /**
-     * Read table row ID from specified column
+     * Reads the enum from the specified column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val enumValue = getEnum<MyEnum>(COLUMN_ENUM)
+     * ```
+     *
+     * @param E The type of the enum.
+     * @param column The column to read from.
+     * @return The enum value.
      */
     @RowResultDSL
     fun <E : Enum<E>> getEnum(column : Column) : E
@@ -366,10 +673,13 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
         val enumName = serialized.substring(indexSeparator + 1)
         val valueOf = Class.forName(className)
             .getDeclaredMethod("valueOf", String::class.java)
-        @Suppress("UNCHECKED_CAST")
+        ("UNCHECKED_CAST")
         return valueOf.invoke(null, enumName) as E
     }
 
+    /**
+     * 
+     */
     @RowResultDSL
     internal fun getEnumAny(column : Column) : Any
     {
@@ -386,18 +696,35 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
     }
 
     /**
-     * Read table row ID from specified column range
+     * Reads the enum from the specified column range.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val enumValue = getEnum<MyEnum>(1)
+     * ```
+     *
+     * @param E The type of the enum.
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The enum value.
      */
     @RowResultDSL
     fun <E : Enum<E>> getEnum(columnRange : Int) =
         this.getEnum<E>(this.select[columnRange - 1])
 
     /**
-     * Read table row ID from specified column and returns a string representation of the value
+     * Reads the value from the specified column and returns a string representation of it.
      *
      * **Warning** Column range start at **1** not **0**
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val value = toString(1)
+     * ```
+     *
+     * @param columnRange The 1-based index of the column to read from.
+     * @return The string representation of the value.
      */
     @RowResultDSL
     fun toString(columnRange : Int) =

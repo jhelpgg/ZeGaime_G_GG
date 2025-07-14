@@ -4,16 +4,39 @@ import fr.khelp.zegaime.database.SelectDSL
 import fr.khelp.zegaime.database.Table
 
 /**
- * For select column row result based on an other selection
+ * Represents a subquery for a `IN` condition.
  *
- * See documentation for match DSL syntax
+ * **Creation example:**
+ * This class is not meant to be instantiated directly.
+ * It is used in the `Column.IN` method.
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val condition = COLUMN_ID IN {
+ *     select(otherTable) {
+ *         +COLUMN_ID
+ *         where { COLUMN_NAME EQUALS "test" }
+ *     }
+ * }
+ * ```
  */
 class Match internal constructor()
 {
     internal var select : Select? = null
 
     /**
-     * Choose the selection
+     * Specifies the select query for the subquery.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * select(otherTable) {
+     *     +COLUMN_ID
+     *     where { COLUMN_NAME EQUALS "test" }
+     * }
+     * ```
+     *
+     * @param table The table to select from.
+     * @param selectCreator A lambda function to define the select query.
      */
     @SelectDSL
     fun select(table : Table, selectCreator : Select.() -> Unit)

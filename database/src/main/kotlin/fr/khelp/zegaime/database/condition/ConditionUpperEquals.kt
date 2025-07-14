@@ -7,7 +7,15 @@ import fr.khelp.zegaime.database.type.DataType
 import java.util.Calendar
 
 /**
- * Create condition that select rows, in given column, wih values are upper or equals to given parameter
+ * Creates a condition that checks if the column's value is upper than or equal to the given string.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_NAME UPPER_EQUALS "test"
+ * ```
+ *
+ * @param string The string to compare with.
+ * @return A new condition.
  */
 infix fun Column.UPPER_EQUALS(string : String) : Condition
 {
@@ -16,7 +24,15 @@ infix fun Column.UPPER_EQUALS(string : String) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are upper or equals to given parameter
+ * Creates a condition that checks if the column's value is upper than or equal to the given byte.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_VALUE UPPER_EQUALS 1.toByte()
+ * ```
+ *
+ * @param value The byte to compare with.
+ * @return A new condition.
  */
 infix fun Column.UPPER_EQUALS(value : Byte) : Condition
 {
@@ -25,7 +41,15 @@ infix fun Column.UPPER_EQUALS(value : Byte) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are upper or equals to given parameter
+ * Creates a condition that checks if the column's value is upper than or equal to the given short.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_VALUE UPPER_EQUALS 1.toShort()
+ * ```
+ *
+ * @param value The short to compare with.
+ * @return A new condition.
  */
 infix fun Column.UPPER_EQUALS(value : Short) : Condition
 {
@@ -34,7 +58,15 @@ infix fun Column.UPPER_EQUALS(value : Short) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are upper or equals to given parameter
+ * Creates a condition that checks if the column's value is upper than or equal to the given integer.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_AGE UPPER_EQUALS 18
+ * ```
+ *
+ * @param value The integer to compare with.
+ * @return A new condition.
  */
 infix fun Column.UPPER_EQUALS(value : Int) : Condition
 {
@@ -43,7 +75,15 @@ infix fun Column.UPPER_EQUALS(value : Int) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are upper or equals to given parameter
+ * Creates a condition that checks if the column's value is upper than or equal to the given long.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_TIMESTAMP UPPER_EQUALS 1234567890L
+ * ```
+ *
+ * @param value The long to compare with.
+ * @return A new condition.
  */
 infix fun Column.UPPER_EQUALS(value : Long) : Condition
 {
@@ -52,7 +92,15 @@ infix fun Column.UPPER_EQUALS(value : Long) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are upper or equals to given parameter
+ * Creates a condition that checks if the column's value is upper than or equal to the given float.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_PRICE UPPER_EQUALS 12.34f
+ * ```
+ *
+ * @param value The float to compare with.
+ * @return A new condition.
  */
 infix fun Column.UPPER_EQUALS(value : Float) : Condition
 {
@@ -61,7 +109,15 @@ infix fun Column.UPPER_EQUALS(value : Float) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are upper or equals to given parameter
+ * Creates a condition that checks if the column's value is upper than or equal to the given double.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_PRICE UPPER_EQUALS 12.34
+ * ```
+ *
+ * @param value The double to compare with.
+ * @return A new condition.
  */
 infix fun Column.UPPER_EQUALS(value : Double) : Condition
 {
@@ -70,7 +126,15 @@ infix fun Column.UPPER_EQUALS(value : Double) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are upper or equals to given parameter
+ * Creates a condition that checks if the column's value is upper than or equal to the given calendar.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_DATE UPPER_EQUALS Calendar.getInstance()
+ * ```
+ *
+ * @param value The calendar to compare with.
+ * @return A new condition.
  */
 infix fun Column.UPPER_EQUALS(value : Calendar) : Condition
 {
@@ -79,7 +143,15 @@ infix fun Column.UPPER_EQUALS(value : Calendar) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are upper or equals to given parameter
+ * Creates a condition that checks if the column's value is upper than or equal to the given date.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_DATE UPPER_EQUALS DataDate(2023, 1, 1)
+ * ```
+ *
+ * @param value The date to compare with.
+ * @return A new condition.
  */
 infix fun Column.UPPER_EQUALS(value : DataDate) : Condition
 {
@@ -88,7 +160,15 @@ infix fun Column.UPPER_EQUALS(value : DataDate) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are upper or equals to given parameter
+ * Creates a condition that checks if the column's value is upper than or equal to the given time.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_TIME UPPER_EQUALS DataTime(12, 0, 0)
+ * ```
+ *
+ * @param value The time to compare with.
+ * @return A new condition.
  */
 infix fun Column.UPPER_EQUALS(value : DataTime) : Condition
 {

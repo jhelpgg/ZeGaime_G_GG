@@ -4,7 +4,18 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * Block with plain text
+ * Represents a plain text block in a GIF file.
+ *
+ * @property backgroundIndex The background color index.
+ * @property cellHeight The cell height.
+ * @property cellWidth The cell width.
+ * @property foregroundIndex The foreground color index.
+ * @property gridHeight The grid height.
+ * @property gridWidth The grid width.
+ * @property gridX The grid x coordinate.
+ * @property gridY The grid y coordinate.
+ * @property text The text to print.
+ * 
  */
 internal class PlainTextBlock : BlockExtension()
 {
@@ -55,10 +66,10 @@ internal class PlainTextBlock : BlockExtension()
         private set
 
     /**
-     * Read the plain text extension block
-     * @param inputStream Stream to read
-     * @throws IOException If data aren't a valid plain text extension block
-     * @see Block.read
+     * Reads the plain text extension block from an input stream.
+     *
+     * @param inputStream The input stream to read from.
+     * @throws IOException If the data is not a valid plain text extension block.
      */
     @Throws(IOException::class)
     override fun read(inputStream: InputStream)

@@ -3,7 +3,19 @@ package fr.khelp.zegaime.database.condition
 import fr.khelp.zegaime.utils.extensions.merge
 
 /**
- * Condition valid if and only if both given conditions are valid
+ * Creates a new condition that is the logical AND of this condition and the given condition.
+ *
+ * The resulting condition is valid if and only if both this condition and the given condition are valid.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition1 = COLUMN_NAME EQUALS "test"
+ * val condition2 = COLUMN_AGE GREATER_THAN 18
+ * val combinedCondition = condition1 AND condition2
+ * ```
+ *
+ * @param condition The condition to be combined with this condition.
+ * @return A new condition that is the logical AND of this condition and the given condition.
  */
 infix fun Condition.AND(condition : Condition) =
     Condition(this.columns.merge(condition.columns), "(${this.sqlCondition}) AND (${condition.sqlCondition})")

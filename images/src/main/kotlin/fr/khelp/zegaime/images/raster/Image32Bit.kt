@@ -9,9 +9,21 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * Image 32 bits resolution
- * @param width Image width
- * @param height Image height
+ * Represents a 32-bit image.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val image = Image32Bit(100, 100)
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * image[10, 10] = Color.RED.argb
+ * val gameImage = image.toGameImage()
+ * ```
+ *
+ * @property width The width of the image.
+ * @property height The height of the image.
  */
 class Image32Bit(val width : Int, val height : Int) : RasterImage
 {
@@ -28,7 +40,7 @@ class Image32Bit(val width : Int, val height : Int) : RasterImage
     }
 
     /**
-     * Clear the image
+     * Clears the image with a transparent color.
      */
     override fun clear()
     {
@@ -39,23 +51,24 @@ class Image32Bit(val width : Int, val height : Int) : RasterImage
     }
 
     /**
-     * Image width
+     * Returns the width of the image.
      */
     override fun width() = this.width
 
     /**
-     * Image height
+     * Returns the height of the image.
      */
     override fun height() = this.height
 
     /**
-     * Image type
+     * Returns the type of the image.
      */
     override fun imageType() = RasterImageType.IMAGE_32_BITS
 
     /**
-     * Convert to image can be draw
-     * @return The image
+     * Converts the image to a [GameImage].
+     *
+     * @return The converted image.
      */
     override fun toGameImage() : GameImage
     {
@@ -65,10 +78,16 @@ class Image32Bit(val width : Int, val height : Int) : RasterImage
     }
 
     /**
-     * Obtain a pixel color
-     * @param x Pixel X
-     * @param y Pixel Y
-     * @return Pixel color
+     * Returns the color of the pixel at the given coordinates.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val color = image[10, 10]
+     * ```
+     *
+     * @param x The x coordinate of the pixel.
+     * @param y The y coordinate of the pixel.
+     * @return The color of the pixel.
      */
     operator fun get(x : Int, y : Int) : Int
     {
@@ -77,10 +96,11 @@ class Image32Bit(val width : Int, val height : Int) : RasterImage
     }
 
     /**
-     * Parse bitmap stream to image data
+     * Parses a bitmap stream to the image data.
      *
-     * @param inputStream Stream to read
-     * @throws IOException On reading issue
+     * @param inputStream The stream to parse.
+     * @throws IOException On reading issue.
+     * 
      */
     @Throws(IOException::class)
     fun parseBitmapStream(inputStream : InputStream)
@@ -110,10 +130,16 @@ class Image32Bit(val width : Int, val height : Int) : RasterImage
     }
 
     /**
-     * Change a pixel color
-     * @param x Pixel X
-     * @param y Pixel Y
-     * @param color New color
+     * Sets the color of the pixel at the given coordinates.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image[10, 10] = Color.RED.argb
+     * ```
+     *
+     * @param x The x coordinate of the pixel.
+     * @param y The y coordinate of the pixel.
+     * @param color The new color of the pixel.
      */
     operator fun set(x : Int, y : Int, color : Int)
     {

@@ -17,11 +17,24 @@ import java.util.Calendar
 import java.util.TreeSet
 
 /**
- * For insert a row in table
+ * Represents an insert query.
  *
- * It can be used as insert ot update if specifies a condition in [updateIfExactlyOneRowMatch] and that condition match to one and only one row
+ * It can be used as an insert or update query if a condition is specified in [updateIfExactlyOneRowMatch]
+ * and that condition matches one and only one row.
  *
- * See documentation about insert DSL syntax
+ * **Creation example:**
+ * This class is not meant to be instantiated directly.
+ * Use the `Table.insert` method.
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * table.insert {
+ *     COLUMN_NAME IS "John"
+ *     COLUMN_AGE IS 30
+ * }
+ * ```
+ *
+ * @property table The table to insert into.
  */
 class Insert internal constructor(val table : Table)
 {
@@ -29,7 +42,14 @@ class Insert internal constructor(val table : Table)
     internal var conditionUpdateOneMatch : Condition? = null
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * COLUMN_NAME IS "John"
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun Column.IS(value : String)
@@ -40,7 +60,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * "name" IS "John"
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun String.IS(value : String)
@@ -49,7 +76,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * COLUMN_ACTIVE IS true
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun Column.IS(value : Boolean)
@@ -68,7 +102,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * "active" IS true
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun String.IS(value : Boolean)
@@ -77,7 +118,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * COLUMN_VALUE IS 1.toByte()
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun Column.IS(value : Byte)
@@ -88,7 +136,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * "value" IS 1.toByte()
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun String.IS(value : Byte)
@@ -97,7 +152,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * COLUMN_VALUE IS 1.toShort()
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun Column.IS(value : Short)
@@ -108,7 +170,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * "value" IS 1.toShort()
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun String.IS(value : Short)
@@ -117,7 +186,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * COLUMN_AGE IS 30
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun Column.IS(value : Int)
@@ -128,7 +204,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * "age" IS 30
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun String.IS(value : Int)
@@ -137,7 +220,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * COLUMN_TIMESTAMP IS 1234567890L
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun Column.IS(value : Long)
@@ -148,7 +238,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * "timestamp" IS 1234567890L
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun String.IS(value : Long)
@@ -157,7 +254,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * COLUMN_PRICE IS 12.34f
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun Column.IS(value : Float)
@@ -168,7 +272,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * "price" IS 12.34f
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun String.IS(value : Float)
@@ -177,7 +288,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * COLUMN_PRICE IS 12.34
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun Column.IS(value : Double)
@@ -188,7 +306,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * "price" IS 12.34
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun String.IS(value : Double)
@@ -197,7 +322,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * COLUMN_DATA IS byteArrayOf(1, 2, 3)
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun Column.IS(value : ByteArray)
@@ -208,7 +340,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * "data" IS byteArrayOf(1, 2, 3)
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun String.IS(value : ByteArray)
@@ -217,7 +356,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * COLUMN_DATA IS intArrayOf(1, 2, 3)
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun Column.IS(value : IntArray)
@@ -228,7 +374,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * "data" IS intArrayOf(1, 2, 3)
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun String.IS(value : IntArray)
@@ -237,7 +390,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * COLUMN_DATE IS Calendar.getInstance()
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun Column.IS(value : Calendar)
@@ -248,7 +408,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * "date" IS Calendar.getInstance()
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun String.IS(value : Calendar)
@@ -257,7 +424,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * COLUMN_DATE IS DataDate(2023, 1, 1)
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun Column.IS(value : DataDate)
@@ -268,7 +442,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * "date" IS DataDate(2023, 1, 1)
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun String.IS(value : DataDate)
@@ -277,7 +458,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * COLUMN_TIME IS DataTime(12, 0, 0)
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun Column.IS(value : DataTime)
@@ -288,7 +476,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * "time" IS DataTime(12, 0, 0)
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun String.IS(value : DataTime)
@@ -297,7 +492,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * COLUMN_ENUM IS MyEnum.A
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun <E : Enum<E>> Column.IS(value : E)
@@ -308,7 +510,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * Specifies the value for a column.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * "enum" IS MyEnum.A
+     * ```
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
     infix fun <E : Enum<E>> String.IS(value : E)
@@ -316,6 +525,9 @@ class Insert internal constructor(val table : Table)
         this@Insert.table.getColumn(this) IS value
     }
 
+    /**
+     * 
+     */
     @InsertDSL
     internal infix fun Column.IS_ENUM(value : Any)
     {
@@ -326,7 +538,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies value for a column
+     * 
      */
     @InsertDSL
     internal infix fun String.IS_ENUM(value : Any)
@@ -335,9 +547,17 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * If specified and condition match to one and only one row, this row is updated.
+     * If specified and the condition matches one and only one row, this row is updated.
+     * Otherwise, an insert is performed.
      *
-     * In other case an insert is done
+     * **Usage example:**
+     * ```kotlin
+     * updateIfExactlyOneRowMatch {
+     *     condition = COLUMN_NAME EQUALS "John"
+     * }
+     * ```
+     *
+     * @param whereCreator A lambda function to define the where clause.
      */
     @WhereDSL
     fun updateIfExactlyOneRowMatch(whereCreator : Where.() -> Unit)
@@ -349,6 +569,10 @@ class Insert internal constructor(val table : Table)
         this.conditionUpdateOneMatch = condition
     }
 
+    /**
+     * Returns the SQL representation of the insert query.
+     * 
+     */
     internal fun insertSQL(suggestedID : Int) : String
     {
         val columnLeft = TreeSet<Column>()
@@ -403,6 +627,10 @@ class Insert internal constructor(val table : Table)
         return query.toString()
     }
 
+    /**
+     * Returns the SQL representation of the update query.
+     * 
+     */
     internal fun updateSQL(id : Int) : String
     {
         val update = Update(this.table)

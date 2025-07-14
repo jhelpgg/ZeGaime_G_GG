@@ -7,47 +7,54 @@ import java.io.File
 import java.io.FileInputStream
 
 /**
- * Original PCX manufacturer code
+ * Original PCX manufacturer code.
+ * 
  */
 val MANUFACTURER_ZSOFT = 10.toByte()
 
 /**
- * PCX version Paintbrush v2.5
+ * PCX version Paintbrush v2.5.
+ * 
  */
 val VERSION_PAINTBRUSH_V_2_5 = 0.toByte()
 
 /**
- * PCX version Paintbrush v2.5 unofficial version
+ * PCX version Paintbrush v2.5 unofficial version.
+ * 
  */
 val VERSION_PAINTBRUSH_V_2_5_UNOFFICAL = 1.toByte()
 
 /**
- * PCX version Paintbrush v2.8 w palette information
+ * PCX version Paintbrush v2.8 w palette information.
+ * 
  */
 val VERSION_PAINTBRUSH_V_2_8_W = 2.toByte()
 
 /**
- * PCX version Paintbrush v2.8 w/o palette information
+ * PCX version Paintbrush v2.8 w/o palette information.
+ * 
  */
 val VERSION_PAINTBRUSH_V_2_8_WO = 3.toByte()
 
 /**
- * PCX version Paintbrush v3.0+
+ * PCX version Paintbrush v3.0+.
+ * 
  */
 val VERSION_PAINTBRUSH_V_3_0 = 5.toByte()
 
 /**
- * PCX version Paintbrush/Windows
+ * PCX version Paintbrush/Windows.
+ * 
  */
 val VERSION_PAINTBRUSH_WINDOWS = 4.toByte()
 
 /**
- * Compute size of an PCX image.
+ * Computes the size of a PCX image.
  *
- * If the given file is not a PCX image file, `null` is return
+ * If the given file is not a PCX image file, `null` is returned.
  *
- * @param file Image PCX file
- * @return PCX image size OR `null` if given file not a valid PCX image file
+ * @param file The PCX image file.
+ * @return The PCX image size, or `null` if the given file is not a valid PCX image file.
  */
 fun computePcxSize(file : File?) : Dimension?
 {
@@ -68,18 +75,18 @@ fun computePcxSize(file : File?) : Dimension?
 }
 
 /**
- * Indicates if a file is a PCX image file
+ * Indicates if a file is a PCX image file.
  *
- * @param file Tested file
- * @return `true` if the file is a PCX image file
+ * @param file The file to test.
+ * @return `true` if the file is a PCX image file, `false` otherwise.
  */
 fun isPCX(file : File) = computePcxSize(file) != null
 
 /**
- * Convert manufacturer code to its name
+ * Converts a manufacturer code to its name.
  *
- * @param manufacturer Manufacturer code
- * @return Manufacturer name
+ * @param manufacturer The manufacturer code.
+ * @return The manufacturer name.
  */
 fun manufacturerToString(manufacturer : Byte) =
     when (manufacturer)
@@ -89,10 +96,10 @@ fun manufacturerToString(manufacturer : Byte) =
     }
 
 /**
- * Convert a version code to its name
+ * Converts a version code to its name.
  *
- * @param version Version code
- * @return Version name
+ * @param version The version code.
+ * @return The version name.
  */
 fun versionToString(version : Byte) =
     when (version)

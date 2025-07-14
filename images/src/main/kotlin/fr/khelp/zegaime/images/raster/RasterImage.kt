@@ -5,36 +5,36 @@ import fr.khelp.zegaime.images.GameImage
 /**
  * Represents a raster image.
  *
- * Each raster image type have its own bit resolution and way to parse it
+ * Each raster image type has its own bit resolution and way to parse it.
  */
 interface RasterImage
 {
     /**
-     * Clear the image
+     * Clears the image.
      */
     fun clear()
 
     /**
-     * Image width
+     * Returns the width of the image.
      */
     fun width() : Int
 
     /**
-     * Image height
+     * Returns the height of the image.
      */
     fun height() : Int
 
     /**
-     * Image type
+     * Returns the type of the image.
      *
-     * @return Image type
+     * @return The type of the image.
      */
     fun imageType() : RasterImageType
 
     /**
-     * Convert image to JHelp image
+     * Converts the image to a [GameImage].
      *
-     * @return Converted image
+     * @return The converted image.
      */
     fun toGameImage() : GameImage
 }

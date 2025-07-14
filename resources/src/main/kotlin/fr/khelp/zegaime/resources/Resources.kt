@@ -19,21 +19,31 @@ import java.io.InputStream
 import java.net.URL
 import java.util.Locale
 
+/**
+ * Access to resources
+ *
+ * @property source Source of the ressource
+ */
 class Resources(private val source : ReferenceSource)
 {
     companion object
     {
+        /** Language source, to change the current language or listen language changes */
         val languageObservableData = ObservableSource<Locale>(Locale.getDefault())
 
+        /** Ressource link to capture */
         @JvmStatic
         private val resourcePathGroup = '"'.allCharactersExcludeThis.oneOrMore().group()
 
+        /** Resource link regular expression */
         @JvmStatic
         private val resourcesReferenceRegex = "\"resources:/".regularExpression + Resources.resourcePathGroup + '"'
     }
 
+    /** Resource texts cache */
     private val resourcesTexts = HashMap<String, ResourcesText>()
 
+    /** Images cache */
     private val imagesCache = Cache<ImageDescription, GameImage>(128) { imageDescription ->
         when (imageDescription)
         {
@@ -63,6 +73,7 @@ class Resources(private val source : ReferenceSource)
         }
     }
 
+    /** Sounds cache */
     private val soundsCache : Cache<String, Sound> by lazy {
         Cache<String, Sound>(64) { path ->
             val sound = soundFromStream({ this.inputStream(path) }, path)
@@ -76,29 +87,95 @@ class Resources(private val source : ReferenceSource)
         }
     }
 
+    /** Videos cache */
     private val videosCache = Cache<String, Video>(32) { path -> videoReader(this.inputStream(path)) }
 
+    /**
+     * Obtain a resource text.
+     *
+     * @param path Base relative path, the system will recognise the language-specific versions automatically
+     *
+     * @return The resource text
+     */
     fun resourcesText(path : String) : ResourcesText =
         synchronized(this.resourcesTexts) { this.resourcesTexts.getOrPut(path) { ResourcesText(path, this) } }
 
+    /**
+     * Get an image
+     *
+     * @param path Image relative path
+     *
+     * @return The image
+     */
     fun image(path : String) : GameImage =
         this.imagesCache[ImageLoad(path)]
 
+    /**
+     * Get an image thumbnail
+     *
+     * @param path Image relative path
+     * @param width Thumbnail width
+     * @param height Thumbnail height
+     *
+     * @return The image thumbnail
+     */
     fun imageThumbnail(path : String, width : Int, height : Int) : GameImage =
         this.imagesCache[ImageLoadThumbnail(path, width, height)]
 
+    /**
+     * Get a sound
+     *
+     * @param path Sound relative path
+     *
+     * @return The sound
+     */
     fun sound(path : String) : Sound =
         this.soundsCache[path]
 
+    /**
+     * Get a video
+     *
+     * @param path Video relative path
+     *
+     * @return The video
+     */
     fun video(path : String) : Video =
         this.videosCache[path]
 
+    /**
+     * Get a stream from a path
+     *
+     * @param path Stream on a relative path
+     *
+     * @return The stream
+     */
     fun inputStream(path : String) : InputStream = this.source.inputStream(path)
 
+    /**
+     * Get a path url
+     *
+     * @param path Relative path to get the URL
+     *
+     * @return the url
+     */
     fun url(path : String) : URL = this.source.url(path)
 
+    /**
+     * Indicates if a path exists
+     *
+     * @param path Relative path test
+     *
+     * @return Whether the relative path exists
+     */
     fun exists(path : String) : Boolean = this.source.exists(path)
 
+    /**
+     * Replaces links to resources by the complete url
+     *
+     * @param string SString where replace
+     *
+     * @return String with replacements
+     */
     fun replaceResourcesLinkIn(string : String) : String
     {
         val stringBuilder = StringBuilder()

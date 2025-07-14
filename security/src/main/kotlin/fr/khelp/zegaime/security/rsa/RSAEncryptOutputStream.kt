@@ -5,28 +5,60 @@ import java.io.BufferedOutputStream
 import java.io.OutputStream
 import java.util.Objects
 
+/**
+ * An output stream that encrypts data using RSA.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val encryptedStream = RSAEncryptOutputStream(publicKey, outputStream)
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * encryptedStream.write(data)
+ * encryptedStream.close()
+ * ```
+ */
 class RSAEncryptOutputStream(publicKey : RSAPublicKey, val encryptedStream : OutputStream) : OutputStream()
 {
     private val cipher = publicKey.cipher()
     private val bufferedOutputStream = BufferedOutputStream(this.encryptedStream)
     private val cycleByteArray = CycleByteArray()
 
+    /**
+     * Closes this output stream and releases any system resources associated with this stream.
+     */
     override fun close()
     {
         this.bufferedOutputStream.close()
     }
 
+    /**
+     * Flushes this output stream and forces any buffered output bytes to be written out.
+     */
     override fun flush()
     {
         this.doTransfer(true)
         this.bufferedOutputStream.flush()
     }
 
+    /**
+     * Writes the specified byte to this output stream.
+     *
+     * @param b The byte to be written.
+     */
     override fun write(b : Int)
     {
         this.write(byteArrayOf(b.toByte()), 0, 1)
     }
 
+    /**
+     * Writes `len` bytes from the specified byte array starting at offset `off` to this output stream.
+     *
+     * @param b The data.
+     * @param off The start offset in the data.
+     * @param len The number of bytes to write.
+     */
     override fun write(b : ByteArray, off : Int, len : Int)
     {
         Objects.checkFromIndexSize(off, len, b.size)

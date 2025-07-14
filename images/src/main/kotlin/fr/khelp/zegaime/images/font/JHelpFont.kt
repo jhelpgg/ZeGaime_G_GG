@@ -20,16 +20,46 @@ import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.round
 
+/**
+ * Represents a font that can be used to draw text on an image.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val font = JHelpFont("Arial", 12, bold = true)
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val image = GameImage(100, 100)
+ * image.draw { graphics ->
+ *     graphics.font = font.font
+ *     graphics.drawString("Hello, world!", 10, 50)
+ * }
+ * ```
+ *
+ * @property font The underlying AWT font.
+ * @property underline Indicates if the font is underlined.
+ * @property fontHeight The height of the font.
+ * @property ascent The ascent of the font.
+ * @property size The size of the font.
+ * @property bold Indicates if the font is bold.
+ * @property italic Indicates if the font is italic.
+ * @property family The family of the font.
+ * @property maximumCharacterWidth The maximum width of a character in the font.
+ */
 class JHelpFont(val font : Font, val underline : Boolean = false)
 {
     companion object
     {
         /**
-         * Create font
-         * @param family Font family
-         * @param size Font size
-         * @param bold Indicates if it has to be bold
-         * @param italic Indicates if it has to be italic
+         * Creates a font.
+         *
+         * @param family The font family.
+         * @param size The font size.
+         * @param bold Indicates if the font should be bold.
+         * @param italic Indicates if the font should be italic.
+         * @return The created font.
+         * 
          */
         internal fun createFont(family : String, size : Int, bold : Boolean = false, italic : Boolean = false) : Font
         {
@@ -49,15 +79,20 @@ class JHelpFont(val font : Font, val underline : Boolean = false)
         }
 
         /**
-         * Create a font from a stream
+         * Creates a font from a stream.
          *
-         * @param type      Font type
-         * @param stream    Stream to get the font data
-         * @param size      Size of created font
-         * @param bold      Bold value
-         * @param italic    Italic value
-         * @param underline Indicates if have to underline or not
-         * @return Created font
+         * **Usage example:**
+         * ```kotlin
+         * val font = JHelpFont.createFont(FontType.TRUETYPE, stream, 12, FontValue.TRUE, FontValue.FALSE, false).waitAndGet()
+         * ```
+         *
+         * @param type The type of the font.
+         * @param stream The stream to get the font data from.
+         * @param size The size of the created font.
+         * @param bold The bold value.
+         * @param italic The italic value.
+         * @param underline Indicates if the font should be underlined.
+         * @return A future that will contain the created font.
          */
         fun createFont(type : FontType, stream : InputStream, size : Int,
                        bold : FontValue, italic : FontValue, underline : Boolean) : Future<JHelpFont> =
@@ -83,15 +118,20 @@ class JHelpFont(val font : Font, val underline : Boolean = false)
                 }
 
         /**
-         * Create a font from a stream
+         * Obtains a font from a stream.
          *
-         * @param type      Font type
-         * @param stream    Stream to get the font data
-         * @param size      Size of created font
-         * @param bold      Bold value
-         * @param italic    Italic value
-         * @param underline Indicates if have to underline or not
-         * @return Created font OR `null` if stream not a managed font
+         * **Usage example:**
+         * ```kotlin
+         * val font = JHelpFont.obtainFont(FontType.TRUETYPE, stream, 12).waitAndGet()
+         * ```
+         *
+         * @param type The type of the font.
+         * @param stream The stream to get the font data from.
+         * @param size The size of the created font.
+         * @param bold The bold value.
+         * @param italic The italic value.
+         * @param underline Indicates if the font should be underlined.
+         * @return A future that will contain the created font, or `null` if the stream is not a managed font.
          */
         fun obtainFont(type : FontType, stream : InputStream, size : Int,
                        bold : FontValue = FontValue.AS_DEFINED, italic : FontValue = FontValue.AS_DEFINED,
@@ -211,14 +251,19 @@ class JHelpFont(val font : Font, val underline : Boolean = false)
             this(createFont(family, size, bold, italic), underline)
 
     /**
-     * Compute text lines representation with this font with alpha mask
+     * Computes the text lines representation with this font with an alpha mask.
      *
-     * @param text        Text to use
-     * @param textAlign   Align to use
-     * @param limitWidth  Number maximum of pixels in width
-     * @param limitHeight Limit height in pixels
-     * @param trim        Indicates if it has to trim lines
-     * @return The couple of the list of each computed lines and the total size of all lines together
+     * **Usage example:**
+     * ```kotlin
+     * val textParagraph = font.computeTextParagraph("Hello, world!", TextAlignment.CENTER, 100)
+     * ```
+     *
+     * @param text The text to use.
+     * @param textAlign The alignment to use.
+     * @param limitWidth The maximum number of pixels in width.
+     * @param limitHeight The limit height in pixels.
+     * @param trim Indicates if it has to trim lines.
+     * @return A couple of the list of each computed line and the total size of all lines together.
      */
     fun computeTextParagraph(text : String, textAlign : TextAlignment,
                              limitWidth : Int = Int.MAX_VALUE, limitHeight : Int = Int.MAX_VALUE,
@@ -341,10 +386,15 @@ class JHelpFont(val font : Font, val underline : Boolean = false)
     }
 
     /**
-     * Compute size of a string
+     * Computes the size of a string.
      *
-     * @param string String to measure
-     * @return String size
+     * **Usage example:**
+     * ```kotlin
+     * val size = font.stringSize("Hello, world!")
+     * ```
+     *
+     * @param string The string to measure.
+     * @return The size of the string.
      */
     fun stringSize(string : String) : Dimension
     {
@@ -353,10 +403,15 @@ class JHelpFont(val font : Font, val underline : Boolean = false)
     }
 
     /**
-     * Compute string width
+     * Computes the width of a string.
      *
-     * @param string String to measure
-     * @return String width
+     * **Usage example:**
+     * ```kotlin
+     * val width = font.stringWidth("Hello, world!")
+     * ```
+     *
+     * @param string The string to measure.
+     * @return The width of the string.
      */
     fun stringWidth(string : String) : Int
     {
@@ -365,11 +420,11 @@ class JHelpFont(val font : Font, val underline : Boolean = false)
     }
 
     /**
-     * Compute underline position
+     * Computes the underline position.
      *
-     * @param string String
-     * @param y      Y of top
-     * @return Y result
+     * @param string The string.
+     * @param y The y coordinate of the top.
+     * @return The y result.
      */
     fun underlinePosition(string : String, y : Int) : Int
     {
@@ -378,9 +433,23 @@ class JHelpFont(val font : Font, val underline : Boolean = false)
         return round(y.toFloat() + lineMetrics.underlineOffset + lineMetrics.ascent).toInt()
     }
 
+    /**
+     * Returns the glyph vector for the given string.
+     *
+     * @param string The string.
+     * @return The glyph vector.
+     */
     fun glyphVector(string : String) : GlyphVector =
         this.font.createGlyphVector(FONT_RENDER_CONTEXT, string)
 
+    /**
+     * Returns the shape of the given string.
+     *
+     * @param string The string.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     * @return The shape of the string.
+     */
     fun shape(string : String, x : Int = 0, y : Int = 0) : Shape =
         this.glyphVector(string)
             .getOutline(x.toFloat(), y + this.font.getLineMetrics(string, FONT_RENDER_CONTEXT).ascent)

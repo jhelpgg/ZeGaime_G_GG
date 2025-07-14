@@ -8,7 +8,20 @@ import fr.khelp.zegaime.utils.regex.RegularExpression
 import java.util.regex.Pattern
 
 /**
- * Create condition that select rows, in given column, with values match given regular expression
+ * Creates a condition that checks if the column's value matches the given regular expression pattern.
+ *
+ * This method fetches all the values from the specified column, applies the regex pattern,
+ * and then creates a condition to select the rows with matching values.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val pattern = Pattern.compile("test.*")
+ * val condition = COLUMN_NAME.regex(table, pattern)
+ * ```
+ *
+ * @param table The table to select the values from.
+ * @param pattern The regex pattern to match.
+ * @return A new condition.
  */
 fun Column.regex(table : Table, pattern : Pattern) : Condition
 {
@@ -37,7 +50,20 @@ fun Column.regex(table : Table, pattern : Pattern) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, with values match given regular expression
+ * Creates a condition that checks if the column's value matches the given regular expression.
+ *
+ * This method fetches all the values from the specified column, applies the regex,
+ * and then creates a condition to select the rows with matching values.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val regex = RegularExpression("test.*")
+ * val condition = COLUMN_NAME.regex(table, regex)
+ * ```
+ *
+ * @param table The table to select the values from.
+ * @param regularExpression The regular expression to match.
+ * @return A new condition.
  */
 fun Column.regex(table : Table, regularExpression : RegularExpression) : Condition
 {

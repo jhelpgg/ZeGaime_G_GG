@@ -6,7 +6,12 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * Application extension block
+ * Represents an application extension block in a GIF file.
+ *
+ * @property applicationCode The application code.
+ * @property applicationData The application data.
+ * @property applicationIdentifier The application identifier.
+ * 
  */
 internal class ApplicationBlock : BlockExtension()
 {
@@ -21,11 +26,10 @@ internal class ApplicationBlock : BlockExtension()
         private set
 
     /**
-     * Read block from stream
+     * Reads the block from an input stream.
      *
-     * @param inputStream Stream to read
-     * @throws IOException If stream contains invalid data for Application extension block
-     * @see Block.read
+     * @param inputStream The input stream to read from.
+     * @throws IOException If the stream contains invalid data for an application extension block.
      */
     @Throws(IOException::class)
     override fun read(inputStream : InputStream)

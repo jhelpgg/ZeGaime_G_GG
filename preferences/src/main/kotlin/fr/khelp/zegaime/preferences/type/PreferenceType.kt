@@ -1,30 +1,29 @@
 package fr.khelp.zegaime.preferences.type
 
 /**
- * Preference type
+ * Represents the type of a preference.
  *
- * **Important**: All implementations **MUST** be singleton defined by `object`
+ * **Important**: All implementations **MUST** be singletons defined by `object`.
+ *
+ * @param T The type of the preference value.
  */
 sealed interface PreferenceType<T : Any> {
     /**
-     * Serialized a value to String
+     * Serializes a value to a string.
      *
-     * The result must be reverse by [parse] to get the original value
+     * The result must be reversible by [parse] to get the original value.
      *
-     * @param value Value to parse
-     *
-     * @return Serialized version
+     * @param value The value to serialize.
+     * @return The serialized version.
      */
     fun serialize(value: T): String
 
     /**
-     * Parse a String serialized by [serialize] to retrieve the original value
+     * Parses a string serialized by [serialize] to retrieve the original value.
      *
-     * @param serialized Serialized value
-     *
-     * @return Original value
-     *
-     * @throws IllegalArgumentException If the serialized can't be parsed
+     * @param serialized The serialized value.
+     * @return The original value.
+     * @throws IllegalArgumentException If the serialized value cannot be parsed.
      */
     @Throws(IllegalArgumentException::class)
     fun parse(serialized: String): T

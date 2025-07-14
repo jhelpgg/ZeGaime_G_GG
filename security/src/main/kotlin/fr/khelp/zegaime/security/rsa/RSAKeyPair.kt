@@ -18,11 +18,27 @@ import java.security.spec.RSAPrivateKeySpec
 import javax.crypto.Cipher
 
 /**
- * RSA key pai.
+ * Represents an RSA key pair.
  *
- * Since it contains the private key, be careful if share the instance.
+ * Since it contains the private key, be careful when sharing the instance.
+ * Only save it in a trusted and secure place.
  *
- * Only save it in a trust and secure place.
+ * **Creation example:**
+ * ```kotlin
+ * val keyPair = RSAKeyPair()
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val encryptedStream = RSAEncryptOutputStream(keyPair.publicKey, outputStream)
+ * encryptedStream.write(data)
+ * encryptedStream.close()
+ *
+ * val decryptedStream = RSADecryptInputStream(keyPair, inputStream)
+ * val decryptedData = decryptedStream.readAllBytes()
+ * ```
+ *
+ * @property publicKey The public key of the key pair.
  */
 class RSAKeyPair
 {
@@ -30,6 +46,9 @@ class RSAKeyPair
     val publicKey : RSAPublicKey
     private var tripleDES : TripleDES? = null
 
+    /**
+     * Creates a new RSA key pair.
+     */
     constructor()
     {
         val generator = KeyPairGenerator.getInstance(ALGORITHM_RSA)
@@ -40,6 +59,13 @@ class RSAKeyPair
         this.publicKey = RSAPublicKey(keyPair.public)
     }
 
+    /**
+     * Creates an RSA key pair from an encrypted input stream.
+     *
+     * @param tripleDES The Triple DES crypter to use for decryption.
+     * @param inputStream The input stream to read the key pair from.
+     * @throws LoginPasswordInvalidException If the login or password is not valid.
+     */
     constructor(tripleDES : TripleDES, inputStream : InputStream)
     {
         try
@@ -62,6 +88,13 @@ class RSAKeyPair
         }
     }
 
+    /**
+     * Saves the key pair to an encrypted output stream.
+     *
+     * @param tripleDES The Triple DES crypter to use for encryption.
+     * @param outputStream The output stream to write the key pair to.
+     * @throws LoginPasswordInvalidException If the login or password is not valid.
+     */
     fun save(tripleDES : TripleDES, outputStream : OutputStream)
     {
         val actualTripleDES = this.tripleDES
@@ -89,6 +122,12 @@ class RSAKeyPair
         outputStream.close()
     }
 
+    /**
+     * Returns a cipher for decryption.
+     *
+     * @return A cipher for decryption.
+     * 
+     */
     internal fun cypher() : Cipher
     {
         val cipher = Cipher.getInstance(RSA_CIPHER)
@@ -96,6 +135,13 @@ class RSAKeyPair
         return cipher
     }
 
+    /**
+     * Decrypts an input stream.
+     *
+     * @param inputStream The input stream to decrypt.
+     * @param outputStream The output stream to write the decrypted data to.
+     * @throws IOException On IO error.
+     */
     @Throws(IOException::class)
     fun decrypt(inputStream : InputStream, outputStream : OutputStream)
     {
@@ -130,6 +176,13 @@ class RSAKeyPair
         outputStream.flush()
     }
 
+    /**
+     * Signs a message.
+     *
+     * @param message The message to sign.
+     * @param signature The output stream to write the signature to.
+     * @throws IOException On IO error.
+     */
     @Throws(IOException::class)
     fun sign(message : InputStream, signature : OutputStream)
     {

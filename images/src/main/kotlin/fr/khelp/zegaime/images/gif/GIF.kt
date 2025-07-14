@@ -10,35 +10,64 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
 /**
- * GIF image
- * @param inputStream Stream to read image
+ * Represents a GIF image.
+ *
+ * This class can be used to load and play animated GIFs.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val gif = GIF(inputStream)
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * gif.startAnimation()
+ * val currentImage = gif.imageFromStartAnimation()
+ * ```
+ *
+ * @property width The width of the GIF.
+ * @property height The height of the GIF.
+ * @property totalTime The total duration of the GIF animation in milliseconds.
+ * @property numberOfImage The number of images in the GIF.
  */
 class GIF(inputStream : InputStream)
 {
     companion object
     {
         /**
-         * Compute size of an GIF image.
+         * Computes the size of a GIF image.
          *
-         * If the given file is not a GIF image file, `null` is return
+         * If the given file is not a GIF image file, `null` is returned.
          *
-         * @param file Image GIF file
-         * @return GIF image size OR `null` if given file not a valid GIF image file
+         * **Usage example:**
+         * ```kotlin
+         * val size = GIF.computeGifSize(file)
+         * ```
+         *
+         * @param file The GIF image file.
+         * @return The size of the GIF image, or `null` if the file is not a valid GIF image.
          */
         fun computeGifSize(file : File) = fr.khelp.zegaime.images.gif.computeGifSize(file)
 
         /**
-         * Indicates if a file is a GIF image file
+         * Indicates if a file is a GIF image file.
          *
-         * @param file Tested file
-         * @return `true` if the file is a GIF image file
+         * **Usage example:**
+         * ```kotlin
+         * val isGif = GIF.isGIF(file)
+         * ```
+         *
+         * @param file The file to test.
+         * @return `true` if the file is a GIF image file, `false` otherwise.
          */
         fun isGIF(file : File) = fr.khelp.zegaime.images.gif.isGIF(file)
     }
 
     /**
-     * Visitor to collect images
-     * @param delays Images delays to fill
+     * Visitor to collect images.
+     *
+     * @param delays The array to store the delays of the images.
+     * 
      */
     private class InternalVisitor(val delays : ArrayInt) : DataGIFVisitor
     {
@@ -52,9 +81,9 @@ class GIF(inputStream : InputStream)
         var height = 0
 
         /**
-         * Transform collected list in array, and empty the list
+         * Transforms the collected list into an array and empties the list.
          *
-         * @return Array of images
+         * @return An array of the images.
          */
         fun getArray() : Array<GameImage>
         {
@@ -64,14 +93,15 @@ class GIF(inputStream : InputStream)
         }
 
         /**
-         * Called when a collection of images is finished *
+         * Called when a collection of images is finished.
          */
         override fun endCollecting() = Unit
 
         /**
-         * Called when the next image is computed
-         * @param duration Image duration in millisecond
-         * @param image    Image
+         * Called when the next image is computed.
+         *
+         * @param duration The duration of the image in milliseconds.
+         * @param image The image.
          */
         override fun nextImage(duration : Long, image : GameImage)
         {
@@ -80,9 +110,10 @@ class GIF(inputStream : InputStream)
         }
 
         /**
-         * Called when collect image start
-         * @param width  Image width
-         * @param height Image height
+         * Called when the image collection starts.
+         *
+         * @param width The width of the image.
+         * @param height The height of the image.
          */
         override fun startCollecting(width : Int, height : Int)
         {
@@ -141,11 +172,16 @@ class GIF(inputStream : InputStream)
     }
 
     /**
-     * Compute GIF MD5
+     * Computes the MD5 hash of the GIF.
      *
-     * @return GIF MD5
-     * @throws NoSuchAlgorithmException If MD5 unknown
-     * @throws IOException              On computing problem
+     * **Usage example:**
+     * ```kotlin
+     * val md5 = gif.md5()
+     * ```
+     *
+     * @return The MD5 hash of the GIF.
+     * @throws NoSuchAlgorithmException If the MD5 algorithm is not available.
+     * @throws IOException On computation problem.
      */
     @Throws(NoSuchAlgorithmException::class, IOException::class)
     fun md5() : String
@@ -205,26 +241,41 @@ class GIF(inputStream : InputStream)
     }
 
     /**
-     * Obtain an image delay
+     * Returns the delay of an image.
      *
-     * @param index Image index
-     * @return Delay in millisecond
+     * **Usage example:**
+     * ```kotlin
+     * val delay = gif.delay(0)
+     * ```
+     *
+     * @param index The index of the image.
+     * @return The delay in milliseconds.
      */
     fun delay(index : Int) = this.delays[index]
 
     /**
-     * Get a image
+     * Returns an image.
      *
-     * @param index Image index
-     * @return Desired image
+     * **Usage example:**
+     * ```kotlin
+     * val image = gif.image(0)
+     * ```
+     *
+     * @param index The index of the image.
+     * @return The desired image.
      */
     fun image(index : Int) = this.images[index]
 
     /**
-     * Get the image index suggest between last time [GIF.startAnimation] was called and time this method is called based on
-     * images delays
+     * Returns the image index suggested between the last time [GIF.startAnimation] was called and the time this method is called,
+     * based on the images delays.
      *
-     * @return Image index since last time [GIF.startAnimation] was called
+     * **Usage example:**
+     * ```kotlin
+     * val index = gif.imageIndexFromStartAnimation()
+     * ```
+     *
+     * @return The image index since the last time [GIF.startAnimation] was called.
      */
     fun imageIndexFromStartAnimation() : Int
     {
@@ -260,24 +311,33 @@ class GIF(inputStream : InputStream)
     }
 
     /**
-     * Get the image suggest between last time [GIF.startAnimation] was called and time this method is called based on
-     * images delays
+     * Returns the image suggested between the last time [GIF.startAnimation] was called and the time this method is called,
+     * based on the images delays.
      *
-     * @return Image since last time [GIF.startAnimation] was called
+     * **Usage example:**
+     * ```kotlin
+     * val image = gif.imageFromStartAnimation()
+     * ```
+     *
+     * @return The image since the last time [GIF.startAnimation] was called.
      */
     fun imageFromStartAnimation() = this.images[this.imageIndexFromStartAnimation()]
 
     /**
-     * Number of images
-     *
-     * @return Number of images
+     * The number of images.
      */
     val numberOfImage : Int
         get() = this.images.size
 
     /**
-     * Start/restart animation from beginning, to follow evolution, use [imageFromStartAnimation] to have current
-     * image of the animation
+     * Starts or restarts the animation from the beginning.
+     *
+     * To follow the evolution, use [imageFromStartAnimation] to get the current image of the animation.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * gif.startAnimation()
+     * ```
      */
     fun startAnimation()
     {

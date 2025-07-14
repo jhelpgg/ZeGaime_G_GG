@@ -29,12 +29,36 @@ import javax.swing.Icon
 import kotlin.math.max
 import kotlin.math.min
 
+/**
+ * Represents an image that can be manipulated and drawn on the screen.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val image = GameImage(100, 100)
+ * image.clear(Color.RED)
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val image = GameImage.load(inputStream)
+ * image.draw { graphics ->
+ *     graphics.color = Color.BLUE
+ *     graphics.fillRect(10, 10, 80, 80)
+ * }
+ * ```
+ *
+ * @property width The width of the image.
+ * @property height The height of the image.
+ * @property refreshFlow An observable that emits a value when the image is refreshed.
+ */
 class GameImage(val width : Int, val height : Int) : RasterImage,
                                                      Icon
 {
     companion object
     {
+        /** A dummy 1x1 image. */
         val DUMMY = GameImage(1, 1)
+        /** A 32x32 image with a dark and light gray checkerboard pattern. */
         val DARK_LIGHT : GameImage by lazy {
             val gameImage = GameImage(32, 32)
             gameImage.clear(LIGHT_GRAY)
@@ -45,6 +69,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
             }
             gameImage
         }
+        /** A paint that uses the [DARK_LIGHT] image as a texture. */
         val DARK_LIGHT_PAINT : Paint by lazy {
             TexturePaint(GameImage.DARK_LIGHT.image,
                          Rectangle2D.Double(0.0, 0.0,
@@ -52,9 +77,33 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
                                             GameImage.DARK_LIGHT.height.toDouble()))
         }
 
+        /**
+         * Loads an image from an input stream.
+         *
+         * **Usage example:**
+         * ```kotlin
+         * val image = GameImage.load(inputStream)
+         * ```
+         *
+         * @param inputStream The input stream to load the image from.
+         * @return The loaded image.
+         */
         fun load(inputStream : InputStream) =
             this.load(inputStream, -1, -1)
 
+        /**
+         * Loads a thumbnail of an image from an input stream.
+         *
+         * **Usage example:**
+         * ```kotlin
+         * val thumbnail = GameImage.loadThumbnail(inputStream, 50, 50)
+         * ```
+         *
+         * @param inputStream The input stream to load the image from.
+         * @param imageWidth The width of the thumbnail.
+         * @param imageHeight The height of the thumbnail.
+         * @return The loaded thumbnail.
+         */
         fun loadThumbnail(inputStream : InputStream, imageWidth : Int, imageHeight : Int) =
             this.load(inputStream, imageWidth, imageHeight)
 
@@ -92,10 +141,15 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     }
 
     /**
-     * Save the image in desired image format
+     * Saves the image to an output stream in the specified format.
      *
-     * @param outputStream Stream where write the image
-     * @param imageFormat Image format destination
+     * **Usage example:**
+     * ```kotlin
+     * image.save(outputStream, ImageFormat.PNG)
+     * ```
+     *
+     * @param outputStream The output stream to save the image to.
+     * @param imageFormat The format to save the image in.
      */
     fun save(outputStream : OutputStream, imageFormat : ImageFormat)
     {
@@ -103,13 +157,24 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     }
 
     /**
-     * Image for draw in a swing component
+     * The underlying buffered image.
+     * 
      */
     internal val image : BufferedImage = BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
     private val refreshCount = AtomicInteger(0)
     private val refreshFlowData = ObservableSource<Int>(this.refreshCount.getAndIncrement())
     val refreshFlow : Observable<Int> = this.refreshFlowData.observable
 
+    /**
+     * Clears the image with the given color.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.clear(Color.RED)
+     * ```
+     *
+     * @param color The color to clear the image with.
+     */
     fun clear(color : Color)
     {
         val col = color.argb
@@ -118,6 +183,19 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         this.image.setRGB(0, 0, this.width, this.height, pixels, 0, this.width)
     }
 
+    /**
+     * Draws on the image using a [Graphics2D] context.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.draw { graphics ->
+     *     graphics.color = Color.BLUE
+     *     graphics.fillRect(10, 10, 80, 80)
+     * }
+     * ```
+     *
+     * @param drawer A lambda function that takes a [Graphics2D] context and draws on it.
+     */
     fun draw(drawer : (Graphics2D) -> Unit)
     {
         val graphics = this.image.createGraphics()
@@ -153,21 +231,76 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         graphics.dispose()
     }
 
+    /**
+     * Draws on the image using a [PercentGraphics] context.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.drawPercent { percentGraphics ->
+     *     percentGraphics.color = Color.BLUE
+     *     percentGraphics.fillRectangle(0.1, 0.1, 0.8, 0.8)
+     * }
+     * ```
+     *
+     * @param drawer A lambda function that takes a [PercentGraphics] context and draws on it.
+     */
     fun drawPercent(drawer : (PercentGraphics) -> Unit)
     {
         this.draw { graphics -> drawer(PercentGraphics(graphics, this.width, this.height)) }
     }
 
+    /**
+     * Draws the image on a [Graphics] context at the specified coordinates.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.drawOn(graphics, 10, 10)
+     * ```
+     *
+     * @param graphics The graphics context to draw on.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     */
     fun drawOn(graphics : Graphics, x : Int, y : Int)
     {
         graphics.drawImage(this.image, x, y, null)
     }
 
+    /**
+     * Draws the image on a [Graphics] context at the specified coordinates and with the specified dimensions.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.drawOn(graphics, 10, 10, 50, 50)
+     * ```
+     *
+     * @param graphics The graphics context to draw on.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     * @param width The width.
+     * @param height The height.
+     */
     fun drawOn(graphics : Graphics, x : Int, y : Int, width : Int, height : Int)
     {
         graphics.drawImage(this.image, x, y, width, height, null)
     }
 
+    /**
+     * Draws a part of the image on a [Graphics] context.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.drawOnPart(graphics, 10, 10, 20, 20, 30, 30)
+     * ```
+     *
+     * @param graphics The graphics context to draw on.
+     * @param x The x coordinate of the destination.
+     * @param y The y coordinate of the destination.
+     * @param imageX The x coordinate of the source.
+     * @param imageY The y coordinate of the source.
+     * @param width The width of the part to draw.
+     * @param height The height of the part to draw.
+     */
     fun drawOnPart(graphics : Graphics, x : Int, y : Int, imageX : Int, imageY : Int, width : Int, height : Int)
     {
         graphics.drawImage(this.image,
@@ -176,15 +309,44 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
                            null)
     }
 
+    /**
+     * Paints the icon at the specified location.
+     *
+     * @param ignored The component to paint on.
+     * @param graphics The graphics context.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     */
     override fun paintIcon(ignored : Component?, graphics : Graphics, x : Int, y : Int)
     {
         graphics.drawImage(this.image, x, y, null)
     }
 
+    /**
+     * Returns the icon's width.
+     */
     override fun getIconWidth() : Int = this.width
 
+    /**
+     * Returns the icon's height.
+     */
     override fun getIconHeight() : Int = this.height
 
+    /**
+     * Grabs the pixels of a part of the image.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val pixels = image.grabPixels(10, 10, 20, 20)
+     * ```
+     *
+     * @param x The x coordinate of the top-left corner of the part to grab.
+     * @param y The y coordinate of the top-left corner of the part to grab.
+     * @param width The width of the part to grab.
+     * @param height The height of the part to grab.
+     * @param offset The offset in the returned array.
+     * @return An array of the pixels.
+     */
     fun grabPixels(x : Int = 0,
                    y : Int = 0,
                    width : Int = this.width - x,
@@ -202,6 +364,20 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         return pixels
     }
 
+    /**
+     * Puts pixels on the image.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.putPixels(10, 10, 20, 20, pixels)
+     * ```
+     *
+     * @param x The x coordinate of the top-left corner.
+     * @param y The y coordinate of the top-left corner.
+     * @param width The width of the area to put the pixels on.
+     * @param height The height of the area to put the pixels on.
+     * @param pixels The pixels to put.
+     */
     fun putPixels(x : Int, y : Int, width : Int, height : Int, pixels : IntArray)
     {
         if (x < 0 || width <= 0 || y < 0 || height <= 0 || x + width > this.width || y + height > this.height)
@@ -219,6 +395,18 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         this.image.setRGB(x, y, width, height, pixels, 0, width)
     }
 
+    /**
+     * Resizes the image.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val resizedImage = image.resize(50, 50)
+     * ```
+     *
+     * @param targetWidth The new width.
+     * @param targetHeight The new height.
+     * @return The resized image.
+     */
     fun resize(targetWidth : Int, targetHeight : Int) : GameImage
     {
         val width = max(1, targetWidth)
@@ -235,6 +423,16 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         return resized
     }
 
+    /**
+     * Creates a copy of the image.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val copy = image.copy()
+     * ```
+     *
+     * @return A copy of the image.
+     */
     fun copy() : GameImage
     {
         val copy = GameImage(this.width, this.height)
@@ -242,6 +440,16 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         return copy
     }
 
+    /**
+     * Copies the given image to this image.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.copy(otherImage)
+     * ```
+     *
+     * @param image The image to copy.
+     */
     fun copy(image : GameImage)
     {
         argumentCheck(this.width == image.width && this.height == image.height)
@@ -250,6 +458,14 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         this.putPixels(0, 0, this.width, this.height, image.grabPixels())
     }
 
+    /**
+     * Converts the image to grayscale.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.gray()
+     * ```
+     */
     fun gray()
     {
         this.manipulatePixels { pixels ->
@@ -261,6 +477,16 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         }
     }
 
+    /**
+     * Tints the image with the given color.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.tint(Color.RED)
+     * ```
+     *
+     * @param color The color to tint the image with.
+     */
     fun tint(color : Color)
     {
         val (_, red, green, blue) = color.toArgb
@@ -275,6 +501,16 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         }
     }
 
+    /**
+     * Colorizes the image with the given color.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.colorize(Color.RED)
+     * ```
+     *
+     * @param color The color to colorize the image with.
+     */
     fun colorize(color : Color)
     {
         val colorPart = color.argb and 0x00_FF_FF_FF
@@ -289,6 +525,16 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         }
     }
 
+    /**
+     * Changes the contrast of the image.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.contrast(1.5)
+     * ```
+     *
+     * @param contrast The contrast factor.
+     */
     fun contrast(contrast : Double)
     {
         this.manipulatePixels { pixels ->
@@ -301,9 +547,14 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     }
 
     /**
-     * Compute the image rotated from 180 degree
+     * Rotates the image by 180 degrees.
      *
-     * @return Rotated image
+     * **Usage example:**
+     * ```kotlin
+     * val rotatedImage = image.rotate180()
+     * ```
+     *
+     * @return The rotated image.
      */
     fun rotate180() : GameImage
     {
@@ -329,9 +580,14 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     }
 
     /**
-     * Compute the image rotated from 270 degree
+     * Rotates the image by 270 degrees.
      *
-     * @return Rotated image
+     * **Usage example:**
+     * ```kotlin
+     * val rotatedImage = image.rotate270()
+     * ```
+     *
+     * @return The rotated image.
      */
     fun rotate270() : GameImage
     {
@@ -365,9 +621,14 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     }
 
     /**
-     * Compute the image rotated from 90 degree
+     * Rotates the image by 90 degrees.
      *
-     * @return Rotated image
+     * **Usage example:**
+     * ```kotlin
+     * val rotatedImage = image.rotate90()
+     * ```
+     *
+     * @return The rotated image.
      */
     fun rotate90() : GameImage
     {
@@ -403,16 +664,21 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     }
 
     /**
-     * Flip the image horizontally and vertically in same time.
+     * Flips the image horizontally and vertically at the same time.
      *
-     * Visually its same result as :
+     * Visually, it's the same result as:
      *
      * ```kotlin
-     *     image.flipHorizontal()
-     *     image.flipVertical()
+     * image.flipHorizontal()
+     * image.flipVertical()
      * ```
      *
-     * But it's done faster
+     * But it's done faster.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.flipBoth()
+     * ```
      */
     fun flipBoth()
     {
@@ -436,7 +702,12 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     }
 
     /**
-     * Flip the image horizontally
+     * Flips the image horizontally.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.flipHorizontal()
+     * ```
      */
     fun flipHorizontal()
     {
@@ -468,7 +739,12 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     }
 
     /**
-     * Flip the image vertically
+     * Flips the image vertically.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.flipVertical()
+     * ```
      */
     fun flipVertical()
     {
@@ -490,6 +766,16 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         }
     }
 
+    /**
+     * Converts the image to a [BufferedImage].
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val bufferedImage = image.toBufferedImage()
+     * ```
+     *
+     * @return The converted image.
+     */
     fun toBufferedImage() : BufferedImage
     {
         val image = BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
@@ -498,6 +784,20 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         return image
     }
 
+    /**
+     * Clears a rectangle in the image with the given color.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * image.clearRectangle(10, 10, 20, 20, Color.RED.argb)
+     * ```
+     *
+     * @param imageX The x coordinate of the top-left corner of the rectangle.
+     * @param imageY The y coordinate of the top-left corner of the rectangle.
+     * @param imageWidth The width of the rectangle.
+     * @param imageHeight The height of the rectangle.
+     * @param color The color to clear the rectangle with.
+     */
     fun clearRectangle(imageX : Int, imageY : Int, imageWidth : Int, imageHeight : Int, color : Int)
     {
         val minX = imageX.coerceIn(0 until this.width)
@@ -528,17 +828,32 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         }
     }
 
+    /**
+     * Clears the image with a transparent color.
+     */
     override fun clear()
     {
         this.clear(TRANSPARENT)
     }
 
+    /**
+     * Returns the width of the image.
+     */
     override fun width() : Int = this.width
 
+    /**
+     * Returns the height of the image.
+     */
     override fun height() : Int = this.height
 
+    /**
+     * Returns the type of the image.
+     */
     override fun imageType() : RasterImageType = RasterImageType.GAME_IMAGE
 
+    /**
+     * Returns the image itself.
+     */
     override fun toGameImage() : GameImage = this
 
     private fun manipulatePixels(pixelsModifier : (IntArray) -> Unit)

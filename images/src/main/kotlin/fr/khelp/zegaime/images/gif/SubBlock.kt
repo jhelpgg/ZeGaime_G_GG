@@ -5,21 +5,27 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * A sub-block
- * @param size Block data size
- * @param data Block data
+ * Represents a sub-block in a GIF file.
+ *
+ * @property size The size of the sub-block data.
+ * @property data The data of the sub-block.
+ * 
  */
 internal data class SubBlock(val size : Int, val data : ByteArray)
 
-/**Empty sub-block*/
+/**
+ * An empty sub-block.
+ * 
+ */
 internal val EMPTY = SubBlock(0, ByteArray(0))
 
 /**
- * Read next sub-block
+ * Reads the next sub-block from an input stream.
  *
- * @param inputStream Stream where read
- * @return Block read
- * @throws IOException If data not corresponds to a valid sub-block
+ * @param inputStream The input stream to read from.
+ * @return The sub-block read.
+ * @throws IOException If the data does not correspond to a valid sub-block.
+ * 
  */
 @Throws(IOException::class)
 internal fun readSubBlock(inputStream : InputStream) : SubBlock

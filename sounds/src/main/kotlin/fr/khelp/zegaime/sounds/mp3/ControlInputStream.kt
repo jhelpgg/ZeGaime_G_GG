@@ -9,9 +9,14 @@ import java.io.InputStream
 import java.io.RandomAccessFile
 
 /**
- * Input stream we can control the reading
+ * An input stream that can be controlled.
  *
- * @property file File to read
+ * @property file The file to read.
+ * @property pause Indicates if the stream reading is paused.
+ * @property size The size of the file.
+ * @property progressObservable An observable that emits the reading progress.
+ * @property position The current reading position.
+ * 
  */
 internal class ControlInputStream(private val file : File) : InputStream()
 {

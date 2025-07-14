@@ -11,9 +11,23 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * Binary image: Image with 2 colors, 1 per bit
- * @param width Image width
- * @param height Image height
+ * Represents a binary image, which has 2 colors and 1 bit per pixel.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val image = BinaryImage(100, 100)
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * image[10, 10] = true
+ * val gameImage = image.toGameImage()
+ * ```
+ *
+ * @property width The width of the image.
+ * @property height The height of the image.
+ * @property background The background color (for 0).
+ * @property foreground The foreground color (for 1).
  */
 class BinaryImage(private val width : Int, private val height : Int) : RasterImage
 {
@@ -52,10 +66,11 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
     }
 
     /**
-     * Check if given position inside the image
-     * @param x X
-     * @param y Y
-     * @throws IllegalArgumentException If (x, y) outside the image
+     * Checks if the given position is inside the image.
+     *
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     * @throws IllegalArgumentException If (x, y) is outside the image.
      */
     private fun check(x : Int, y : Int)
     {
@@ -67,7 +82,7 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
     }
 
     /**
-     * Clear the image
+     * Clears the image with a transparent color.
      */
     override fun clear()
     {
@@ -78,17 +93,21 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
     }
 
     /**
-     * Image type
-     * @return Image type
+     * Returns the type of the image.
      */
     override fun imageType() = RasterImageType.IMAGE_BINARY
 
     /**
-     * Indicates if image pixel bit is active or not
+     * Indicates if the pixel bit at the given coordinates is active or not.
      *
-     * @param x X
-     * @param y Y
-     * @return `true` if image pixel bit is active or not
+     * **Usage example:**
+     * ```kotlin
+     * val isActive = image[10, 10]
+     * ```
+     *
+     * @param x The x coordinate of the pixel.
+     * @param y The y coordinate of the pixel.
+     * @return `true` if the pixel bit is active, `false` otherwise.
      */
     operator fun get(x : Int, y : Int) : Boolean
     {
@@ -100,10 +119,11 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
     }
 
     /**
-     * Parse bitmap stream to image data
+     * Parses a bitmap stream to the image data.
      *
-     * @param inputStream Stream to parse
-     * @throws IOException On reading issue
+     * @param inputStream The stream to parse.
+     * @throws IOException On reading issue.
+     * 
      */
     @Throws(IOException::class)
     fun parseBitmapStream(inputStream : InputStream)
@@ -152,11 +172,16 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
     }
 
     /**
-     * Activate/deactivate one image pixel
+     * Activates or deactivates a pixel.
      *
-     * @param x  X
-     * @param y  Y
-     * @param on New active status
+     * **Usage example:**
+     * ```kotlin
+     * image[10, 10] = true
+     * ```
+     *
+     * @param x The x coordinate of the pixel.
+     * @param y The y coordinate of the pixel.
+     * @param on The new active status.
      */
     operator fun set(x : Int, y : Int, on : Boolean)
     {
@@ -176,10 +201,15 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
     }
 
     /**
-     * Change activation status of one pixel
+     * Switches the activation status of a pixel.
      *
-     * @param x X
-     * @param y Y
+     * **Usage example:**
+     * ```kotlin
+     * image.switchOnOff(10, 10)
+     * ```
+     *
+     * @param x The x coordinate of the pixel.
+     * @param y The y coordinate of the pixel.
      */
     fun switchOnOff(x : Int, y : Int)
     {
@@ -199,8 +229,9 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
     }
 
     /**
-     * Convert to JHelp Image
-     * @return Converted image
+     * Converts the image to a [GameImage].
+     *
+     * @return The converted image.
      */
     override fun toGameImage() : GameImage
     {
@@ -241,12 +272,12 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
     }
 
     /**
-     * Image height
+     * Returns the height of the image.
      */
     override fun height() = this.height
 
     /**
-     * Image width
+     * Returns the width of the image.
      */
     override fun width() = this.width
 }

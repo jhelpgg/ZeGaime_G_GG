@@ -9,7 +9,15 @@ import fr.khelp.zegaime.utils.extensions.serializeToByteArray
 import java.util.Calendar
 
 /**
- * Create condition that select rows, in given column, wih values are primary key equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given ID.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_ID EQUALS_ID 1
+ * ```
+ *
+ * @param id The ID to compare with.
+ * @return A new condition.
  */
 infix fun Column.EQUALS_ID(id : Int) : Condition
 {
@@ -18,7 +26,15 @@ infix fun Column.EQUALS_ID(id : Int) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given string.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_NAME EQUALS "test"
+ * ```
+ *
+ * @param string The string to compare with.
+ * @return A new condition.
  */
 infix fun Column.EQUALS(string : String) : Condition
 {
@@ -27,7 +43,15 @@ infix fun Column.EQUALS(string : String) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given boolean.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_ACTIVE EQUALS true
+ * ```
+ *
+ * @param value The boolean to compare with.
+ * @return A new condition.
  */
 infix fun Column.EQUALS(value : Boolean) : Condition
 {
@@ -43,7 +67,15 @@ infix fun Column.EQUALS(value : Boolean) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given byte.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_VALUE EQUALS 1.toByte()
+ * ```
+ *
+ * @param value The byte to compare with.
+ * @return A new condition.
  */
 infix fun Column.EQUALS(value : Byte) : Condition
 {
@@ -52,7 +84,15 @@ infix fun Column.EQUALS(value : Byte) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given short.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_VALUE EQUALS 1.toShort()
+ * ```
+ *
+ * @param value The short to compare with.
+ * @return A new condition.
  */
 infix fun Column.EQUALS(value : Short) : Condition
 {
@@ -61,7 +101,15 @@ infix fun Column.EQUALS(value : Short) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given integer.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_AGE EQUALS 18
+ * ```
+ *
+ * @param value The integer to compare with.
+ * @return A new condition.
  */
 infix fun Column.EQUALS(value : Int) : Condition
 {
@@ -70,7 +118,15 @@ infix fun Column.EQUALS(value : Int) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given long.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_TIMESTAMP EQUALS 1234567890L
+ * ```
+ *
+ * @param value The long to compare with.
+ * @return A new condition.
  */
 infix fun Column.EQUALS(value : Long) : Condition
 {
@@ -79,7 +135,15 @@ infix fun Column.EQUALS(value : Long) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given float.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_PRICE EQUALS 12.34f
+ * ```
+ *
+ * @param value The float to compare with.
+ * @return A new condition.
  */
 infix fun Column.EQUALS(value : Float) : Condition
 {
@@ -88,7 +152,15 @@ infix fun Column.EQUALS(value : Float) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given double.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_PRICE EQUALS 12.34
+ * ```
+ *
+ * @param value The double to compare with.
+ * @return A new condition.
  */
 infix fun Column.EQUALS(value : Double) : Condition
 {
@@ -97,7 +169,15 @@ infix fun Column.EQUALS(value : Double) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given byte array.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_DATA EQUALS byteArrayOf(1, 2, 3)
+ * ```
+ *
+ * @param value The byte array to compare with.
+ * @return A new condition.
  */
 infix fun Column.EQUALS(value : ByteArray) : Condition
 {
@@ -106,7 +186,15 @@ infix fun Column.EQUALS(value : ByteArray) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given integer array.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_DATA EQUALS intArrayOf(1, 2, 3)
+ * ```
+ *
+ * @param value The integer array to compare with.
+ * @return A new condition.
  */
 infix fun Column.EQUALS(value : IntArray) : Condition
 {
@@ -115,7 +203,15 @@ infix fun Column.EQUALS(value : IntArray) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given calendar.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_DATE EQUALS Calendar.getInstance()
+ * ```
+ *
+ * @param value The calendar to compare with.
+ * @return A new condition.
  */
 infix fun Column.EQUALS(value : Calendar) : Condition
 {
@@ -124,7 +220,15 @@ infix fun Column.EQUALS(value : Calendar) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given date.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_DATE EQUALS DataDate(2023, 1, 1)
+ * ```
+ *
+ * @param value The date to compare with.
+ * @return A new condition.
  */
 infix fun Column.EQUALS(value : DataDate) : Condition
 {
@@ -133,7 +237,15 @@ infix fun Column.EQUALS(value : DataDate) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given time.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val condition = COLUMN_TIME EQUALS DataTime(12, 0, 0)
+ * ```
+ *
+ * @param value The time to compare with.
+ * @return A new condition.
  */
 infix fun Column.EQUALS(value : DataTime) : Condition
 {
@@ -142,7 +254,16 @@ infix fun Column.EQUALS(value : DataTime) : Condition
 }
 
 /**
- * Create condition that select rows, in given column, wih values are equals to given parameter
+ * Creates a condition that checks if the column's value is equal to the given enum.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * enum class MyEnum { A, B }
+ * val condition = COLUMN_ENUM EQUALS MyEnum.A
+ * ```
+ *
+ * @param value The enum to compare with.
+ * @return A new condition.
  */
 infix fun <E : Enum<E>> Column.EQUALS(value : E) : Condition
 {
@@ -150,6 +271,9 @@ infix fun <E : Enum<E>> Column.EQUALS(value : E) : Condition
     return Condition(arrayOf(this), "${this.name}='${value::class.java.name}:${value.name}'")
 }
 
+/**
+ * 
+ */
 internal infix fun Column.EQUALS_ENUM(value : Any) : Condition
 {
     this.checkType(DataType.ENUM)

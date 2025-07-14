@@ -57,9 +57,31 @@ const val ROW_NOT_EXISTS = -1
 const val ROW_NOT_UNIQUE = -2
 
 /**
- * Represents the database
+ * Represents a database.
  *
- * It is recommend to close properly the database with [close] method when no more of it, at least before exit application.
+ * A database is a collection of tables. It is identified by a path on the file system.
+ * The database is encrypted with a login and a password.
+ *
+ * It is recommended to close the database properly with the [close] method when it is no longer needed,
+ * at least before exiting the application.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val database = Database.database("login", "password", "path/to/database")
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val table = database.table("myTable") {
+ *     "name" AS DataType.STRING
+ *     "age" AS DataType.INTEGER
+ * }
+ * // ...
+ * database.close()
+ * ```
+ *
+ * @property path The path to the database file.
+ * @see Table
  */
 class Database private constructor(login : String, password : String, val path : String) : Iterable<Table>
 {
@@ -69,7 +91,21 @@ class Database private constructor(login : String, password : String, val path :
         private var lock = Object()
 
         /**
-         * Create or open database link
+         * Creates or opens a database connection.
+         *
+         * If a database is already opened for the given path, it will be returned.
+         * Otherwise, a new database connection will be created.
+         *
+         * **Usage example:**
+         * ```kotlin
+         * val database = Database.database("login", "password", "path/to/database")
+         * ```
+         *
+         * @param login The login for the database.
+         * @param password The password for the database.
+         * @param path The path to the database file.
+         * @return The database instance.
+         * @throws LoginPasswordInvalidException if the login or password is not valid for an existing database.
          */
         fun database(login : String, password : String, path : String) : Database
         {
@@ -101,12 +137,21 @@ class Database private constructor(login : String, password : String, val path :
 
     private val initialized = AtomicBoolean(false)
 
-    /**Table taht cotains all tables reference*/
+    /**
+     * The table that contains all tables reference.
+     * 
+     */
     val metadataTableOfTables : Table
 
-    /**Table of tables' columns*/
+    /**
+     * The table of tables' columns.
+     * 
+     */
     val metadataTableOfTablesColumn : Table
 
+    /**
+     * Indicates if the database connection is closed.
+     */
     val closed get() = this.databaseConnection.isClosed
 
     init
@@ -148,6 +193,20 @@ class Database private constructor(login : String, password : String, val path :
         this.initialized.set(true)
     }
 
+    /**
+     * Checks if the given login and password are valid for this database.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * if (database.valid("login", "password")) {
+     *     // ...
+     * }
+     * ```
+     *
+     * @param login The login to check.
+     * @param password The password to check.
+     * @return `true` if the login and password are valid, `false` otherwise.
+     */
     fun valid(login : String, password : String) : Boolean
     {
         this.checkClose()
@@ -155,7 +214,12 @@ class Database private constructor(login : String, password : String, val path :
     }
 
     /**
-     * Commit last changes and close the database properly
+     * Commits the last changes and closes the database connection properly.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * database.close()
+     * ```
      */
     fun close()
     {
@@ -167,7 +231,15 @@ class Database private constructor(login : String, password : String, val path :
     }
 
     /**
-     * Obtain table by name
+     * Obtains a table by its name.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val table = database.obtainTable("myTable")
+     * ```
+     *
+     * @param name The name of the table to obtain.
+     * @return The table instance, or `null` if the table does not exist.
      */
     fun obtainTable(name : String) : Table?
     {
@@ -243,16 +315,36 @@ class Database private constructor(login : String, password : String, val path :
     }
 
     /**
-     * Remove a table from database
+     * Removes a table from the database.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * database.dropTable("myTable")
+     * ```
+     *
+     * @param tableName The name of the table to drop.
+     * @return `true` if the table was dropped successfully, `false` otherwise.
      */
     fun dropTable(tableName : String) =
         this.obtainTable(tableName)
             ?.let { table -> this.dropTable(table) } ?: false
 
     /**
-     * Create a table.
-     * See documentation to know more about table creation DSL syntax
-     * @return Created table
+     * Creates a table.
+     *
+     * See the documentation to know more about the table creation DSL syntax.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * val table = database.table("myTable") {
+     *     "name" AS DataType.STRING
+     *     "age" AS DataType.INTEGER
+     * }
+     * ```
+     *
+     * @param name The name of the table to create.
+     * @param creator A lambda function to define the table's columns.
+     * @return The created table.
      */
     @CreateTableDSL
     fun table(name : String, creator : Table.() -> Unit) : Table
@@ -264,7 +356,15 @@ class Database private constructor(login : String, password : String, val path :
     }
 
     /**
-     * Remove a table from database
+     * Removes a table from the database.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * database.dropTable(myTable)
+     * ```
+     *
+     * @param table The table to drop.
+     * @return `true` if the table was dropped successfully, `false` otherwise.
      */
     fun dropTable(table : Table) : Boolean
     {
@@ -304,7 +404,7 @@ class Database private constructor(login : String, password : String, val path :
     }
 
     /**
-     * Current existing tables
+     * Returns an iterator over the tables in the database.
      */
     override fun iterator() : Iterator<Table>
     {

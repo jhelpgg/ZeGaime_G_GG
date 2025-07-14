@@ -6,11 +6,25 @@ import fr.khelp.zegaime.utils.tasks.observable.Observable
 import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
 
 /**
- * Represents a preference to store
+ * Represents a preference to be stored.
  *
- * @property name Preference name
- * @property type Preference type
- * @param initialValue Preference initial value
+ * **Creation example:**
+ * This class is not meant to be instantiated directly.
+ * Use the `PreferencesDatabase.boolean`, `PreferencesDatabase.int`, etc. methods.
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val myPreference = PreferencesDatabase.boolean("myPreference", false)
+ * myPreference.value = true
+ * val currentValue = myPreference.value
+ * ```
+ *
+ * @param T The type of the preference value.
+ * @param PT The type of the preference type.
+ * @property name The name of the preference.
+ * @property type The type of the preference.
+ * @property value The current value of the preference.
+ * @property valueFlow An observable that emits the value of the preference when it changes.
  */
 sealed class Preference<T : Any, PT : PreferenceType<T>> protected constructor(val name : String,
                                                                                internal val type : PT,
@@ -35,12 +49,11 @@ sealed class Preference<T : Any, PT : PreferenceType<T>> protected constructor(v
         }
 
     /**
-     * Computes whether if a current value can be replaced by aa new value
+     * Computes whether a current value can be replaced by a new value.
      *
-     * @param currentValue Current value to change
-     * @param newValue New value for replace the current value
-     *
-     * @return Whether the replacement is allowed
+     * @param currentValue The current value to change.
+     * @param newValue The new value to replace the current value with.
+     * @return `true` if the replacement is allowed, `false` otherwise.
      */
     protected abstract fun allowUpdate(currentValue : T, newValue : T) : Boolean
 }

@@ -9,6 +9,20 @@ import javax.crypto.CipherInputStream
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.DESKeySpec
 
+/**
+ * A DES crypter.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val crypter = CrypterDES("myPassword")
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * crypter.encrypt(inputStream, outputStream)
+ * crypter.decrypt(inputStream, outputStream)
+ * ```
+ */
 class CrypterDES(password : String)
 {
     companion object
@@ -33,18 +47,38 @@ class CrypterDES(password : String)
     private var timeBetweenAttempt = 128L
     private val key = CrypterDES.computeKey(password)
 
+    /**
+     * Encrypts a stream.
+     *
+     * @param clearStream The stream to encrypt.
+     * @param encryptedStream The stream to write the encrypted data to.
+     * @throws IOException On IO error.
+     */
     @Throws(IOException::class)
     fun encrypt(clearStream : InputStream, encryptedStream : OutputStream)
     {
         this.desOperation(Cipher.ENCRYPT_MODE, clearStream, encryptedStream)
     }
 
+    /**
+     * Decrypts a stream.
+     *
+     * @param encryptedStream The stream to decrypt.
+     * @param clearStream The stream to write the decrypted data to.
+     * @throws IOException On IO error.
+     */
     @Throws(IOException::class)
     fun decrypt(encryptedStream : InputStream, clearStream : OutputStream)
     {
         this.desOperation(Cipher.DECRYPT_MODE, encryptedStream, clearStream)
     }
 
+    /**
+     * Checks if a password is valid.
+     *
+     * @param password The password to check.
+     * @return `true` if the password is valid, `false` otherwise.
+     */
     @Synchronized
     fun passwordValid(password : String) : Boolean
     {
@@ -66,6 +100,13 @@ class CrypterDES(password : String)
         return valid
     }
 
+    /**
+     * Checks if this crypter has the same key as another crypter.
+     *
+     * @param other The other crypter.
+     * @return `true` if the keys are the same, `false` otherwise.
+     * 
+     */
     internal fun sameKey(other : CrypterDES) =
         this.key.same(other.key)
 

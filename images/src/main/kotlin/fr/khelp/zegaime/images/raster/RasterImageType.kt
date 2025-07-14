@@ -3,7 +3,7 @@ package fr.khelp.zegaime.images.raster
 import fr.khelp.zegaime.images.bmp.BitmapHeader
 
 /**
- * Type of [RasterImage]
+ * Represents the type of a [RasterImage].
  */
 enum class RasterImageType
 {
@@ -45,10 +45,10 @@ enum class RasterImageType
     companion object
     {
         /**
-         * Get a raster image type by its number of bits: 1, 4, 8, 16, 24 OR 32
+         * Returns a raster image type by its number of bits: 1, 4, 8, 16, 24 OR 32.
          *
-         * @param bitCount Number of bits
-         * @return Raster image type OR `null` if not defined for given number of bits
+         * @param bitCount The number of bits.
+         * @return The raster image type, or `null` if it is not defined for the given number of bits.
          */
         fun getRasterImageType(bitCount : Int) =
             when (bitCount)

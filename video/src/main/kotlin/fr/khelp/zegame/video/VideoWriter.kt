@@ -8,8 +8,35 @@ import fr.khelp.zegaime.utils.io.writeInt
 import java.io.ByteArrayOutputStream
 import java.io.OutputStream
 
+/**
+ * A writer for creating a video.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val videoWriter = VideoWriter(640, 480, 25, outputStream)
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * videoWriter.appendImage(image1)
+ * videoWriter.appendImage(image2)
+ * videoWriter.close()
+ * ```
+ *
+ * @property width The width of the video.
+ * @property height The height of the video.
+ * @property fps The frames per second of the video.
+ * @property outputStream The output stream to write the video to.
+ */
 class VideoWriter(val width : Int, val height : Int, val fps : Int, val outputStream : OutputStream)
 {
+    /**
+     * Creates a new video writer with a default FPS of 25.
+     *
+     * @param width The width of the video.
+     * @param height The height of the video.
+     * @param outputStream The output stream to write the video to.
+     */
     constructor(width : Int, height : Int, outputStream : OutputStream) : this(width, height, 25, outputStream)
 
     init
@@ -19,6 +46,11 @@ class VideoWriter(val width : Int, val height : Int, val fps : Int, val outputSt
         this.writeHeader()
     }
 
+    /**
+     * Appends an image to the video.
+     *
+     * @param image The image to append.
+     */
     fun appendImage(image : GameImage)
     {
         val imageResized = image.resize(this.width, this.height)
@@ -27,6 +59,9 @@ class VideoWriter(val width : Int, val height : Int, val fps : Int, val outputSt
         this.outputStream.writeByteArray(byteArrayOutputStream.toByteArray())
     }
 
+    /**
+     * Closes the video writer.
+     */
     fun close()
     {
         this.outputStream.writeByteArray(ByteArray(0))

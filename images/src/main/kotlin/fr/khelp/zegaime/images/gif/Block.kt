@@ -4,8 +4,11 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * Block of information
+ * Represents a block of information in a GIF file.
+ *
+ * @property type The type of the block.
  * @see <a href="http://www.w3.org/Graphics/GIF/spec-gif89a.txt">GIF specification</a>
+ * 
  */
 internal abstract class Block
 {
@@ -14,57 +17,59 @@ internal abstract class Block
         internal set
 
     /**
-     * Read block specific data.
+     * Reads the block specific data from an input stream.
      *
-     * Note : the type and eventual sub-type are already read and set
+     * Note: The type and eventual sub-type are already read and set.
      *
-     * @param inputStream Stream to read
-     * @throws IOException If stream not contains valid data for the target block
+     * @param inputStream The input stream to read from.
+     * @throws IOException If the stream does not contain valid data for the target block.
      */
     @Throws(IOException::class)
     internal abstract fun read(inputStream: InputStream)
 }
 
 /**
- * Block ignored appear on some malformed GIF
+ * Represents an ignored block, which can appear in some malformed GIF files.
+ * 
  */
 internal object IgnoreBlock : Block()
 {
     /**
-     * Read the block
+     * Reads the block.
      *
-     * @param inputStream Stream to read
-     * @throws IOException Never happen
-     * @see Block.read
+     * @param inputStream The input stream to read from.
+     * @throws IOException Never happens.
      */
     @Throws(IOException::class)
     override fun read(inputStream: InputStream) = Unit
 }
 
 /**
- * Block that end GIF stream
+ * Represents the end of a GIF stream.
+ *
  * @see <a href="http://www.w3.org/Graphics/GIF/spec-gif89a.txt">GIF specification</a>
+ * 
  */
 internal object EndBlock : Block()
 {
     /**
-     * Read the block
+     * Reads the block.
      *
-     * @param inputStream Stream to read
-     * @throws IOException Never happen
-     * @see Block.read
+     * @param inputStream The input stream to read from.
+     * @throws IOException Never happens.
      */
     @Throws(IOException::class)
     override fun read(inputStream: InputStream) = Unit
 }
 
 /**
- * Read next block from stream
+ * Reads the next block from an input stream.
  *
- * @param inputStream     Stream to read
- * @param colorResolution Color resolution
- * @return Read block
- * @throws IOException If stream not contains a valid block
+ * @param inputStream The input stream to read from.
+ * @param colorResolution The color resolution.
+ * @return The block read.
+ * @throws IOException If the stream does not contain a valid block.
+ * 
  */
 @Throws(IOException::class)
 internal fun readBlock(inputStream: InputStream, colorResolution: Int): Block

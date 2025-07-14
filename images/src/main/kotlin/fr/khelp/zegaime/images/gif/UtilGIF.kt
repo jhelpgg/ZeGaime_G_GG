@@ -7,10 +7,11 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * Append ASCII byte to a string builder
+ * Appends ASCII bytes to a string builder.
  *
- * @param stringBuilder String builder where append
- * @param data          ASCII bytes to append
+ * @param stringBuilder The string builder to append to.
+ * @param data The ASCII bytes to append.
+ * 
  */
 fun appendAsciiBytes(stringBuilder : StringBuilder, data : ByteArray)
 {
@@ -22,11 +23,12 @@ fun appendAsciiBytes(stringBuilder : StringBuilder, data : ByteArray)
 }
 
 /**
- * Read a 2 byte integer
+ * Reads a 2-byte integer from an input stream.
  *
- * @param inputStream Stream to read
- * @return Read integer
- * @throws IOException If stream close or reach end before the 2 bytes are read
+ * @param inputStream The input stream to read from.
+ * @return The integer read.
+ * @throws IOException If the stream closes or reaches the end before the 2 bytes are read.
+ * 
  */
 @Throws(IOException::class)
 fun read2ByteInt(inputStream : InputStream) : Int
@@ -43,12 +45,13 @@ fun read2ByteInt(inputStream : InputStream) : Int
 }
 
 /**
- * Read ASCII String in stream
+ * Reads an ASCII string from an input stream.
  *
- * @param size        String size
- * @param inputStream Stream to read
- * @return String read
- * @throws IOException If stream close or end before read the all String
+ * @param size The size of the string.
+ * @param inputStream The input stream to read from.
+ * @return The string read.
+ * @throws IOException If the stream closes or ends before reading the entire string.
+ * 
  */
 @Throws(IOException::class)
 fun readString(size : Int, inputStream : InputStream) : String

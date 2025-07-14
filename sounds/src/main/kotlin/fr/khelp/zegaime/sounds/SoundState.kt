@@ -1,25 +1,25 @@
 package fr.khelp.zegaime.sounds
 
 /**
- * Sound possible state
+ * Represents the possible states of a sound.
  */
 enum class SoundState
 {
-    /** Indicates that sound never launched */
+    /** Indicates that the sound has never been launched. */
     NOT_LAUNCHED,
 
-    /** Indicates sound is stopped */
+    /** Indicates that the sound is stopped. */
     STOPPED,
 
-    /** Indicates sound is playing */
+    /** Indicates that the sound is playing. */
     PLAYING,
 
-    /** Indicates sound is in pause */
+    /** Indicates that the sound is paused. */
     PAUSED,
 
-    /** Indicates sound is on error */
+    /** Indicates that the sound is in an error state. */
     ERROR,
 
-    /** Indicates sound is destroyed and can't be used */
+    /** Indicates that the sound is destroyed and can't be used. */
     DESTROYED
 }

@@ -5,16 +5,34 @@ import fr.khelp.zegaime.database.WhereDSL
 import fr.khelp.zegaime.database.condition.Condition
 
 /**
- * For delete rows in table
+ * Represents a delete query.
  *
- * See documentation for delete DSL syntax
+ * **Creation example:**
+ * This class is not meant to be instantiated directly.
+ * Use the `Table.delete` method.
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * table.delete {
+ *     where { condition = COLUMN_AGE LESS_THAN 18 }
+ * }
+ * ```
+ *
+ * @property table The table to delete from.
  */
 class Delete internal constructor(val table : Table)
 {
     private var condition : Condition? = null
 
     /**
-     * Specify delete condition
+     * Specifies the delete condition.
+     *
+     * **Usage example:**
+     * ```kotlin
+     * where { condition = COLUMN_AGE LESS_THAN 18 }
+     * ```
+     *
+     * @param whereCreator A lambda function to define the where clause.
      */
     @WhereDSL
     fun where(whereCreator : Where.() -> Unit)
@@ -25,6 +43,10 @@ class Delete internal constructor(val table : Table)
         this.condition = condition
     }
 
+    /**
+     * Returns the SQL representation of the delete query.
+     * 
+     */
     internal fun deleteSQL() : String
     {
         val query = StringBuilder()

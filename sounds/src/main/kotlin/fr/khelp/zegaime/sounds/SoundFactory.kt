@@ -11,7 +11,7 @@ import java.io.InputStream
 import java.net.URL
 
 /**
- * Sounds directory
+ * The directory where sounds are stored.
  */
 val DIRECTORY_SOUNDS : File by lazy {
     val directory = File(outsideDirectory, "media/sounds/")
@@ -20,11 +20,15 @@ val DIRECTORY_SOUNDS : File by lazy {
 }
 
 /**
- * Creates sound from file
+ * Creates a sound from a file.
  *
- * @param file Sound file
+ * **Usage example:**
+ * ```kotlin
+ * val sound = soundFromFile(myFile)
+ * ```
  *
- * @return Created sound
+ * @param file The sound file.
+ * @return The created sound.
  */
 fun soundFromFile(file : File) : Sound
 {
@@ -41,11 +45,15 @@ fun soundFromFile(file : File) : Sound
 }
 
 /**
- * Create sound from distant URL
+ * Creates a sound from a distant URL.
  *
- * @param url URL where get the sound
+ * **Usage example:**
+ * ```kotlin
+ * val sound = soundFromURL(myUrl)
+ * ```
  *
- * @return Created sound
+ * @param url The URL where to get the sound.
+ * @return The created sound.
  */
 fun soundFromURL(url : URL) : Sound
 {
@@ -60,12 +68,16 @@ fun soundFromURL(url : URL) : Sound
 }
 
 /**
- * Create sound from a stream
+ * Creates a sound from a stream.
  *
- * @param streamProducer Stream producer
- * @param fileName File name to give to the sound
+ * **Usage example:**
+ * ```kotlin
+ * val sound = soundFromStream({ myInputStream }, "mySound.wav")
+ * ```
  *
- * @return Created sound
+ * @param streamProducer The stream producer.
+ * @param fileName The file name to give to the sound.
+ * @return The created sound.
  */
 fun soundFromStream(streamProducer : () -> InputStream, fileName : String) : Sound
 {

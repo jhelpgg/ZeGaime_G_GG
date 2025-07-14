@@ -12,9 +12,10 @@ import java.io.File
 import javazoom.jl.player.Player
 
 /**
- * Sound to read MP3
+ * A sound that can be read from an MP3 file.
  *
- * @param file MP3 sound file
+ * @param file The MP3 sound file.
+ * 
  */
 internal class SoundMP3(file : File) : SoundInterface
 {
@@ -54,9 +55,9 @@ internal class SoundMP3(file : File) : SoundInterface
     override val soundProgress : Observable<SoundProgress> = this.controlInputStream.progressObservable
 
     /**
-     * Destroy the sound to free some memory
+     * Destroys the sound to free some memory.
      *
-     * The sound can't be used after that
+     * The sound can't be used after that.
      */
     override fun destroy()
     {
@@ -78,7 +79,7 @@ internal class SoundMP3(file : File) : SoundInterface
     }
 
     /**
-     * Play the sound
+     * Plays the sound.
      */
     override fun play()
     {
@@ -116,7 +117,7 @@ internal class SoundMP3(file : File) : SoundInterface
     }
 
     /**
-     * Stop the sound
+     * Stops the sound.
      */
     override fun stop()
     {
@@ -130,7 +131,7 @@ internal class SoundMP3(file : File) : SoundInterface
     }
 
     /**
-     * Pause the sound
+     * Pauses the sound.
      */
     override fun pause()
     {
@@ -146,7 +147,7 @@ internal class SoundMP3(file : File) : SoundInterface
     }
 
     /**
-     * Play the sound
+     * Plays the sound.
      */
     private fun taskPlayTheSound()
     {

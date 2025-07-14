@@ -9,11 +9,11 @@ import javax.sound.sampled.Clip
 import javax.sound.sampled.DataLine.Info
 
 /**
- * Create sound stream and clip for play it
+ * Creates a sound stream and a clip to play it.
  *
- * @param file Sound file
- *
- * @return Pair of created stream and clip
+ * @param file The sound file.
+ * @return A pair of the created stream and clip.
+ * 
  */
 internal fun createSound(file : File) : Pair<AudioInputStream, Clip>
 {

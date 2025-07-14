@@ -4,7 +4,10 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * Extension block
+ * Represents an extension block in a GIF file.
+ *
+ * @property subType The sub-type of the extension block.
+ * 
  */
 internal abstract class BlockExtension : Block()
 {
@@ -14,13 +17,14 @@ internal abstract class BlockExtension : Block()
 }
 
 /**
- * Read an extension block
+ * Reads an extension block from an input stream.
  *
- * Note the type is already read and set
+ * Note: The type is already read and set.
  *
- * @param inputStream Stream to read
- * @return Read block
- * @throws IOException If stream not contains available sub-type
+ * @param inputStream The input stream to read from.
+ * @return The block read.
+ * @throws IOException If the stream does not contain an available sub-type.
+ * 
  */
 @Throws(IOException::class)
 internal fun readBlockExtension(inputStream: InputStream): BlockExtension

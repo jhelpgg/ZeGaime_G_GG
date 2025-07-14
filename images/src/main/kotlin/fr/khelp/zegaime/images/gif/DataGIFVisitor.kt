@@ -3,28 +3,30 @@ package fr.khelp.zegaime.images.gif
 import fr.khelp.zegaime.images.GameImage
 
 /**
- * Visitor for collect images from [DataGIF] with the method [DataGIF.collectImages]
+ * Visitor for collecting images from a [DataGIF].
+ *
+ * @see DataGIF.collectImages
  */
 interface DataGIFVisitor
 {
     /**
-     * Called when collecting is finished
+     * Called when the collection of images is finished.
      */
-    abstract fun endCollecting()
+    fun endCollecting()
 
     /**
-     * Called when next image is computed
+     * Called when the next image is computed.
      *
-     * @param duration Image duration in milliseconds
-     * @param image    Image computed
+     * @param duration The duration of the image in milliseconds.
+     * @param image The computed image.
      */
-    abstract fun nextImage(duration : Long, image : GameImage)
+    fun nextImage(duration : Long, image : GameImage)
 
     /**
-     * Called when collecting starts
+     * Called when the collection of images starts.
      *
-     * @param width  Images width
-     * @param height Images height
+     * @param width The width of the images.
+     * @param height The height of the images.
      */
-    abstract fun startCollecting(width : Int, height : Int)
+    fun startCollecting(width : Int, height : Int)
 }

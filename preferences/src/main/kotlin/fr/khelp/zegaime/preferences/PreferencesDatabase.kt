@@ -19,6 +19,12 @@ import fr.khelp.zegaime.preferences.type.PreferenceTypeString
 import fr.khelp.zegaime.utils.extensions.ifElse
 import java.util.Optional
 
+/**
+ * A database for storing preferences.
+ *
+ * This object provides methods to get and set preferences of different types.
+ * The preferences are stored in a database, so they are persisted between application launches.
+ */
 object PreferencesDatabase
 {
     private const val NAME = "Name"
@@ -36,16 +42,19 @@ object PreferencesDatabase
     private val cache = HashMap<String, Preference<*, *>>()
 
     /**
-     * Gets a Boolean preference
+     * Gets a boolean preference.
      *
-     * Note:
-     * > If the preference does not exist, a new one is created with a default value
+     * If the preference does not exist, a new one is created with a default value of `false`.
      *
-     * @param name Preference name
+     * **Usage example:**
+     * ```kotlin
+     * val myPreference = PreferencesDatabase.getBoolean("myPreference")
+     * myPreference.value = true
+     * ```
      *
-     * @return The Boolean preference
-     *
-     * @throws IllegalArgumentException If preference name already exists but not stores a Boolean value
+     * @param name The name of the preference.
+     * @return The boolean preference.
+     * @throws IllegalArgumentException If a preference with the same name already exists but is not a boolean.
      */
     fun getBoolean(name : String) : PreferenceBoolean
     {
@@ -55,16 +64,19 @@ object PreferencesDatabase
     }
 
     /**
-     * Gets Int preference
+     * Gets an integer preference.
      *
-     * Note:
-     * > If the preference does not exist, a new one is created with a default value
+     * If the preference does not exist, a new one is created with a default value of `0`.
      *
-     * @param name Preference name
+     * **Usage example:**
+     * ```kotlin
+     * val myPreference = PreferencesDatabase.getInt("myPreference")
+     * myPreference.value = 1
+     * ```
      *
-     * @return The Int preference
-     *
-     * @throws IllegalArgumentException If preference name already exists but not stores Int value
+     * @param name The name of the preference.
+     * @return The integer preference.
+     * @throws IllegalArgumentException If a preference with the same name already exists but is not an integer.
      */
     fun getInt(name : String) : PreferenceInt
     {
@@ -74,16 +86,19 @@ object PreferencesDatabase
     }
 
     /**
-     * Gets Long preference
+     * Gets a long preference.
      *
-     * Note:
-     * > If the preference does not exist, a new one is created with a default value
+     * If the preference does not exist, a new one is created with a default value of `0L`.
      *
-     * @param name Preference name
+     * **Usage example:**
+     * ```kotlin
+     * val myPreference = PreferencesDatabase.getLong("myPreference")
+     * myPreference.value = 1L
+     * ```
      *
-     * @return The Long preference
-     *
-     * @throws IllegalArgumentException If preference name already exists but not stores Long value
+     * @param name The name of the preference.
+     * @return The long preference.
+     * @throws IllegalArgumentException If a preference with the same name already exists but is not a long.
      */
     fun getLong(name : String) : PreferenceLong
     {
@@ -93,16 +108,19 @@ object PreferencesDatabase
     }
 
     /**
-     * Gets Float preference
+     * Gets a float preference.
      *
-     * Note:
-     * > If the preference does not exist, a new one is created with a default value
+     * If the preference does not exist, a new one is created with a default value of `0.0f`.
      *
-     * @param name Preference name
+     * **Usage example:**
+     * ```kotlin
+     * val myPreference = PreferencesDatabase.getFloat("myPreference")
+     * myPreference.value = 1.0f
+     * ```
      *
-     * @return The Float preference
-     *
-     * @throws IllegalArgumentException If preference name already exists but not stores Float value
+     * @param name The name of the preference.
+     * @return The float preference.
+     * @throws IllegalArgumentException If a preference with the same name already exists but is not a float.
      */
     fun getFloat(name : String) : PreferenceFloat
     {
@@ -112,16 +130,19 @@ object PreferencesDatabase
     }
 
     /**
-     * Gets Double preference
+     * Gets a double preference.
      *
-     * Note:
-     * > If the preference does not exist, a new one is created with a default value
+     * If the preference does not exist, a new one is created with a default value of `0.0`.
      *
-     * @param name Preference name
+     * **Usage example:**
+     * ```kotlin
+     * val myPreference = PreferencesDatabase.getDouble("myPreference")
+     * myPreference.value = 1.0
+     * ```
      *
-     * @return The Double preference
-     *
-     * @throws IllegalArgumentException If preference name already exists but not stores Double value
+     * @param name The name of the preference.
+     * @return The double preference.
+     * @throws IllegalArgumentException If a preference with the same name already exists but is not a double.
      */
     fun getDouble(name : String) : PreferenceDouble
     {
@@ -131,16 +152,19 @@ object PreferencesDatabase
     }
 
     /**
-     * Gets String preference
+     * Gets a string preference.
      *
-     * Note:
-     * > If the preference does not exist, a new one is created with a default value
+     * If the preference does not exist, a new one is created with a default value of `""`.
      *
-     * @param name Preference name
+     * **Usage example:**
+     * ```kotlin
+     * val myPreference = PreferencesDatabase.getString("myPreference")
+     * myPreference.value = "hello"
+     * ```
      *
-     * @return The String preference
-     *
-     * @throws IllegalArgumentException If preference name already exists but not stores String value
+     * @param name The name of the preference.
+     * @return The string preference.
+     * @throws IllegalArgumentException If a preference with the same name already exists but is not a string.
      */
     fun getString(name : String) : PreferenceString
     {
@@ -149,6 +173,12 @@ object PreferencesDatabase
         }
     }
 
+    /**
+     * Updates a preference in the database.
+     *
+     * @param preference The preference to update.
+     * 
+     */
     internal fun <T : Any, PT : PreferenceType<T>> update(preference : Preference<T, PT>)
     {
         this.tablePreferences.update {
@@ -159,19 +189,16 @@ object PreferencesDatabase
     }
 
     /**
-     * Gets a preference by its name
+     * Gets a preference by its name.
      *
-     * Note:
-     * > If the preference does not exist, a new one is created with a default value
+     * If the preference does not exist, a new one is created with the given default value.
      *
-     * @param name Preference name
-     * @param defaultValue Default value if preference not already exists
-     * @param preferenceType Expected preference type
-     * @param newInstance Called if need creates a new instance
-     *
-     * @return The preference
-     *
-     * @throws IllegalArgumentException If preference name already exists but not expected type
+     * @param name The name of the preference.
+     * @param defaultValue The default value if the preference does not already exist.
+     * @param preferenceType The expected type of the preference.
+     * @param newInstance A function to create a new instance of the preference.
+     * @return The preference.
+     * @throws IllegalArgumentException If a preference with the same name already exists but has a different type.
      */
     private fun <T : Any, PT : PreferenceType<T>, P : Preference<T, PT>> getPreference(name : String,
                                                                                        defaultValue : T,
@@ -189,7 +216,7 @@ object PreferencesDatabase
                 throw IllegalArgumentException("The preference $name is ${preference.type} not a $preferenceType")
             }
 
-            @Suppress("UNCHECKED_CAST")
+            ("UNCHECKED_CAST")
             return preference as P
         }
 
@@ -222,11 +249,10 @@ object PreferencesDatabase
     }
 
     /**
-     * Queries preference information by its name
+     * Queries preference information by its name.
      *
-     * @param name Preference name
-     *
-     * @return Preference information if stored in database
+     * @param name The name of the preference.
+     * @return The preference information if stored in the database.
      */
     private fun getPreferenceInfo(name : String) : Optional<Pair<PreferenceType<*>, String>>
     {
@@ -265,9 +291,9 @@ object PreferencesDatabase
     }
 
     /**
-     * Stores a preference in database
+     * Stores a preference in the database.
      *
-     * @param preference Preference to store
+     * @param preference The preference to store.
      */
     private fun <T : Any, PT : PreferenceType<T>> store(preference : Preference<T, PT>)
     {

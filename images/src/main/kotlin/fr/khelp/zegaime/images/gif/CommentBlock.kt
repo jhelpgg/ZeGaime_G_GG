@@ -4,7 +4,10 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * Block of comment
+ * Represents a comment block in a GIF file.
+ *
+ * @property comment The comment text.
+ * 
  */
 internal class CommentBlock : BlockExtension()
 {
@@ -13,11 +16,10 @@ internal class CommentBlock : BlockExtension()
         private set
 
     /**
-     * Read the block information
+     * Reads the block information from an input stream.
      *
-     * @param inputStream Stream to read
-     * @throws IOException If stream contains invalid comment block extension data
-     * @see Block.read
+     * @param inputStream The input stream to read from.
+     * @throws IOException If the stream contains invalid comment block extension data.
      */
     @Throws(IOException::class)
     override fun read(inputStream: InputStream)

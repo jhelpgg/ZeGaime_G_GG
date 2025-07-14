@@ -8,8 +8,16 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * Image description block
- * @param colorResolution Color resolution level
+ * Represents an image descriptor block in a GIF file.
+ *
+ * @property colorResolution The color resolution of the image.
+ * @property colorIndexes The uncompressed color indexes of the image.
+ * @property height The height of the image.
+ * @property localColorTable The local color table of the image, if any.
+ * @property width The width of the image.
+ * @property x The x coordinate of the image.
+ * @property y The y coordinate of the image.
+ * 
  */
 internal class ImageDescriptorBlock internal constructor(val colorResolution : Int) : Block()
 {
@@ -361,10 +369,10 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution : I
     }
 
     /**
-     * Read image descriptor block
-     * @param inputStream Stream to read
-     * @throws IOException If stream is not a valid image descriptor block
-     * @see Block.read
+     * Reads the image descriptor block from an input stream.
+     *
+     * @param inputStream The input stream to read from.
+     * @throws IOException If the stream is not a valid image descriptor block.
      */
     @Throws(IOException::class)
     override fun read(inputStream : InputStream)
