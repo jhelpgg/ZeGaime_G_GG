@@ -1,14 +1,6 @@
 package fr.khelp.zegaime.engine3d
 
-import fr.khelp.zegaime.engine3d.events.ActionCode
-import fr.khelp.zegaime.engine3d.render.GREEN
-import fr.khelp.zegaime.engine3d.render.RED
-import fr.khelp.zegaime.engine3d.render.Texture
-import fr.khelp.zegaime.engine3d.scene.prebuilt.Plane
-import fr.khelp.zegaime.resources.WARNING_IMAGE_64
-import fr.khelp.zegaime.utils.logs.debug
 import kotlin.math.max
-import org.lwjgl.glfw.GLFW
 
 /**
  * Creates a window 3D decorated
