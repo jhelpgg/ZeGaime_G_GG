@@ -1,9 +1,11 @@
 package fr.khelp.zegaime.utils.tasks.future
 
+import fr.khelp.zegaime.utils.tasks.TaskContext
 import fr.khelp.zegaime.utils.tasks.future.status.FutureCanceled
 import fr.khelp.zegaime.utils.tasks.future.status.FutureComputing
 import fr.khelp.zegaime.utils.tasks.future.status.FutureFailed
 import fr.khelp.zegaime.utils.tasks.future.status.FutureSucceed
+import java.util.concurrent.atomic.AtomicInteger
 
 /** Simplify [Future] of [Future] */
 val <T : Any> Future<Future<T>>.unwrap : Future<T>
@@ -138,3 +140,66 @@ fun <P1 : Any, P2 : Any, R : Any> Future<P1>.combine(future : Future<P2>, combin
         }
     }.unwrap
 
+/**
+ * Create a future result that completes when all given futures completes
+ */
+fun joinAll(futures : List<Future<*>>) : Future<Unit>
+{
+    val promise = Promise<Unit>()
+
+    when (futures.size)
+    {
+        0    -> promise.result(Unit)
+        1    -> futures[0].afterComplete { promise.result(Unit) }
+        else ->
+        {
+            val left = AtomicInteger(futures.size)
+            val action : () -> Unit = {
+                if (left.decrementAndGet() == 0)
+                {
+                    promise.result(Unit)
+                }
+            }
+
+            for (future in futures)
+            {
+                future.afterComplete { action() }
+            }
+        }
+    }
+
+    return promise.future
+}
+
+/**
+ * Create future result that completes when both given futures completes.
+ *
+ * The result future will have the futures as result to be able know their status and potential result
+ */
+fun <R1 : Any, R2 : Any> join(future1 : Future<R1>,
+                              future2 : Future<R2>) : Future<Pair<Future<R1>, Future<R2>>> =
+    join(TaskContext.INDEPENDENT, future1, future2)
+
+/**
+ * Create future result that completes when both given futures completes.
+ *
+ * The result future will have the futures as result to be able know their status and potential result
+ */
+fun <R1 : Any, R2 : Any> join(context : TaskContext,
+                              future1 : Future<R1>,
+                              future2 : Future<R2>) : Future<Pair<Future<R1>, Future<R2>>>
+{
+    val numberLeft = AtomicInteger(2)
+    val promise = Promise<Pair<Future<R1>, Future<R2>>>()
+    val task : (Future<*>) -> Unit = { _ ->
+        if (numberLeft.decrementAndGet() == 0)
+        {
+            promise.result(Pair(future1, future2))
+        }
+    }
+
+    future1.afterComplete(context, task)
+    future2.afterComplete(context, task)
+
+    return promise.future
+}

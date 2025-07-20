@@ -23,6 +23,9 @@ val EPSILON_FLOAT = maxOf(Float.MIN_VALUE,
                           abs(Math.E.toFloat() - exp(1.0).toFloat()),
                           abs(Math.PI.toFloat() - acos(-1.0).toFloat()))
 
+
+const val PI_FLOAT : Float = PI.toFloat()
+
 const val CENTIMETER_IN_PICA = 6.0 / 2.54
 
 /** One centimeter in point  */

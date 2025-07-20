@@ -1,6 +1,7 @@
 package fr.khelp.zegaime.resources
 
 import fr.khelp.zegaime.images.GameImage
+import fr.khelp.zegaime.images.gif.GIF
 import fr.khelp.zegaime.images.pcx.PCX
 import fr.khelp.zegaime.resources.images.ImageDescription
 import fr.khelp.zegaime.resources.images.ImageLoad
@@ -90,6 +91,9 @@ class Resources(private val source : ReferenceSource)
     /** Videos cache */
     private val videosCache = Cache<String, Video>(32) { path -> videoReader(this.inputStream(path)) }
 
+    /** Gifs cache */
+    private val gifsCache = Cache<String, GIF>(32) { path -> GIF(this.inputStream(path)) }
+
     /**
      * Obtain a resource text.
      *
@@ -141,6 +145,9 @@ class Resources(private val source : ReferenceSource)
      */
     fun video(path : String) : Video =
         this.videosCache[path]
+
+    fun gif(path : String) : GIF =
+        this.gifsCache[path]
 
     /**
      * Get a stream from a path

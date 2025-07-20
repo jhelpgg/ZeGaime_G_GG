@@ -173,6 +173,11 @@ object PreferencesDatabase
         }
     }
 
+    fun close()
+    {
+        this.database.close()
+    }
+
     /**
      * Updates a preference in the database.
      *

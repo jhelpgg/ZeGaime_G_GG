@@ -181,6 +181,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         val length = this.width * this.height
         val pixels = IntArray(length) { col }
         this.image.setRGB(0, 0, this.width, this.height, pixels, 0, this.width)
+        this.refresh()
     }
 
     /**
@@ -229,6 +230,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
 
         drawer(graphics)
         graphics.dispose()
+        this.refresh()
     }
 
     /**
@@ -393,6 +395,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         }
 
         this.image.setRGB(x, y, width, height, pixels, 0, width)
+        this.refresh()
     }
 
     /**

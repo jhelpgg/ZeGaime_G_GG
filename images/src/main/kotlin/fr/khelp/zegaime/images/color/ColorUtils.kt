@@ -1,5 +1,9 @@
 package fr.khelp.zegaime.images.color
 
+import fr.khelp.zegaime.utils.extensions.blue
+import fr.khelp.zegaime.utils.extensions.green
+import fr.khelp.zegaime.utils.extensions.red
+
 val Color.toArgb : ARGB
     get() =
         when (this)
@@ -41,8 +45,46 @@ val Color.argb : Int
         return (argb.alpha shl 24) or (argb.red shl 16) or (argb.green shl 8) or argb.blue
     }
 
+val Color.alpha : Int
+    get() =
+        when (this)
+        {
+            is ARGB -> this.alpha
+            is AYUV -> this.alpha
+        }
+
+val Color.red : Int
+    get() =
+        when (this)
+        {
+            is ARGB -> this.red
+            is AYUV -> this.argb.red
+        }
+
+val Color.green : Int
+    get() =
+        when (this)
+        {
+            is ARGB -> this.green
+            is AYUV -> this.argb.green
+        }
+
+val Color.blue : Int
+    get() =
+        when (this)
+        {
+            is ARGB -> this.blue
+            is AYUV -> this.argb.blue
+        }
+
 fun argb(alpha : Int, red : Int, green : Int, blue : Int) : ARGB = ARGB(alpha, red, green, blue)
+fun argb(alpha : Float, red : Float, green : Float, blue : Float) : ARGB =
+    ARGB((alpha * 255).toInt(), (red).toInt(), (green).toInt(), (blue).toInt())
+
 fun rgb(red : Int, green : Int, blue : Int) : ARGB = ARGB(255, red, green, blue)
+fun rgb(red : Float, green : Float, blue : Float) : ARGB =
+    ARGB(255, (red).toInt(), (green).toInt(), (blue).toInt())
+
 fun gray(alpha : Int, gray : Int) : ARGB = ARGB(alpha, gray, gray, gray)
 fun gray(gray : Int) : ARGB = ARGB(255, gray, gray, gray)
 fun ayuv(alpha : Int, y : Int, u : Int, v : Int) : AYUV = AYUV(alpha, y, u, v)
