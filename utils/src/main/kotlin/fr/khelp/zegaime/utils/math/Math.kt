@@ -7,6 +7,7 @@ import kotlin.math.acos
 import kotlin.math.exp
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.pow
 
 /**
  * Double precision, the "zero"
@@ -586,3 +587,47 @@ fun isTrigonometricWay(x1 : Float, y1 : Float, x2 : Float, y2 : Float, x3 : Floa
      */
     return (vx21 * vy23) - (vy21 * vx23) <= 0f
 }
+/**
+ * 2! / (index! * (2 - index)!)
+ * index=0 => 2 / (1 * 2) = 1
+ * index=1 => 2 / (1 * 1) = 2
+ * index=2 => 2 / (2 * 1) = 1
+ */
+private val combinationDouble2 = doubleArrayOf(1.0, 2.0, 1.0)
+
+
+/**
+ * 3! / (index! * (3 - index)!)
+ * index=0 => 6 / (1 * 6) = 1
+ * index=1 => 6 / (1 * 2) = 3
+ * index=2 => 6 / (2 * 1) = 3
+ * index=3 => 6 / (6 * 1) = 1
+ */
+private val combinationDouble3 = doubleArrayOf(1.0, 3.0, 3.0, 1.0)
+
+private fun BernoulliDouble2(index : Int, t : Double) =
+    combinationDouble2[index] * t.pow(index.toDouble()) * (1f - t).pow((2 - index).toDouble())
+
+private fun BernoulliDouble3(index : Int, t : Double) =
+    combinationDouble3[index] * t.pow(index.toDouble()) * (1f - t).pow((3 - index).toDouble())
+
+/**
+ * Compute cubic invoke at a given time
+ *
+ * @param cp Current value
+ * @param p1 First control value
+ * @param p2 Second control value
+ * @param p3 End value
+ * @param t  Interpolation time
+ * @return Interpolated value
+ */
+fun cubic(cp : Double, p1 : Double, p2 : Double, p3 : Double, t : Double) =
+    BernoulliDouble3(0, t) * cp +
+    BernoulliDouble3(1, t) * p1 +
+    BernoulliDouble3(2, t) * p2 +
+    BernoulliDouble3(3, t) * p3
+
+fun quadratic(cp : Double, p1 : Double, p2 : Double, t : Double) =
+    BernoulliDouble2(0, t) * cp +
+    BernoulliDouble2(1, t) * p1 +
+    BernoulliDouble2(2, t) * p2
