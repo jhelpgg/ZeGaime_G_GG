@@ -26,17 +26,6 @@ fun window3D(width : Int, height : Int, title : String, windowCreator : Window3D
     window3D.waitWindowClose()
 }
 
-fun main()
-{
-    window3DFull("Test") {
-        val plane = Plane("plane")
-        plane.material.colorDiffuse = GREEN
-        plane.material.textureDiffuse = Texture(WARNING_IMAGE_64)
-        plane.z = -5f
-        this.scene.root.addChild(plane)
-    }
-}
-
 /**
  * Creates a full-screen window 3D
  *
