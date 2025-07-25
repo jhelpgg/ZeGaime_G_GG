@@ -59,6 +59,12 @@ class Time(milliseconds : Long = 0L) : Comparable<Time>
     /**Subtract a number of milliseconds*/
     operator fun minus(milliseconds : Int) : Time = Time(this.milliseconds - milliseconds)
 
+    operator fun times(factor : Number) : Time =
+        Time((this.milliseconds * factor.toDouble()).toLong())
+
+    operator fun div(factor : Number) : Time =
+        Time((this.milliseconds / factor.toDouble()).toLong())
+
     /**
      * String representation
      */
@@ -150,7 +156,7 @@ class Time(milliseconds : Long = 0L) : Comparable<Time>
 
         return when
         {
-            comparison < 0L  -> - 1
+            comparison < 0L  -> -1
             comparison == 0L -> 0
             else             -> 1
         }

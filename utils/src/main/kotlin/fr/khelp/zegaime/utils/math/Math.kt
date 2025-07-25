@@ -1,5 +1,6 @@
 package fr.khelp.zegaime.utils.math
 
+import fr.khelp.zegaime.utils.Time
 import java.awt.Rectangle
 import kotlin.math.PI
 import kotlin.math.abs
@@ -22,7 +23,6 @@ val EPSILON = maxOf(Double.MIN_VALUE,
 val EPSILON_FLOAT = maxOf(Float.MIN_VALUE,
                           abs(Math.E.toFloat() - exp(1.0).toFloat()),
                           abs(Math.PI.toFloat() - acos(-1.0).toFloat()))
-
 
 const val PI_FLOAT : Float = PI.toFloat()
 
@@ -590,6 +590,7 @@ fun isTrigonometricWay(x1 : Float, y1 : Float, x2 : Float, y2 : Float, x3 : Floa
      */
     return (vx21 * vy23) - (vy21 * vx23) <= 0f
 }
+
 /**
  * 2! / (index! * (2 - index)!)
  * index=0 => 2 / (1 * 2) = 1
@@ -597,7 +598,6 @@ fun isTrigonometricWay(x1 : Float, y1 : Float, x2 : Float, y2 : Float, x3 : Floa
  * index=2 => 2 / (2 * 1) = 1
  */
 private val combinationDouble2 = doubleArrayOf(1.0, 2.0, 1.0)
-
 
 /**
  * 3! / (index! * (3 - index)!)
@@ -634,3 +634,9 @@ fun quadratic(cp : Double, p1 : Double, p2 : Double, t : Double) =
     BernoulliDouble2(0, t) * cp +
     BernoulliDouble2(1, t) * p1 +
     BernoulliDouble2(2, t) * p2
+
+fun max(time1 : Time, time2 : Time) : Time =
+    if (time1 >= time2) time1 else time2
+
+fun min(time1 : Time, time2 : Time) : Time =
+    if (time1 <= time2) time1 else time2

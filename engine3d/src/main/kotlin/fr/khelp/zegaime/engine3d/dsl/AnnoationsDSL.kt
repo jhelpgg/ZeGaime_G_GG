@@ -1,12 +1,6 @@
 package fr.khelp.zegaime.engine3d.dsl
 
 @DslMarker
-annotation class WindowDSL
-
-@DslMarker
-annotation class NodeDSL
-
-@DslMarker
 annotation class MeshDSL
 
 @DslMarker
@@ -16,5 +10,5 @@ annotation class FaceDSL
 annotation class PathDSL
 
 @DslMarker
-annotation class AnimationDSL
+annotation class ParticleDSL
 

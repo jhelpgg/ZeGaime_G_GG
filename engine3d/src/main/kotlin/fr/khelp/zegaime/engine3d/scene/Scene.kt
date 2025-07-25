@@ -1,5 +1,6 @@
 package fr.khelp.zegaime.engine3d.scene
 
+import fr.khelp.zegaime.engine3d.particles.ParticleManager
 import fr.khelp.zegaime.engine3d.render.BLACK
 import fr.khelp.zegaime.engine3d.render.Color4f
 import fr.khelp.zegaime.engine3d.render.Texture
@@ -22,6 +23,7 @@ class Scene
     var backgroundTexture : Texture? = null
     var backgroundColor : Color4f = BLACK
     val root : Node = Node(Scene.ROOT_ID)
+    val particleManager = ParticleManager()
 
     init
     {
@@ -103,5 +105,7 @@ class Scene
             node.renderSpecific()
             GL11.glPopMatrix()
         }
+
+        this.particleManager.draw()
     }
 }

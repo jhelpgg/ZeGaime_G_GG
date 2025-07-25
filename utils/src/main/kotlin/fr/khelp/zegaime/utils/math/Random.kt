@@ -12,7 +12,6 @@ import java.util.Random
 import kotlin.math.max
 import kotlin.math.min
 
-
 private val RANDOM = Random()
 
 fun random() : Boolean = RANDOM.nextBoolean()
@@ -94,8 +93,7 @@ fun <T> Array<T>.random() : T =
  */
 @Suppress("UNCHECKED_CAST")
 inline fun <reified E : Enum<E>> random() : E =
-    (E::class.java.getDeclaredMethod("values")
-        .invoke(null) as Array<E>).random()
+    (E::class.java.getDeclaredMethod("values").invoke(null) as Array<E>).random()
 
 fun random(character1 : Char, character2 : Char) : Char =
     random(character1.code, character2.code).toChar()
