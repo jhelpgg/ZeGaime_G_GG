@@ -6,6 +6,7 @@ import fr.khelp.zegaime.engine3d.events.KeyboardManager
 import fr.khelp.zegaime.engine3d.events.MouseManager
 import fr.khelp.zegaime.engine3d.events.MouseStatus
 import fr.khelp.zegaime.engine3d.gui.GUI
+import fr.khelp.zegaime.engine3d.particles.ParticleManager
 import fr.khelp.zegaime.engine3d.render.Color4f
 import fr.khelp.zegaime.engine3d.scene.Node
 import fr.khelp.zegaime.engine3d.scene.NodeWithMaterial
@@ -176,6 +177,7 @@ class Window3D private constructor()
     val mouseManager : MouseManager = MouseManager(this.gui)
     val joystickManager : JoystickManager = JoystickManager()
     val actionManager : ActionManager = ActionManager(this.keyboardManager, this.joystickManager)
+    val particleManager = ParticleManager()
     val scene : Scene = Scene()
     var canCloseNow : () -> Boolean = { true }
 
@@ -399,6 +401,8 @@ class Window3D private constructor()
             GL11.glPushMatrix()
             this.scene.render()
             GL11.glPopMatrix()
+
+            this.particleManager.draw()
 
             // Draw 2D objects over 3D
             this.gui.update()

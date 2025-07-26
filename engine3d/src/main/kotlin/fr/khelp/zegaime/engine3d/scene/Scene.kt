@@ -23,16 +23,10 @@ class Scene
     var backgroundTexture : Texture? = null
     var backgroundColor : Color4f = BLACK
     val root : Node = Node(Scene.ROOT_ID)
-    val particleManager = ParticleManager()
 
     init
     {
         this.root.z = -5f
-    }
-
-    fun root(creator : Node.() -> Unit)
-    {
-        creator(this.root)
     }
 
     fun <N : Node> findById(id : String) : N? = this.root.findById(id)
@@ -105,7 +99,5 @@ class Scene
             node.renderSpecific()
             GL11.glPopMatrix()
         }
-
-        this.particleManager.draw()
     }
 }
