@@ -9,8 +9,9 @@ import kotlin.math.cos
 import kotlin.math.max
 import kotlin.math.sin
 
-class Sphere(id : String, slice : Int = 33, stack : Int = 33, multiplierU : Float = 1f,
-             multiplierV : Float = 1f) : Object3D(id)
+class Sphere(id : String,
+             slice : Int = 33, stack : Int = 33,
+             multiplierU : Float = 1f, multiplierV : Float = 1f) : Object3D(id)
 {
     val northPole : Point3D
     val southPole : Point3D

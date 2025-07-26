@@ -18,7 +18,7 @@ fun particleEffect(create : ParticleEffectCreator.() -> Unit) : ParticleEffect
 @ParticleDSL
 class ParticleEffectCreator
 {
-    val particleEffect = ParticleEffect()
+    internal val particleEffect = ParticleEffect()
 
     @ParticleDSL
     fun nodeInstant(numberParticle : Int,
