@@ -5,5 +5,4 @@ package fr.jhelp.zegaime.main
  */
 fun main()
 {
-    // TODO Not yet implemented
 }

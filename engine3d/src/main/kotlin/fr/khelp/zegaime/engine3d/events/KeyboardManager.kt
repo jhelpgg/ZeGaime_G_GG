@@ -22,11 +22,11 @@ import org.lwjgl.glfw.GLFW
  * ```kotlin
  * val keyboardManager = window3D.keyboardManager
  * keyboardManager.keyPressed.observedBy { keyCodes ->
- *     if(GLFW.GLFW_KEY_UP in keyCodes) {
+ *     if(KEY_UP in keyCodes) {
  *          // Do up action
  *     }
 
- *     if(GLFW.GLFW_KEY_LEFT in keyCodes) {
+ *     if(KEY_LEFT in keyCodes) {
  *          // Do left action
  *     }
  *
