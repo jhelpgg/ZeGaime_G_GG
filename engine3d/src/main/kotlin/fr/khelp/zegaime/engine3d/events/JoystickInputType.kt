@@ -1,24 +1,27 @@
 package fr.khelp.zegaime.engine3d.events
 
 /**
- * Joystick event type
+ * Joystick event type.
  */
 enum class JoystickInputType
 {
     /**
-     * Axis with positive value
+     * Axis with positive value.
      */
     AXIS_POSITIVE,
+
     /**
-     * Axis with negative value
+     * Axis with negative value.
      */
     AXIS_NEGATIVE,
+
     /**
-     * Joystick button
+     * Joystick button.
      */
     BUTTON,
+
     /**
-     * Undefined type
+     * Undefined type.
      */
     NONE
 }

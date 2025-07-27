@@ -2,14 +2,33 @@ package fr.khelp.zegaime.engine3d.particles
 
 import org.lwjgl.opengl.GL11
 
+/**
+ * Manages the particle effects.
+ *
+ * This class is responsible for playing, stopping and rendering the particle effects.
+ *
+ * **Creation example:**
+ * This class is not meant to be instantiated directly.
+ * It is created by the `Window3D` class.
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val particleManager = window3D.particleManager
+ * particleManager.play(myParticleEffect)
+ * ```
+ *
+ * @constructor Creates a new particle manager. For internal use only.
+ */
 class ParticleManager internal constructor()
 {
     private val particleEffects = ArrayList<ParticleEffect>()
 
     /**
-     * Launch a particle effect
+     * Launch a particle effect.
+     *
+     * @param particleEffect The particle effect to play.
      */
-    fun play(particleEffect : ParticleEffect)
+    fun play(particleEffect: ParticleEffect)
     {
         particleEffect.start()
 
@@ -20,9 +39,11 @@ class ParticleManager internal constructor()
     }
 
     /**
-     * Stop a particle effect
+     * Stop a particle effect.
+     *
+     * @param particleEffect The particle effect to stop.
      */
-    fun stop(particleEffect : ParticleEffect)
+    fun stop(particleEffect: ParticleEffect)
     {
         synchronized(this.particleEffects)
         {
@@ -33,6 +54,11 @@ class ParticleManager internal constructor()
         }
     }
 
+    /**
+     * Draws the particle effects.
+     *
+     * For internal use only.
+     */
     internal fun draw()
     {
         GL11.glDisable(GL11.GL_DEPTH_TEST)

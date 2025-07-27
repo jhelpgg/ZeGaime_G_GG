@@ -5,5 +5,6 @@ package fr.khelp.zegaime.sounds
  *
  * @property progress The current progress of the sound.
  * @property total The total size of the sound.
+ * @constructor Creates a new sound progress.
  */
-data class SoundProgress(val progress : Long, val total : Long)
+data class SoundProgress(val progress: Long, val total: Long)

@@ -4,20 +4,20 @@ import kotlin.math.ln
 import kotlin.math.ln1p
 
 /**
- * Interpolation follow logarithm progression
+ * An interpolation that follows a logarithmic progression.
+ *
+ * The animation has a fast start and a slow end.
  */
 data object InterpolationLogarithm : Interpolation
 {
     /**
-     * Interpolate value with the following equation:
+     * Interpolates the value using a logarithmic function.
      *
-     *    ln(t + 1)
-     *    --------
-     *     ln(2)
+     * The formula used is `ln(percent + 1) / ln(2)`.
      *
-     * @param percent Value to interpolate
-     * @return Interpolate value
+     * @param percent The value to interpolate, between 0 and 1.
+     * @return The interpolated value.
      */
-    override operator fun invoke(percent : Double) =
+    override operator fun invoke(percent: Double) =
         ln1p(percent) / ln(2.0)
 }

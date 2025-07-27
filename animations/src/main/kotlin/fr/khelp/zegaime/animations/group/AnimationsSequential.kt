@@ -3,23 +3,43 @@ package fr.khelp.zegaime.animations.group
 import fr.khelp.zegaime.animations.Animation
 
 /**
- * Animations played in sequential order
+ * Plays a set of animations in sequential order.
+ *
+ * The sequential animation is finished when all its children animations are finished.
+ *
+ * To create a sequential animation, you can use the DSL:
+ *
+ * ```kotlin
+ * val animation = sequential {
+ *      // Add animations here
+ * }
+ * ```
+ *
+ * Or create an instance of [AnimationsSequential] and add animations to it:
+ *
+ * ```kotlin
+ * val animation = AnimationsSequential()
+ * animation += myAnimation1
+ * animation += myAnimation2
+ * ```
+ *
+ * @constructor Create a new sequential animation.
  */
 class AnimationsSequential : Animation
 {
-    /** Animations to play */
+    /** List of animations to play in sequence */
     private val animations = ArrayList<Animation>()
-
-    /** Current animation start relative time */
+    /** Start time of the current animation */
     private var currentAnimationStartTime = 0L
-
-    /** Current animation index */
+    /** Index of the current animation */
     private var animationIndex = 0
 
     /**
-     * Add an animation to the sequence
+     * Adds an animation to the sequence.
+     *
+     * @param animation The animation to add.
      */
-    operator fun plusAssign(animation : Animation)
+    operator fun plusAssign(animation: Animation)
     {
         synchronized(this.animations)
         {
@@ -27,6 +47,11 @@ class AnimationsSequential : Animation
         }
     }
 
+    /**
+     * Called at animation initialization.
+     *
+     * It initializes the first animation of the sequence.
+     */
     override fun initialization()
     {
         this.animationIndex = 0
@@ -37,12 +62,19 @@ class AnimationsSequential : Animation
             if (this.animations.isNotEmpty())
             {
                 this.animations[0].initialization()
-                this.animations[0].animate(0L)
             }
         }
     }
 
-    override fun animate(millisecondsSinceStarted : Long) : Boolean
+    /**
+     * Animates the current animation of the sequence.
+     *
+     * When the current animation is finished, it passes to the next one.
+     *
+     * @param millisecondsSinceStarted Time since the animation started.
+     * @return `true` if there are still animations to play, `false` otherwise.
+     */
+    override fun animate(millisecondsSinceStarted: Long): Boolean
     {
         synchronized(this.animations)
         {
@@ -63,13 +95,17 @@ class AnimationsSequential : Animation
 
                 this.currentAnimationStartTime = millisecondsSinceStarted
                 this.animations[this.animationIndex].initialization()
-                this.animations[this.animationIndex].animate(0L)
             }
         }
 
         return true
     }
 
+    /**
+     * Called when the animation is finalized.
+     *
+     * It finalizes the current animation if it is still playing.
+     */
     override fun finalization()
     {
         synchronized(this.animations)

@@ -4,13 +4,16 @@ import org.lwjgl.glfw.GLFW
 
 /**
  * Action codes and their default mapping.
- * @param preferenceKey Action code's preference key name
- * @param defaultKeyCode Default key code mapping
- * @param defaultJoystickCode Default joystick code mapping
+ *
+ * An action code represents a generic action that can be triggered by a key or a joystick button.
+ *
+ * @param preferenceKey The key used to store the mapping in the preferences.
+ * @param defaultKeyCode The default key code for this action.
+ * @param defaultJoystickCode The default joystick code for this action.
  */
-enum class ActionCode constructor(val preferenceKey : String,
-                                  val defaultKeyCode : Int,
-                                  val defaultJoystickCode : JoystickCode)
+enum class ActionCode constructor(val preferenceKey: String,
+                                  val defaultKeyCode: Int,
+                                  val defaultJoystickCode: JoystickCode)
 {
     /**
      * Go up : By default map to arrow up key and joystick vertical axis negative values

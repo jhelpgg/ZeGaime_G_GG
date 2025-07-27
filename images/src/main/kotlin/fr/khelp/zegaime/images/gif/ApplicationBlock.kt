@@ -8,10 +8,12 @@ import java.io.InputStream
 /**
  * Represents an application extension block in a GIF file.
  *
+ * This class is for internal use of the image system.
+ *
  * @property applicationCode The application code.
  * @property applicationData The application data.
  * @property applicationIdentifier The application identifier.
- * 
+ * @constructor Creates a new application block.
  */
 internal class ApplicationBlock : BlockExtension()
 {
@@ -32,7 +34,7 @@ internal class ApplicationBlock : BlockExtension()
      * @throws IOException If the stream contains invalid data for an application extension block.
      */
     @Throws(IOException::class)
-    override fun read(inputStream : InputStream)
+    override fun read(inputStream: InputStream)
     {
         val size = inputStream.read()
 

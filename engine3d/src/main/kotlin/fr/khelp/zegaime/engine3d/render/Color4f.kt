@@ -15,30 +15,79 @@ import java.nio.FloatBuffer
 import java.util.Objects
 import org.lwjgl.opengl.GL11
 
-class Color4f(red : Float, green : Float = red, blue : Float = red, alpha : Float = 1f)
+/**
+ * Represents a color with four float components (red, green, blue, alpha).
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val red = Color4f(1f, 0f, 0f)
+ * val green = Color4f(0f, 1f, 0f, 0.5f)
+ * val fromInt = Color4f(0xFFFF0000.toInt())
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val color = Color4f(1f, 0f, 0f)
+ * GL11.glColor4f(color.red, color.green, color.blue, color.alpha)
+ * ```
+ *
+ * @property red The red component of the color (0.0 to 1.0).
+ * @property green The green component of the color (0.0 to 1.0).
+ * @property blue The blue component of the color (0.0 to 1.0).
+ * @property alpha The alpha component of the color (0.0 to 1.0).
+ * @constructor Creates a new color.
+ */
+class Color4f(red: Float, green: Float = red, blue: Float = red, alpha: Float = 1f)
 {
     companion object
     {
-        private fun partEquals(part1 : Float, part2 : Float) =
+        private fun partEquals(part1: Float, part2: Float) =
             (part1 * 255f).toInt() == (part2 * 255f).toInt()
     }
 
+    /**
+     * The red component of the color (0.0 to 1.0).
+     */
     val red = red.coerceIn(0f, 1f)
+    /**
+     * The green component of the color (0.0 to 1.0).
+     */
     val green = green.coerceIn(0f, 1f)
+    /**
+     * The blue component of the color (0.0 to 1.0).
+     */
     val blue = blue.coerceIn(0f, 1f)
+    /**
+     * The alpha component of the color (0.0 to 1.0).
+     */
     val alpha = alpha.coerceIn(0f, 1f)
 
-    val color : Color get() = argb(this.alpha, this.red, this.green, this.blue)
-
-    constructor(color : Int) : this(color.red / 255f, color.green / 255f, color.blue / 255f, color.alpha / 255f)
-    constructor(color : Color) : this(color.alpha / 255f, color.red / 255f, color.green / 255f, color.blue / 255f)
+    /**
+     * The color as a `fr.khelp.zegaime.images.color.Color` instance.
+     */
+    val color: Color get() = argb(this.alpha, this.red, this.green, this.blue)
 
     /**
-     * Push the color in the float buffer
+     * Creates a new color from an ARGB integer.
      *
-     * @return Filled float buffer
+     * @param color The ARGB integer.
      */
-    internal fun putInFloatBuffer() : FloatBuffer
+    constructor(color: Int) : this(color.red / 255f, color.green / 255f, color.blue / 255f, color.alpha / 255f)
+    /**
+     * Creates a new color from a `fr.khelp.zegaime.images.color.Color` instance.
+     *
+     * @param color The color instance.
+     */
+    constructor(color: Color) : this(color.red / 255f, color.green / 255f, color.blue / 255f, color.alpha / 255f)
+
+    /**
+     * Push the color in the float buffer.
+     *
+     * For internal use only.
+     *
+     * @return Filled float buffer.
+     */
+    internal fun putInFloatBuffer(): FloatBuffer
     {
         TEMPORARY_FLOAT_BUFFER.rewind()
         TEMPORARY_FLOAT_BUFFER.put(this.red)
@@ -51,12 +100,14 @@ class Color4f(red : Float, green : Float = red, blue : Float = red, alpha : Floa
     }
 
     /**
-     * Push the color in the float buffer
+     * Push the color in the float buffer.
      *
-     * @param percent Multiplier of percent of color
-     * @return Filled float buffer
+     * For internal use only.
+     *
+     * @param percent Multiplier of percent of color.
+     * @return Filled float buffer.
      */
-    internal fun putInFloatBuffer(percent : Float) : FloatBuffer
+    internal fun putInFloatBuffer(percent: Float): FloatBuffer
     {
         TEMPORARY_FLOAT_BUFFER.rewind()
         TEMPORARY_FLOAT_BUFFER.put(this.red * percent)
@@ -68,24 +119,52 @@ class Color4f(red : Float, green : Float = red, blue : Float = red, alpha : Floa
         return TEMPORARY_FLOAT_BUFFER
     }
 
+    /**
+     * Sets the current color for OpenGL.
+     *
+     * For internal use only.
+     */
     internal fun glColor4f()
     {
         GL11.glColor4f(this.red, this.green, this.blue, this.alpha)
     }
 
-    internal fun glColor4f(alpha : Float)
+    /**
+     * Sets the current color for OpenGL with a specific alpha.
+     *
+     * For internal use only.
+     *
+     * @param alpha The alpha value.
+     */
+    internal fun glColor4f(alpha: Float)
     {
         GL11.glColor4f(this.red, this.green, this.blue, alpha)
     }
 
+    /**
+     * Sets the clear color for OpenGL.
+     *
+     * For internal use only.
+     */
     internal fun glColor4fBackground()
     {
         GL11.glClearColor(this.red, this.green, this.blue, 1f)
     }
 
-    override fun hashCode() : Int = Objects.hash(this.alpha, this.red, this.green, this.blue)
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return A hash code value for this object.
+     */
+    override fun hashCode(): Int = Objects.hash(this.alpha, this.red, this.green, this.blue)
 
-    override fun equals(other : Any?) : Boolean
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param other The reference object with which to compare.
+     * @return `true` if this object is the same as the obj argument; `false` otherwise.
+     */
+    override fun equals(other: Any?): Boolean
     {
         if (this === other)
         {

@@ -26,7 +26,7 @@ import fr.khelp.zegaime.utils.argumentCheck
  * @throws IllegalArgumentException if the column's data type is not compatible with the subquery's result type.
  */
 @MatchDSL
-infix fun Column.IN(matchCreator : Match.() -> Unit) : Condition
+infix fun Column.IN(matchCreator: Match.() -> Unit): Condition
 {
     val match = Match()
     matchCreator(match)

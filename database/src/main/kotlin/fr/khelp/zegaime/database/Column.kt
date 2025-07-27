@@ -12,32 +12,38 @@ import java.util.Objects
  *
  * **Creation example:**
  * ```kotlin
+ * // Create a column for the user name
  * val nameColumn = Column("name", DataType.TEXT)
+ * // Create a column for the user age
  * val ageColumn = Column("age", DataType.INTEGER)
  * ```
  *
  * **Standard usage:**
  * ```kotlin
+ * // Create a list of columns for a table
  * val columns = listOf(nameColumn, ageColumn)
+ * // Create a table with the columns
  * val table = Table("users", columns)
  * ```
  *
- * @property name The name of the column.
+ * @property name The name of the column. It is case-insensitive.
  * @property type The data type of the column.
  * @see Table
  * @see DataType
  */
-data class Column internal constructor(val name : String, val type : DataType) : Comparable<Column>
+data class Column internal constructor(val name: String, val type: DataType) : Comparable<Column>
 {
     /**
      * The name of the foreign table if this column is a foreign key.
-     * 
+     *
+     * This property is for internal use of the database system.
      */
     internal var foreignTable = ""
 
     /**
      * The name of the foreign column if this column is a foreign key.
-     * 
+     *
+     * This property is for internal use of the database system.
      */
     internal var foreignColumn = ""
 
@@ -52,13 +58,14 @@ data class Column internal constructor(val name : String, val type : DataType) :
      *     nameColumn.checkType(DataType.INTEGER) // This will throw an InvalidDataTypeException
      * } catch (e: InvalidDataTypeException) {
      *     // Handle the exception
+     *     println(e.message)
      * }
      * ```
      *
      * @param expectedType The expected data type.
      * @throws InvalidDataTypeException if the column's data type does not match the expected data type.
      */
-    fun checkType(expectedType : DataType)
+    fun checkType(expectedType: DataType)
     {
         if (this.type != expectedType)
         {
@@ -69,12 +76,12 @@ data class Column internal constructor(val name : String, val type : DataType) :
     /**
      * Indicates whether some other object is "equal to" this one.
      *
-     * The comparison is case-insensitive for the column name.
+     * The comparison is based on the column name (case-insensitive) and the data type.
      *
      * @param other The reference object with which to compare.
      * @return `true` if this object is the same as the obj argument; `false` otherwise.
      */
-    override fun equals(other : Any?) : Boolean
+    override fun equals(other: Any?): Boolean
     {
         if (this === other)
         {
@@ -92,22 +99,22 @@ data class Column internal constructor(val name : String, val type : DataType) :
     /**
      * Returns a hash code value for the object.
      *
-     * The hash code is based on the uppercase column name and the data type.
+     * The hash code is based on the uppercase column name and the data type to be consistent with the [equals] method.
      *
      * @return A hash code value for this object.
      */
-    override fun hashCode() : Int =
-        Objects.hash(this.name.toUpperCase(), this.type)
+    override fun hashCode(): Int =
+        Objects.hash(this.name.uppercase(), this.type)
 
     /**
      * Compares this object with the specified object for order.
      *
-     * The comparison is case-insensitive for the column name.
+     * The comparison is based on the column name (case-insensitive).
      *
      * @param other The object to be compared.
      * @return A negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
      */
-    override operator fun compareTo(other : Column) : Int =
+    override operator fun compareTo(other: Column): Int =
         this.name.compareTo(other.name, true)
 }
 
@@ -115,6 +122,6 @@ data class Column internal constructor(val name : String, val type : DataType) :
  * The common column for the table's primary key.
  *
  * It is an ID column with the name "ID" and the data type `DataType.ID`.
+ * This column is automatically added to tables that are created from a `DatabaseObject`.
  */
 val COLUMN_ID = Column("ID", DataType.ID)
-

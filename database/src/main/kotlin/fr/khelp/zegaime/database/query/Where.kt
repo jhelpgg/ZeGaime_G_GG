@@ -40,11 +40,14 @@ import java.util.regex.Pattern
  * ```
  *
  * @property condition The condition for the `WHERE` clause.
+ * @constructor Creates a new where clause. For internal use only.
  */
-open class Where internal constructor(private val table : Table)
+open class Where internal constructor(private val table: Table)
 {
-    /**Used for define the condition*/
-    var condition : Condition? = null
+    /**
+     * The condition for the `WHERE` clause.
+     */
+    var condition: Condition? = null
 
     // EQUALS
 
@@ -59,7 +62,7 @@ open class Where internal constructor(private val table : Table)
      * @param id The ID to compare with.
      * @return A new condition.
      */
-    infix fun String.EQUALS_ID(id : Int) = this@Where.table.getColumn(this) EQUALS_ID id
+    infix fun String.EQUALS_ID(id: Int) = this@Where.table.getColumn(this) EQUALS_ID id
 
     /**
      * Creates a condition that checks if the column's value is equal to the given string.
@@ -72,7 +75,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The string to compare with.
      * @return A new condition.
      */
-    infix fun String.EQUALS(value : String) = this@Where.table.getColumn(this) EQUALS value
+    infix fun String.EQUALS(value: String) = this@Where.table.getColumn(this) EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is equal to the given boolean.
@@ -85,7 +88,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The boolean to compare with.
      * @return A new condition.
      */
-    infix fun String.EQUALS(value : Boolean) = this@Where.table.getColumn(this) EQUALS value
+    infix fun String.EQUALS(value: Boolean) = this@Where.table.getColumn(this) EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is equal to the given byte.
@@ -98,7 +101,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The byte to compare with.
      * @return A new condition.
      */
-    infix fun String.EQUALS(value : Byte) = this@Where.table.getColumn(this) EQUALS value
+    infix fun String.EQUALS(value: Byte) = this@Where.table.getColumn(this) EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is equal to the given short.
@@ -111,7 +114,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The short to compare with.
      * @return A new condition.
      */
-    infix fun String.EQUALS(value : Short) = this@Where.table.getColumn(this) EQUALS value
+    infix fun String.EQUALS(value: Short) = this@Where.table.getColumn(this) EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is equal to the given integer.
@@ -124,7 +127,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The integer to compare with.
      * @return A new condition.
      */
-    infix fun String.EQUALS(value : Int) = this@Where.table.getColumn(this) EQUALS value
+    infix fun String.EQUALS(value: Int) = this@Where.table.getColumn(this) EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is equal to the given long.
@@ -137,7 +140,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The long to compare with.
      * @return A new condition.
      */
-    infix fun String.EQUALS(value : Long) = this@Where.table.getColumn(this) EQUALS value
+    infix fun String.EQUALS(value: Long) = this@Where.table.getColumn(this) EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is equal to the given float.
@@ -150,7 +153,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The float to compare with.
      * @return A new condition.
      */
-    infix fun String.EQUALS(value : Float) = this@Where.table.getColumn(this) EQUALS value
+    infix fun String.EQUALS(value: Float) = this@Where.table.getColumn(this) EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is equal to the given double.
@@ -163,7 +166,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The double to compare with.
      * @return A new condition.
      */
-    infix fun String.EQUALS(value : Double) = this@Where.table.getColumn(this) EQUALS value
+    infix fun String.EQUALS(value: Double) = this@Where.table.getColumn(this) EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is equal to the given byte array.
@@ -176,7 +179,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The byte array to compare with.
      * @return A new condition.
      */
-    infix fun String.EQUALS(value : ByteArray) = this@Where.table.getColumn(this) EQUALS value
+    infix fun String.EQUALS(value: ByteArray) = this@Where.table.getColumn(this) EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is equal to the given integer array.
@@ -189,7 +192,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The integer array to compare with.
      * @return A new condition.
      */
-    infix fun String.EQUALS(value : IntArray) = this@Where.table.getColumn(this) EQUALS value
+    infix fun String.EQUALS(value: IntArray) = this@Where.table.getColumn(this) EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is equal to the given calendar.
@@ -202,7 +205,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The calendar to compare with.
      * @return A new condition.
      */
-    infix fun String.EQUALS(value : Calendar) = this@Where.table.getColumn(this) EQUALS value
+    infix fun String.EQUALS(value: Calendar) = this@Where.table.getColumn(this) EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is equal to the given date.
@@ -215,7 +218,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The date to compare with.
      * @return A new condition.
      */
-    infix fun String.EQUALS(value : DataDate) = this@Where.table.getColumn(this) EQUALS value
+    infix fun String.EQUALS(value: DataDate) = this@Where.table.getColumn(this) EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is equal to the given time.
@@ -228,7 +231,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The time to compare with.
      * @return A new condition.
      */
-    infix fun String.EQUALS(value : DataTime) = this@Where.table.getColumn(this) EQUALS value
+    infix fun String.EQUALS(value: DataTime) = this@Where.table.getColumn(this) EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is equal to the given enum.
@@ -241,7 +244,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The enum to compare with.
      * @return A new condition.
      */
-    infix fun <E : Enum<E>> String.EQUALS(value : E) = this@Where.table.getColumn(this) EQUALS value
+    infix fun <E : Enum<E>> String.EQUALS(value: E) = this@Where.table.getColumn(this) EQUALS value
 
     // NOT_EQUALS
 
@@ -256,7 +259,7 @@ open class Where internal constructor(private val table : Table)
      * @param id The ID to compare with.
      * @return A new condition.
      */
-    infix fun String.NOT_EQUALS_ID(id : Int) = this@Where.table.getColumn(this) NOT_EQUALS_ID id
+    infix fun String.NOT_EQUALS_ID(id: Int) = this@Where.table.getColumn(this) NOT_EQUALS_ID id
 
     /**
      * Creates a condition that checks if the column's value is not equal to the given string.
@@ -269,7 +272,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The string to compare with.
      * @return A new condition.
      */
-    infix fun String.NOT_EQUALS(value : String) = this@Where.table.getColumn(this) NOT_EQUALS value
+    infix fun String.NOT_EQUALS(value: String) = this@Where.table.getColumn(this) NOT_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is not equal to the given boolean.
@@ -282,7 +285,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The boolean to compare with.
      * @return A new condition.
      */
-    infix fun String.NOT_EQUALS(value : Boolean) = this@Where.table.getColumn(this) NOT_EQUALS value
+    infix fun String.NOT_EQUALS(value: Boolean) = this@Where.table.getColumn(this) NOT_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is not equal to the given byte.
@@ -295,7 +298,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The byte to compare with.
      * @return A new condition.
      */
-    infix fun String.NOT_EQUALS(value : Byte) = this@Where.table.getColumn(this) NOT_EQUALS value
+    infix fun String.NOT_EQUALS(value: Byte) = this@Where.table.getColumn(this) NOT_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is not equal to the given short.
@@ -308,7 +311,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The short to compare with.
      * @return A new condition.
      */
-    infix fun String.NOT_EQUALS(value : Short) = this@Where.table.getColumn(this) NOT_EQUALS value
+    infix fun String.NOT_EQUALS(value: Short) = this@Where.table.getColumn(this) NOT_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is not equal to the given integer.
@@ -321,7 +324,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The integer to compare with.
      * @return A new condition.
      */
-    infix fun String.NOT_EQUALS(value : Int) = this@Where.table.getColumn(this) NOT_EQUALS value
+    infix fun String.NOT_EQUALS(value: Int) = this@Where.table.getColumn(this) NOT_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is not equal to the given long.
@@ -334,7 +337,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The long to compare with.
      * @return A new condition.
      */
-    infix fun String.NOT_EQUALS(value : Long) = this@Where.table.getColumn(this) NOT_EQUALS value
+    infix fun String.NOT_EQUALS(value: Long) = this@Where.table.getColumn(this) NOT_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is not equal to the given float.
@@ -347,7 +350,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The float to compare with.
      * @return A new condition.
      */
-    infix fun String.NOT_EQUALS(value : Float) = this@Where.table.getColumn(this) NOT_EQUALS value
+    infix fun String.NOT_EQUALS(value: Float) = this@Where.table.getColumn(this) NOT_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is not equal to the given double.
@@ -360,7 +363,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The double to compare with.
      * @return A new condition.
      */
-    infix fun String.NOT_EQUALS(value : Double) = this@Where.table.getColumn(this) NOT_EQUALS value
+    infix fun String.NOT_EQUALS(value: Double) = this@Where.table.getColumn(this) NOT_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is not equal to the given byte array.
@@ -373,7 +376,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The byte array to compare with.
      * @return A new condition.
      */
-    infix fun String.NOT_EQUALS(value : ByteArray) = this@Where.table.getColumn(this) NOT_EQUALS value
+    infix fun String.NOT_EQUALS(value: ByteArray) = this@Where.table.getColumn(this) NOT_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is not equal to the given integer array.
@@ -386,7 +389,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The integer array to compare with.
      * @return A new condition.
      */
-    infix fun String.NOT_EQUALS(value : IntArray) = this@Where.table.getColumn(this) NOT_EQUALS value
+    infix fun String.NOT_EQUALS(value: IntArray) = this@Where.table.getColumn(this) NOT_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is not equal to the given calendar.
@@ -399,7 +402,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The calendar to compare with.
      * @return A new condition.
      */
-    infix fun String.NOT_EQUALS(value : Calendar) = this@Where.table.getColumn(this) NOT_EQUALS value
+    infix fun String.NOT_EQUALS(value: Calendar) = this@Where.table.getColumn(this) NOT_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is not equal to the given date.
@@ -412,7 +415,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The date to compare with.
      * @return A new condition.
      */
-    infix fun String.NOT_EQUALS(value : DataDate) = this@Where.table.getColumn(this) NOT_EQUALS value
+    infix fun String.NOT_EQUALS(value: DataDate) = this@Where.table.getColumn(this) NOT_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is not equal to the given time.
@@ -425,7 +428,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The time to compare with.
      * @return A new condition.
      */
-    infix fun String.NOT_EQUALS(value : DataTime) = this@Where.table.getColumn(this) NOT_EQUALS value
+    infix fun String.NOT_EQUALS(value: DataTime) = this@Where.table.getColumn(this) NOT_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is not equal to the given enum.
@@ -438,7 +441,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The enum to compare with.
      * @return A new condition.
      */
-    infix fun <E : Enum<E>> String.NOT_EQUALS(value : E) = this@Where.table.getColumn(this) NOT_EQUALS value
+    infix fun <E : Enum<E>> String.NOT_EQUALS(value: E) = this@Where.table.getColumn(this) NOT_EQUALS value
 
     // LOWER
 
@@ -453,7 +456,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The string to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER(value : String) = this@Where.table.getColumn(this) LOWER value
+    infix fun String.LOWER(value: String) = this@Where.table.getColumn(this) LOWER value
 
     /**
      * Creates a condition that checks if the column's value is lower than the given byte.
@@ -466,7 +469,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The byte to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER(value : Byte) = this@Where.table.getColumn(this) LOWER value
+    infix fun String.LOWER(value: Byte) = this@Where.table.getColumn(this) LOWER value
 
     /**
      * Creates a condition that checks if the column's value is lower than the given short.
@@ -479,7 +482,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The short to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER(value : Short) = this@Where.table.getColumn(this) LOWER value
+    infix fun String.LOWER(value: Short) = this@Where.table.getColumn(this) LOWER value
 
     /**
      * Creates a condition that checks if the column's value is lower than the given integer.
@@ -492,7 +495,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The integer to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER(value : Int) = this@Where.table.getColumn(this) LOWER value
+    infix fun String.LOWER(value: Int) = this@Where.table.getColumn(this) LOWER value
 
     /**
      * Creates a condition that checks if the column's value is lower than the given long.
@@ -505,7 +508,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The long to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER(value : Long) = this@Where.table.getColumn(this) LOWER value
+    infix fun String.LOWER(value: Long) = this@Where.table.getColumn(this) LOWER value
 
     /**
      * Creates a condition that checks if the column's value is lower than the given float.
@@ -518,7 +521,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The float to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER(value : Float) = this@Where.table.getColumn(this) LOWER value
+    infix fun String.LOWER(value: Float) = this@Where.table.getColumn(this) LOWER value
 
     /**
      * Creates a condition that checks if the column's value is lower than the given double.
@@ -531,7 +534,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The double to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER(value : Double) = this@Where.table.getColumn(this) LOWER value
+    infix fun String.LOWER(value: Double) = this@Where.table.getColumn(this) LOWER value
 
     /**
      * Creates a condition that checks if the column's value is lower than the given calendar.
@@ -544,7 +547,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The calendar to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER(value : Calendar) = this@Where.table.getColumn(this) LOWER value
+    infix fun String.LOWER(value: Calendar) = this@Where.table.getColumn(this) LOWER value
 
     /**
      * Creates a condition that checks if the column's value is lower than the given date.
@@ -557,7 +560,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The date to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER(value : DataDate) = this@Where.table.getColumn(this) LOWER value
+    infix fun String.LOWER(value: DataDate) = this@Where.table.getColumn(this) LOWER value
 
     /**
      * Creates a condition that checks if the column's value is lower than the given time.
@@ -570,7 +573,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The time to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER(value : DataTime) = this@Where.table.getColumn(this) LOWER value
+    infix fun String.LOWER(value: DataTime) = this@Where.table.getColumn(this) LOWER value
 
     // LOWER_EQUALS
 
@@ -585,7 +588,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The string to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER_EQUALS(value : String) = this@Where.table.getColumn(this) LOWER_EQUALS value
+    infix fun String.LOWER_EQUALS(value: String) = this@Where.table.getColumn(this) LOWER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is lower than or equal to the given byte.
@@ -598,7 +601,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The byte to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER_EQUALS(value : Byte) = this@Where.table.getColumn(this) LOWER_EQUALS value
+    infix fun String.LOWER_EQUALS(value: Byte) = this@Where.table.getColumn(this) LOWER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is lower than or equal to the given short.
@@ -611,7 +614,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The short to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER_EQUALS(value : Short) = this@Where.table.getColumn(this) LOWER_EQUALS value
+    infix fun String.LOWER_EQUALS(value: Short) = this@Where.table.getColumn(this) LOWER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is lower than or equal to the given integer.
@@ -624,7 +627,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The integer to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER_EQUALS(value : Int) = this@Where.table.getColumn(this) LOWER_EQUALS value
+    infix fun String.LOWER_EQUALS(value: Int) = this@Where.table.getColumn(this) LOWER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is lower than or equal to the given long.
@@ -637,7 +640,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The long to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER_EQUALS(value : Long) = this@Where.table.getColumn(this) LOWER_EQUALS value
+    infix fun String.LOWER_EQUALS(value: Long) = this@Where.table.getColumn(this) LOWER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is lower than or equal to the given float.
@@ -650,7 +653,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The float to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER_EQUALS(value : Float) = this@Where.table.getColumn(this) LOWER_EQUALS value
+    infix fun String.LOWER_EQUALS(value: Float) = this@Where.table.getColumn(this) LOWER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is lower than or equal to the given double.
@@ -663,7 +666,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The double to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER_EQUALS(value : Double) = this@Where.table.getColumn(this) LOWER_EQUALS value
+    infix fun String.LOWER_EQUALS(value: Double) = this@Where.table.getColumn(this) LOWER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is lower than or equal to the given calendar.
@@ -676,7 +679,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The calendar to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER_EQUALS(value : Calendar) = this@Where.table.getColumn(this) LOWER_EQUALS value
+    infix fun String.LOWER_EQUALS(value: Calendar) = this@Where.table.getColumn(this) LOWER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is lower than or equal to the given date.
@@ -689,7 +692,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The date to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER_EQUALS(value : DataDate) = this@Where.table.getColumn(this) LOWER_EQUALS value
+    infix fun String.LOWER_EQUALS(value: DataDate) = this@Where.table.getColumn(this) LOWER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is lower than or equal to the given time.
@@ -702,7 +705,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The time to compare with.
      * @return A new condition.
      */
-    infix fun String.LOWER_EQUALS(value : DataTime) = this@Where.table.getColumn(this) LOWER_EQUALS value
+    infix fun String.LOWER_EQUALS(value: DataTime) = this@Where.table.getColumn(this) LOWER_EQUALS value
 
     // UPPER
 
@@ -717,7 +720,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The string to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER(value : String) = this@Where.table.getColumn(this) UPPER value
+    infix fun String.UPPER(value: String) = this@Where.table.getColumn(this) UPPER value
 
     /**
      * Creates a condition that checks if the column's value is upper than the given byte.
@@ -730,7 +733,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The byte to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER(value : Byte) = this@Where.table.getColumn(this) UPPER value
+    infix fun String.UPPER(value: Byte) = this@Where.table.getColumn(this) UPPER value
 
     /**
      * Creates a condition that checks if the column's value is upper than the given short.
@@ -743,7 +746,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The short to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER(value : Short) = this@Where.table.getColumn(this) UPPER value
+    infix fun String.UPPER(value: Short) = this@Where.table.getColumn(this) UPPER value
 
     /**
      * Creates a condition that checks if the column's value is upper than the given integer.
@@ -756,7 +759,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The integer to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER(value : Int) = this@Where.table.getColumn(this) UPPER value
+    infix fun String.UPPER(value: Int) = this@Where.table.getColumn(this) UPPER value
 
     /**
      * Creates a condition that checks if the column's value is upper than the given long.
@@ -769,7 +772,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The long to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER(value : Long) = this@Where.table.getColumn(this) UPPER value
+    infix fun String.UPPER(value: Long) = this@Where.table.getColumn(this) UPPER value
 
     /**
      * Creates a condition that checks if the column's value is upper than the given float.
@@ -782,7 +785,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The float to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER(value : Float) = this@Where.table.getColumn(this) UPPER value
+    infix fun String.UPPER(value: Float) = this@Where.table.getColumn(this) UPPER value
 
     /**
      * Creates a condition that checks if the column's value is upper than the given double.
@@ -795,7 +798,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The double to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER(value : Double) = this@Where.table.getColumn(this) UPPER value
+    infix fun String.UPPER(value: Double) = this@Where.table.getColumn(this) UPPER value
 
     /**
      * Creates a condition that checks if the column's value is upper than the given calendar.
@@ -808,7 +811,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The calendar to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER(value : Calendar) = this@Where.table.getColumn(this) UPPER value
+    infix fun String.UPPER(value: Calendar) = this@Where.table.getColumn(this) UPPER value
 
     /**
      * Creates a condition that checks if the column's value is upper than the given date.
@@ -821,7 +824,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The date to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER(value : DataDate) = this@Where.table.getColumn(this) UPPER value
+    infix fun String.UPPER(value: DataDate) = this@Where.table.getColumn(this) UPPER value
 
     /**
      * Creates a condition that checks if the column's value is upper than the given time.
@@ -834,7 +837,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The time to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER(value : DataTime) = this@Where.table.getColumn(this) UPPER value
+    infix fun String.UPPER(value: DataTime) = this@Where.table.getColumn(this) UPPER value
 
     // UPPER_EQUALS
 
@@ -849,7 +852,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The string to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER_EQUALS(value : String) = this@Where.table.getColumn(this) UPPER_EQUALS value
+    infix fun String.UPPER_EQUALS(value: String) = this@Where.table.getColumn(this) UPPER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is upper than or equal to the given byte.
@@ -862,7 +865,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The byte to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER_EQUALS(value : Byte) = this@Where.table.getColumn(this) UPPER_EQUALS value
+    infix fun String.UPPER_EQUALS(value: Byte) = this@Where.table.getColumn(this) UPPER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is upper than or equal to the given short.
@@ -875,7 +878,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The short to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER_EQUALS(value : Short) = this@Where.table.getColumn(this) UPPER_EQUALS value
+    infix fun String.UPPER_EQUALS(value: Short) = this@Where.table.getColumn(this) UPPER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is upper than or equal to the given integer.
@@ -888,7 +891,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The integer to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER_EQUALS(value : Int) = this@Where.table.getColumn(this) UPPER_EQUALS value
+    infix fun String.UPPER_EQUALS(value: Int) = this@Where.table.getColumn(this) UPPER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is upper than or equal to the given long.
@@ -901,7 +904,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The long to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER_EQUALS(value : Long) = this@Where.table.getColumn(this) UPPER_EQUALS value
+    infix fun String.UPPER_EQUALS(value: Long) = this@Where.table.getColumn(this) UPPER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is upper than or equal to the given float.
@@ -914,7 +917,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The float to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER_EQUALS(value : Float) = this@Where.table.getColumn(this) UPPER_EQUALS value
+    infix fun String.UPPER_EQUALS(value: Float) = this@Where.table.getColumn(this) UPPER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is upper than or equal to the given double.
@@ -927,7 +930,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The double to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER_EQUALS(value : Double) = this@Where.table.getColumn(this) UPPER_EQUALS value
+    infix fun String.UPPER_EQUALS(value: Double) = this@Where.table.getColumn(this) UPPER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is upper than or equal to the given calendar.
@@ -940,7 +943,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The calendar to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER_EQUALS(value : Calendar) = this@Where.table.getColumn(this) UPPER_EQUALS value
+    infix fun String.UPPER_EQUALS(value: Calendar) = this@Where.table.getColumn(this) UPPER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is upper than or equal to the given date.
@@ -953,7 +956,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The date to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER_EQUALS(value : DataDate) = this@Where.table.getColumn(this) UPPER_EQUALS value
+    infix fun String.UPPER_EQUALS(value: DataDate) = this@Where.table.getColumn(this) UPPER_EQUALS value
 
     /**
      * Creates a condition that checks if the column's value is upper than or equal to the given time.
@@ -966,7 +969,7 @@ open class Where internal constructor(private val table : Table)
      * @param value The time to compare with.
      * @return A new condition.
      */
-    infix fun String.UPPER_EQUALS(value : DataTime) = this@Where.table.getColumn(this) UPPER_EQUALS value
+    infix fun String.UPPER_EQUALS(value: DataTime) = this@Where.table.getColumn(this) UPPER_EQUALS value
 
     // Match select
 
@@ -987,7 +990,7 @@ open class Where internal constructor(private val table : Table)
      * @return A new condition.
      */
     @MatchDSL
-    infix fun String.IN(matchCreator : Match.() -> Unit) = this@Where.table.getColumn(this) IN matchCreator
+    infix fun String.IN(matchCreator: Match.() -> Unit) = this@Where.table.getColumn(this) IN matchCreator
 
     // One of
 
@@ -1002,7 +1005,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of IDs to compare with.
      * @return A new condition.
      */
-    infix fun String.ONE_OF_ID(selection : IntArray) = this@Where.table.getColumn(this) ONE_OF_ID selection
+    infix fun String.ONE_OF_ID(selection: IntArray) = this@Where.table.getColumn(this) ONE_OF_ID selection
 
     /**
      * Creates a condition that checks if the column's value is one of the given strings.
@@ -1015,7 +1018,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of strings to compare with.
      * @return A new condition.
      */
-    infix fun String.ONE_OF(selection : Array<String>) = this@Where.table.getColumn(this) ONE_OF selection
+    infix fun String.ONE_OF(selection: Array<String>) = this@Where.table.getColumn(this) ONE_OF selection
 
     /**
      * Creates a condition that checks if the column's value is one of the given booleans.
@@ -1028,7 +1031,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of booleans to compare with.
      * @return A new condition.
      */
-    infix fun String.ONE_OF(selection : BooleanArray) = this@Where.table.getColumn(this) ONE_OF selection
+    infix fun String.ONE_OF(selection: BooleanArray) = this@Where.table.getColumn(this) ONE_OF selection
 
     /**
      * Creates a condition that checks if the column's value is one of the given bytes.
@@ -1041,7 +1044,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of bytes to compare with.
      * @return A new condition.
      */
-    infix fun String.ONE_OF(selection : ByteArray) = this@Where.table.getColumn(this) ONE_OF selection
+    infix fun String.ONE_OF(selection: ByteArray) = this@Where.table.getColumn(this) ONE_OF selection
 
     /**
      * Creates a condition that checks if the column's value is one of the given shorts.
@@ -1054,7 +1057,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of shorts to compare with.
      * @return A new condition.
      */
-    infix fun String.ONE_OF(selection : ShortArray) = this@Where.table.getColumn(this) ONE_OF selection
+    infix fun String.ONE_OF(selection: ShortArray) = this@Where.table.getColumn(this) ONE_OF selection
 
     /**
      * Creates a condition that checks if the column's value is one of the given integers.
@@ -1067,7 +1070,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of integers to compare with.
      * @return A new condition.
      */
-    infix fun String.ONE_OF(selection : IntArray) = this@Where.table.getColumn(this) ONE_OF selection
+    infix fun String.ONE_OF(selection: IntArray) = this@Where.table.getColumn(this) ONE_OF selection
 
     /**
      * Creates a condition that checks if the column's value is one of the given longs.
@@ -1080,7 +1083,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of longs to compare with.
      * @return A new condition.
      */
-    infix fun String.ONE_OF(selection : LongArray) = this@Where.table.getColumn(this) ONE_OF selection
+    infix fun String.ONE_OF(selection: LongArray) = this@Where.table.getColumn(this) ONE_OF selection
 
     /**
      * Creates a condition that checks if the column's value is one of the given floats.
@@ -1093,7 +1096,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of floats to compare with.
      * @return A new condition.
      */
-    infix fun String.ONE_OF(selection : FloatArray) = this@Where.table.getColumn(this) ONE_OF selection
+    infix fun String.ONE_OF(selection: FloatArray) = this@Where.table.getColumn(this) ONE_OF selection
 
     /**
      * Creates a condition that checks if the column's value is one of the given doubles.
@@ -1106,7 +1109,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of doubles to compare with.
      * @return A new condition.
      */
-    infix fun String.ONE_OF(selection : DoubleArray) = this@Where.table.getColumn(this) ONE_OF selection
+    infix fun String.ONE_OF(selection: DoubleArray) = this@Where.table.getColumn(this) ONE_OF selection
 
     /**
      * Creates a condition that checks if the column's value is one of the given byte arrays.
@@ -1119,7 +1122,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of byte arrays to compare with.
      * @return A new condition.
      */
-    infix fun String.ONE_OF(selection : Array<ByteArray>) = this@Where.table.getColumn(this) ONE_OF selection
+    infix fun String.ONE_OF(selection: Array<ByteArray>) = this@Where.table.getColumn(this) ONE_OF selection
 
     /**
      * Creates a condition that checks if the column's value is one of the given integer arrays.
@@ -1132,7 +1135,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of integer arrays to compare with.
      * @return A new condition.
      */
-    infix fun String.ONE_OF(selection : Array<IntArray>) = this@Where.table.getColumn(this) ONE_OF selection
+    infix fun String.ONE_OF(selection: Array<IntArray>) = this@Where.table.getColumn(this) ONE_OF selection
 
     /**
      * Creates a condition that checks if the column's value is one of the given calendars.
@@ -1145,7 +1148,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of calendars to compare with.
      * @return A new condition.
      */
-    infix fun String.ONE_OF(selection : Array<Calendar>) = this@Where.table.getColumn(this) ONE_OF selection
+    infix fun String.ONE_OF(selection: Array<Calendar>) = this@Where.table.getColumn(this) ONE_OF selection
 
     /**
      * Creates a condition that checks if the column's value is one of the given dates.
@@ -1158,7 +1161,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of dates to compare with.
      * @return A new condition.
      */
-    infix fun String.ONE_OF(selection : Array<DataDate>) = this@Where.table.getColumn(this) ONE_OF selection
+    infix fun String.ONE_OF(selection: Array<DataDate>) = this@Where.table.getColumn(this) ONE_OF selection
 
     /**
      * Creates a condition that checks if the column's value is one of the given times.
@@ -1171,7 +1174,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of times to compare with.
      * @return A new condition.
      */
-    infix fun String.ONE_OF(selection : Array<DataTime>) = this@Where.table.getColumn(this) ONE_OF selection
+    infix fun String.ONE_OF(selection: Array<DataTime>) = this@Where.table.getColumn(this) ONE_OF selection
 
     /**
      * Creates a condition that checks if the column's value matches the given pattern.
@@ -1184,7 +1187,7 @@ open class Where internal constructor(private val table : Table)
      * @param pattern The pattern to match.
      * @return A new condition.
      */
-    infix fun String.LIKE(pattern : String) = this@Where.table.getColumn(this) LIKE pattern
+    infix fun String.LIKE(pattern: String) = this@Where.table.getColumn(this) LIKE pattern
 
     /**
      * Creates a condition that checks if the column's value is one of the given enums.
@@ -1197,7 +1200,7 @@ open class Where internal constructor(private val table : Table)
      * @param selection The array of enums to compare with.
      * @return A new condition.
      */
-    infix fun <E : Enum<E>> String.ONE_OF(selection : Array<E>) = this@Where.table.getColumn(this) ONE_OF selection
+    infix fun <E : Enum<E>> String.ONE_OF(selection: Array<E>) = this@Where.table.getColumn(this) ONE_OF selection
 
     // Regex
 
@@ -1212,7 +1215,7 @@ open class Where internal constructor(private val table : Table)
      * @param pattern The regex pattern to match.
      * @return A new condition.
      */
-    infix fun Column.REGEX(pattern : Pattern) =
+    infix fun Column.REGEX(pattern: Pattern) =
         this.regex(this@Where.table, pattern)
 
     /**
@@ -1226,7 +1229,7 @@ open class Where internal constructor(private val table : Table)
      * @param pattern The regex pattern to match.
      * @return A new condition.
      */
-    infix fun String.REGEX(pattern : Pattern) =
+    infix fun String.REGEX(pattern: Pattern) =
         this@Where.table.getColumn(this)
             .regex(this@Where.table, pattern)
 
@@ -1241,7 +1244,7 @@ open class Where internal constructor(private val table : Table)
      * @param regularExpression The regular expression to match.
      * @return A new condition.
      */
-    infix fun Column.REGEX(regularExpression : RegularExpression) =
+    infix fun Column.REGEX(regularExpression: RegularExpression) =
         this.regex(this@Where.table, regularExpression)
 
     /**
@@ -1255,7 +1258,7 @@ open class Where internal constructor(private val table : Table)
      * @param regularExpression The regular expression to match.
      * @return A new condition.
      */
-    infix fun String.REGEX(regularExpression : RegularExpression) =
+    infix fun String.REGEX(regularExpression: RegularExpression) =
         this@Where.table.getColumn(this)
             .regex(this@Where.table, regularExpression)
 }

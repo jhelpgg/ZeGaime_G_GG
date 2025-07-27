@@ -29,8 +29,9 @@ import java.security.NoSuchAlgorithmException
  * @property height The height of the GIF.
  * @property totalTime The total duration of the GIF animation in milliseconds.
  * @property numberOfImage The number of images in the GIF.
+ * @constructor Creates a new GIF from an input stream.
  */
-class GIF(inputStream : InputStream)
+class GIF(inputStream: InputStream)
 {
     companion object
     {
@@ -47,7 +48,7 @@ class GIF(inputStream : InputStream)
          * @param file The GIF image file.
          * @return The size of the GIF image, or `null` if the file is not a valid GIF image.
          */
-        fun computeGifSize(file : File) = fr.khelp.zegaime.images.gif.computeGifSize(file)
+        fun computeGifSize(file: File) = fr.khelp.zegaime.images.gif.computeGifSize(file)
 
         /**
          * Indicates if a file is a GIF image file.
@@ -60,16 +61,15 @@ class GIF(inputStream : InputStream)
          * @param file The file to test.
          * @return `true` if the file is a GIF image file, `false` otherwise.
          */
-        fun isGIF(file : File) = fr.khelp.zegaime.images.gif.isGIF(file)
+        fun isGIF(file: File) = fr.khelp.zegaime.images.gif.isGIF(file)
     }
 
     /**
      * Visitor to collect images.
      *
      * @param delays The array to store the delays of the images.
-     * 
      */
-    private class InternalVisitor(val delays : ArrayInt) : DataGIFVisitor
+    private class InternalVisitor(val delays: ArrayInt) : DataGIFVisitor
     {
         /**Images collected*/
         private val list = ArrayList<GameImage>()
@@ -85,7 +85,7 @@ class GIF(inputStream : InputStream)
          *
          * @return An array of the images.
          */
-        fun getArray() : Array<GameImage>
+        fun getArray(): Array<GameImage>
         {
             val array = this.list.toTypedArray()
             this.list.clear()
@@ -103,7 +103,7 @@ class GIF(inputStream : InputStream)
          * @param duration The duration of the image in milliseconds.
          * @param image The image.
          */
-        override fun nextImage(duration : Long, image : GameImage)
+        override fun nextImage(duration: Long, image: GameImage)
         {
             this.delays.add(duration.toInt())
             this.list.add(image)
@@ -115,7 +115,7 @@ class GIF(inputStream : InputStream)
          * @param width The width of the image.
          * @param height The height of the image.
          */
-        override fun startCollecting(width : Int, height : Int)
+        override fun startCollecting(width: Int, height: Int)
         {
             this.width = width
             this.height = height
@@ -126,13 +126,13 @@ class GIF(inputStream : InputStream)
     private val delays = ArrayInt()
 
     /**Image width*/
-    val width : Int
+    val width: Int
 
     /**Image height*/
-    val height : Int
+    val height: Int
 
     /**Images of animated GIF*/
-    private val images : Array<GameImage>
+    private val images: Array<GameImage>
 
     /**Previous image index*/
     private var previousIndex = 0
@@ -141,10 +141,10 @@ class GIF(inputStream : InputStream)
     private var startTime = 0L
 
     /**Total GIF animation time*/
-    val totalTime : Int
+    val totalTime: Int
 
     /** Number of images/delays */
-    val number : Int get() = this.images.size
+    val number: Int get() = this.images.size
 
     init
     {
@@ -184,7 +184,7 @@ class GIF(inputStream : InputStream)
      * @throws IOException On computation problem.
      */
     @Throws(NoSuchAlgorithmException::class, IOException::class)
-    fun md5() : String
+    fun md5(): String
     {
         val md5 = MessageDigest.getInstance("MD5")
         val numberOfImages = this.images.size
@@ -196,12 +196,12 @@ class GIF(inputStream : InputStream)
 
         md5.update(temp, 0, 4)
 
-        var inputStream : IntegerArrayInputStream
-        var bufferedImage : GameImage
-        var pixels : IntArray
-        var read : Int
-        var width : Int
-        var height : Int
+        var inputStream: IntegerArrayInputStream
+        var bufferedImage: GameImage
+        var pixels: IntArray
+        var read: Int
+        var width: Int
+        var height: Int
 
         for (image1 in this.images)
         {
@@ -251,7 +251,7 @@ class GIF(inputStream : InputStream)
      * @param index The index of the image.
      * @return The delay in milliseconds.
      */
-    fun delay(index : Int) = this.delays[index]
+    fun delay(index: Int) = this.delays[index]
 
     /**
      * Returns an image.
@@ -264,7 +264,7 @@ class GIF(inputStream : InputStream)
      * @param index The index of the image.
      * @return The desired image.
      */
-    fun image(index : Int) = this.images[index]
+    fun image(index: Int) = this.images[index]
 
     /**
      * Returns the image index suggested between the last time [GIF.startAnimation] was called and the time this method is called,
@@ -277,14 +277,14 @@ class GIF(inputStream : InputStream)
      *
      * @return The image index since the last time [GIF.startAnimation] was called.
      */
-    fun imageIndexFromStartAnimation() : Int
+    fun imageIndexFromStartAnimation(): Int
     {
         val time = System.currentTimeMillis() - this.startTime
         val max = this.images.size - 1
         val relativeTime = (time % this.totalTime).toInt()
         var index = 0
         var actualTime = 0
-        var delay : Int
+        var delay: Int
 
         while (index < max)
         {
@@ -326,7 +326,7 @@ class GIF(inputStream : InputStream)
     /**
      * The number of images.
      */
-    val numberOfImage : Int
+    val numberOfImage: Int
         get() = this.images.size
 
     /**

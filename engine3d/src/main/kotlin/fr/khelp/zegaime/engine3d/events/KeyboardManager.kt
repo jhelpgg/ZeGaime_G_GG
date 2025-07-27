@@ -8,22 +8,48 @@ import fr.khelp.zegaime.utils.tasks.future.future
 import fr.khelp.zegaime.utils.tasks.synchro.Mutex
 import org.lwjgl.glfw.GLFW
 
+/**
+ * Manages the keyboard events.
+ *
+ * This class is responsible for detecting the keyboard events and publishing them as a flow of key codes.
+ * It also allows to capture the next key typed.
+ *
+ * **Creation example:**
+ * This class is not meant to be instantiated directly.
+ * It is created by the `Window3D` class.
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val keyboardManager = window3D.keyboardManager
+ * keyboardManager.keyPressed.observedBy { keyCodes ->
+ *     for (keyCode in keyCodes) {
+ *         // ...
+ *     }
+ * }
+ * ```
+ *
+ * @property keyPressed A flow that emits the currently pressed key codes.
+ * @constructor Creates a new keyboard manager. For internal use only.
+ */
 class KeyboardManager internal constructor()
 {
     private val mutexCapture = Mutex()
-    private var nextKeyCode : Promise<Int>? = null
+    private var nextKeyCode: Promise<Int>? = null
 
     /**Current active key codes*/
     private val activeKeys = HashSet<Int>()
     private val keyPressedSource = FlowSource<IntArray>()
-    val keyPressed : Flow<IntArray> = this.keyPressedSource.flow
+    /**
+     * A flow that emits the currently pressed key codes.
+     */
+    val keyPressed: Flow<IntArray> = this.keyPressedSource.flow
 
     /**
-     * Capture the next key typed
+     * Capture the next key typed.
      *
-     * @return Future that will contains the next key code typed
+     * @return A future that will contain the next key code typed.
      */
-    fun captureKeyCode() : Future<Int> =
+    fun captureKeyCode(): Future<Int> =
         this.mutexCapture {
             if (this.nextKeyCode == null)
             {
@@ -33,7 +59,15 @@ class KeyboardManager internal constructor()
             this.nextKeyCode?.future ?: Exception("Fail to capture key code").future()
         }
 
-    internal fun keyEvent(keyCode : Int, action : Int)
+    /**
+     * Called when a key event occurs.
+     *
+     * For internal use only.
+     *
+     * @param keyCode The key code.
+     * @param action The action type.
+     */
+    internal fun keyEvent(keyCode: Int, action: Int)
     {
         if (action == GLFW.GLFW_PRESS)
         {
@@ -64,6 +98,11 @@ class KeyboardManager internal constructor()
         }
     }
 
+    /**
+     * Reports the currently pressed keys.
+     *
+     * For internal use only.
+     */
     internal fun reportKeys()
     {
         synchronized(this.activeKeys) { this.keyPressedSource.publish(this.activeKeys.toIntArray()) }

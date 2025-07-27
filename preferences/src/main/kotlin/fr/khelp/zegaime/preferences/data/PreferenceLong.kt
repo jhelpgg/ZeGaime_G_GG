@@ -15,13 +15,15 @@ import fr.khelp.zegaime.preferences.type.PreferenceTypeLong
  * myPreference.value = 1L
  * val currentValue = myPreference.value
  * ```
+ *
+ * @constructor Creates a new long preference. For internal use only.
  */
-class PreferenceLong internal constructor(name : String, initialValue : Long)
-    : Preference<Long, PreferenceTypeLong>(name, PreferenceTypeLong, initialValue)
+class PreferenceLong internal constructor(name: String, initialValue: Long) :
+    Preference<Long, PreferenceTypeLong>(name, PreferenceTypeLong, initialValue)
 {
     /**
      * Returns `true` if the new value is different from the current value.
      */
-    override fun allowUpdate(currentValue : Long, newValue : Long) : Boolean =
+    override fun allowUpdate(currentValue: Long, newValue: Long): Boolean =
         currentValue != newValue
 }

@@ -7,7 +7,37 @@ import fr.khelp.zegaime.utils.tasks.observable.Observable
 import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
 import org.lwjgl.glfw.GLFW
 
-class MouseManager internal constructor(private val gui : GUI)
+/**
+ * Manages the mouse events.
+ *
+ * This class is responsible for detecting the mouse events and publishing them as a flow of mouse states.
+ *
+ * **Creation example:**
+ * This class is not meant to be instantiated directly.
+ * It is created by the `Window3D` class.
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val mouseManager = window3D.mouseManager
+ * mouseManager.mouseStateObservable.observedBy { mouseState ->
+ *     // ...
+ * }
+ * ```
+ *
+ * @property mouseX The current X position of the mouse.
+ * @property mouseY The current Y position of the mouse.
+ * @property leftButtonDown Indicates if the left mouse button is down.
+ * @property middleButtonDown Indicates if the middle mouse button is down.
+ * @property rightButtonDown Indicates if the right mouse button is down.
+ * @property insideWindow3D Indicates if the mouse is inside the 3D window.
+ * @property control Indicates if the control key is down.
+ * @property shift Indicates if the shift key is down.
+ * @property alt Indicates if the alt key is down.
+ * @property mouseStatus The current status of the mouse.
+ * @property mouseStateObservable A flow that emits the mouse state changes.
+ * @constructor Creates a new mouse manager. For internal use only.
+ */
+class MouseManager internal constructor(private val gui: GUI)
 {
     companion object
     {
@@ -15,23 +45,50 @@ class MouseManager internal constructor(private val gui : GUI)
         private const val CLICK_TIME = 256L
     }
 
-    var mouseX : Int = -1
+    /**
+     * The current X position of the mouse.
+     */
+    var mouseX: Int = -1
         internal set
-    var mouseY : Int = -1
+    /**
+     * The current Y position of the mouse.
+     */
+    var mouseY: Int = -1
         internal set
-    var leftButtonDown : Boolean = false
+    /**
+     * Indicates if the left mouse button is down.
+     */
+    var leftButtonDown: Boolean = false
         internal set
-    var middleButtonDown : Boolean = false
+    /**
+     * Indicates if the middle mouse button is down.
+     */
+    var middleButtonDown: Boolean = false
         internal set
-    var rightButtonDown : Boolean = false
+    /**
+     * Indicates if the right mouse button is down.
+     */
+    var rightButtonDown: Boolean = false
         internal set
-    var insideWindow3D : Boolean = false
+    /**
+     * Indicates if the mouse is inside the 3D window.
+     */
+    var insideWindow3D: Boolean = false
         internal set
-    var control : Boolean = false
+    /**
+     * Indicates if the control key is down.
+     */
+    var control: Boolean = false
         internal set
-    var shift : Boolean = false
+    /**
+     * Indicates if the shift key is down.
+     */
+    var shift: Boolean = false
         private set
-    var alt : Boolean = false
+    /**
+     * Indicates if the alt key is down.
+     */
+    var alt: Boolean = false
         private set
 
     internal var width = -1
@@ -39,9 +96,12 @@ class MouseManager internal constructor(private val gui : GUI)
 
     private var clicked = false
     private var lastLeftDownTime = 0L
+    /**
+     * The current status of the mouse.
+     */
     var mouseStatus = MouseStatus.STAY
         private set
-    private var stayTimeOut : Future<Unit>? = null
+    private var stayTimeOut: Future<Unit>? = null
     private val mouseStateObservableData = ObservableSource<MouseState>(MouseState(MouseStatus.STAY, -1, -1,
                                                                                    leftButtonDown = false,
                                                                                    middleButtonDown = false,
@@ -50,9 +110,19 @@ class MouseManager internal constructor(private val gui : GUI)
                                                                                    controlDown = false,
                                                                                    altDown = false,
                                                                                    clicked = false))
-    val mouseStateObservable : Observable<MouseState> = this.mouseStateObservableData.observable
+    /**
+     * A flow that emits the mouse state changes.
+     */
+    val mouseStateObservable: Observable<MouseState> = this.mouseStateObservableData.observable
 
-    internal fun mouseEntered(entered : Boolean)
+    /**
+     * Called when the mouse enters or leaves the 3D window.
+     *
+     * For internal use only.
+     *
+     * @param entered `true` if the mouse entered the window, `false` otherwise.
+     */
+    internal fun mouseEntered(entered: Boolean)
     {
         if (this.insideWindow3D != entered)
         {
@@ -69,7 +139,16 @@ class MouseManager internal constructor(private val gui : GUI)
         }
     }
 
-    internal fun mouseButton(button : Int, action : Int, modifiers : Int)
+    /**
+     * Called when a mouse button event occurs.
+     *
+     * For internal use only.
+     *
+     * @param button The mouse button.
+     * @param action The action type.
+     * @param modifiers The modifiers.
+     */
+    internal fun mouseButton(button: Int, action: Int, modifiers: Int)
     {
         this.shift = (modifiers and GLFW.GLFW_MOD_SHIFT) != 0
         this.control = (modifiers and GLFW.GLFW_MOD_CONTROL) != 0
@@ -77,7 +156,7 @@ class MouseManager internal constructor(private val gui : GUI)
 
         when (button)
         {
-            GLFW.GLFW_MOUSE_BUTTON_LEFT   ->
+            GLFW.GLFW_MOUSE_BUTTON_LEFT ->
             {
                 this.leftButtonDown = action == GLFW.GLFW_PRESS
 
@@ -95,7 +174,7 @@ class MouseManager internal constructor(private val gui : GUI)
             }
 
             GLFW.GLFW_MOUSE_BUTTON_MIDDLE -> this.middleButtonDown = action == GLFW.GLFW_PRESS
-            GLFW.GLFW_MOUSE_BUTTON_RIGHT  -> this.rightButtonDown = action == GLFW.GLFW_PRESS
+            GLFW.GLFW_MOUSE_BUTTON_RIGHT -> this.rightButtonDown = action == GLFW.GLFW_PRESS
         }
 
         if (this.mouseStatus == MouseStatus.MOVE && (this.leftButtonDown || this.middleButtonDown || this.rightButtonDown))
@@ -110,7 +189,15 @@ class MouseManager internal constructor(private val gui : GUI)
         this.pushMouseState(this.mouseStatus)
     }
 
-    internal fun mousePosition(cursorX : Double, cursorY : Double)
+    /**
+     * Called when the mouse position changes.
+     *
+     * For internal use only.
+     *
+     * @param cursorX The new X position of the mouse.
+     * @param cursorY The new Y position of the mouse.
+     */
+    internal fun mousePosition(cursorX: Double, cursorY: Double)
     {
         this.mouseX = cursorX.toInt()
         this.mouseY = cursorY.toInt()
@@ -136,7 +223,7 @@ class MouseManager internal constructor(private val gui : GUI)
         this.pushMouseState(status)
     }
 
-    private fun pushMouseState(mouseStatus : MouseStatus)
+    private fun pushMouseState(mouseStatus: MouseStatus)
     {
         this.mouseStatus = mouseStatus
         val mouseState = MouseState(mouseStatus,

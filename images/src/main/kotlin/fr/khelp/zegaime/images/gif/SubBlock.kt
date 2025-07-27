@@ -7,28 +7,32 @@ import java.io.InputStream
 /**
  * Represents a sub-block in a GIF file.
  *
+ * This class is for internal use of the image system.
+ *
  * @property size The size of the sub-block data.
  * @property data The data of the sub-block.
- * 
+ * @constructor Creates a new sub-block.
  */
-internal data class SubBlock(val size : Int, val data : ByteArray)
+internal data class SubBlock(val size: Int, val data: ByteArray)
 
 /**
  * An empty sub-block.
- * 
+ *
+ * This object is for internal use of the image system.
  */
 internal val EMPTY = SubBlock(0, ByteArray(0))
 
 /**
  * Reads the next sub-block from an input stream.
  *
+ * This function is for internal use of the image system.
+ *
  * @param inputStream The input stream to read from.
  * @return The sub-block read.
  * @throws IOException If the data does not correspond to a valid sub-block.
- * 
  */
 @Throws(IOException::class)
-internal fun readSubBlock(inputStream : InputStream) : SubBlock
+internal fun readSubBlock(inputStream: InputStream): SubBlock
 {
     val size = inputStream.read()
 

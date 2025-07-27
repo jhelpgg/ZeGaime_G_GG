@@ -27,8 +27,9 @@ import java.io.InputStream
  *
  * @property width The width of the image.
  * @property height The height of the image.
+ * @constructor Creates a new 4-bit image.
  */
-class Image4Bit(val width : Int, val height : Int) : RasterImage
+class Image4Bit(val width: Int, val height: Int) : RasterImage
 {
     companion object
     {
@@ -99,7 +100,7 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
      * @param colorIndex The index of the color in the color table.
      * @return The color.
      */
-    operator fun get(colorIndex : Int) = this.colorTable[colorIndex]
+    operator fun get(colorIndex: Int) = this.colorTable[colorIndex]
 
     /**
      * Returns the color index of the pixel at the given coordinates.
@@ -113,7 +114,7 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
      * @param y The y coordinate of the pixel.
      * @return The color index of the pixel.
      */
-    fun colorIndex(x : Int, y : Int) : Int
+    fun colorIndex(x: Int, y: Int): Int
     {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height)
         {
@@ -142,14 +143,14 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
      *
      * @return The converted image.
      */
-    override fun toGameImage() : GameImage
+    override fun toGameImage(): GameImage
     {
         val length = this.width * this.height
         val pixels = IntArray(length)
         var high = true
         var pixData = 0
         var info = this.data[0].toUnsignedInt()
-        var colorIndex : Int
+        var colorIndex: Int
 
         for (pix in 0 until length)
         {
@@ -184,20 +185,19 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
      *
      * @param inputStream The stream to parse.
      * @throws IOException On reading issue.
-     * 
      */
     @Throws(IOException::class)
-    fun parseBitmapStream(inputStream : InputStream)
+    fun parseBitmapStream(inputStream: InputStream)
     {
         this.clear()
         val buffer = ByteArray(4)
         var y = this.height - 1
-        var highRead : Boolean
-        var x : Int
-        var line : Int
-        var pix : Int
-        var index : Int
-        var colorIndex : Int
+        var highRead: Boolean
+        var x: Int
+        var line: Int
+        var pix: Int
+        var index: Int
+        var colorIndex: Int
 
         while (y >= 0)
         {
@@ -248,27 +248,26 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
      *
      * @param inputStream The stream to parse.
      * @throws IOException On reading issue.
-     * 
      */
     @Throws(IOException::class)
-    fun parseBitmapStreamCompressed(inputStream : InputStream)
+    fun parseBitmapStreamCompressed(inputStream: InputStream)
     {
         this.clear()
         val buffer = ByteArray(4)
         var y = this.height - 1
-        var highRead : Boolean
-        var x : Int
-        var line : Int
-        var pix : Int
-        var index : Int
-        var colorIndex : Int
-        var count : Int
-        var info : Int
-        var left : Int
-        var up : Int
-        var length : Int
-        var internIndex : Int
-        var internBuffer : ByteArray
+        var highRead: Boolean
+        var x: Int
+        var line: Int
+        var pix: Int
+        var index: Int
+        var colorIndex: Int
+        var count: Int
+        var info: Int
+        var left: Int
+        var up: Int
+        var length: Int
+        var internIndex: Int
+        var internBuffer: ByteArray
 
         while (y >= 0)
         {
@@ -332,9 +331,9 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
                     {
                         when (info)
                         {
-                            0    -> x = this.width
-                            1    -> return
-                            2    ->
+                            0 -> x = this.width
+                            1 -> return
+                            2 ->
                             {
                                 if (index == 2)
                                 {
@@ -445,7 +444,7 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
      * @param colorIndex The index of the color in the color table.
      * @param color The new color.
      */
-    operator fun set(colorIndex : Int, color : Int)
+    operator fun set(colorIndex: Int, color: Int)
     {
         this.colorTable[colorIndex] = color
     }
@@ -462,7 +461,7 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
      * @param y The y coordinate of the pixel.
      * @param colorIndex The new color index of the pixel.
      */
-    fun colorIndex(x : Int, y : Int, colorIndex : Int)
+    fun colorIndex(x: Int, y: Int, colorIndex: Int)
     {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height)
         {
@@ -500,7 +499,7 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
      * @param colorIndexStart The index in the color table where to start writing.
      * @param colors The colors to set.
      */
-    fun colors(colorIndexStart : Int, vararg colors : Int)
+    fun colors(colorIndexStart: Int, vararg colors: Int)
     {
         val limit = Math.min(16 - colorIndexStart, colors.size)
         System.arraycopy(colors, 0, this.colorTable, colorIndexStart, limit)
@@ -518,7 +517,7 @@ class Image4Bit(val width : Int, val height : Int) : RasterImage
     {
         this.colorTable[0] = COLOR_BLACK
         this.colorTable[15] = COLOR_WHITE
-        var part : Int
+        var part: Int
 
         for (i in 1..14)
         {

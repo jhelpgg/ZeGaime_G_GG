@@ -8,12 +8,13 @@ import fr.khelp.zegaime.engine3d.scene.prebuilt.complex.robot.RobotPosition
 import kotlin.math.max
 
 /**
- * Create animation that make the robot to return at it start position
- * @param numberMilliseconds Number milliseconds to return to start position
- * @param interpolation Interpolation to use
- * @return Created animation
+ * Creates an animation that makes the robot return to its start position.
+ *
+ * @param numberMilliseconds The duration of the animation in milliseconds.
+ * @param interpolation The interpolation to use.
+ * @return The created animation.
  */
-fun Robot.startPosition(numberMilliseconds : Long = 32L, interpolation : Interpolation = InterpolationLinear) : Animation
+fun Robot.startPosition(numberMilliseconds: Long = 32L, interpolation: Interpolation = InterpolationLinear): Animation
 {
     val animation = AnimationRobotKeyTime(this)
     animation.addKeyTimeValue(max(32L, numberMilliseconds), RobotPosition(), interpolation)
@@ -21,14 +22,15 @@ fun Robot.startPosition(numberMilliseconds : Long = 32L, interpolation : Interpo
 }
 
 /**
- * Create animation that make robot to walk
- * @param numberMillisecondsPerStep Number milliseconds to make a step
- * @param numberStep Number step to make
- * @return Created animation
+ * Creates an animation that makes the robot walk.
+ *
+ * @param numberMillisecondsPerStep The duration of each step in milliseconds.
+ * @param numberStep The number of steps to make.
+ * @return The created animation.
  */
-fun Robot.walk(numberMillisecondsPerStep : Long = 64L, numberStep : Int = 1) : Animation
+fun Robot.walk(numberMillisecondsPerStep: Long = 64L, numberStep: Int = 1): Animation
 {
-    val time = max(64L, numberMillisecondsPerStep);
+    val time = max(64L, numberMillisecondsPerStep)
     val semiTime = time shr 1
     val stepMax = max(1, numberStep)
     val animation = AnimationRobotKeyTime(this)
@@ -53,14 +55,15 @@ fun Robot.walk(numberMillisecondsPerStep : Long = 64L, numberStep : Int = 1) : A
 }
 
 /**
- * Create animation that make robot to run
- * @param numberMillisecondsPerStep Number milliseconds to make a step
- * @param numberStep Number step to make
- * @return Created animation
+ * Creates an animation that makes the robot run.
+ *
+ * @param numberMillisecondsPerStep The duration of each step in milliseconds.
+ * @param numberStep The number of steps to make.
+ * @return The created animation.
  */
-fun Robot.run(numberMillisecondsPerStep : Long = 32L, numberStep : Int = 1) : Animation
+fun Robot.run(numberMillisecondsPerStep: Long = 32L, numberStep: Int = 1): Animation
 {
-    val frame = max(32L, numberMillisecondsPerStep);
+    val frame = max(32L, numberMillisecondsPerStep)
     val semiFrame = frame shr 1
     val portion = 5
     val part = frame / portion

@@ -1,17 +1,19 @@
 package fr.khelp.zegaime.animations.interpolation
 
 /**
- * Interpolation follow square progression
+ * An interpolation that follows a square progression.
+ *
+ * The animation has a slow start and a fast end (acceleration).
  */
 data object InterpolationSquare : Interpolation
 {
     /**
-     * Interpolate value with following equation:
+     * Interpolates the value using a square function.
      *
-     *    t²
+     * The formula used is `percent * percent`.
      *
-     * @param percent Value to interpolate
-     * @return Interpolate value
+     * @param percent The value to interpolate, between 0 and 1.
+     * @return The interpolated value.
      */
-    override operator fun invoke(percent : Double) = percent * percent
+    override operator fun invoke(percent: Double) = percent * percent
 }

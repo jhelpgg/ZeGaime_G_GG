@@ -9,6 +9,8 @@ import java.util.Calendar
 /**
  * Creates a condition that checks if the column's value is upper than or equal to the given string.
  *
+ * The column type must be `DataType.STRING`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_NAME UPPER_EQUALS "test"
@@ -16,8 +18,9 @@ import java.util.Calendar
  *
  * @param string The string to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.STRING`.
  */
-infix fun Column.UPPER_EQUALS(string : String) : Condition
+infix fun Column.UPPER_EQUALS(string: String): Condition
 {
     this.checkType(DataType.STRING)
     return Condition(arrayOf(this), "${this.name}>='$string'")
@@ -26,6 +29,8 @@ infix fun Column.UPPER_EQUALS(string : String) : Condition
 /**
  * Creates a condition that checks if the column's value is upper than or equal to the given byte.
  *
+ * The column type must be `DataType.BYTE`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_VALUE UPPER_EQUALS 1.toByte()
@@ -33,8 +38,9 @@ infix fun Column.UPPER_EQUALS(string : String) : Condition
  *
  * @param value The byte to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.BYTE`.
  */
-infix fun Column.UPPER_EQUALS(value : Byte) : Condition
+infix fun Column.UPPER_EQUALS(value: Byte): Condition
 {
     this.checkType(DataType.BYTE)
     return Condition(arrayOf(this), "${this.name}>=$value")
@@ -43,6 +49,8 @@ infix fun Column.UPPER_EQUALS(value : Byte) : Condition
 /**
  * Creates a condition that checks if the column's value is upper than or equal to the given short.
  *
+ * The column type must be `DataType.SHORT`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_VALUE UPPER_EQUALS 1.toShort()
@@ -50,8 +58,9 @@ infix fun Column.UPPER_EQUALS(value : Byte) : Condition
  *
  * @param value The short to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.SHORT`.
  */
-infix fun Column.UPPER_EQUALS(value : Short) : Condition
+infix fun Column.UPPER_EQUALS(value: Short): Condition
 {
     this.checkType(DataType.SHORT)
     return Condition(arrayOf(this), "${this.name}>=$value")
@@ -60,6 +69,8 @@ infix fun Column.UPPER_EQUALS(value : Short) : Condition
 /**
  * Creates a condition that checks if the column's value is upper than or equal to the given integer.
  *
+ * The column type must be `DataType.INTEGER`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_AGE UPPER_EQUALS 18
@@ -67,8 +78,9 @@ infix fun Column.UPPER_EQUALS(value : Short) : Condition
  *
  * @param value The integer to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.INTEGER`.
  */
-infix fun Column.UPPER_EQUALS(value : Int) : Condition
+infix fun Column.UPPER_EQUALS(value: Int): Condition
 {
     this.checkType(DataType.INTEGER)
     return Condition(arrayOf(this), "${this.name}>=$value")
@@ -77,6 +89,8 @@ infix fun Column.UPPER_EQUALS(value : Int) : Condition
 /**
  * Creates a condition that checks if the column's value is upper than or equal to the given long.
  *
+ * The column type must be `DataType.LONG`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_TIMESTAMP UPPER_EQUALS 1234567890L
@@ -84,8 +98,9 @@ infix fun Column.UPPER_EQUALS(value : Int) : Condition
  *
  * @param value The long to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.LONG`.
  */
-infix fun Column.UPPER_EQUALS(value : Long) : Condition
+infix fun Column.UPPER_EQUALS(value: Long): Condition
 {
     this.checkType(DataType.LONG)
     return Condition(arrayOf(this), "${this.name}>=$value")
@@ -94,6 +109,8 @@ infix fun Column.UPPER_EQUALS(value : Long) : Condition
 /**
  * Creates a condition that checks if the column's value is upper than or equal to the given float.
  *
+ * The column type must be `DataType.FLOAT`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_PRICE UPPER_EQUALS 12.34f
@@ -101,8 +118,9 @@ infix fun Column.UPPER_EQUALS(value : Long) : Condition
  *
  * @param value The float to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.FLOAT`.
  */
-infix fun Column.UPPER_EQUALS(value : Float) : Condition
+infix fun Column.UPPER_EQUALS(value: Float): Condition
 {
     this.checkType(DataType.FLOAT)
     return Condition(arrayOf(this), "${this.name}>=$value")
@@ -111,6 +129,8 @@ infix fun Column.UPPER_EQUALS(value : Float) : Condition
 /**
  * Creates a condition that checks if the column's value is upper than or equal to the given double.
  *
+ * The column type must be `DataType.DOUBLE`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_PRICE UPPER_EQUALS 12.34
@@ -118,8 +138,9 @@ infix fun Column.UPPER_EQUALS(value : Float) : Condition
  *
  * @param value The double to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.DOUBLE`.
  */
-infix fun Column.UPPER_EQUALS(value : Double) : Condition
+infix fun Column.UPPER_EQUALS(value: Double): Condition
 {
     this.checkType(DataType.DOUBLE)
     return Condition(arrayOf(this), "${this.name}>=$value")
@@ -128,6 +149,8 @@ infix fun Column.UPPER_EQUALS(value : Double) : Condition
 /**
  * Creates a condition that checks if the column's value is upper than or equal to the given calendar.
  *
+ * The column type must be `DataType.CALENDAR`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_DATE UPPER_EQUALS Calendar.getInstance()
@@ -135,8 +158,9 @@ infix fun Column.UPPER_EQUALS(value : Double) : Condition
  *
  * @param value The calendar to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.CALENDAR`.
  */
-infix fun Column.UPPER_EQUALS(value : Calendar) : Condition
+infix fun Column.UPPER_EQUALS(value: Calendar): Condition
 {
     this.checkType(DataType.CALENDAR)
     return Condition(arrayOf(this), "${this.name}>=${value.timeInMillis}")
@@ -145,6 +169,8 @@ infix fun Column.UPPER_EQUALS(value : Calendar) : Condition
 /**
  * Creates a condition that checks if the column's value is upper than or equal to the given date.
  *
+ * The column type must be `DataType.DATE`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_DATE UPPER_EQUALS DataDate(2023, 1, 1)
@@ -152,8 +178,9 @@ infix fun Column.UPPER_EQUALS(value : Calendar) : Condition
  *
  * @param value The date to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.DATE`.
  */
-infix fun Column.UPPER_EQUALS(value : DataDate) : Condition
+infix fun Column.UPPER_EQUALS(value: DataDate): Condition
 {
     this.checkType(DataType.DATE)
     return Condition(arrayOf(this), "${this.name}>=${value.serialized}")
@@ -162,6 +189,8 @@ infix fun Column.UPPER_EQUALS(value : DataDate) : Condition
 /**
  * Creates a condition that checks if the column's value is upper than or equal to the given time.
  *
+ * The column type must be `DataType.TIME`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_TIME UPPER_EQUALS DataTime(12, 0, 0)
@@ -169,10 +198,10 @@ infix fun Column.UPPER_EQUALS(value : DataDate) : Condition
  *
  * @param value The time to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.TIME`.
  */
-infix fun Column.UPPER_EQUALS(value : DataTime) : Condition
+infix fun Column.UPPER_EQUALS(value: DataTime): Condition
 {
     this.checkType(DataType.TIME)
     return Condition(arrayOf(this), "${this.name}>=${value.serialized}")
 }
-

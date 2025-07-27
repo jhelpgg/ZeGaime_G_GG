@@ -19,24 +19,24 @@ val MAX_DIMENSION = MAX_WIDTH * MAX_HEIGHT
 val MAX_DIMENSION_IN_BYTES = MAX_DIMENSION shl 2
 
 /**Byte buffer for communicating with OpenGL*/
-val TEMPORARY_BYTE_BUFFER : ByteBuffer =
-    ByteBuffer.allocateDirect(MAX_DIMENSION_IN_BYTES).order(ByteOrder.nativeOrder());
+val TEMPORARY_BYTE_BUFFER: ByteBuffer =
+    ByteBuffer.allocateDirect(MAX_DIMENSION_IN_BYTES).order(ByteOrder.nativeOrder())
 
 /**Int buffer for communicating with OpenGL*/
-val TEMPORARY_INT_BUFFER : IntBuffer = TEMPORARY_BYTE_BUFFER.asIntBuffer();
+val TEMPORARY_INT_BUFFER: IntBuffer = TEMPORARY_BYTE_BUFFER.asIntBuffer()
 
 /**Float buffer for communicating with OpenGL*/
-val TEMPORARY_FLOAT_BUFFER : FloatBuffer = TEMPORARY_BYTE_BUFFER.asFloatBuffer();
+val TEMPORARY_FLOAT_BUFFER: FloatBuffer = TEMPORARY_BYTE_BUFFER.asFloatBuffer()
 
 /**Double buffer for communicating with OpenGL*/
-val TEMPORARY_DOUBLE_BUFFER : DoubleBuffer = TEMPORARY_BYTE_BUFFER.asDoubleBuffer();
+val TEMPORARY_DOUBLE_BUFFER: DoubleBuffer = TEMPORARY_BYTE_BUFFER.asDoubleBuffer()
 
 /**
- * Fill a byte array with the buffer
+ * Fill a byte array with the buffer.
  *
  * @param array Array to fill
  */
-fun fillBuffer(array : ByteArray)
+fun fillBuffer(array: ByteArray)
 {
     TEMPORARY_BYTE_BUFFER.rewind()
     TEMPORARY_BYTE_BUFFER.get(array)
@@ -44,11 +44,11 @@ fun fillBuffer(array : ByteArray)
 }
 
 /**
- * Fill a double array with the buffer
+ * Fill a double array with the buffer.
  *
  * @param array Array to fill
  */
-fun fillBuffer(array : DoubleArray)
+fun fillBuffer(array: DoubleArray)
 {
     TEMPORARY_DOUBLE_BUFFER.rewind()
     TEMPORARY_DOUBLE_BUFFER.get(array)
@@ -56,11 +56,11 @@ fun fillBuffer(array : DoubleArray)
 }
 
 /**
- * Fill a float array with the buffer
+ * Fill a float array with the buffer.
  *
  * @param array Array to fill
  */
-fun fillBuffer(array : FloatArray)
+fun fillBuffer(array: FloatArray)
 {
     TEMPORARY_FLOAT_BUFFER.rewind()
     TEMPORARY_FLOAT_BUFFER.get(array)
@@ -68,11 +68,11 @@ fun fillBuffer(array : FloatArray)
 }
 
 /**
- * Fill an int array with the buffer
+ * Fill an int array with the buffer.
  *
  * @param array Array to fill
  */
-fun fillBuffer(array : IntArray)
+fun fillBuffer(array: IntArray)
 {
     TEMPORARY_INT_BUFFER.rewind()
     TEMPORARY_INT_BUFFER.get(array)
@@ -80,12 +80,12 @@ fun fillBuffer(array : IntArray)
 }
 
 /**
- * Transfer a byte array to the buffer
+ * Transfer a byte array to the buffer.
  *
  * @param array Array to transfer
  * @return The buffer filled
  */
-fun transferByte(array : ByteArray) : ByteBuffer
+fun transferByte(array: ByteArray): ByteBuffer
 {
     TEMPORARY_BYTE_BUFFER.rewind()
     TEMPORARY_BYTE_BUFFER.put(array)
@@ -94,12 +94,12 @@ fun transferByte(array : ByteArray) : ByteBuffer
 }
 
 /**
- * Transfer a float array to the buffer
+ * Transfer a float array to the buffer.
  *
  * @param array Array to transfer
  * @return The buffer filled
  */
-fun transferFloat(vararg array : Float) : FloatBuffer
+fun transferFloat(vararg array: Float): FloatBuffer
 {
     TEMPORARY_FLOAT_BUFFER.rewind()
     TEMPORARY_FLOAT_BUFFER.put(array)
@@ -108,12 +108,12 @@ fun transferFloat(vararg array : Float) : FloatBuffer
 }
 
 /**
- * Transfer an int array to the buffer
+ * Transfer an int array to the buffer.
  *
  * @param array Array to transfer
  * @return The buffer filled
  */
-fun transferInteger(vararg array : Int) : IntBuffer
+fun transferInteger(vararg array: Int): IntBuffer
 {
     TEMPORARY_INT_BUFFER.rewind()
     TEMPORARY_INT_BUFFER.put(array)

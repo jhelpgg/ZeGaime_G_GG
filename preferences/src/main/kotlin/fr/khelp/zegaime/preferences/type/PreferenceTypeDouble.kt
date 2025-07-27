@@ -4,7 +4,6 @@ import fr.khelp.zegaime.utils.extensions.double
 
 /**
  * Represents the type of a double preference.
- * 
  */
 data object PreferenceTypeDouble : PreferenceType<Double>
 {
@@ -14,7 +13,7 @@ data object PreferenceTypeDouble : PreferenceType<Double>
      * @param value The double value to serialize.
      * @return The serialized string.
      */
-    override fun serialize(value : Double) : String =
+    override fun serialize(value: Double): String =
         value.toString()
 
     /**
@@ -25,6 +24,6 @@ data object PreferenceTypeDouble : PreferenceType<Double>
      * @throws IllegalArgumentException If the string cannot be parsed to a double.
      */
     @Throws(IllegalArgumentException::class)
-    override fun parse(serialized : String) : Double =
+    override fun parse(serialized: String): Double =
         serialized.double()
 }

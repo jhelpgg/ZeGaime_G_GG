@@ -19,10 +19,15 @@ import fr.khelp.zegaime.database.Table
  *     }
  * }
  * ```
+ *
+ * @constructor Creates a new match query. For internal use only.
  */
 class Match internal constructor()
 {
-    internal var select : Select? = null
+    /**
+     * The select query of the subquery.
+     */
+    internal var select: Select? = null
 
     /**
      * Specifies the select query for the subquery.
@@ -39,7 +44,7 @@ class Match internal constructor()
      * @param selectCreator A lambda function to define the select query.
      */
     @SelectDSL
-    fun select(table : Table, selectCreator : Select.() -> Unit)
+    fun select(table: Table, selectCreator: Select.() -> Unit)
     {
         val select = Select(table)
         selectCreator(select)

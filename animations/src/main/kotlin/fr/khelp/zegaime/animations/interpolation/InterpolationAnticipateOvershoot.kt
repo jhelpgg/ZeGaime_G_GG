@@ -5,25 +5,29 @@ import fr.khelp.zegaime.utils.math.EPSILON
 import kotlin.math.max
 
 /**
- * Interpolation with expecting and overshoot effect
+ * An interpolation with an anticipation and overshoot effect.
  *
- * Expect: Like if it takes a run-up
+ * The animation goes backward before going forward (anticipation), and goes too far before coming back to the final position (overshoot).
  *
- * Overshoot: Go too far and return
- * @param tension Effect factor
+ * @property tension The tension of the effect. A higher value means a more pronounced effect.
+ * @constructor Creates a new anticipation-overshoot interpolation.
  */
-class InterpolationAnticipateOvershoot(tension : Double = 2.0) : Interpolation
+class InterpolationAnticipateOvershoot(tension: Double = 2.0) : Interpolation
 {
-    /**Effect factor*/
+    /** The tension of the effect, ensured to be positive. */
     private val tension = max(EPSILON, tension)
 
     /**
-     * Interpolate value with anticipation and overshoot effect
+     * Interpolates the value with an anticipation and overshoot effect.
      *
-     * @param percent Value to interpolate
-     * @return Interpolate value
+     * The interpolation is divided into two parts:
+     * - The first half is an anticipation effect.
+     * - The second half is an overshoot effect.
+     *
+     * @param percent The value to interpolate, between 0 and 1.
+     * @return The interpolated value.
      */
-    override operator fun invoke(percent : Double) =
+    override operator fun invoke(percent: Double) =
         when
         {
             percent.compare(0.5) < 0 ->
@@ -32,7 +36,7 @@ class InterpolationAnticipateOvershoot(tension : Double = 2.0) : Interpolation
                 0.5 * ((this.tension + 1.0) * value * value * value - this.tension * value * value)
             }
 
-            else                     ->
+            else ->
             {
                 val value = 2.0 * percent - 2.0
                 0.5 * ((this.tension + 1.0) * value * value * value + this.tension * value * value) + 1.0

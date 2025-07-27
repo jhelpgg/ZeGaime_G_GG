@@ -14,10 +14,11 @@ import javazoom.jl.player.Player
 /**
  * A sound that can be read from an MP3 file.
  *
+ * This class is for internal use of the sound system.
+ *
  * @param file The MP3 sound file.
- * 
  */
-internal class SoundMP3(file : File) : SoundInterface
+internal class SoundMP3(file: File) : SoundInterface
 {
     /** Control stream to read the file */
     private val controlInputStream = ControlInputStream(file)
@@ -32,16 +33,16 @@ internal class SoundMP3(file : File) : SoundInterface
     private val lock = Object()
 
     /** Player for play the MP3 */
-    private var player : Player? = null
+    private var player: Player? = null
 
     /** Position for resume */
     private var resumePosition = 0L
 
     /** Sound size in bytes */
-    override val totalSize : Long = this.controlInputStream.size
+    override val totalSize: Long = this.controlInputStream.size
 
     /** Current sound position in bytes */
-    override var position : Long
+    override var position: Long
         get() = this.controlInputStream.position
         set(value)
         {
@@ -49,10 +50,10 @@ internal class SoundMP3(file : File) : SoundInterface
         }
 
     /** Current sound state */
-    override val soundState : Observable<SoundState> = this.soundStateSource.observable
+    override val soundState: Observable<SoundState> = this.soundStateSource.observable
 
     /** Current playing progress */
-    override val soundProgress : Observable<SoundProgress> = this.controlInputStream.progressObservable
+    override val soundProgress: Observable<SoundProgress> = this.controlInputStream.progressObservable
 
     /**
      * Destroys the sound to free some memory.
@@ -105,7 +106,7 @@ internal class SoundMP3(file : File) : SoundInterface
                     this.position = this.resumePosition
                     this.player = Player(this.controlInputStream)
                 }
-                catch (exception : Exception)
+                catch (exception: Exception)
                 {
                     throw SoundException("Playing start failed", exception)
                 }
@@ -155,7 +156,7 @@ internal class SoundMP3(file : File) : SoundInterface
         {
             this.player?.play()
         }
-        catch (exception : Exception)
+        catch (exception: Exception)
         {
             this.soundStateSource.value = SoundState.ERROR
             exception(exception)

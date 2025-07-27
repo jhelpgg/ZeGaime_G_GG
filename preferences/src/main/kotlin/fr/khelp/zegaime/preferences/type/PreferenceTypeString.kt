@@ -2,7 +2,6 @@ package fr.khelp.zegaime.preferences.type
 
 /**
  * Represents the type of a string preference.
- * 
  */
 data object PreferenceTypeString : PreferenceType<String>
 {
@@ -12,7 +11,7 @@ data object PreferenceTypeString : PreferenceType<String>
      * @param value The string value to serialize.
      * @return The serialized string.
      */
-    override fun serialize(value : String) : String =
+    override fun serialize(value: String): String =
         value
 
     /**
@@ -22,6 +21,6 @@ data object PreferenceTypeString : PreferenceType<String>
      * @return The parsed string value.
      */
     @Throws(IllegalArgumentException::class)
-    override fun parse(serialized : String) : String =
+    override fun parse(serialized: String): String =
         serialized
 }

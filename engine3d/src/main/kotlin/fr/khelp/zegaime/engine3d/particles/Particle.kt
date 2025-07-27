@@ -14,13 +14,22 @@ import java.util.concurrent.atomic.AtomicInteger
 import org.lwjgl.opengl.GL11
 
 /**
- * A particle with its information and current state
+ * A particle with its information and current state.
+ *
+ * This class is for internal use of the particle system.
+ *
+ * @property startTime The time when the particle was created.
+ * @property position The initial position of the particle.
+ * @property speed The initial speed of the particle.
+ * @property acceleration The acceleration of the particle.
+ * @property lifeDuration The life duration of the particle.
+ * @constructor Creates a new particle.
  */
-internal class Particle(private val startTime : Time,
-                        private val position : NodePosition,
-                        private val speed : NodePosition,
-                        private val acceleration : NodePosition,
-                        private val lifeDuration : Time)
+internal class Particle(private val startTime: Time,
+                        private val position: NodePosition,
+                        private val speed: NodePosition,
+                        private val acceleration: NodePosition,
+                        private val lifeDuration: Time)
 {
     companion object
     {
@@ -30,7 +39,10 @@ internal class Particle(private val startTime : Time,
 
     private val plane = ObjectClone("Particle_${nextId.getAndIncrement()}", Particle.basePlane)
 
-    var material : Material
+    /**
+     * The material of the particle.
+     */
+    var material: Material
         get() = this.plane.material
         set(value)
         {
@@ -38,13 +50,34 @@ internal class Particle(private val startTime : Time,
         }
 
     private var currentPosition = NodePosition()
+    /**
+     * The start diffuse color of the particle.
+     */
     var diffuseStart = GRAY
+    /**
+     * The end diffuse color of the particle.
+     */
     var diffuseEnd = GRAY
-    var diffuseInterpolation : Interpolation = InterpolationLinear
+    /**
+     * The interpolation for the diffuse color.
+     */
+    var diffuseInterpolation: Interpolation = InterpolationLinear
+    /**
+     * The start alpha of the particle.
+     */
     var alphaStart = 1.0f
+    /**
+     * The end alpha of the particle.
+     */
     var alphaEnd = 1.0f
-    var alphaInterpolation : Interpolation = InterpolationLinear
+    /**
+     * The interpolation for the alpha.
+     */
+    var alphaInterpolation: Interpolation = InterpolationLinear
 
+    /**
+     * Draws the particle.
+     */
     fun draw()
     {
         GL11.glPushMatrix()
@@ -53,7 +86,13 @@ internal class Particle(private val startTime : Time,
         GL11.glPopMatrix()
     }
 
-    fun update(timeEffectMilliseconds:Long) : Boolean
+    /**
+     * Updates the particle.
+     *
+     * @param timeEffectMilliseconds The current time of the effect in milliseconds.
+     * @return `true` if the particle is still alive, `false` otherwise.
+     */
+    fun update(timeEffectMilliseconds: Long): Boolean
     {
         val lifeDurationMilliseconds = this.lifeDuration.milliseconds
         var stillAlive = true

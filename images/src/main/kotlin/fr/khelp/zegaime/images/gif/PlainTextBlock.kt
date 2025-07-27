@@ -6,6 +6,8 @@ import java.io.InputStream
 /**
  * Represents a plain text block in a GIF file.
  *
+ * This class is for internal use of the image system.
+ *
  * @property backgroundIndex The background color index.
  * @property cellHeight The cell height.
  * @property cellWidth The cell width.
@@ -15,7 +17,7 @@ import java.io.InputStream
  * @property gridX The grid x coordinate.
  * @property gridY The grid y coordinate.
  * @property text The text to print.
- * 
+ * @constructor Creates a new plain text block.
  */
 internal class PlainTextBlock : BlockExtension()
 {
@@ -37,32 +39,32 @@ internal class PlainTextBlock : BlockExtension()
     /**
      * Foreground color index
      */
-    private var foregroundIndex = 0
+    var foregroundIndex = 0
         private set
     /**
      * Grid height
      */
-    private var gridHeight = 0
+    var gridHeight = 0
         private set
     /**
      * Grid width
      */
-    private var gridWidth = 0
+    var gridWidth = 0
         private set
     /**
      * Grid X
      */
-    private var gridX = 0
+    var gridX = 0
         private set
     /**
      * Grid Y
      */
-    private var gridY = 0
+    var gridY = 0
         private set
     /**
      * Text to print
      */
-    private var text = ""
+    var text = ""
         private set
 
     /**

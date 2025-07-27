@@ -28,23 +28,24 @@ import java.io.InputStream
  * @property height The height of the image.
  * @property background The background color (for 0).
  * @property foreground The foreground color (for 1).
+ * @constructor Creates a new binary image.
  */
-class BinaryImage(private val width : Int, private val height : Int) : RasterImage
+class BinaryImage(private val width: Int, private val height: Int) : RasterImage
 {
     /**
      * Background color (Color for 0)
      */
-    var background : Int = BLACK.argb
+    var background: Int = BLACK.argb
 
     /**
      * Image data
      */
-    private val data : ByteArray
+    private val data: ByteArray
 
     /**
      * Foreground color (Color for 1)
      */
-    var foreground : Int = WHITE.argb
+    var foreground: Int = WHITE.argb
 
     init
     {
@@ -59,7 +60,7 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
 
         if (size and 7 != 0)
         {
-            length ++
+            length++
         }
 
         this.data = ByteArray(length)
@@ -72,7 +73,7 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
      * @param y The y coordinate.
      * @throws IllegalArgumentException If (x, y) is outside the image.
      */
-    private fun check(x : Int, y : Int)
+    private fun check(x: Int, y: Int)
     {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height)
         {
@@ -109,13 +110,13 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
      * @param y The y coordinate of the pixel.
      * @return `true` if the pixel bit is active, `false` otherwise.
      */
-    operator fun get(x : Int, y : Int) : Boolean
+    operator fun get(x: Int, y: Int): Boolean
     {
         this.check(x, y)
         val p = x + (y * this.width)
         val pix = p shr 3
         val mask = 1 shl (p and 7)
-        return (this.data[pix] and  mask) != 0
+        return (this.data[pix] and mask) != 0
     }
 
     /**
@@ -123,19 +124,18 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
      *
      * @param inputStream The stream to parse.
      * @throws IOException On reading issue.
-     * 
      */
     @Throws(IOException::class)
-    fun parseBitmapStream(inputStream : InputStream)
+    fun parseBitmapStream(inputStream: InputStream)
     {
         this.clear()
         val buffer = ByteArray(4)
         var y = this.height - 1
-        var index : Int
-        var maskRead : Int
-        var x : Int
-        var line : Int
-        var pix : Int
+        var index: Int
+        var maskRead: Int
+        var x: Int
+        var line: Int
+        var pix: Int
 
         while (y >= 0)
         {
@@ -153,21 +153,21 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
                     if (buffer[index] and maskRead != 0)
                     {
                         pix = x + line
-                        this.data[pix shr 3] = (this.data[pix shr 3] or  (1 shl (pix and 7))).toByte()
+                        this.data[pix shr 3] = (this.data[pix shr 3] or (1 shl (pix and 7))).toByte()
                     }
 
-                    x ++
+                    x++
                     maskRead = maskRead shr 1
 
                     if (maskRead == 0)
                     {
                         maskRead = 1 shl 7
-                        index ++
+                        index++
                     }
                 }
             }
 
-            y --
+            y--
         }
     }
 
@@ -183,7 +183,7 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
      * @param y The y coordinate of the pixel.
      * @param on The new active status.
      */
-    operator fun set(x : Int, y : Int, on : Boolean)
+    operator fun set(x: Int, y: Int, on: Boolean)
     {
         this.check(x, y)
         val p = x + (y * this.width)
@@ -211,7 +211,7 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
      * @param x The x coordinate of the pixel.
      * @param y The y coordinate of the pixel.
      */
-    fun switchOnOff(x : Int, y : Int)
+    fun switchOnOff(x: Int, y: Int)
     {
         this.check(x, y)
         val p = x + (y * this.width)
@@ -233,7 +233,7 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
      *
      * @return The converted image.
      */
-    override fun toGameImage() : GameImage
+    override fun toGameImage(): GameImage
     {
         val length = this.width * this.height
         val pixels = IntArray(length)
@@ -257,7 +257,7 @@ class BinaryImage(private val width : Int, private val height : Int) : RasterIma
             if (mask == 0)
             {
                 mask = 1 shl 7
-                pixData ++
+                pixData++
 
                 if (pixData < this.data.size)
                 {

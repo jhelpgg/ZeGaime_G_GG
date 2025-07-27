@@ -11,6 +11,8 @@ import java.util.Calendar
 /**
  * Creates a condition that checks if the column's value is equal to the given ID.
  *
+ * The column type must be `DataType.ID`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_ID EQUALS_ID 1
@@ -18,8 +20,9 @@ import java.util.Calendar
  *
  * @param id The ID to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.ID`.
  */
-infix fun Column.EQUALS_ID(id : Int) : Condition
+infix fun Column.EQUALS_ID(id: Int): Condition
 {
     this.checkType(DataType.ID)
     return Condition(arrayOf(this), "${this.name}=$id")
@@ -28,6 +31,8 @@ infix fun Column.EQUALS_ID(id : Int) : Condition
 /**
  * Creates a condition that checks if the column's value is equal to the given string.
  *
+ * The column type must be `DataType.STRING`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_NAME EQUALS "test"
@@ -35,8 +40,9 @@ infix fun Column.EQUALS_ID(id : Int) : Condition
  *
  * @param string The string to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.STRING`.
  */
-infix fun Column.EQUALS(string : String) : Condition
+infix fun Column.EQUALS(string: String): Condition
 {
     this.checkType(DataType.STRING)
     return Condition(arrayOf(this), "${this.name}='$string'")
@@ -45,6 +51,8 @@ infix fun Column.EQUALS(string : String) : Condition
 /**
  * Creates a condition that checks if the column's value is equal to the given boolean.
  *
+ * The column type must be `DataType.BOOLEAN`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_ACTIVE EQUALS true
@@ -52,8 +60,9 @@ infix fun Column.EQUALS(string : String) : Condition
  *
  * @param value The boolean to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.BOOLEAN`.
  */
-infix fun Column.EQUALS(value : Boolean) : Condition
+infix fun Column.EQUALS(value: Boolean): Condition
 {
     this.checkType(DataType.BOOLEAN)
     return if (value)
@@ -69,6 +78,8 @@ infix fun Column.EQUALS(value : Boolean) : Condition
 /**
  * Creates a condition that checks if the column's value is equal to the given byte.
  *
+ * The column type must be `DataType.BYTE`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_VALUE EQUALS 1.toByte()
@@ -76,8 +87,9 @@ infix fun Column.EQUALS(value : Boolean) : Condition
  *
  * @param value The byte to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.BYTE`.
  */
-infix fun Column.EQUALS(value : Byte) : Condition
+infix fun Column.EQUALS(value: Byte): Condition
 {
     this.checkType(DataType.BYTE)
     return Condition(arrayOf(this), "${this.name}=$value")
@@ -86,6 +98,8 @@ infix fun Column.EQUALS(value : Byte) : Condition
 /**
  * Creates a condition that checks if the column's value is equal to the given short.
  *
+ * The column type must be `DataType.SHORT`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_VALUE EQUALS 1.toShort()
@@ -93,8 +107,9 @@ infix fun Column.EQUALS(value : Byte) : Condition
  *
  * @param value The short to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.SHORT`.
  */
-infix fun Column.EQUALS(value : Short) : Condition
+infix fun Column.EQUALS(value: Short): Condition
 {
     this.checkType(DataType.SHORT)
     return Condition(arrayOf(this), "${this.name}=$value")
@@ -103,6 +118,8 @@ infix fun Column.EQUALS(value : Short) : Condition
 /**
  * Creates a condition that checks if the column's value is equal to the given integer.
  *
+ * The column type must be `DataType.INTEGER`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_AGE EQUALS 18
@@ -110,8 +127,9 @@ infix fun Column.EQUALS(value : Short) : Condition
  *
  * @param value The integer to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.INTEGER`.
  */
-infix fun Column.EQUALS(value : Int) : Condition
+infix fun Column.EQUALS(value: Int): Condition
 {
     this.checkType(DataType.INTEGER)
     return Condition(arrayOf(this), "${this.name}=$value")
@@ -120,6 +138,8 @@ infix fun Column.EQUALS(value : Int) : Condition
 /**
  * Creates a condition that checks if the column's value is equal to the given long.
  *
+ * The column type must be `DataType.LONG`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_TIMESTAMP EQUALS 1234567890L
@@ -127,8 +147,9 @@ infix fun Column.EQUALS(value : Int) : Condition
  *
  * @param value The long to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.LONG`.
  */
-infix fun Column.EQUALS(value : Long) : Condition
+infix fun Column.EQUALS(value: Long): Condition
 {
     this.checkType(DataType.LONG)
     return Condition(arrayOf(this), "${this.name}=$value")
@@ -137,6 +158,8 @@ infix fun Column.EQUALS(value : Long) : Condition
 /**
  * Creates a condition that checks if the column's value is equal to the given float.
  *
+ * The column type must be `DataType.FLOAT`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_PRICE EQUALS 12.34f
@@ -144,8 +167,9 @@ infix fun Column.EQUALS(value : Long) : Condition
  *
  * @param value The float to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.FLOAT`.
  */
-infix fun Column.EQUALS(value : Float) : Condition
+infix fun Column.EQUALS(value: Float): Condition
 {
     this.checkType(DataType.FLOAT)
     return Condition(arrayOf(this), "${this.name}=$value")
@@ -154,6 +178,8 @@ infix fun Column.EQUALS(value : Float) : Condition
 /**
  * Creates a condition that checks if the column's value is equal to the given double.
  *
+ * The column type must be `DataType.DOUBLE`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_PRICE EQUALS 12.34
@@ -161,8 +187,9 @@ infix fun Column.EQUALS(value : Float) : Condition
  *
  * @param value The double to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.DOUBLE`.
  */
-infix fun Column.EQUALS(value : Double) : Condition
+infix fun Column.EQUALS(value: Double): Condition
 {
     this.checkType(DataType.DOUBLE)
     return Condition(arrayOf(this), "${this.name}=$value")
@@ -171,6 +198,8 @@ infix fun Column.EQUALS(value : Double) : Condition
 /**
  * Creates a condition that checks if the column's value is equal to the given byte array.
  *
+ * The column type must be `DataType.BYTE_ARRAY`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_DATA EQUALS byteArrayOf(1, 2, 3)
@@ -178,8 +207,9 @@ infix fun Column.EQUALS(value : Double) : Condition
  *
  * @param value The byte array to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.BYTE_ARRAY`.
  */
-infix fun Column.EQUALS(value : ByteArray) : Condition
+infix fun Column.EQUALS(value: ByteArray): Condition
 {
     this.checkType(DataType.BYTE_ARRAY)
     return Condition(arrayOf(this), "${this.name}='${value.base64}'")
@@ -188,6 +218,8 @@ infix fun Column.EQUALS(value : ByteArray) : Condition
 /**
  * Creates a condition that checks if the column's value is equal to the given integer array.
  *
+ * The column type must be `DataType.INT_ARRAY`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_DATA EQUALS intArrayOf(1, 2, 3)
@@ -195,8 +227,9 @@ infix fun Column.EQUALS(value : ByteArray) : Condition
  *
  * @param value The integer array to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.INT_ARRAY`.
  */
-infix fun Column.EQUALS(value : IntArray) : Condition
+infix fun Column.EQUALS(value: IntArray): Condition
 {
     this.checkType(DataType.INT_ARRAY)
     return Condition(arrayOf(this), "${this.name}='${value.serializeToByteArray().base64}'")
@@ -205,6 +238,8 @@ infix fun Column.EQUALS(value : IntArray) : Condition
 /**
  * Creates a condition that checks if the column's value is equal to the given calendar.
  *
+ * The column type must be `DataType.CALENDAR`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_DATE EQUALS Calendar.getInstance()
@@ -212,8 +247,9 @@ infix fun Column.EQUALS(value : IntArray) : Condition
  *
  * @param value The calendar to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.CALENDAR`.
  */
-infix fun Column.EQUALS(value : Calendar) : Condition
+infix fun Column.EQUALS(value: Calendar): Condition
 {
     this.checkType(DataType.CALENDAR)
     return Condition(arrayOf(this), "${this.name}=${value.timeInMillis}")
@@ -222,6 +258,8 @@ infix fun Column.EQUALS(value : Calendar) : Condition
 /**
  * Creates a condition that checks if the column's value is equal to the given date.
  *
+ * The column type must be `DataType.DATE`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_DATE EQUALS DataDate(2023, 1, 1)
@@ -229,8 +267,9 @@ infix fun Column.EQUALS(value : Calendar) : Condition
  *
  * @param value The date to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.DATE`.
  */
-infix fun Column.EQUALS(value : DataDate) : Condition
+infix fun Column.EQUALS(value: DataDate): Condition
 {
     this.checkType(DataType.DATE)
     return Condition(arrayOf(this), "${this.name}=${value.serialized}")
@@ -239,6 +278,8 @@ infix fun Column.EQUALS(value : DataDate) : Condition
 /**
  * Creates a condition that checks if the column's value is equal to the given time.
  *
+ * The column type must be `DataType.TIME`.
+ *
  * **Usage example:**
  * ```kotlin
  * val condition = COLUMN_TIME EQUALS DataTime(12, 0, 0)
@@ -246,8 +287,9 @@ infix fun Column.EQUALS(value : DataDate) : Condition
  *
  * @param value The time to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.TIME`.
  */
-infix fun Column.EQUALS(value : DataTime) : Condition
+infix fun Column.EQUALS(value: DataTime): Condition
 {
     this.checkType(DataType.TIME)
     return Condition(arrayOf(this), "${this.name}=${value.serialized}")
@@ -255,6 +297,8 @@ infix fun Column.EQUALS(value : DataTime) : Condition
 
 /**
  * Creates a condition that checks if the column's value is equal to the given enum.
+ *
+ * The column type must be `DataType.ENUM`.
  *
  * **Usage example:**
  * ```kotlin
@@ -264,17 +308,23 @@ infix fun Column.EQUALS(value : DataTime) : Condition
  *
  * @param value The enum to compare with.
  * @return A new condition.
+ * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.ENUM`.
  */
-infix fun <E : Enum<E>> Column.EQUALS(value : E) : Condition
+infix fun <E : Enum<E>> Column.EQUALS(value: E): Condition
 {
     this.checkType(DataType.ENUM)
     return Condition(arrayOf(this), "${this.name}='${value::class.java.name}:${value.name}'")
 }
 
 /**
- * 
+ * Creates a condition that checks if the column's value is equal to the given enum.
+ *
+ * This method is for internal use of the database system.
+ *
+ * @param value The enum to compare with.
+ * @return A new condition.
  */
-internal infix fun Column.EQUALS_ENUM(value : Any) : Condition
+internal infix fun Column.EQUALS_ENUM(value: Any): Condition
 {
     this.checkType(DataType.ENUM)
     val valueEnum = value::class.java.getField("name")

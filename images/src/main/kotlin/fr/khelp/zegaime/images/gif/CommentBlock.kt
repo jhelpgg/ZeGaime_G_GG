@@ -6,8 +6,10 @@ import java.io.InputStream
 /**
  * Represents a comment block in a GIF file.
  *
+ * This class is for internal use of the image system.
+ *
  * @property comment The comment text.
- * 
+ * @constructor Creates a new comment block.
  */
 internal class CommentBlock : BlockExtension()
 {

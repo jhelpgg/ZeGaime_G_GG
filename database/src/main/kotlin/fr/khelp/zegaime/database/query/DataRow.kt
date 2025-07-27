@@ -34,15 +34,17 @@ import java.util.Calendar
  *
  * @property table The table from which the result was obtained.
  * @property numberOfColumns The number of columns in the row.
+ * @constructor Creates a new data row. For internal use only.
  */
-class DataRow internal constructor(private val resultSet : ResultSet, private val select : Select, val table : Table)
+class DataRow internal constructor(private val resultSet: ResultSet, private val select: Select, val table: Table)
 {
-
-    /**Number of columns in the answer*/
+    /**
+     * The number of columns in the row.
+     */
     val numberOfColumns = this.select.numberColumns
 
     /**
-     * Returns the index of the column with the given name.
+     * Returns the 0-based index of the column with the given name.
      *
      * **Usage example:**
      * ```kotlin
@@ -50,12 +52,12 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * ```
      *
      * @param columnName The name of the column.
-     * @return The index of the column.
+     * @return The 0-based index of the column, or -1 if the column is not in the result set.
      */
-    fun columnIndex(columnName : String) = this.select.columnIndex(columnName)
+    fun columnIndex(columnName: String) = this.select.columnIndex(columnName)
 
     /**
-     * Returns the index of the given column.
+     * Returns the 0-based index of the given column.
      *
      * **Usage example:**
      * ```kotlin
@@ -63,9 +65,9 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * ```
      *
      * @param column The column.
-     * @return The index of the column.
+     * @return The 0-based index of the column, or -1 if the column is not in the result set.
      */
-    fun columnIndex(column : Column) = this.select.columnIndex(column)
+    fun columnIndex(column: Column) = this.select.columnIndex(column)
 
     /**
      * Returns the 1-based index of the column with the given name.
@@ -76,9 +78,9 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * ```
      *
      * @param columnName The name of the column.
-     * @return The 1-based index of the column.
+     * @return The 1-based index of the column, or -1 if the column is not in the result set.
      */
-    fun columnRange(columnName : String) : Int
+    fun columnRange(columnName: String): Int
     {
         val index = this.columnIndex(columnName)
         return if (index >= 0)
@@ -100,9 +102,9 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * ```
      *
      * @param column The column.
-     * @return The 1-based index of the column.
+     * @return The 1-based index of the column, or -1 if the column is not in the result set.
      */
-    fun columnRange(column : Column) : Int
+    fun columnRange(column: Column): Int
     {
         val index = this.columnIndex(column)
         return if (index >= 0)
@@ -126,7 +128,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @param columnRange The 1-based index of the column.
      * @return The column at the given index.
      */
-    fun column(columnRange : Int) = this.select[columnRange - 1]
+    fun column(columnRange: Int) = this.select[columnRange - 1]
 
     /**
      * Reads the ID from the specified column.
@@ -140,7 +142,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The ID.
      */
     @RowResultDSL
-    fun getID(column : Column) : Int
+    fun getID(column: Column): Int
     {
         column.checkType(DataType.ID)
         val index = this.columnIndex(column)
@@ -162,7 +164,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The ID.
      */
     @RowResultDSL
-    fun getID(columnRange : Int) =
+    fun getID(columnRange: Int) =
         this.getID(this.select[columnRange - 1])
 
     /**
@@ -177,7 +179,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The string.
      */
     @RowResultDSL
-    fun getString(column : Column) : String
+    fun getString(column: Column): String
     {
         column.checkType(DataType.STRING)
         val index = this.columnIndex(column)
@@ -199,7 +201,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The string.
      */
     @RowResultDSL
-    fun getString(columnRange : Int) =
+    fun getString(columnRange: Int) =
         this.getString(this.select[columnRange - 1])
 
     /**
@@ -214,7 +216,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The boolean.
      */
     @RowResultDSL
-    fun getBoolean(column : Column) : Boolean
+    fun getBoolean(column: Column): Boolean
     {
         column.checkType(DataType.BOOLEAN)
         val index = this.columnIndex(column)
@@ -236,7 +238,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The boolean.
      */
     @RowResultDSL
-    fun getBoolean(columnRange : Int) =
+    fun getBoolean(columnRange: Int) =
         this.getBoolean(this.select[columnRange - 1])
 
     /**
@@ -251,7 +253,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The byte.
      */
     @RowResultDSL
-    fun getByte(column : Column) : Byte
+    fun getByte(column: Column): Byte
     {
         column.checkType(DataType.BYTE)
         val index = this.columnIndex(column)
@@ -273,7 +275,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The byte.
      */
     @RowResultDSL
-    fun getByte(columnRange : Int) =
+    fun getByte(columnRange: Int) =
         this.getByte(this.select[columnRange - 1])
 
     /**
@@ -288,7 +290,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The short.
      */
     @RowResultDSL
-    fun getShort(column : Column) : Short
+    fun getShort(column: Column): Short
     {
         column.checkType(DataType.SHORT)
         val index = this.columnIndex(column)
@@ -310,7 +312,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The short.
      */
     @RowResultDSL
-    fun getShort(columnRange : Int) =
+    fun getShort(columnRange: Int) =
         this.getShort(this.select[columnRange - 1])
 
     /**
@@ -325,7 +327,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The integer.
      */
     @RowResultDSL
-    fun getInt(column : Column) : Int
+    fun getInt(column: Column): Int
     {
         column.checkType(DataType.INTEGER)
         val index = this.columnIndex(column)
@@ -347,7 +349,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The integer.
      */
     @RowResultDSL
-    fun getInt(columnRange : Int) =
+    fun getInt(columnRange: Int) =
         this.getInt(this.select[columnRange - 1])
 
     /**
@@ -362,7 +364,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The long.
      */
     @RowResultDSL
-    fun getLong(column : Column) : Long
+    fun getLong(column: Column): Long
     {
         column.checkType(DataType.LONG)
         val index = this.columnIndex(column)
@@ -384,7 +386,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The long.
      */
     @RowResultDSL
-    fun getLong(columnRange : Int) =
+    fun getLong(columnRange: Int) =
         this.getLong(this.select[columnRange - 1])
 
     /**
@@ -399,7 +401,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The float.
      */
     @RowResultDSL
-    fun getFloat(column : Column) : Float
+    fun getFloat(column: Column): Float
     {
         column.checkType(DataType.FLOAT)
         val index = this.columnIndex(column)
@@ -422,7 +424,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The float.
      */
     @RowResultDSL
-    fun getFloat(columnRange : Int) =
+    fun getFloat(columnRange: Int) =
         this.getFloat(this.select[columnRange - 1])
 
     /**
@@ -437,7 +439,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The double.
      */
     @RowResultDSL
-    fun getDouble(column : Column) : Double
+    fun getDouble(column: Column): Double
     {
         column.checkType(DataType.DOUBLE)
         val index = this.columnIndex(column)
@@ -459,7 +461,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The double.
      */
     @RowResultDSL
-    fun getDouble(columnRange : Int) =
+    fun getDouble(columnRange: Int) =
         this.getDouble(this.select[columnRange - 1])
 
     /**
@@ -474,7 +476,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The byte array.
      */
     @RowResultDSL
-    fun getByteArray(column : Column) : ByteArray
+    fun getByteArray(column: Column): ByteArray
     {
         column.checkType(DataType.BYTE_ARRAY)
         val index = this.columnIndex(column)
@@ -494,7 +496,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The integer array.
      */
     @RowResultDSL
-    fun getIntArray(column : Column) : IntArray
+    fun getIntArray(column: Column): IntArray
     {
         column.checkType(DataType.INT_ARRAY)
         val index = this.columnIndex(column)
@@ -516,7 +518,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The byte array.
      */
     @RowResultDSL
-    fun getByteArray(columnRange : Int) =
+    fun getByteArray(columnRange: Int) =
         this.getByteArray(this.select[columnRange - 1])
 
     /**
@@ -533,7 +535,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The integer array.
      */
     @RowResultDSL
-    fun getIntArray(columnRange : Int) =
+    fun getIntArray(columnRange: Int) =
         this.getIntArray(this.select[columnRange - 1])
 
     /**
@@ -548,7 +550,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The calendar.
      */
     @RowResultDSL
-    fun getCalendar(column : Column) : Calendar
+    fun getCalendar(column: Column): Calendar
     {
         column.checkType(DataType.CALENDAR)
         val index = this.columnIndex(column)
@@ -572,7 +574,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The calendar.
      */
     @RowResultDSL
-    fun getCalendar(columnRange : Int) =
+    fun getCalendar(columnRange: Int) =
         this.getCalendar(this.select[columnRange - 1])
 
     /**
@@ -587,7 +589,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The date.
      */
     @RowResultDSL
-    fun getDate(column : Column) : DataDate
+    fun getDate(column: Column): DataDate
     {
         column.checkType(DataType.DATE)
         val index = this.columnIndex(column)
@@ -609,7 +611,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The date.
      */
     @RowResultDSL
-    fun getDate(columnRange : Int) =
+    fun getDate(columnRange: Int) =
         this.getDate(this.select[columnRange - 1])
 
     /**
@@ -624,7 +626,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The time.
      */
     @RowResultDSL
-    fun getTime(column : Column) : DataTime
+    fun getTime(column: Column): DataTime
     {
         column.checkType(DataType.TIME)
         val index = this.columnIndex(column)
@@ -646,7 +648,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The time.
      */
     @RowResultDSL
-    fun getTime(columnRange : Int) =
+    fun getTime(columnRange: Int) =
         this.getTime(this.select[columnRange - 1])
 
     /**
@@ -662,26 +664,22 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The enum value.
      */
     @RowResultDSL
-    fun <E : Enum<E>> getEnum(column : Column) : E
+    fun <E : Enum<E>> getEnum(column: Column): E
     {
-        column.checkType(DataType.ENUM)
-        val index = this.columnIndex(column)
-        argumentCheck(index >= 0) { "Column ${column.name} not in selection list" }
-        val serialized = this.resultSet.getString(index + 1)
-        val indexSeparator = serialized.indexOf(':')
-        val className = serialized.substring(0, indexSeparator)
-        val enumName = serialized.substring(indexSeparator + 1)
-        val valueOf = Class.forName(className)
-            .getDeclaredMethod("valueOf", String::class.java)
-        ("UNCHECKED_CAST")
-        return valueOf.invoke(null, enumName) as E
+        @Suppress("UNCHECKED_CAST")
+        return this.getEnumAny(column) as E
     }
 
     /**
-     * 
+     * Reads the enum from the specified column.
+     *
+     * This method is for internal use only.
+     *
+     * @param column The column to read from.
+     * @return The enum value as `Any`.
      */
     @RowResultDSL
-    internal fun getEnumAny(column : Column) : Any
+    internal fun getEnumAny(column: Column): Any
     {
         column.checkType(DataType.ENUM)
         val index = this.columnIndex(column)
@@ -710,7 +708,7 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The enum value.
      */
     @RowResultDSL
-    fun <E : Enum<E>> getEnum(columnRange : Int) =
+    fun <E : Enum<E>> getEnum(columnRange: Int) =
         this.getEnum<E>(this.select[columnRange - 1])
 
     /**
@@ -727,29 +725,29 @@ class DataRow internal constructor(private val resultSet : ResultSet, private va
      * @return The string representation of the value.
      */
     @RowResultDSL
-    fun toString(columnRange : Int) =
+    fun toString(columnRange: Int) =
         when (this.select[columnRange - 1].type)
         {
-            DataType.ID         -> this.resultSet.getInt(columnRange).toString()
-            DataType.STRING     -> this.resultSet.getString(columnRange)
-            DataType.BOOLEAN    -> this.resultSet.getBoolean(columnRange).toString()
-            DataType.BYTE       -> this.resultSet.getByte(columnRange).toString()
-            DataType.SHORT      -> this.resultSet.getShort(columnRange).toString()
-            DataType.INTEGER    -> this.resultSet.getInt(columnRange).toString()
-            DataType.LONG       -> this.resultSet.getLong(columnRange).toString()
-            DataType.FLOAT      -> this.resultSet.getDouble(columnRange).toString()
-            DataType.DOUBLE     -> this.resultSet.getDouble(columnRange).toString()
+            DataType.ID -> this.resultSet.getInt(columnRange).toString()
+            DataType.STRING -> this.resultSet.getString(columnRange)
+            DataType.BOOLEAN -> this.resultSet.getBoolean(columnRange).toString()
+            DataType.BYTE -> this.resultSet.getByte(columnRange).toString()
+            DataType.SHORT -> this.resultSet.getShort(columnRange).toString()
+            DataType.INTEGER -> this.resultSet.getInt(columnRange).toString()
+            DataType.LONG -> this.resultSet.getLong(columnRange).toString()
+            DataType.FLOAT -> this.resultSet.getDouble(columnRange).toString()
+            DataType.DOUBLE -> this.resultSet.getDouble(columnRange).toString()
             DataType.BYTE_ARRAY -> this.resultSet.getString(columnRange).base64.string()
-            DataType.INT_ARRAY  -> this.resultSet.getString(columnRange).base64.parseToIntArray().string()
-            DataType.CALENDAR   ->
+            DataType.INT_ARRAY -> this.resultSet.getString(columnRange).base64.parseToIntArray().string()
+            DataType.CALENDAR ->
             {
                 val calendar = Calendar.getInstance()
                 calendar.timeInMillis = this.resultSet.getLong(columnRange)
                 calendar.fullString()
             }
 
-            DataType.DATE       -> DataDate(this.resultSet.getInt(columnRange)).toString()
-            DataType.TIME       -> DataTime(this.resultSet.getInt(columnRange)).toString()
-            DataType.ENUM       -> this.resultSet.getString(columnRange)
+            DataType.DATE -> DataDate(this.resultSet.getInt(columnRange)).toString()
+            DataType.TIME -> DataTime(this.resultSet.getInt(columnRange)).toString()
+            DataType.ENUM -> this.resultSet.getString(columnRange)
         }
 }

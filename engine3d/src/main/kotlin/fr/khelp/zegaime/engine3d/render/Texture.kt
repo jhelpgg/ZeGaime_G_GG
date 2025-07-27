@@ -7,18 +7,50 @@ import java.util.concurrent.atomic.AtomicBoolean
 import org.lwjgl.opengl.GL11
 import org.lwjgl.system.MemoryStack
 
-open class Texture(val gameImage : GameImage)
+/**
+ * Represents a texture.
+ *
+ * A texture is an image that can be applied to a 3D object.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val gameImage = GameImage.load("myImage.png")
+ * val texture = Texture(gameImage)
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * myMaterial.textureDiffuse = texture
+ * ```
+ *
+ * @property gameImage The game image of the texture.
+ * @property width The width of the texture.
+ * @property height The height of the texture.
+ * @constructor Creates a new texture.
+ */
+open class Texture(val gameImage: GameImage)
 {
     private val needRefresh = AtomicBoolean(true)
-    private var videoMemoryId : Int = -1
-    val width : Int = this.gameImage.width
-    val height : Int = this.gameImage.height
+    private var videoMemoryId: Int = -1
+    /**
+     * The width of the texture.
+     */
+    val width: Int = this.gameImage.width
+    /**
+     * The height of the texture.
+     */
+    val height: Int = this.gameImage.height
 
     init
     {
         this.gameImage.refreshFlow.register { this.needRefresh.set(true) }
     }
 
+    /**
+     * Binds the texture to the current OpenGL context.
+     *
+     * For internal use only.
+     */
     internal fun bind()
     {
         // If no video memory ID, create it

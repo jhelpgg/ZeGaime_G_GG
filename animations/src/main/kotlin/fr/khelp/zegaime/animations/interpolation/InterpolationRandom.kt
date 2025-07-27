@@ -5,20 +5,25 @@ import fr.khelp.zegaime.utils.math.equals
 import fr.khelp.zegaime.utils.math.random
 
 /**
- * Interpolation with random progression
+ * An interpolation with a random progression.
+ *
+ * The animation progression is chaotic.
  */
 data object InterpolationRandom : Interpolation
 {
     /**
-     * Interpolate value with random progression
+     * Interpolates the value with a random progression.
      *
-     * @param percent Value to interpolate
-     * @return Interpolate value
+     * If the value is 0 or 1, it returns the same value.
+     * Otherwise, it returns a random value between the given value and 1.
+     *
+     * @param percent The value to interpolate, between 0 and 1.
+     * @return The interpolated value.
      */
-    override operator fun invoke(percent : Double) =
+    override operator fun invoke(percent: Double) =
         when
         {
             percent.nul || equals(percent, 1.0) -> percent
-            else                                -> random(percent, 1.0)
+            else -> random(percent, 1.0)
         }
 }

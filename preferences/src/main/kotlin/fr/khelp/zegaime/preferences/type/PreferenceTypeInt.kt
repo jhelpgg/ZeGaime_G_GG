@@ -4,7 +4,6 @@ import fr.khelp.zegaime.utils.extensions.int
 
 /**
  * Represents the type of an integer preference.
- * 
  */
 data object PreferenceTypeInt : PreferenceType<Int>
 {
@@ -14,7 +13,7 @@ data object PreferenceTypeInt : PreferenceType<Int>
      * @param value The integer value to serialize.
      * @return The serialized string.
      */
-    override fun serialize(value : Int) : String =
+    override fun serialize(value: Int): String =
         value.toString()
 
     /**
@@ -25,6 +24,6 @@ data object PreferenceTypeInt : PreferenceType<Int>
      * @throws IllegalArgumentException If the string cannot be parsed to an integer.
      */
     @Throws(IllegalArgumentException::class)
-    override fun parse(serialized : String) : Int =
+    override fun parse(serialized: String): Int =
         serialized.int()
 }

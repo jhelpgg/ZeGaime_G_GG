@@ -19,10 +19,14 @@ import java.awt.Dimension
  * @property textLines The list of text lines.
  * @property size The size of the paragraph.
  * @property string The string representation of the paragraph.
+ * @constructor Creates a new text paragraph.
  */
-class TextParagraph(val textLines : List<TextLine>, val size : Dimension)
+class TextParagraph(val textLines: List<TextLine>, val size: Dimension)
 {
-    val string : String by lazy {
+    /**
+     * The string representation of the paragraph.
+     */
+    val string: String by lazy {
         val stringBuilder = StringBuilder()
         var notFirst = false
 
@@ -33,7 +37,7 @@ class TextParagraph(val textLines : List<TextLine>, val size : Dimension)
                 stringBuilder.append('\n')
             }
 
-            stringBuilder.append(line)
+            stringBuilder.append(line.text)
             notFirst = true
         }
 

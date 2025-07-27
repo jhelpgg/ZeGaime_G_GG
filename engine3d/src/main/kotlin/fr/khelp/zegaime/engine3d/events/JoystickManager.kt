@@ -11,10 +11,36 @@ import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.min
 import org.lwjgl.glfw.GLFW
 
+/**
+ * Manages the joystick events.
+ *
+ * This class is responsible for detecting the joystick events and publishing them as a flow of joystick codes.
+ * It also allows capturing the next joystick event.
+ *
+ * **Creation example:**
+ * This class is not meant to be instantiated directly.
+ * It is created by the `Window3D` class.
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * val joystickManager = window3D.joystickManager
+ * joystickManager.joystickCodes.observedBy { joystickCodes ->
+ *     for (joystickCode in joystickCodes) {
+ *         // ...
+ *     }
+ * }
+ * ```
+ *
+ * @property joystickCodes A flow that emits the currently active joystick codes.
+ * @constructor Creates a new joystick manager. For internal use only.
+ */
 class JoystickManager internal constructor()
 {
     private val joystickCodesFlow = FlowSource<List<JoystickCode>>()
-    val joystickCodes : Flow<List<JoystickCode>> = this.joystickCodesFlow.flow
+    /**
+     * A flow that emits the currently active joystick codes.
+     */
+    val joystickCodes: Flow<List<JoystickCode>> = this.joystickCodesFlow.flow
 
     private var initialized = false
     private val axisLimits = Array<AxeLimits>(JoystickCode.MAX_AXIS_INDEX + 1) { AxeLimits(0f) }
@@ -24,16 +50,16 @@ class JoystickManager internal constructor()
 
     /**Copy of last current active joystick codes and their status*/
     private val currentJoystickCodesCopy = HashMap<JoystickCode, JoystickStatus>()
-    private var nextJoystickCode : Promise<JoystickCode>? = null
+    private var nextJoystickCode: Promise<JoystickCode>? = null
     private val mutexCapture = Mutex()
     private val canCaptureJoystick = AtomicBoolean(false)
 
     /**
-     * Capture the next joystick event
+     * Capture the next joystick event.
      *
-     * @return Future that will contains the next joystick event
+     * @return A future that will contain the next joystick event.
      */
-    fun captureJoystick() : Future<JoystickCode> =
+    fun captureJoystick(): Future<JoystickCode> =
         this.mutexCapture {
             if (this.nextJoystickCode == null)
             {
@@ -49,6 +75,11 @@ class JoystickManager internal constructor()
             this.nextJoystickCode?.future ?: Exception("Fail to capture joystick code").future()
         }
 
+    /**
+     * Initializes the joystick manager.
+     *
+     * For internal use only.
+     */
     internal fun initialize()
     {
         for (joystickCode in JoystickCode.entries)
@@ -60,7 +91,15 @@ class JoystickManager internal constructor()
         this.initialized = true
     }
 
-    internal fun joystickConnected(joystickID : Int, event : Int)
+    /**
+     * Called when a joystick is connected or disconnected.
+     *
+     * For internal use only.
+     *
+     * @param joystickID The ID of the joystick.
+     * @param event The event type.
+     */
+    internal fun joystickConnected(joystickID: Int, event: Int)
     {
         todo("joystickID=", joystickID, "<>", GLFW.GLFW_JOYSTICK_1, " event=", event, "<>", GLFW.GLFW_TRUE)
 
@@ -70,6 +109,11 @@ class JoystickManager internal constructor()
         }
     }
 
+    /**
+     * Updates the joystick status.
+     *
+     * For internal use only.
+     */
     internal fun updateJoystickStatus()
     {
         // Collect joystick status
@@ -183,7 +227,7 @@ class JoystickManager internal constructor()
      * @param joystickCode Joystick code
      * @return Indicates if event is consumed
      */
-    private fun pressJoystick(joystickCode : JoystickCode) : Boolean
+    private fun pressJoystick(joystickCode: JoystickCode): Boolean
     {
         val consumed = this.mutexCapture {
             if (this.nextJoystickCode != null)

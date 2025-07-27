@@ -27,8 +27,9 @@ import fr.khelp.zegaime.database.Table
  * ```
  *
  * @property table The table to insert into.
+ * @constructor Creates a new insert list query. For internal use only.
  */
-class InsertList internal constructor(val table : Table)
+class InsertList internal constructor(val table: Table)
 {
     /**
      * Adds a row to the insert list.
@@ -44,7 +45,7 @@ class InsertList internal constructor(val table : Table)
      * @param insertCreator A lambda function to define the row to insert.
      */
     @InsertDSL
-    fun add(insertCreator : Insert.() -> Unit)
+    fun add(insertCreator: Insert.() -> Unit)
     {
         this.table.insert(insertCreator)
     }

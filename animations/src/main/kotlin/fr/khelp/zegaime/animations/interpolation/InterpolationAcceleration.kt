@@ -5,20 +5,26 @@ import kotlin.math.max
 import kotlin.math.pow
 
 /**
- * Interpolation with acceleration effect
- * @param factor Acceleration factor
+ * An interpolation with an acceleration effect.
+ *
+ * The animation starts slowly and finishes quickly.
+ *
+ * @property factor The acceleration factor. A value of 1.0 means no acceleration (linear).
+ * A value greater than 1.0 means more acceleration.
+ * @constructor Creates a new acceleration interpolation.
  */
-class InterpolationAcceleration(factor : Double = 2.0) : Interpolation
+class InterpolationAcceleration(factor: Double = 2.0) : Interpolation
 {
-    /**Acceleration factor*/
+    /** The acceleration factor, ensured to be positive. */
     private val factor = 2.0 * max(EPSILON, factor)
 
     /**
-     * Interpolate value with acceleration effect
+     * Interpolates the value with an acceleration effect.
      *
-     * @param percent Value to interpolate
-     * @return Interpolate value
+     * The formula used is `percent ^ factor`.
+     *
+     * @param percent The value to interpolate, between 0 and 1.
+     * @return The interpolated value.
      */
-    override operator fun invoke(percent : Double) = percent.pow(this.factor)
+    override operator fun invoke(percent: Double) = percent.pow(this.factor)
 }
-

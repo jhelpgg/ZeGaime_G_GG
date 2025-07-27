@@ -10,6 +10,8 @@ import java.io.InputStream
 /**
  * Represents an image descriptor block in a GIF file.
  *
+ * This class is for internal use of the image system.
+ *
  * @property colorResolution The color resolution of the image.
  * @property colorIndexes The uncompressed color indexes of the image.
  * @property height The height of the image.
@@ -17,9 +19,9 @@ import java.io.InputStream
  * @property width The width of the image.
  * @property x The x coordinate of the image.
  * @property y The y coordinate of the image.
- * 
+ * @constructor Creates a new image descriptor block.
  */
-internal class ImageDescriptorBlock internal constructor(val colorResolution : Int) : Block()
+internal class ImageDescriptorBlock internal constructor(val colorResolution: Int) : Block()
 {
     companion object
     {
@@ -42,24 +44,24 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution : I
     /**
      * Actual buffered 32 bits
      */
-    private var buffer32 : Int = 0
+    private var buffer32: Int = 0
 
     /**
      * Image well ordered, uncompressed color indexes
      */
-    lateinit var colorIndexes : IntArray
+    lateinit var colorIndexes: IntArray
         private set
 
     /**
      * Image height
      */
-    var height : Int = 0
+    var height: Int = 0
         private set
 
     /**
      * Indicates if image is interlaced
      */
-    private var interlaced : Boolean = false
+    private var interlaced: Boolean = false
 
     /**
      * Indicates that we reach the last block
@@ -69,7 +71,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution : I
     /**
      * Local image color table
      */
-    var localColorTable : GIFColorTable? = null
+    var localColorTable: GIFColorTable? = null
         private set
 
     /**
@@ -90,13 +92,13 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution : I
     /**
      * Image width
      */
-    var width : Int = 0
+    var width: Int = 0
         private set
 
     /**
      * Image x
      */
-    var x : Int = 0
+    var x: Int = 0
         private set
 
     /**
@@ -107,7 +109,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution : I
     /**
      * Image Y
      */
-    var y : Int = 0
+    var y: Int = 0
         private set
 
     /**
@@ -127,8 +129,8 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution : I
      * @throws IOException If stream reach end or close suddenly
      */
     @Throws(IOException::class)
-    private fun getCode(codeSize : Int, codeMask : Int, inputStream : InputStream,
-                        subBlock : SubBlock, endCode : Int) : Pair<Int, SubBlock>
+    private fun getCode(codeSize: Int, codeMask: Int, inputStream: InputStream,
+                        subBlock: SubBlock, endCode: Int): Pair<Int, SubBlock>
     {
         var subBlock = subBlock
 
@@ -167,7 +169,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution : I
                 }
             }
 
-            this.buffer32 = this.buffer32 or (block[this.nextByte++] shl 24)
+            this.buffer32 = this.buffer32 or (block[this.nextByte++].toUnsignedInt() shl 24)
         }
 
         return Pair(code, subBlock)
@@ -182,8 +184,8 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution : I
      * @param length  Code lengths to initialize
      * @param lzwCode Read LZW code
      */
-    private fun initializeStringTable(prefix : IntArray, suffix : ByteArray, initial : ByteArray, length : IntArray,
-                                      lzwCode : Int)
+    private fun initializeStringTable(prefix: IntArray, suffix: ByteArray, initial: ByteArray, length: IntArray,
+                                      lzwCode: Int)
     {
         val numEntries = 1 shl lzwCode
 
@@ -211,7 +213,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution : I
      * @throws IOException If stream is not valid image data
      */
     @Throws(IOException::class)
-    private fun readImage(inputStream : InputStream)
+    private fun readImage(inputStream: InputStream)
     {
         val lzwCode = inputStream.read()
 
@@ -240,7 +242,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution : I
                 (data[2].toUnsignedInt() shl 16) or (data[3].toUnsignedInt() shl 24)
         val clearCode = 1 shl lzwCode
         val endCode = clearCode + 1
-        var code : Int
+        var code: Int
         var oldCode = 0
         val prefix = IntArray(4096)
         val suffix = ByteArray(4096)
@@ -251,7 +253,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution : I
         var tableIndex = (1 shl lzwCode) + 2
         var codeSize = lzwCode + 1
         var codeMask = (1 shl codeSize) - 1
-        var pair : Pair<Int, SubBlock> = Pair(0, subBlock)
+        var pair: Pair<Int, SubBlock> = Pair(0, subBlock)
 
         while (pair.first != endCode)
         {
@@ -280,7 +282,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution : I
             }
             else
             {
-                val newSuffixIndex : Int
+                val newSuffixIndex: Int
                 if (code < tableIndex)
                 {
                     newSuffixIndex = code
@@ -331,7 +333,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution : I
      * @param data   Uncompressed indexes
      * @param length Data length
      */
-    private fun writeImage(data : ByteArray, length : Int)
+    private fun writeImage(data: ByteArray, length: Int)
     {
         val size = this.colorIndexes.size
 
@@ -375,7 +377,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution : I
      * @throws IOException If the stream is not a valid image descriptor block.
      */
     @Throws(IOException::class)
-    override fun read(inputStream : InputStream)
+    override fun read(inputStream: InputStream)
     {
         this.x = read2ByteInt(inputStream)
         this.y = read2ByteInt(inputStream)

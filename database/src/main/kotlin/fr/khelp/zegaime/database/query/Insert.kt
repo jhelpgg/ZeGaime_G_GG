@@ -35,14 +35,21 @@ import java.util.TreeSet
  * ```
  *
  * @property table The table to insert into.
+ * @constructor Creates a new insert query. For internal use only.
  */
-class Insert internal constructor(val table : Table)
+class Insert internal constructor(val table: Table)
 {
+    /**
+     * The values to insert.
+     */
     private val columnValues = HashMap<Column, String>()
-    internal var conditionUpdateOneMatch : Condition? = null
+    /**
+     * The condition for the update query.
+     */
+    internal var conditionUpdateOneMatch: Condition? = null
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a string column.
      *
      * **Usage example:**
      * ```kotlin
@@ -52,7 +59,7 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun Column.IS(value : String)
+    infix fun Column.IS(value: String)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.STRING)
@@ -60,7 +67,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a string column.
      *
      * **Usage example:**
      * ```kotlin
@@ -70,13 +77,13 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun String.IS(value : String)
+    infix fun String.IS(value: String)
     {
         this@Insert.table.getColumn(this) IS value
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a boolean column.
      *
      * **Usage example:**
      * ```kotlin
@@ -86,7 +93,7 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun Column.IS(value : Boolean)
+    infix fun Column.IS(value: Boolean)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.BOOLEAN)
@@ -102,7 +109,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a boolean column.
      *
      * **Usage example:**
      * ```kotlin
@@ -112,13 +119,13 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun String.IS(value : Boolean)
+    infix fun String.IS(value: Boolean)
     {
         this@Insert.table.getColumn(this) IS value
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a byte column.
      *
      * **Usage example:**
      * ```kotlin
@@ -128,7 +135,7 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun Column.IS(value : Byte)
+    infix fun Column.IS(value: Byte)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.BYTE)
@@ -136,7 +143,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a byte column.
      *
      * **Usage example:**
      * ```kotlin
@@ -146,13 +153,13 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun String.IS(value : Byte)
+    infix fun String.IS(value: Byte)
     {
         this@Insert.table.getColumn(this) IS value
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a short column.
      *
      * **Usage example:**
      * ```kotlin
@@ -162,7 +169,7 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun Column.IS(value : Short)
+    infix fun Column.IS(value: Short)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.SHORT)
@@ -170,7 +177,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a short column.
      *
      * **Usage example:**
      * ```kotlin
@@ -180,13 +187,13 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun String.IS(value : Short)
+    infix fun String.IS(value: Short)
     {
         this@Insert.table.getColumn(this) IS value
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for an integer column.
      *
      * **Usage example:**
      * ```kotlin
@@ -196,7 +203,7 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun Column.IS(value : Int)
+    infix fun Column.IS(value: Int)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.INTEGER)
@@ -204,7 +211,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for an integer column.
      *
      * **Usage example:**
      * ```kotlin
@@ -214,13 +221,13 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun String.IS(value : Int)
+    infix fun String.IS(value: Int)
     {
         this@Insert.table.getColumn(this) IS value
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a long column.
      *
      * **Usage example:**
      * ```kotlin
@@ -230,7 +237,7 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun Column.IS(value : Long)
+    infix fun Column.IS(value: Long)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.LONG)
@@ -238,7 +245,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a long column.
      *
      * **Usage example:**
      * ```kotlin
@@ -248,13 +255,13 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun String.IS(value : Long)
+    infix fun String.IS(value: Long)
     {
         this@Insert.table.getColumn(this) IS value
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a float column.
      *
      * **Usage example:**
      * ```kotlin
@@ -264,7 +271,7 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun Column.IS(value : Float)
+    infix fun Column.IS(value: Float)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.FLOAT)
@@ -272,7 +279,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a float column.
      *
      * **Usage example:**
      * ```kotlin
@@ -282,13 +289,13 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun String.IS(value : Float)
+    infix fun String.IS(value: Float)
     {
         this@Insert.table.getColumn(this) IS value
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a double column.
      *
      * **Usage example:**
      * ```kotlin
@@ -298,7 +305,7 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun Column.IS(value : Double)
+    infix fun Column.IS(value: Double)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.DOUBLE)
@@ -306,7 +313,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a double column.
      *
      * **Usage example:**
      * ```kotlin
@@ -316,13 +323,13 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun String.IS(value : Double)
+    infix fun String.IS(value: Double)
     {
         this@Insert.table.getColumn(this) IS value
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a byte array column.
      *
      * **Usage example:**
      * ```kotlin
@@ -332,7 +339,7 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun Column.IS(value : ByteArray)
+    infix fun Column.IS(value: ByteArray)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.BYTE_ARRAY)
@@ -340,7 +347,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a byte array column.
      *
      * **Usage example:**
      * ```kotlin
@@ -350,13 +357,13 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun String.IS(value : ByteArray)
+    infix fun String.IS(value: ByteArray)
     {
         this@Insert.table.getColumn(this) IS value
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for an integer array column.
      *
      * **Usage example:**
      * ```kotlin
@@ -366,7 +373,7 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun Column.IS(value : IntArray)
+    infix fun Column.IS(value: IntArray)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.INT_ARRAY)
@@ -374,7 +381,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for an integer array column.
      *
      * **Usage example:**
      * ```kotlin
@@ -384,13 +391,13 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun String.IS(value : IntArray)
+    infix fun String.IS(value: IntArray)
     {
         this@Insert.table.getColumn(this) IS value
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a calendar column.
      *
      * **Usage example:**
      * ```kotlin
@@ -400,7 +407,7 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun Column.IS(value : Calendar)
+    infix fun Column.IS(value: Calendar)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.CALENDAR)
@@ -408,7 +415,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a calendar column.
      *
      * **Usage example:**
      * ```kotlin
@@ -418,13 +425,13 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun String.IS(value : Calendar)
+    infix fun String.IS(value: Calendar)
     {
         this@Insert.table.getColumn(this) IS value
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a date column.
      *
      * **Usage example:**
      * ```kotlin
@@ -434,7 +441,7 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun Column.IS(value : DataDate)
+    infix fun Column.IS(value: DataDate)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.DATE)
@@ -442,7 +449,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a date column.
      *
      * **Usage example:**
      * ```kotlin
@@ -452,13 +459,13 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun String.IS(value : DataDate)
+    infix fun String.IS(value: DataDate)
     {
         this@Insert.table.getColumn(this) IS value
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a time column.
      *
      * **Usage example:**
      * ```kotlin
@@ -468,7 +475,7 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun Column.IS(value : DataTime)
+    infix fun Column.IS(value: DataTime)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.TIME)
@@ -476,7 +483,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for a time column.
      *
      * **Usage example:**
      * ```kotlin
@@ -486,13 +493,13 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun String.IS(value : DataTime)
+    infix fun String.IS(value: DataTime)
     {
         this@Insert.table.getColumn(this) IS value
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for an enum column.
      *
      * **Usage example:**
      * ```kotlin
@@ -502,7 +509,7 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun <E : Enum<E>> Column.IS(value : E)
+    infix fun <E : Enum<E>> Column.IS(value: E)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.ENUM)
@@ -510,7 +517,7 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * Specifies the value for a column.
+     * Specifies the value for an enum column.
      *
      * **Usage example:**
      * ```kotlin
@@ -520,16 +527,20 @@ class Insert internal constructor(val table : Table)
      * @param value The value to insert.
      */
     @InsertDSL
-    infix fun <E : Enum<E>> String.IS(value : E)
+    infix fun <E : Enum<E>> String.IS(value: E)
     {
         this@Insert.table.getColumn(this) IS value
     }
 
     /**
-     * 
+     * Specifies the value for an enum column.
+     *
+     * For internal use only.
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
-    internal infix fun Column.IS_ENUM(value : Any)
+    internal infix fun Column.IS_ENUM(value: Any)
     {
         this@Insert.table.checkColumn(this)
         this.checkType(DataType.ENUM)
@@ -538,10 +549,14 @@ class Insert internal constructor(val table : Table)
     }
 
     /**
-     * 
+     * Specifies the value for an enum column.
+     *
+     * For internal use only.
+     *
+     * @param value The value to insert.
      */
     @InsertDSL
-    internal infix fun String.IS_ENUM(value : Any)
+    internal infix fun String.IS_ENUM(value: Any)
     {
         this@Insert.table.getColumn(this) IS_ENUM value
     }
@@ -560,7 +575,7 @@ class Insert internal constructor(val table : Table)
      * @param whereCreator A lambda function to define the where clause.
      */
     @WhereDSL
-    fun updateIfExactlyOneRowMatch(whereCreator : Where.() -> Unit)
+    fun updateIfExactlyOneRowMatch(whereCreator: Where.() -> Unit)
     {
         val where = Where(this.table)
         whereCreator(where)
@@ -571,9 +586,13 @@ class Insert internal constructor(val table : Table)
 
     /**
      * Returns the SQL representation of the insert query.
-     * 
+     *
+     * For internal use only.
+     *
+     * @param suggestedID The suggested ID for the new row.
+     * @return The SQL representation of the insert query.
      */
-    internal fun insertSQL(suggestedID : Int) : String
+    internal fun insertSQL(suggestedID: Int): String
     {
         val columnLeft = TreeSet<Column>()
 
@@ -604,7 +623,7 @@ class Insert internal constructor(val table : Table)
             columnLeft.remove(column)
         }
 
-        var defaultValue : String
+        var defaultValue: String
 
         for (column in columnLeft)
         {
@@ -629,9 +648,13 @@ class Insert internal constructor(val table : Table)
 
     /**
      * Returns the SQL representation of the update query.
-     * 
+     *
+     * For internal use only.
+     *
+     * @param id The ID of the row to update.
+     * @return The SQL representation of the update query.
      */
-    internal fun updateSQL(id : Int) : String
+    internal fun updateSQL(id: Int): String
     {
         val update = Update(this.table)
         update.transfer(this.columnValues)

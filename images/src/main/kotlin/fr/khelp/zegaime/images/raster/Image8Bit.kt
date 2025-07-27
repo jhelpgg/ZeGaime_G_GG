@@ -3,6 +3,7 @@ package fr.khelp.zegaime.images.raster
 import fr.khelp.zegaime.images.GameImage
 import fr.khelp.zegaime.images.color.base.COLOR_BLACK
 import fr.khelp.zegaime.utils.argumentCheck
+import fr.khelp.zegaime.utils.extensions.shl
 import fr.khelp.zegaime.utils.extensions.toUnsignedInt
 import fr.khelp.zegaime.utils.io.readFully
 import java.io.IOException
@@ -24,8 +25,9 @@ import java.io.InputStream
  *
  * @property width The width of the image.
  * @property height The height of the image.
+ * @constructor Creates a new 8-bit image.
  */
-class Image8Bit(val width : Int, val height : Int) : RasterImage
+class Image8Bit(val width: Int, val height: Int) : RasterImage
 {
     companion object
     {
@@ -89,7 +91,7 @@ class Image8Bit(val width : Int, val height : Int) : RasterImage
      * @param colorIndex The index of the color in the color table.
      * @return The color.
      */
-    operator fun get(colorIndex : Int) = this.colorTable[colorIndex]
+    operator fun get(colorIndex: Int) = this.colorTable[colorIndex]
 
     /**
      * Returns the color index of the pixel at the given coordinates.
@@ -103,9 +105,9 @@ class Image8Bit(val width : Int, val height : Int) : RasterImage
      * @param y The y coordinate of the pixel.
      * @return The color index of the pixel.
      */
-    fun colorIndex(x : Int, y : Int) : Int
+    fun colorIndex(x: Int, y: Int): Int
     {
-        argumentCheck(x < 0 || x >= this.width || y < 0 || y >= this.height) {"x must be in [0, ${this.width}[ and y in [0, ${this.height}[ but specified point ($x, $y)"}
+        argumentCheck(x < 0 || x >= this.width || y < 0 || y >= this.height) { "x must be in [0, ${this.width}[ and y in [0, ${this.height}[ but specified point ($x, $y)" }
         return this.data[x + (y * this.width)].toUnsignedInt()
     }
 
@@ -114,17 +116,16 @@ class Image8Bit(val width : Int, val height : Int) : RasterImage
      *
      * @param inputStream The stream to parse.
      * @throws IOException On reading issue.
-     * 
      */
     @Throws(IOException::class)
-    fun parseBitmapStream(inputStream : InputStream)
+    fun parseBitmapStream(inputStream: InputStream)
     {
         this.clear()
         val buffer = ByteArray(4)
         var y = this.height - 1
-        var x : Int
-        var line : Int
-        var index : Int
+        var x: Int
+        var line: Int
+        var index: Int
 
         while (y >= 0)
         {
@@ -153,23 +154,22 @@ class Image8Bit(val width : Int, val height : Int) : RasterImage
      *
      * @param inputStream The stream to parse.
      * @throws IOException On reading issue.
-     * 
      */
     @Throws(IOException::class)
-    fun parseBitmapStreamCompressed(inputStream : InputStream)
+    fun parseBitmapStreamCompressed(inputStream: InputStream)
     {
         this.clear()
         val buffer = ByteArray(4)
         var y = this.height - 1
-        var x : Int
-        var line : Int
-        var index : Int
-        var count : Int
-        var info : Int
-        var left : Int
-        var up : Int
-        var length : Int
-        var internBuffer : ByteArray
+        var x: Int
+        var line: Int
+        var index: Int
+        var count: Int
+        var info: Int
+        var left: Int
+        var up: Int
+        var length: Int
+        var internBuffer: ByteArray
 
         while (y >= 0)
         {
@@ -210,9 +210,9 @@ class Image8Bit(val width : Int, val height : Int) : RasterImage
                     {
                         when (info)
                         {
-                            0    -> x = this.width
-                            1    -> return
-                            2    ->
+                            0 -> x = this.width
+                            1 -> return
+                            2 ->
                             {
                                 if (index == 2)
                                 {
@@ -298,7 +298,7 @@ class Image8Bit(val width : Int, val height : Int) : RasterImage
      * @param colorIndex The index of the color in the color table.
      * @param color The new color.
      */
-    operator fun set(colorIndex : Int, color : Int)
+    operator fun set(colorIndex: Int, color: Int)
     {
         this.colorTable[colorIndex] = color
     }
@@ -315,7 +315,7 @@ class Image8Bit(val width : Int, val height : Int) : RasterImage
      * @param y The y coordinate of the pixel.
      * @param colorIndex The new color index of the pixel.
      */
-    fun colorIndex(x : Int, y : Int, colorIndex : Int)
+    fun colorIndex(x: Int, y: Int, colorIndex: Int)
     {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height)
         {
@@ -343,7 +343,7 @@ class Image8Bit(val width : Int, val height : Int) : RasterImage
      * @param colorIndexStart The index in the color table where to start writing.
      * @param colors The colors to write.
      */
-    fun colors(colorIndexStart : Int, vararg colors : Int)
+    fun colors(colorIndexStart: Int, vararg colors: Int)
     {
         val limit = Math.min(256 - colorIndexStart, colors.size)
         System.arraycopy(colors, 0, this.colorTable, colorIndexStart, limit)
@@ -354,7 +354,7 @@ class Image8Bit(val width : Int, val height : Int) : RasterImage
      *
      * @return The converted image.
      */
-    override fun toGameImage() : GameImage
+    override fun toGameImage(): GameImage
     {
         val length = this.width * this.height
         val pixels = IntArray(length)

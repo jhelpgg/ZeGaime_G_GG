@@ -8,21 +8,27 @@ import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
- * Interpolation that bounces
- * @param numberBounce Number of bounces
+ * An interpolation that creates a bouncing effect.
+ *
+ * The animation simulates an object bouncing a specified number of times.
+ *
+ * @property numberBounce The number of bounces.
+ * @constructor Creates a new bouncing interpolation.
  */
-class InterpolationBouncing(numberBounce : Int = 2) : Interpolation
+class InterpolationBouncing(numberBounce: Int = 2) : Interpolation
 {
-    /**Number of bounces*/
+    /** The number of bounces, ensured to be non-negative. */
     private val numberBounce = max(0, numberBounce)
 
     /**
-     * Interpolate value with bounce effect
+     * Interpolates the value with a bouncing effect.
      *
-     * @param percent Value to interpolate
-     * @return Interpolate value
+     * The interpolation is calculated based on the number of bounces.
+     *
+     * @param percent The value to interpolate, between 0 and 1.
+     * @return The interpolated value.
      */
-    override operator fun invoke(percent : Double) : Double
+    override operator fun invoke(percent: Double): Double
     {
         if (this.numberBounce == 0)
         {

@@ -52,7 +52,7 @@ class DataGIF
     private var colorResolution = 0
 
     /**Gif global color table (Used if a block not have a color table)*/
-    private lateinit var globalColorTable : GIFColorTable
+    private lateinit var globalColorTable: GIFColorTable
 
     /**Indicates if a global color table is defined*/
     private var globalTableColorFollow = false
@@ -77,10 +77,9 @@ class DataGIF
      *
      * @param inputStream The stream to read from.
      * @throws IOException If the header is invalid.
-     * 
      */
     @Throws(IOException::class)
-    internal fun readHeader(inputStream : InputStream)
+    internal fun readHeader(inputStream: InputStream)
     {
         val header = readString(3, inputStream)
 
@@ -102,10 +101,9 @@ class DataGIF
      *
      * @param inputStream The stream to read from.
      * @throws IOException If the stream contains invalid data for the logical screen.
-     * 
      */
     @Throws(IOException::class)
-    internal fun readLogicalScreen(inputStream : InputStream)
+    internal fun readLogicalScreen(inputStream: InputStream)
     {
         this.width = read2ByteInt(inputStream)
         this.height = read2ByteInt(inputStream)
@@ -157,33 +155,33 @@ class DataGIF
      *
      * @param dataGIFVisitor The visitor to signal the progression.
      */
-    fun collectImages(dataGIFVisitor : DataGIFVisitor)
+    fun collectImages(dataGIFVisitor: DataGIFVisitor)
     {
         dataGIFVisitor.startCollecting(this.width, this.height)
 
         val baseImage = GameImage(this.width, this.height)
-        var colorTable : GIFColorTable
-        var localColorTable : GIFColorTable?
-        var graphicControlBlock : GraphicControlBlock? = null
-        var imageDescriptorBlock : ImageDescriptorBlock? = null
-        var disposalMethod : Int
-        var transparencyIndex : Int
-        var pixels : IntArray
-        var indexes : IntArray
-        var time : Long
-        var image : GameImage
-        var imageX : Int
-        var imageY : Int
-        var imageWidth : Int
-        var imageHeight : Int
-        var background : Int
+        var colorTable: GIFColorTable
+        var localColorTable: GIFColorTable?
+        var graphicControlBlock: GraphicControlBlock? = null
+        var imageDescriptorBlock: ImageDescriptorBlock? = null
+        var disposalMethod: Int
+        var transparencyIndex: Int
+        var pixels: IntArray
+        var indexes: IntArray
+        var time: Long
+        var image: GameImage
+        var imageX: Int
+        var imageY: Int
+        var imageWidth: Int
+        var imageHeight: Int
+        var background: Int
 
         for (block in this.blocks)
         {
             when (block.type)
             {
                 BLOCK_IMAGE_DESCRIPTOR -> imageDescriptorBlock = block as ImageDescriptorBlock
-                BLOCK_EXTENSION        ->
+                BLOCK_EXTENSION ->
                     when ((block as BlockExtension).subType)
                     {
                         BLOCK_EXTENSION_GRAPHIC_CONTROL -> graphicControlBlock = block as GraphicControlBlock
@@ -227,7 +225,7 @@ class DataGIF
                 image = baseImage.copy()
                 pixels = image.grabPixels(imageX, imageY, imageWidth, imageHeight)
                 val length = pixels.size
-                var index : Int
+                var index: Int
                 indexes = imageDescriptorBlock.colorIndexes
 
                 for (pix in 0 until length)
@@ -251,12 +249,12 @@ class DataGIF
                         baseImage.draw { graphics2D -> graphics2D.drawImage(0, 0, image) }
                     }
 
-                    DISPOSAL_METHOD_RESTORE_BACKGROUND_COLOR                 ->
+                    DISPOSAL_METHOD_RESTORE_BACKGROUND_COLOR ->
                     {
                         baseImage.clearRectangle(imageX, imageY, imageWidth, imageHeight, background)
                     }
 
-                    DISPOSAL_METHOD_RESTORE_PREVIOUS                         ->
+                    DISPOSAL_METHOD_RESTORE_PREVIOUS ->
                     {
                     }
                 }
@@ -282,7 +280,7 @@ class DataGIF
      * @throws IOException If the stream is not a valid GIF.
      */
     @Throws(IOException::class)
-    fun read(inputStream : InputStream)
+    fun read(inputStream: InputStream)
     {
         this.readHeader(inputStream)
         this.readLogicalScreen(inputStream)
@@ -306,14 +304,14 @@ class DataGIF
  * @param file The GIF image file.
  * @return The size of the GIF image, or `null` if the file is not a valid GIF image.
  */
-fun computeGifSize(file : File?) : Dimension?
+fun computeGifSize(file: File?): Dimension?
 {
     if (file == null || !file.exists() || file.isDirectory || !file.canRead())
     {
         return null
     }
 
-    var dimension : Dimension? = null
+    var dimension: Dimension? = null
     treatInputStream({ FileInputStream(file) },
                      { inputStream ->
                          val dataGIF = DataGIF()
@@ -331,4 +329,4 @@ fun computeGifSize(file : File?) : Dimension?
  * @param file The file to test.
  * @return `true` if the file is a GIF image file, `false` otherwise.
  */
-fun isGIF(file : File?) = computeGifSize(file) != null
+fun isGIF(file: File?) = computeGifSize(file) != null

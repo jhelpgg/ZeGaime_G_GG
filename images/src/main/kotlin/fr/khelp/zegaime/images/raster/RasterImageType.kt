@@ -50,16 +50,16 @@ enum class RasterImageType
          * @param bitCount The number of bits.
          * @return The raster image type, or `null` if it is not defined for the given number of bits.
          */
-        fun getRasterImageType(bitCount : Int) =
+        fun getRasterImageType(bitCount: Int) =
             when (bitCount)
             {
-                BitmapHeader.IMAGE_BINARY  -> RasterImageType.IMAGE_BINARY
-                BitmapHeader.IMAGE_4_BITS  -> RasterImageType.IMAGE_4_BITS
-                BitmapHeader.IMAGE_8_BITS  -> RasterImageType.IMAGE_8_BITS
+                BitmapHeader.IMAGE_BINARY -> RasterImageType.IMAGE_BINARY
+                BitmapHeader.IMAGE_4_BITS -> RasterImageType.IMAGE_4_BITS
+                BitmapHeader.IMAGE_8_BITS -> RasterImageType.IMAGE_8_BITS
                 BitmapHeader.IMAGE_16_BITS -> RasterImageType.IMAGE_16_BITS
                 BitmapHeader.IMAGE_24_BITS -> RasterImageType.IMAGE_24_BITS
                 BitmapHeader.IMAGE_32_BITS -> RasterImageType.IMAGE_32_BITS
-                else                       -> null
+                else -> null
             }
     }
 }

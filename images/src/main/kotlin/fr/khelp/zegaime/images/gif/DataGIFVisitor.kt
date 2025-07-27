@@ -20,7 +20,7 @@ interface DataGIFVisitor
      * @param duration The duration of the image in milliseconds.
      * @param image The computed image.
      */
-    fun nextImage(duration : Long, image : GameImage)
+    fun nextImage(duration: Long, image: GameImage)
 
     /**
      * Called when the collection of images starts.
@@ -28,5 +28,5 @@ interface DataGIFVisitor
      * @param width The width of the images.
      * @param height The height of the images.
      */
-    fun startCollecting(width : Int, height : Int)
+    fun startCollecting(width: Int, height: Int)
 }

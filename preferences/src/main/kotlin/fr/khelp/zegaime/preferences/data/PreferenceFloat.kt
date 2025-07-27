@@ -16,13 +16,15 @@ import fr.khelp.zegaime.utils.math.compare
  * myPreference.value = 1.0f
  * val currentValue = myPreference.value
  * ```
+ *
+ * @constructor Creates a new float preference. For internal use only.
  */
-class PreferenceFloat internal constructor(name : String, initialValue : Float)
-    : Preference<Float, PreferenceTypeFloat>(name, PreferenceTypeFloat, initialValue)
+class PreferenceFloat internal constructor(name: String, initialValue: Float) :
+    Preference<Float, PreferenceTypeFloat>(name, PreferenceTypeFloat, initialValue)
 {
     /**
      * Returns `true` if the new value is different from the current value.
      */
-    override fun allowUpdate(currentValue : Float, newValue : Float) : Boolean =
+    override fun allowUpdate(currentValue: Float, newValue: Float): Boolean =
         compare(currentValue, newValue) != 0
 }

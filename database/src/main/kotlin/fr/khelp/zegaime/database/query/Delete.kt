@@ -19,10 +19,14 @@ import fr.khelp.zegaime.database.condition.Condition
  * ```
  *
  * @property table The table to delete from.
+ * @constructor Creates a new delete query. For internal use only.
  */
-class Delete internal constructor(val table : Table)
+class Delete internal constructor(val table: Table)
 {
-    private var condition : Condition? = null
+    /**
+     * The condition of the delete query.
+     */
+    private var condition: Condition? = null
 
     /**
      * Specifies the delete condition.
@@ -33,9 +37,10 @@ class Delete internal constructor(val table : Table)
      * ```
      *
      * @param whereCreator A lambda function to define the where clause.
+     * @throws IllegalStateException if no condition is defined in the where clause.
      */
     @WhereDSL
-    fun where(whereCreator : Where.() -> Unit)
+    fun where(whereCreator: Where.() -> Unit)
     {
         val where = Where(this.table)
         whereCreator(where)
@@ -45,9 +50,12 @@ class Delete internal constructor(val table : Table)
 
     /**
      * Returns the SQL representation of the delete query.
-     * 
+     *
+     * For internal use only.
+     *
+     * @return The SQL representation of the delete query.
      */
-    internal fun deleteSQL() : String
+    internal fun deleteSQL(): String
     {
         val query = StringBuilder()
         query.append("DELETE FROM ")

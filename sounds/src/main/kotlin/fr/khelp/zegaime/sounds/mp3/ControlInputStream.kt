@@ -11,14 +11,16 @@ import java.io.RandomAccessFile
 /**
  * An input stream that can be controlled.
  *
+ * This class is for internal use of the sound system.
+ *
  * @property file The file to read.
  * @property pause Indicates if the stream reading is paused.
  * @property size The size of the file.
  * @property progressObservable An observable that emits the reading progress.
  * @property position The current reading position.
- * 
+ * @constructor Creates a new control input stream.
  */
-internal class ControlInputStream(private val file : File) : InputStream()
+internal class ControlInputStream(private val file: File) : InputStream()
 {
     /** Whether the stream reading is in pause */
     var pause = false
@@ -42,10 +44,10 @@ internal class ControlInputStream(private val file : File) : InputStream()
     private val progressSource = ObservableSource<SoundProgress>(SoundProgress(0L, this.maximum))
 
     /** Reading progress */
-    val progressObservable : Observable<SoundProgress> = this.progressSource.observable
+    val progressObservable: Observable<SoundProgress> = this.progressSource.observable
 
     /** Current reading position */
-    var position : Long
+    var position: Long
         get() = this.fileChanel.position()
         set(value)
         {
@@ -69,7 +71,7 @@ internal class ControlInputStream(private val file : File) : InputStream()
      * stream is reached.
      * @exception  IOException  if an I/O error occurs.
      */
-    override fun read() : Int
+    override fun read(): Int
     {
         if (this.pause)
         {
@@ -89,7 +91,7 @@ internal class ControlInputStream(private val file : File) : InputStream()
      * @throws IOException Not throw here (But keep to respect InputStream extends)
      * @see InputStream.read
      */
-    override fun read(b : ByteArray) : Int
+    override fun read(b: ByteArray): Int
     {
         if (this.pause)
         {
@@ -111,7 +113,7 @@ internal class ControlInputStream(private val file : File) : InputStream()
      * @throws IOException Not throw here (But keep to respect InputStream extends)
      * @see InputStream.read
      */
-    override fun read(b : ByteArray, off : Int, len : Int) : Int
+    override fun read(b: ByteArray, off: Int, len: Int): Int
     {
         if (this.pause)
         {
@@ -131,7 +133,7 @@ internal class ControlInputStream(private val file : File) : InputStream()
      * @throws IOException Not throw here (But keep to respect InputStream extends)
      * @see InputStream.skip
      */
-    override fun skip(n : Long) : Long
+    override fun skip(n: Long): Long
     {
         val skipped = this.randomAccessFile.skipBytes(n.toInt()).toLong()
         this.progressSource.value = SoundProgress(this.fileChanel.position(), this.maximum)
@@ -144,7 +146,7 @@ internal class ControlInputStream(private val file : File) : InputStream()
      * @return Data size
      * @see InputStream.available
      */
-    override fun available() : Int = (this.size - this.fileChanel.position()).toInt()
+    override fun available(): Int = (this.size - this.fileChanel.position()).toInt()
 
     /**
      * Mark the actual position
@@ -153,7 +155,7 @@ internal class ControlInputStream(private val file : File) : InputStream()
      * @see InputStream.mark
      */
     @Synchronized
-    override fun mark(readLimit : Int)
+    override fun mark(readLimit: Int)
     {
         this.mark = this.position
     }

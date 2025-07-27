@@ -6,22 +6,40 @@ import fr.khelp.zegaime.engine3d.events.JoystickCode
 import fr.khelp.zegaime.engine3d.events.JoystickInputType
 import fr.khelp.zegaime.preferences.PreferencesDatabase
 
-fun getJoystickInputType(name : String) : JoystickInputType =
+/**
+ * Gets a joystick input type from the preferences.
+ *
+ * @param name The name of the preference.
+ * @return The joystick input type.
+ */
+fun getJoystickInputType(name: String): JoystickInputType =
     try
     {
         JoystickInputType.valueOf(PreferencesDatabase.getString(name).value)
     }
-    catch (_ : Exception)
+    catch (_: Exception)
     {
         JoystickInputType.NONE
     }
 
-fun storeJoystickInputType(name : String, joystickInputType : JoystickInputType)
+/**
+ * Stores a joystick input type in the preferences.
+ *
+ * @param name The name of the preference.
+ * @param joystickInputType The joystick input type to store.
+ */
+fun storeJoystickInputType(name: String, joystickInputType: JoystickInputType)
 {
     PreferencesDatabase.getString(name).value = joystickInputType.name
 }
 
-fun getJoystickCode(name : String) : JoystickCode
+/**
+ * Gets a joystick code from the preferences.
+ *
+ * @param name The name of the preference.
+ * @return The joystick code.
+ */
+fun getJoystickCode(name: String): JoystickCode
 {
     val index = PreferencesDatabase.getInt("${name}_index").value
     val type = getJoystickInputType("${name}_type")
@@ -32,19 +50,33 @@ fun getJoystickCode(name : String) : JoystickCode
 
         JoystickInputType.AXIS_POSITIVE -> JoystickCode.obtainAxis(index = index, positive = true)
 
-        JoystickInputType.BUTTON        -> JoystickCode.obtainButton(index)
+        JoystickInputType.BUTTON -> JoystickCode.obtainButton(index)
 
-        JoystickInputType.NONE          -> JoystickCode.NONE
+        JoystickInputType.NONE -> JoystickCode.NONE
     }
 }
 
-fun storeJoystickCode(name : String, joystickCode : JoystickCode)
+/**
+ * Stores a joystick code in the preferences.
+ *
+ * @param name The name of the preference.
+ * @param joystickCode The joystick code to store.
+ */
+fun storeJoystickCode(name: String, joystickCode: JoystickCode)
 {
     PreferencesDatabase.getInt("${name}_index").value = joystickCode.index
     storeJoystickInputType("${name}_type", joystickCode.joystickInputType)
 }
 
-internal fun getActionDescription(actionCode : ActionCode) : ActionDescription
+/**
+ * Gets an action description from the preferences.
+ *
+ * For internal use only.
+ *
+ * @param actionCode The action code.
+ * @return The action description.
+ */
+internal fun getActionDescription(actionCode: ActionCode): ActionDescription
 {
     val joystickCode = getJoystickCode("${actionCode.preferenceKey}_joystick")
     val keyCode = PreferencesDatabase.getInt("${actionCode.preferenceKey}_key").value
@@ -59,7 +91,14 @@ internal fun getActionDescription(actionCode : ActionCode) : ActionDescription
     }
 }
 
-internal fun storeActionDescription(actionDescription : ActionDescription)
+/**
+ * Stores an action description in the preferences.
+ *
+ * For internal use only.
+ *
+ * @param actionDescription The action description to store.
+ */
+internal fun storeActionDescription(actionDescription: ActionDescription)
 {
     storeJoystickCode("${actionDescription.actionCode.preferenceKey}_joystick", actionDescription.joystickCode)
     PreferencesDatabase.getInt("${actionDescription.actionCode.preferenceKey}_key").value = actionDescription.keyCode

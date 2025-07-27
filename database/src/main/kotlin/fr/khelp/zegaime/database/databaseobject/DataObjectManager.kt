@@ -13,14 +13,21 @@ import java.util.Calendar
  * Internal object for managing database objects.
  *
  * This object is responsible for creating and updating the table descriptions for database objects.
- * 
+ * It is not meant to be used directly.
  */
 internal object DataObjectManager
 {
+    /**
+     * Cache of table descriptions.
+     *
+     * The key is a combination of the database path and the class name.
+     */
     private val tables = HashMap<String, TableDescription>()
 
     /**
      * Returns the table description for the given database object.
+     *
+     * If the table description is not in the cache, it will be created.
      *
      * @param databaseObject The database object.
      * @return The table description.
@@ -44,6 +51,8 @@ internal object DataObjectManager
     /**
      * Returns the table description for the given class.
      *
+     * If the table description is not in the cache, it will be created.
+     *
      * @param database The database instance.
      * @param classDatabaseObject The class of the database object.
      * @return The table description.
@@ -54,6 +63,9 @@ internal object DataObjectManager
 
     /**
      * Creates or updates the table description for the given class.
+     *
+     * This method is responsible for creating the table if it does not exist,
+     * and for updating the table schema if the class has changed.
      *
      * @param database The database instance.
      * @param classDatabaseObject The class of the database object.
@@ -153,7 +165,7 @@ internal object DataObjectManager
 
                 if (type.isArray && DatabaseObject::class.java.isAssignableFrom(type.componentType))
                 {
-                    ("UNCHECKED_CAST")
+                    @Suppress("UNCHECKED_CAST")
                     createUpdateTableDescription(database,
                                                  type.componentType as Class<out DatabaseObject>,
                                                  "",
@@ -162,7 +174,7 @@ internal object DataObjectManager
                 }
                 else if (DatabaseObject::class.java.isAssignableFrom(type))
                 {
-                    ("UNCHECKED_CAST")
+                    @Suppress("UNCHECKED_CAST")
                     createUpdateTableDescription(database, type as Class<out DatabaseObject>, tableName, columnName)
                     columnName AS DataType.INTEGER
                 }
@@ -170,33 +182,33 @@ internal object DataObjectManager
                 {
                     when (type)
                     {
-                        Boolean::class.java   ->
+                        Boolean::class.java ->
                             columnName AS DataType.BOOLEAN
-                        Byte::class.java      ->
+                        Byte::class.java ->
                             columnName AS DataType.BYTE
-                        Short::class.java     ->
+                        Short::class.java ->
                             columnName AS DataType.SHORT
-                        Int::class.java       ->
+                        Int::class.java ->
                             columnName AS DataType.INTEGER
-                        Long::class.java      ->
+                        Long::class.java ->
                             columnName AS DataType.LONG
-                        Float::class.java     ->
+                        Float::class.java ->
                             columnName AS DataType.FLOAT
-                        Double::class.java    ->
+                        Double::class.java ->
                             columnName AS DataType.DOUBLE
-                        String::class.java    ->
+                        String::class.java ->
                             columnName AS DataType.STRING
                         ByteArray::class.java ->
                             columnName AS DataType.BYTE_ARRAY
-                        IntArray::class.java  ->
+                        IntArray::class.java ->
                             columnName AS DataType.INT_ARRAY
-                        Calendar::class.java  ->
+                        Calendar::class.java ->
                             columnName AS DataType.CALENDAR
-                        DataTime::class.java  ->
+                        DataTime::class.java ->
                             columnName AS DataType.TIME
-                        DataDate::class.java  ->
+                        DataDate::class.java ->
                             columnName AS DataType.DATE
-                        else                  ->
+                        else ->
                             if (type.isEnum)
                             {
                                 columnName AS DataType.ENUM

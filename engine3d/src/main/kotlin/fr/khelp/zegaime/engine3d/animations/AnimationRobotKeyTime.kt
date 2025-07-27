@@ -4,21 +4,62 @@ import fr.khelp.zegaime.animations.keytime.AnimationKeyTime
 import fr.khelp.zegaime.engine3d.scene.prebuilt.complex.robot.Robot
 import fr.khelp.zegaime.engine3d.scene.prebuilt.complex.robot.RobotPosition
 
-class AnimationRobotKeyTime(robot : Robot) : AnimationKeyTime<Robot, RobotPosition>(robot)
+/**
+ * An animation of a [Robot] based on key times.
+ *
+ * This animation interpolates the position of the robot's limbs over time.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val animation = AnimationRobotKeyTime(myRobot)
+ * animation.addKeyTimeValue(0, RobotPosition(neckAngleX = 0f))
+ * animation.addKeyTimeValue(1000, RobotPosition(neckAngleX = 10f))
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * AnimationManager.play(animation)
+ * ```
+ *
+ * @param robot The robot to animate.
+ * @constructor Creates a new robot key time animation.
+ */
+class AnimationRobotKeyTime(robot: Robot) : AnimationKeyTime<Robot, RobotPosition>(robot)
 {
-    override fun getValue(animated : Robot) : RobotPosition =
+    /**
+     * Gets the current position of the robot.
+     *
+     * @param animated The robot.
+     * @return The current position of the robot.
+     */
+    override fun getValue(animated: Robot): RobotPosition =
         animated.robotPosition
 
-    override fun setValue(animated : Robot, value : RobotPosition)
+    /**
+     * Sets the position of the robot.
+     *
+     * @param animated The robot.
+     * @param value The new position of the robot.
+     */
+    override fun setValue(animated: Robot, value: RobotPosition)
     {
         animated.robotPosition = value
     }
 
-    override fun interpolate(animated : Robot,
-                             beforeValue : RobotPosition,
-                             beforeCoefficient : Double,
-                             afterValue : RobotPosition,
-                             afterCoefficient : Double)
+    /**
+     * Interpolates the position of the robot between two keyframes.
+     *
+     * @param animated The robot.
+     * @param beforeValue The position of the previous keyframe.
+     * @param beforeCoefficient The coefficient of the previous keyframe.
+     * @param afterValue The position of the next keyframe.
+     * @param afterCoefficient The coefficient of the next keyframe.
+     */
+    override fun interpolate(animated: Robot,
+                             beforeValue: RobotPosition,
+                             beforeCoefficient: Double,
+                             afterValue: RobotPosition,
+                             afterCoefficient: Double)
     {
         animated.robotPosition =
             RobotPosition(neckAngleX = (beforeValue.neckAngleX * beforeCoefficient + afterValue.neckAngleX * afterCoefficient).toFloat(),

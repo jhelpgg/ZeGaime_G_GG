@@ -14,5 +14,7 @@ const val LOGIN_PASSWORD_INVALID_MESSAGE = "Wrong login or password."
  * ```kotlin
  * throw LoginPasswordInvalidException()
  * ```
+ *
+ * @constructor Creates a new login/password invalid exception.
  */
 class LoginPasswordInvalidException : Exception(LOGIN_PASSWORD_INVALID_MESSAGE)

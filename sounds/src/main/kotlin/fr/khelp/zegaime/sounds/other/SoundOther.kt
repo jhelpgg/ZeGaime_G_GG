@@ -14,16 +14,17 @@ import javax.sound.sampled.Clip
 /**
  * A generic sound supported natively by the JVM.
  *
+ * This class is for internal use of the sound system.
+ *
  * @param file The sound file.
- * 
  */
-internal class SoundOther(file : File) : SoundInterface
+internal class SoundOther(file: File) : SoundInterface
 {
     /** Total sound length in micro-seconds */
-    override val totalSize : Long
+    override val totalSize: Long
 
     /** Current sound position in micro-seconds */
-    override var position : Long
+    override var position: Long
         get() = this.clip.microsecondPosition
         set(value)
         {
@@ -35,19 +36,19 @@ internal class SoundOther(file : File) : SoundInterface
     private val soundStateSource = ObservableSource<SoundState>(SoundState.NOT_LAUNCHED)
 
     /** Sound progress source */
-    private val soundProgressSource : ObservableSource<SoundProgress>
+    private val soundProgressSource: ObservableSource<SoundProgress>
 
     /** Current sound state */
-    override val soundState : Observable<SoundState> = this.soundStateSource.observable
+    override val soundState: Observable<SoundState> = this.soundStateSource.observable
 
     /** Current sound progress */
-    override val soundProgress : Observable<SoundProgress>
+    override val soundProgress: Observable<SoundProgress>
 
     /** Sound stream */
-    private val audioInputStream : AudioInputStream
+    private val audioInputStream: AudioInputStream
 
     /** Sound clip */
-    private val clip : Clip
+    private val clip: Clip
 
     /** Whether sound playing */
     private var playing = false

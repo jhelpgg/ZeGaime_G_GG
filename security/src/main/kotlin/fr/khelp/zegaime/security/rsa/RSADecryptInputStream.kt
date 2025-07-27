@@ -19,6 +19,10 @@ import java.util.Objects
  * ```kotlin
  * val decryptedData = decryptedStream.readAllBytes()
  * ```
+ *
+ * @constructor Creates a new RSA decrypt input stream.
+ * @param keyPair The RSA key pair to use for decryption.
+ * @param encryptedStream The input stream to decrypt.
  */
 class RSADecryptInputStream(keyPair: RSAKeyPair, encryptedStream: InputStream) : InputStream()
 {

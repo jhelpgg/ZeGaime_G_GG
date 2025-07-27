@@ -27,8 +27,9 @@ import java.io.OutputStream
  * @property height The height of the video.
  * @property fps The frames per second of the video.
  * @property outputStream The output stream to write the video to.
+ * @constructor Creates a new video writer.
  */
-class VideoWriter(val width : Int, val height : Int, val fps : Int, val outputStream : OutputStream)
+class VideoWriter(val width: Int, val height: Int, val fps: Int, val outputStream: OutputStream)
 {
     /**
      * Creates a new video writer with a default FPS of 25.
@@ -37,11 +38,11 @@ class VideoWriter(val width : Int, val height : Int, val fps : Int, val outputSt
      * @param height The height of the video.
      * @param outputStream The output stream to write the video to.
      */
-    constructor(width : Int, height : Int, outputStream : OutputStream) : this(width, height, 25, outputStream)
+    constructor(width: Int, height: Int, outputStream: OutputStream) : this(width, height, 25, outputStream)
 
     init
     {
-        argumentCheck(this.width > 0 && this.height >= 0) { "Width and height must be > 0, not ${this.width}c${this.height}" }
+        argumentCheck(this.width > 0 && this.height >= 0) { "Width and height must be > 0, not ${this.width}x${this.height}" }
         argumentCheck(this.fps in 1..100) { "FPS must be in [1, 100], not ${this.fps}" }
         this.writeHeader()
     }
@@ -51,7 +52,7 @@ class VideoWriter(val width : Int, val height : Int, val fps : Int, val outputSt
      *
      * @param image The image to append.
      */
-    fun appendImage(image : GameImage)
+    fun appendImage(image: GameImage)
     {
         val imageResized = image.resize(this.width, this.height)
         val byteArrayOutputStream = ByteArrayOutputStream()
@@ -70,7 +71,7 @@ class VideoWriter(val width : Int, val height : Int, val fps : Int, val outputSt
         {
             this.outputStream.flush()
         }
-        catch (_ : Exception)
+        catch (_: Exception)
         {
         }
 
@@ -78,7 +79,7 @@ class VideoWriter(val width : Int, val height : Int, val fps : Int, val outputSt
         {
             this.outputStream.close()
         }
-        catch (_ : Exception)
+        catch (_: Exception)
         {
         }
     }

@@ -3,6 +3,36 @@ package fr.khelp.zegaime.engine3d.render
 import fr.khelp.zegaime.engine3d.scene.Object3D
 import org.lwjgl.opengl.GL11
 
+/**
+ * Represents the material of a 3D object.
+ *
+ * A material defines the visual properties of an object, such as its color, shininess, and texture.
+ *
+ * **Creation example:**
+ * ```kotlin
+ * val material = Material()
+ * material.colorDiffuse = RED
+ * material.shininess = 128
+ * ```
+ *
+ * **Standard usage:**
+ * ```kotlin
+ * myObject3D.material = material
+ * ```
+ *
+ * @property colorAmbient The ambient color of the material.
+ * @property colorDiffuse The diffuse color of the material.
+ * @property colorEmissive The emissive color of the material.
+ * @property colorSpecular The specular color of the material.
+ * @property specularLevel The influence of the specular color.
+ * @property shininess The shininess of the material.
+ * @property transparency The transparency of the material (0.0 for fully transparent, 1.0 for fully opaque).
+ * @property twoSided Indicates if the material should be rendered on both sides of the faces.
+ * @property sphericRate The influence of the spherical texture.
+ * @property textureDiffuse The diffuse texture of the material.
+ * @property textureSpheric The spherical texture of the material.
+ * @constructor Creates a new material with default settings.
+ */
 class Material
 {
     /**Ambient color*/
@@ -33,13 +63,13 @@ class Material
     var sphericRate = 1f
 
     /**Diffuse texture*/
-    var textureDiffuse : Texture? = null
+    var textureDiffuse: Texture? = null
 
     /**Spherical texture*/
-    var textureSpheric : Texture? = null
+    var textureSpheric: Texture? = null
 
     /**
-     * Reset all settings to put as default
+     * Reset all settings to put as default.
      */
     fun originalSettings()
     {
@@ -57,7 +87,7 @@ class Material
     }
 
     /**
-     * Do settings for 2D
+     * Do settings for 2D.
      */
     fun settingAsFor2D()
     {
@@ -73,7 +103,7 @@ class Material
     /**
      * Prepare material for OpenGL render.
      *
-     * Use by the renderer, don't call it directly
+     * Use by the renderer, don't call it directly.
      */
     internal fun prepareMaterial()
     {
@@ -102,11 +132,13 @@ class Material
     }
 
     /**
-     * Render the material for a 3D object
+     * Render the material for a 3D object.
      *
-     * @param object3D Object to render
+     * For internal use only.
+     *
+     * @param object3D Object to render.
      */
-    internal fun renderMaterial(object3D : Object3D)
+    internal fun renderMaterial(object3D: Object3D)
     {
         this.prepareMaterial()
         //

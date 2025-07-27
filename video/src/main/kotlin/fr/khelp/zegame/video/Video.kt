@@ -28,22 +28,38 @@ import fr.khelp.zegaime.utils.tasks.sleep
  * @property progress An observable that emits the current progress of the video.
  * @property playing An observable that emits `true` if the video is playing, `false` otherwise.
  * @property positionMilliseconds The current position of the video in milliseconds.
+ * @constructor Creates a new video. For internal use only.
  */
-class Video internal constructor(val width : Int, val height : Int, val fps : Int, private val images : List<GameImage>)
+class Video internal constructor(val width: Int, val height: Int, val fps: Int, private val images: List<GameImage>)
 {
-    val totalMilliseconds : Long = (this.images.size * 1_000L) / this.fps
-    val image : GameImage = GameImage(this.width, this.height)
+    /**
+     * The total duration of the video in milliseconds.
+     */
+    val totalMilliseconds: Long = (this.images.size * 1_000L) / this.fps
+    /**
+     * The current image of the video.
+     */
+    val image: GameImage = GameImage(this.width, this.height)
 
     private val progressSource = ObservableSource<VideoProgress>(VideoProgress(0L, this.totalMilliseconds))
-    val progress : Observable<VideoProgress> = this.progressSource.observable
+    /**
+     * An observable that emits the current progress of the video.
+     */
+    val progress: Observable<VideoProgress> = this.progressSource.observable
 
     private val playingSource = ObservableSource<Boolean>(false)
-    val playing : Observable<Boolean> = this.playingSource.observable
+    /**
+     * An observable that emits `true` if the video is playing, `false` otherwise.
+     */
+    val playing: Observable<Boolean> = this.playingSource.observable
 
     private var imageIndex = 0
     private val lock = Object()
 
-    var positionMilliseconds : Long
+    /**
+     * The current position of the video in milliseconds.
+     */
+    var positionMilliseconds: Long
         get() = (this.imageIndex * 1_000L) / this.fps
         set(value)
         {
@@ -54,7 +70,7 @@ class Video internal constructor(val width : Int, val height : Int, val fps : In
             }
         }
 
-    private lateinit var futurePlaying : Future<Unit>
+    private lateinit var futurePlaying: Future<Unit>
 
     init
     {

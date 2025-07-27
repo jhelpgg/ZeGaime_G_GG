@@ -21,18 +21,19 @@ import java.net.URL
 import java.util.Locale
 
 /**
- * Access to resources
+ * Access to resources.
  *
- * @property source Source of the ressource
+ * @property source Source of the resource.
+ * @constructor Creates a new resources manager.
  */
-class Resources(private val source : ReferenceSource)
+class Resources(private val source: ReferenceSource)
 {
     companion object
     {
         /** Language source, to change the current language or listen language changes */
         val languageObservableData = ObservableSource<Locale>(Locale.getDefault())
 
-        /** Ressource link to capture */
+        /** Resource link to capture */
         @JvmStatic
         private val resourcePathGroup = '"'.allCharactersExcludeThis.oneOrMore().group()
 
@@ -48,7 +49,7 @@ class Resources(private val source : ReferenceSource)
     private val imagesCache = Cache<ImageDescription, GameImage>(128) { imageDescription ->
         when (imageDescription)
         {
-            is ImageLoad          ->
+            is ImageLoad ->
                 if (imageDescription.path.endsWith(".pcx", ignoreCase = true))
                 {
                     PCX(this.inputStream(imageDescription.path)).createImage()
@@ -75,7 +76,7 @@ class Resources(private val source : ReferenceSource)
     }
 
     /** Sounds cache */
-    private val soundsCache : Cache<String, Sound> by lazy {
+    private val soundsCache: Cache<String, Sound> by lazy {
         Cache<String, Sound>(64) { path ->
             val sound = soundFromStream({ this.inputStream(path) }, path)
             sound.soundStateObservable.register { state ->
@@ -101,7 +102,7 @@ class Resources(private val source : ReferenceSource)
      *
      * @return The resource text
      */
-    fun resourcesText(path : String) : ResourcesText =
+    fun resourcesText(path: String): ResourcesText =
         synchronized(this.resourcesTexts) { this.resourcesTexts.getOrPut(path) { ResourcesText(path, this) } }
 
     /**
@@ -111,7 +112,7 @@ class Resources(private val source : ReferenceSource)
      *
      * @return The image
      */
-    fun image(path : String) : GameImage =
+    fun image(path: String): GameImage =
         this.imagesCache[ImageLoad(path)]
 
     /**
@@ -123,7 +124,7 @@ class Resources(private val source : ReferenceSource)
      *
      * @return The image thumbnail
      */
-    fun imageThumbnail(path : String, width : Int, height : Int) : GameImage =
+    fun imageThumbnail(path: String, width: Int, height: Int): GameImage =
         this.imagesCache[ImageLoadThumbnail(path, width, height)]
 
     /**
@@ -133,7 +134,7 @@ class Resources(private val source : ReferenceSource)
      *
      * @return The sound
      */
-    fun sound(path : String) : Sound =
+    fun sound(path: String): Sound =
         this.soundsCache[path]
 
     /**
@@ -143,10 +144,17 @@ class Resources(private val source : ReferenceSource)
      *
      * @return The video
      */
-    fun video(path : String) : Video =
+    fun video(path: String): Video =
         this.videosCache[path]
 
-    fun gif(path : String) : GIF =
+    /**
+     * Get a GIF
+     *
+     * @param path GIF relative path
+     *
+     * @return The GIF
+     */
+    fun gif(path: String): GIF =
         this.gifsCache[path]
 
     /**
@@ -156,7 +164,7 @@ class Resources(private val source : ReferenceSource)
      *
      * @return The stream
      */
-    fun inputStream(path : String) : InputStream = this.source.inputStream(path)
+    fun inputStream(path: String): InputStream = this.source.inputStream(path)
 
     /**
      * Get a path url
@@ -165,7 +173,7 @@ class Resources(private val source : ReferenceSource)
      *
      * @return the url
      */
-    fun url(path : String) : URL = this.source.url(path)
+    fun url(path: String): URL = this.source.url(path)
 
     /**
      * Indicates if a path exists
@@ -174,7 +182,7 @@ class Resources(private val source : ReferenceSource)
      *
      * @return Whether the relative path exists
      */
-    fun exists(path : String) : Boolean = this.source.exists(path)
+    fun exists(path: String): Boolean = this.source.exists(path)
 
     /**
      * Replaces links to resources by the complete url
@@ -183,7 +191,7 @@ class Resources(private val source : ReferenceSource)
      *
      * @return String with replacements
      */
-    fun replaceResourcesLinkIn(string : String) : String
+    fun replaceResourcesLinkIn(string: String): String
     {
         val stringBuilder = StringBuilder()
         var start = 0
@@ -202,7 +210,13 @@ class Resources(private val source : ReferenceSource)
         return stringBuilder.toString()
     }
 
-    override fun equals(other : Any?) : Boolean
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param other The reference object with which to compare.
+     * @return `true` if this object is the same as the obj argument; `false` otherwise.
+     */
+    override fun equals(other: Any?): Boolean
     {
         if (this === other)
         {
@@ -217,7 +231,17 @@ class Resources(private val source : ReferenceSource)
         return this.source == other.source
     }
 
-    override fun hashCode() : Int = this.source.hashCode()
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return A hash code value for this object.
+     */
+    override fun hashCode(): Int = this.source.hashCode()
 
-    override fun toString() : String = "Resources : ${this.source}"
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return A string representation of the object.
+     */
+    override fun toString(): String = "Resources : ${this.source}"
 }

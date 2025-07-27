@@ -7,25 +7,44 @@ import fr.khelp.zegaime.utils.argumentCheck
 /**
  * Play an animation in loop.
  *
- * Loop stops if number of loops reaches the maximum or by call [stopLooping]
+ * A loop animation is composed of three parts:
+ * 1. An optional header animation, played one time at the beginning.
+ * 2. A looped animation, played a certain number of times.
+ * 3. An optional footer animation, played one time at the end.
  *
- * @property animationLooped Animation played in loop
- * @property animationHeader Optional animation plays before looping. Does nothing by default
- * @property animationFooter Optional animation plays after looping. Does nothing by default
- * @property numberMaximumLoop Number maximum of loop to do. By default, "infinite"
+ * The loop stops if the number of loops reaches the maximum defined, or by calling [stopLooping].
+ *
+ * To create a loop animation, you can use the DSL:
+ *
+ * ```kotlin
+ * val animation = loop(loops = 3) {
+ *      // Looped animation here
+ * }
+ * ```
+ *
+ * Or create an instance of [AnimationLoop]:
+ *
+ * ```kotlin
+ * val animation = AnimationLoop(animationLooped = myAnimation, numberMaximumLoop = 3)
+ * ```
+ *
+ * @property animationLooped Animation played in loop.
+ * @property animationHeader Optional animation played before looping. Does nothing by default.
+ * @property animationFooter Optional animation played after looping. Does nothing by default.
+ * @property numberMaximumLoop Number maximum of loop to do. By default, it is "infinite" (`Int.MAX_VALUE`).
+ * @constructor Create a new loop animation.
+ * @throws IllegalArgumentException if the number of loops is not strictly positive.
  */
-class AnimationLoop(private val animationLooped : Animation,
-                    private val animationHeader : Animation = AnimationDoesNothing,
-                    private val animationFooter : Animation = AnimationDoesNothing,
-                    private val numberMaximumLoop : Int = Int.MAX_VALUE) : Animation
+class AnimationLoop(private val animationLooped: Animation,
+                    private val animationHeader: Animation = AnimationDoesNothing,
+                    private val animationFooter: Animation = AnimationDoesNothing,
+                    private val numberMaximumLoop: Int = Int.MAX_VALUE) : Animation
 {
-    /** Current status */
+    /** Current status of the loop animation */
     private var status = AnimationLoopStatus.IDLE
-
     /** Current loop count */
     private var loop = 0
-
-    /** Reference time */
+    /** Reference time for the current animation part */
     private var referenceTime = 0L
 
     init
@@ -34,17 +53,22 @@ class AnimationLoop(private val animationLooped : Animation,
     }
 
     /**
-     * Manually stops the looping
+     * Manually stops the looping.
      *
-     * * If we are in header, the loop animation will not play. We directly go to the footer after the header
-     * * If we are in loop, the loop animation will finish and pass to footer
-     * * If we are in footer or not playing, it does nothing
+     * - If the animation is in the header part, the loop animation will not be played. It goes directly to the footer after the header.
+     * - If the animation is in the loop part, the current loop will finish, and then it passes to the footer.
+     * - If the animation is in the footer part or not playing, this method does nothing.
      */
     fun stopLooping()
     {
         this.loop = this.numberMaximumLoop
     }
 
+    /**
+     * Called at animation initialization.
+     *
+     * It resets the loop count and reference time, and initializes the header animation.
+     */
     override fun initialization()
     {
         this.loop = 0
@@ -53,13 +77,21 @@ class AnimationLoop(private val animationLooped : Animation,
         this.animationHeader.initialization()
     }
 
-    override fun animate(millisecondsSinceStarted : Long) : Boolean
+    /**
+     * Animate the current part of the loop.
+     *
+     * It plays the header, then the looped animation the specified number of times, and finally the footer.
+     *
+     * @param millisecondsSinceStarted Time since the animation started.
+     * @return `true` if the animation must continue, `false` otherwise.
+     */
+    override fun animate(millisecondsSinceStarted: Long): Boolean
     {
         var stillAnimated = true
 
         when (this.status)
         {
-            AnimationLoopStatus.IDLE   -> stillAnimated = false
+            AnimationLoopStatus.IDLE -> stillAnimated = false
 
             AnimationLoopStatus.HEADER ->
                 if (!this.animationHeader.animate(millisecondsSinceStarted - this.referenceTime))
@@ -70,7 +102,7 @@ class AnimationLoop(private val animationLooped : Animation,
                     this.referenceTime = millisecondsSinceStarted
                 }
 
-            AnimationLoopStatus.LOOP   ->
+            AnimationLoopStatus.LOOP ->
                 if (!this.animationLooped.animate(millisecondsSinceStarted - this.referenceTime))
                 {
                     this.animationLooped.finalization()
@@ -101,16 +133,18 @@ class AnimationLoop(private val animationLooped : Animation,
         return stillAnimated
     }
 
+    /**
+     * Called when the animation is finalized.
+     *
+     * It finalizes the current animation part and sets the status to idle.
+     */
     override fun finalization()
     {
         when (this.status)
         {
-            AnimationLoopStatus.IDLE   -> Unit
-
+            AnimationLoopStatus.IDLE -> Unit
             AnimationLoopStatus.HEADER -> this.animationHeader.finalization()
-
-            AnimationLoopStatus.LOOP   -> this.animationLooped.finalization()
-
+            AnimationLoopStatus.LOOP -> this.animationLooped.finalization()
             AnimationLoopStatus.FOOTER -> this.animationFooter.finalization()
         }
 

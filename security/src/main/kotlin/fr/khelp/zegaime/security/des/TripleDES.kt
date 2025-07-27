@@ -19,6 +19,10 @@ import java.io.OutputStream
  * crypter.encrypt(inputStream, outputStream)
  * crypter.decrypt(inputStream, outputStream)
  * ```
+ *
+ * @constructor Creates a new Triple DES crypter.
+ * @param login The login to use for encryption and decryption.
+ * @param password The password to use for encryption and decryption.
  */
 class TripleDES(login: String, password: String)
 {
@@ -77,9 +81,10 @@ class TripleDES(login: String, password: String)
     /**
      * Checks if this crypter has the same keys as another crypter.
      *
+     * For internal use only.
+     *
      * @param other The other crypter.
      * @return `true` if the keys are the same, `false` otherwise.
-     * 
      */
     internal fun sameKeys(other: TripleDES) =
         this.first.sameKey(other.first) && this.second.sameKey(other.second) && this.third.sameKey(other.third)

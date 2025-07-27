@@ -7,8 +7,8 @@ package fr.khelp.zegaime.database.condition
  *
  * **Usage example:**
  * ```kotlin
- * val condition = COLUMN_NAME EQUALS "test"
- * val notCondition = not(condition)
+ * // Create a condition to select users with name not equal to "test"
+ * val condition = not(COLUMN_NAME EQUALS "test")
  * ```
  *
  * @param condition The condition to be negated.

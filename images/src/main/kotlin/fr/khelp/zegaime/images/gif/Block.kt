@@ -6,9 +6,10 @@ import java.io.InputStream
 /**
  * Represents a block of information in a GIF file.
  *
+ * This class is for internal use of the image system.
+ *
  * @property type The type of the block.
  * @see <a href="http://www.w3.org/Graphics/GIF/spec-gif89a.txt">GIF specification</a>
- * 
  */
 internal abstract class Block
 {
@@ -30,7 +31,8 @@ internal abstract class Block
 
 /**
  * Represents an ignored block, which can appear in some malformed GIF files.
- * 
+ *
+ * This class is for internal use of the image system.
  */
 internal object IgnoreBlock : Block()
 {
@@ -47,8 +49,9 @@ internal object IgnoreBlock : Block()
 /**
  * Represents the end of a GIF stream.
  *
+ * This class is for internal use of the image system.
+ *
  * @see <a href="http://www.w3.org/Graphics/GIF/spec-gif89a.txt">GIF specification</a>
- * 
  */
 internal object EndBlock : Block()
 {
@@ -65,25 +68,26 @@ internal object EndBlock : Block()
 /**
  * Reads the next block from an input stream.
  *
+ * This function is for internal use of the image system.
+ *
  * @param inputStream The input stream to read from.
  * @param colorResolution The color resolution.
  * @return The block read.
  * @throws IOException If the stream does not contain a valid block.
- * 
  */
 @Throws(IOException::class)
 internal fun readBlock(inputStream: InputStream, colorResolution: Int): Block
 {
     val type = inputStream.read()
     val block =
-            when (type)
-            {
-                BLOCK_IMAGE_DESCRIPTOR -> ImageDescriptorBlock(colorResolution)
-                BLOCK_EXTENSION        -> readBlockExtension(inputStream)
-                BLOCK_END_GIF          -> EndBlock
-                0                      -> IgnoreBlock
-                else                   -> throw IOException("Unknown block type : $type")
-            }
+        when (type)
+        {
+            BLOCK_IMAGE_DESCRIPTOR -> ImageDescriptorBlock(colorResolution)
+            BLOCK_EXTENSION -> readBlockExtension(inputStream)
+            BLOCK_END_GIF -> EndBlock
+            0 -> IgnoreBlock
+            else -> throw IOException("Unknown block type : $type")
+        }
 
     block.type = type
     block.read(inputStream)

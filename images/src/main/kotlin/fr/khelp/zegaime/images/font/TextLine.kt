@@ -13,6 +13,7 @@ package fr.khelp.zegaime.images.font
  * @property width The width of the part.
  * @property height The height of the part.
  * @property endOfLine Indicates if the part is the end of a line of the original complete text.
+ * @constructor Creates a new text line.
  */
 data class TextLine(val text: String,
                     var x: Int, val y: Int, val width: Int, val height: Int,

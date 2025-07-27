@@ -7,11 +7,29 @@ import fr.khelp.zegaime.resources.Resources
 
 private val textures = HashMap<String, Texture>()
 
-fun Resources.texture(path : String) : Texture =
+/**
+ * Gets a texture from the resources.
+ *
+ * @param path The path to the texture.
+ * @return The texture.
+ */
+fun Resources.texture(path: String): Texture =
     textures.getOrPut(path) { Texture(this.image(path)) }
 
-fun Resources.textureVideo(path : String) : TextureVideo =
+/**
+ * Gets a video texture from the resources.
+ *
+ * @param path The path to the video.
+ * @return The video texture.
+ */
+fun Resources.textureVideo(path: String): TextureVideo =
     textures.getOrPut(path) { TextureVideo(this.video(path)) } as TextureVideo
 
-fun Resources.textureGif(path : String) : TextureGif =
+/**
+ * Gets a GIF texture from the resources.
+ *
+ * @param path The path to the GIF.
+ * @return The GIF texture.
+ */
+fun Resources.textureGif(path: String): TextureGif =
     textures.getOrPut(path) { TextureGif(this.gif(path)) } as TextureGif

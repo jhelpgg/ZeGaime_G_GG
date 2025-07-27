@@ -4,20 +4,20 @@ import kotlin.math.PI
 import kotlin.math.cos
 
 /**
- * Interpolation follow cosines function
+ * An interpolation that follows a cosine function.
+ *
+ * The animation has a smooth start and a smooth end.
  */
 data object InterpolationCosine : Interpolation
 {
     /**
-     * Interpolate value with following equation :
+     * Interpolates the value using a cosine function.
      *
-     *    1 + cos((t + 1) * PI)
-     *    ---------------------
-     *              2
+     * The formula used is `(1 + cos((percent + 1) * PI)) / 2`.
      *
-     * @param percent Value to interpolate
-     * @return Interpolate value
+     * @param percent The value to interpolate, between 0 and 1.
+     * @return The interpolated value.
      */
-    override operator fun invoke(percent : Double) =
+    override operator fun invoke(percent: Double) =
         (1.0 + cos((percent + 1.0) * PI)) / 2.0
 }

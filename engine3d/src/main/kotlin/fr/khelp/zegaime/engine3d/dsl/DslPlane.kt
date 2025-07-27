@@ -7,43 +7,100 @@ import fr.khelp.zegaime.engine3d.scene.prebuilt.Plane
 import fr.khelp.zegaime.engine3d.utils.NodePosition
 import fr.khelp.zegaime.engine3d.utils.position
 
+/**
+ * Creates a plane using the DSL.
+ *
+ * **Usage example:**
+ * ```kotlin
+ * val plane = plane("myPlane") {
+ *     position = NodePosition(x = 1f)
+ *     faceUV {
+ *         uv = Uv(0f, 0f, 1f, 1f)
+ *     }
+ * }
+ * ```
+ *
+ * @param planeID The ID of the plane.
+ * @param create The lambda function to create the plane.
+ * @return The created plane.
+ */
 @PrebuiltDSL
-fun plane(planeID : String, create : PlaneCreator.() -> Unit) : Plane
+fun plane(planeID: String, create: PlaneCreator.() -> Unit): Plane
 {
     val planeCreator = PlaneCreator(planeID)
     planeCreator.create()
     return planeCreator()
 }
 
+/**
+ * DSL creator for planes.
+ *
+ * @property planeID The ID of the plane.
+ * @constructor Creates a new plane creator.
+ */
 @PrebuiltDSL
-class PlaneCreator(private val planeID : String)
+class PlaneCreator(private val planeID: String)
 {
+    /**
+     * The position of the plane.
+     */
     var position = NodePosition()
-    var material : Material = Material()
-    var materialForSelection : Material = Material()
-    var wireColor : Color4f = DEFAULT_WIRE_FRAME_COLOR
+    /**
+     * The material of the plane.
+     */
+    var material: Material = Material()
+    /**
+     * The material of the plane when it is selected.
+     */
+    var materialForSelection: Material = Material()
+    /**
+     * The color of the wireframe.
+     */
+    var wireColor: Color4f = DEFAULT_WIRE_FRAME_COLOR
 
     private val faceUVCreator = FaceUVCreator()
 
+    /**
+     * Defines the UV mapping for the plane.
+     *
+     * @param create The lambda function to create the UV mapping.
+     */
     @UvDSL
-    fun faceUV(create : FaceUVCreator.() -> Unit)
+    fun faceUV(create: FaceUVCreator.() -> Unit)
     {
         this.faceUVCreator.create()
     }
 
+    /**
+     * Creates the material for the plane.
+     *
+     * @param create The lambda function to create the material.
+     */
     @MaterialDSL
-    fun materialCreate(create : Material.() -> Unit)
+    fun materialCreate(create: Material.() -> Unit)
     {
         this.material = material(create)
     }
 
+    /**
+     * Creates the material for the plane when it is selected.
+     *
+     * @param create The lambda function to create the material.
+     */
     @MaterialDSL
-    fun materialForSelectionCreate(create : Material.() -> Unit)
+    fun materialForSelectionCreate(create: Material.() -> Unit)
     {
         this.materialForSelection = material(create)
     }
 
-    internal operator fun invoke() : Plane
+    /**
+     * Creates the plane.
+     *
+     * For internal use only.
+     *
+     * @return The created plane.
+     */
+    internal operator fun invoke(): Plane
     {
         val plane = Plane(this.planeID, this.faceUVCreator())
         plane.position(this.position)

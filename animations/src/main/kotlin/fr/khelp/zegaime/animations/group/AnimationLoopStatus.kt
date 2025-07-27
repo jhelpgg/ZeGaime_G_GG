@@ -1,19 +1,29 @@
 package fr.khelp.zegaime.animations.group
 
 /**
- * Animation loop status
+ * Status of an [AnimationLoop].
+ *
+ * This enum is for internal use of the animation system.
  */
 internal enum class AnimationLoopStatus
 {
-    /** When does nothing */
+    /**
+     * The animation is not playing.
+     */
     IDLE,
 
-    /** When plays the header */
+    /**
+     * The animation is playing the header part.
+     */
     HEADER,
 
-    /** When plays the loop animation */
+    /**
+     * The animation is playing the loop part.
+     */
     LOOP,
 
-    /** When plays the footer */
+    /**
+     * The animation is playing the footer part.
+     */
     FOOTER
 }

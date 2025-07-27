@@ -15,20 +15,21 @@ import javax.sound.midi.Sequencer
 /**
  * A sound that can be played from a MIDI file.
  *
+ * This class is for internal use of the sound system.
+ *
  * @param file The MIDI sound file.
- * 
  */
-internal class SoundMidi(file : File) : SoundInterface
+internal class SoundMidi(file: File) : SoundInterface
 {
     /** Sequencer used for plays the sound */
-    private val sequencer : Sequencer
+    private val sequencer: Sequencer
 
     /** Sound total size in micro-seconds */
-    override val totalSize : Long
+    override val totalSize: Long
         get() = this.sequencer.microsecondLength
 
     /** Current position in sound in micro-seconds */
-    override var position : Long
+    override var position: Long
         get() = this.sequencer.microsecondPosition
         set(value)
         {
@@ -41,13 +42,13 @@ internal class SoundMidi(file : File) : SoundInterface
     private val soundStateSource = ObservableSource<SoundState>(SoundState.NOT_LAUNCHED)
 
     /** Sound current progress source */
-    private val soundProgressSource : ObservableSource<SoundProgress>
+    private val soundProgressSource: ObservableSource<SoundProgress>
 
     /** Sound current state */
-    override val soundState : Observable<SoundState> = this.soundStateSource.observable
+    override val soundState: Observable<SoundState> = this.soundStateSource.observable
 
     /** Sound current progress */
-    override val soundProgress : Observable<SoundProgress>
+    override val soundProgress: Observable<SoundProgress>
 
     /** Whether sound still playing */
     private var playing = false
@@ -65,7 +66,7 @@ internal class SoundMidi(file : File) : SoundInterface
             this.soundProgressSource = ObservableSource<SoundProgress>(SoundProgress(0L, this.totalSize))
             this.soundProgress = this.soundProgressSource.observable
         }
-        catch (exception : Exception)
+        catch (exception: Exception)
         {
             throw SoundException("Failed to create sequencer", exception)
         }

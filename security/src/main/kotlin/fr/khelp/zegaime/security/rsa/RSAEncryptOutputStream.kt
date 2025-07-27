@@ -18,8 +18,12 @@ import java.util.Objects
  * encryptedStream.write(data)
  * encryptedStream.close()
  * ```
+ *
+ * @constructor Creates a new RSA encrypt output stream.
+ * @param publicKey The RSA public key to use for encryption.
+ * @param encryptedStream The output stream to write the encrypted data to.
  */
-class RSAEncryptOutputStream(publicKey : RSAPublicKey, val encryptedStream : OutputStream) : OutputStream()
+class RSAEncryptOutputStream(publicKey: RSAPublicKey, val encryptedStream: OutputStream) : OutputStream()
 {
     private val cipher = publicKey.cipher()
     private val bufferedOutputStream = BufferedOutputStream(this.encryptedStream)
@@ -30,6 +34,7 @@ class RSAEncryptOutputStream(publicKey : RSAPublicKey, val encryptedStream : Out
      */
     override fun close()
     {
+        this.flush()
         this.bufferedOutputStream.close()
     }
 
@@ -47,7 +52,7 @@ class RSAEncryptOutputStream(publicKey : RSAPublicKey, val encryptedStream : Out
      *
      * @param b The byte to be written.
      */
-    override fun write(b : Int)
+    override fun write(b: Int)
     {
         this.write(byteArrayOf(b.toByte()), 0, 1)
     }
@@ -59,7 +64,7 @@ class RSAEncryptOutputStream(publicKey : RSAPublicKey, val encryptedStream : Out
      * @param off The start offset in the data.
      * @param len The number of bytes to write.
      */
-    override fun write(b : ByteArray, off : Int, len : Int)
+    override fun write(b: ByteArray, off: Int, len: Int)
     {
         Objects.checkFromIndexSize(off, len, b.size)
 
@@ -72,7 +77,7 @@ class RSAEncryptOutputStream(publicKey : RSAPublicKey, val encryptedStream : Out
         this.doTransfer(false)
     }
 
-    private fun doTransfer(flush : Boolean)
+    private fun doTransfer(flush: Boolean)
     {
         while (this.cycleByteArray.notEmpty && (flush || this.cycleByteArray.size >= 245))
         {

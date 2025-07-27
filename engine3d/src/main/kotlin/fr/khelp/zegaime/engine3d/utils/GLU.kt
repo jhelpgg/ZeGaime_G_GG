@@ -6,6 +6,11 @@ import java.nio.ByteOrder
 import java.nio.DoubleBuffer
 import java.nio.IntBuffer
 
+/**
+ * A pure Kotlin implementation of some GLU functions.
+ *
+ * This class is for internal use of the engine.
+ */
 private class Project
 {
     companion object
@@ -725,84 +730,214 @@ val GLU_VERTEX = 100101
 val extensionString = "GLU_EXT_nurbs_tessellator GLU_EXT_object_space_tess "
 val versionString = "1.3"
 
+/**
+ * Defines a viewing transformation.
+ *
+ * @param eyeX The X coordinate of the eye point.
+ * @param eyeY The Y coordinate of the eye point.
+ * @param eyeZ The Z coordinate of the eye point.
+ * @param centerX The X coordinate of the reference point.
+ * @param centerY The Y coordinate of the reference point.
+ * @param centerZ The Z coordinate of the reference point.
+ * @param upX The X coordinate of the up vector.
+ * @param upY The Y coordinate of the up vector.
+ * @param upZ The Z coordinate of the up vector.
+ */
 fun gluLookAt(
-        var2: Double, var4: Double, var6: Double, var8: Double, var10: Double, var12: Double, var14: Double,
-        var16: Double, var18: Double)
+        eyeX: Double, eyeY: Double, eyeZ: Double, centerX: Double, centerY: Double, centerZ: Double, upX: Double,
+        upY: Double, upZ: Double)
 {
-    PROJECT.gluLookAt(var2, var4, var6, var8, var10, var12, var14, var16, var18)
-}
-
-fun gluOrtho2D(var2: Double, var4: Double, var6: Double, var8: Double)
-{
-    PROJECT.gluOrtho2D(var2, var4, var6, var8)
+    PROJECT.gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ)
 }
 
 /**
- * Compute and apply a matrix to have a perspective view of the scene
+ * Defines a 2D orthographic projection matrix.
  *
- * @param angle Angle (in degree) for vanishing point
- * @param ratio View ratio (usually width/height)
- * @param nearZ Value of Z near the screen
- * @param farZ  Value of Z in depth
+ * @param left The coordinate for the left vertical clipping plane.
+ * @param right The coordinate for the right vertical clipping plane.
+ * @param bottom The coordinate for the bottom horizontal clipping plane.
+ * @param top The coordinate for the top horizontal clipping plane.
+ */
+fun gluOrtho2D(left: Double, right: Double, bottom: Double, top: Double)
+{
+    PROJECT.gluOrtho2D(left, right, bottom, top)
+}
+
+/**
+ * Compute and apply a matrix to have a perspective view of the scene.
+ *
+ * @param angle Angle (in degree) for vanishing point.
+ * @param ratio View ratio (usually width/height).
+ * @param nearZ Value of Z near the screen.
+ * @param farZ  Value of Z in depth.
  */
 fun gluPerspective(angle: Double, ratio: Double, nearZ: Double, farZ: Double)
 {
     PROJECT.gluPerspective(angle, ratio, nearZ, farZ)
 }
 
-fun gluPickMatrix(var2: Double, var4: Double, var6: Double, var8: Double, var10: IntArray, var11: Int)
+/**
+ * Defines a picking region.
+ *
+ * @param x The X coordinate of the center of the picking region.
+ * @param y The Y coordinate of the center of the picking region.
+ * @param width The width of the picking region.
+ * @param height The height of the picking region.
+ * @param viewport The viewport.
+ * @param selectBuffer The selection buffer.
+ */
+fun gluPickMatrix(x: Double, y: Double, width: Double, height: Double, viewport: IntArray, selectBuffer: Int)
 {
-    PROJECT.gluPickMatrix(var2, var4, var6, var8, var10, var11)
+    PROJECT.gluPickMatrix(x, y, width, height, viewport, selectBuffer)
 }
 
-fun gluPickMatrix(var2: Double, var4: Double, var6: Double, var8: Double, var10: IntBuffer)
+/**
+ * Defines a picking region.
+ *
+ * @param x The X coordinate of the center of the picking region.
+ * @param y The Y coordinate of the center of the picking region.
+ * @param width The width of the picking region.
+ * @param height The height of the picking region.
+ * @param viewport The viewport.
+ */
+fun gluPickMatrix(x: Double, y: Double, width: Double, height: Double, viewport: IntBuffer)
 {
-    PROJECT.gluPickMatrix(var2, var4, var6, var8, var10)
+    PROJECT.gluPickMatrix(x, y, width, height, viewport)
 }
 
+/**
+ * Maps object coordinates to window coordinates.
+ *
+ * @param objX The X object coordinate.
+ * @param objY The Y object coordinate.
+ * @param objZ The Z object coordinate.
+ * @param modelMatrix The modelview matrix.
+ * @param modelMatrix_offset The offset into the modelview matrix.
+ * @param projMatrix The projection matrix.
+ * @param projMatrix_offset The offset into the projection matrix.
+ * @param viewport The viewport.
+ * @param viewport_offset The offset into the viewport.
+ * @param win_pos The computed window coordinates.
+ * @param win_pos_offset The offset into the window coordinates.
+ * @return `true` if the function succeeds, `false` otherwise.
+ */
 fun gluProject(
-        var1: Double, var3: Double, var5: Double, var7: DoubleArray, var8: Int, var9: DoubleArray, var10: Int,
-        var11: IntArray,
-        var12: Int, var13: DoubleArray, var14: Int): Boolean
+        objX: Double, objY: Double, objZ: Double, modelMatrix: DoubleArray, modelMatrix_offset: Int, projMatrix: DoubleArray, projMatrix_offset: Int,
+        viewport: IntArray,
+        viewport_offset: Int, win_pos: DoubleArray, win_pos_offset: Int): Boolean
 {
-    return PROJECT.gluProject(var1, var3, var5, var7, var8, var9, var10, var11, var12, var13, var14)
+    return PROJECT.gluProject(objX, objY, objZ, modelMatrix, modelMatrix_offset, projMatrix, projMatrix_offset, viewport, viewport_offset, win_pos, win_pos_offset)
 }
 
+/**
+ * Maps window coordinates to object coordinates.
+ *
+ * @param winX The X window coordinate.
+ * @param winY The Y window coordinate.
+ * @param winZ The Z window coordinate.
+ * @param modelMatrix The modelview matrix.
+ * @param modelMatrix_offset The offset into the modelview matrix.
+ * @param projMatrix The projection matrix.
+ * @param projMatrix_offset The offset into the projection matrix.
+ * @param viewport The viewport.
+ * @param viewport_offset The offset into the viewport.
+ * @param obj_pos The computed object coordinates.
+ * @param obj_pos_offset The offset into the object coordinates.
+ * @return `true` if the function succeeds, `false` otherwise.
+ */
 fun gluUnProject(
-        var1: Double, var3: Double, var5: Double, var7: DoubleArray, var8: Int, var9: DoubleArray, var10: Int,
-        var11: IntArray,
-        var12: Int, var13: DoubleArray, var14: Int): Boolean
+        winX: Double, winY: Double, winZ: Double, modelMatrix: DoubleArray, modelMatrix_offset: Int, projMatrix: DoubleArray, projMatrix_offset: Int,
+        viewport: IntArray,
+        viewport_offset: Int, obj_pos: DoubleArray, obj_pos_offset: Int): Boolean
 {
-    return PROJECT.gluUnProject(var1, var3, var5, var7, var8, var9, var10, var11, var12, var13, var14)
+    return PROJECT.gluUnProject(winX, winY, winZ, modelMatrix, modelMatrix_offset, projMatrix, projMatrix_offset, viewport, viewport_offset, obj_pos, obj_pos_offset)
 }
 
+/**
+ * Maps window coordinates to object coordinates.
+ *
+ * @param winX The X window coordinate.
+ * @param winY The Y window coordinate.
+ * @param winZ The Z window coordinate.
+ * @param modelMatrix The modelview matrix.
+ * @param projMatrix The projection matrix.
+ * @param viewport The viewport.
+ * @param obj_pos The computed object coordinates.
+ * @return `true` if the function succeeds, `false` otherwise.
+ */
 fun gluUnProject(
-        var1: Double, var3: Double, var5: Double, var7: DoubleBuffer, var8: DoubleBuffer, var9: IntBuffer,
-        var10: DoubleBuffer): Boolean
+        winX: Double, winY: Double, winZ: Double, modelMatrix: DoubleBuffer, projMatrix: DoubleBuffer, viewport: IntBuffer,
+        obj_pos: DoubleBuffer): Boolean
 {
-    return PROJECT.gluUnProject(var1, var3, var5, var7, var8, var9, var10)
+    return PROJECT.gluUnProject(winX, winY, winZ, modelMatrix, projMatrix, viewport, obj_pos)
 }
 
+/**
+ * Maps window coordinates to object coordinates.
+ *
+ * @param winX The X window coordinate.
+ * @param winY The Y window coordinate.
+ * @param winZ The Z window coordinate.
+ * @param winW The W window coordinate.
+ * @param modelMatrix The modelview matrix.
+ * @param modelMatrix_offset The offset into the modelview matrix.
+ * @param projMatrix The projection matrix.
+ * @param projMatrix_offset The offset into the projection matrix.
+ * @param viewport The viewport.
+ * @param viewport_offset The offset into the viewport.
+ * @param near The near clipping plane.
+ * @param far The far clipping plane.
+ * @param obj_pos The computed object coordinates.
+ * @param obj_pos_offset The offset into the object coordinates.
+ * @return `true` if the function succeeds, `false` otherwise.
+ */
 fun gluUnProject4(
-        var1: Double, var3: Double, var5: Double, var7: Double, var9: DoubleArray, var10: Int,
-        var11: DoubleArray, var12: Int,
-        var13: IntArray, var14: Int, var15: Double, var17: Double, var19: DoubleArray, var20: Int): Boolean
+        winX: Double, winY: Double, winZ: Double, winW: Double, modelMatrix: DoubleArray, modelMatrix_offset: Int,
+        projMatrix: DoubleArray, projMatrix_offset: Int,
+        viewport: IntArray, viewport_offset: Int, near: Double, far: Double, obj_pos: DoubleArray, obj_pos_offset: Int): Boolean
 {
-    return PROJECT.gluUnProject4(var1, var3, var5, var7, var9, var10, var11, var12, var13, var14, var15,
-                                 var17,
-                                 var19, var20)
+    return PROJECT.gluUnProject4(winX, winY, winZ, winW, modelMatrix, modelMatrix_offset, projMatrix, projMatrix_offset, viewport, viewport_offset, near,
+                                 far,
+                                 obj_pos, obj_pos_offset)
 }
 
+/**
+ * Maps window coordinates to object coordinates.
+ *
+ * @param winX The X window coordinate.
+ * @param winY The Y window coordinate.
+ * @param winZ The Z window coordinate.
+ * @param winW The W window coordinate.
+ * @param modelMatrix The modelview matrix.
+ * @param projMatrix The projection matrix.
+ * @param viewport The viewport.
+ * @param near The near clipping plane.
+ * @param far The far clipping plane.
+ * @param obj_pos The computed object coordinates.
+ * @return `true` if the function succeeds, `false` otherwise.
+ */
 fun gluUnProject4(
-        var1: Double, var3: Double, var5: Double, var7: Double, var9: DoubleBuffer, var10: DoubleBuffer,
-        var11: IntBuffer, var12: Double, var14: Double, var16: DoubleBuffer): Boolean
+        winX: Double, winY: Double, winZ: Double, winW: Double, modelMatrix: DoubleBuffer, projMatrix: DoubleBuffer,
+        viewport: IntBuffer, near: Double, far: Double, obj_pos: DoubleBuffer): Boolean
 {
-    return PROJECT.gluUnProject4(var1, var3, var5, var7, var9, var10, var11, var12, var14, var16)
+    return PROJECT.gluUnProject4(winX, winY, winZ, winW, modelMatrix, projMatrix, viewport, near, far, obj_pos)
 }
 
+/**
+ * Maps object coordinates to window coordinates.
+ *
+ * @param objX The X object coordinate.
+ * @param objY The Y object coordinate.
+ * @param objZ The Z object coordinate.
+ * @param modelMatrix The modelview matrix.
+ * @param projMatrix The projection matrix.
+ * @param viewport The viewport.
+ * @param win_pos The computed window coordinates.
+ * @return `true` if the function succeeds, `false` otherwise.
+ */
 fun gluProject(
-        var1: Double, var3: Double, var5: Double, var7: DoubleBuffer, var8: DoubleBuffer, var9: IntBuffer,
-        var10: DoubleBuffer): Boolean
+        objX: Double, objY: Double, objZ: Double, modelMatrix: DoubleBuffer, projMatrix: DoubleBuffer, viewport: IntBuffer,
+        win_pos: DoubleBuffer): Boolean
 {
-    return PROJECT.gluProject(var1, var3, var5, var7, var8, var9, var10)
+    return PROJECT.gluProject(objX, objY, objZ, modelMatrix, projMatrix, viewport, win_pos)
 }

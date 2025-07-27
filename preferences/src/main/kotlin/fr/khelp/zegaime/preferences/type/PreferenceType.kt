@@ -7,7 +7,8 @@ package fr.khelp.zegaime.preferences.type
  *
  * @param T The type of the preference value.
  */
-sealed interface PreferenceType<T : Any> {
+sealed interface PreferenceType<T : Any>
+{
     /**
      * Serializes a value to a string.
      *

@@ -6,9 +6,11 @@ import java.io.InputStream
 /**
  * Represents a graphic control extension block in a GIF file.
  *
+ * This class is for internal use of the image system.
+ *
  * @property disposalMethod The disposal method.
  * @property transparencyIndex The transparency index.
- * 
+ * @constructor Creates a new graphic control block.
  */
 internal class GraphicControlBlock : BlockExtension()
 {
@@ -30,7 +32,7 @@ internal class GraphicControlBlock : BlockExtension()
     /**
      * Reads the stream to extract the block information.
      *
-     * @param inputStream The stream to read from.
+     * @param inputStream The input stream to read from.
      * @throws IOException If the stream does not contain valid data for a graphic control block extension.
      */
     @Throws(IOException::class)

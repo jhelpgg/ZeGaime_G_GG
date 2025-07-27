@@ -4,21 +4,20 @@ import kotlin.math.E
 import kotlin.math.expm1
 
 /**
- * Interpolation follow exponential progression
+ * An interpolation that follows an exponential progression.
+ *
+ * The animation has a very slow start and a very fast end.
  */
 data object InterpolationExponential : Interpolation
 {
     /**
-     * Interpolate value with following equation :
+     * Interpolates the value using an exponential function.
      *
-     *     t
-     *    e - 1
-     *    ------
-     *    e - 1
+     * The formula used is `(e^percent - 1) / (e - 1)`.
      *
-     * @param percent Value to interpolate
-     * @return Interpolate value
+     * @param percent The value to interpolate, between 0 and 1.
+     * @return The interpolated value.
      */
-    override operator fun invoke(percent : Double) =
+    override operator fun invoke(percent: Double) =
         expm1(percent) / (E - 1.0)
 }

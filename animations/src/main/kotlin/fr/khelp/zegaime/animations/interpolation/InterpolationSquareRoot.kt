@@ -3,18 +3,19 @@ package fr.khelp.zegaime.animations.interpolation
 import kotlin.math.sqrt
 
 /**
- * Interpolation follow square root progression
+ * An interpolation that follows a square root progression.
+ *
+ * The animation has a fast start and a slow end (deceleration).
  */
 data object InterpolationSquareRoot : Interpolation
 {
     /**
-     * Interpolate value with the following equation:
+     * Interpolates the value using a square root function.
      *
-     *     ___
-     *    V t
+     * The formula used is `sqrt(percent)`.
      *
-     * @param percent Value to interpolate
-     * @return Interpolate value
+     * @param percent The value to interpolate, between 0 and 1.
+     * @return The interpolated value.
      */
-    override operator fun invoke(percent : Double) = sqrt(percent)
+    override operator fun invoke(percent: Double) = sqrt(percent)
 }
