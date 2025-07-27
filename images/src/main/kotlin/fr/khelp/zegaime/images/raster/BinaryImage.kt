@@ -13,12 +13,12 @@ import java.io.InputStream
 /**
  * Represents a binary image, which has 2 colors and 1 bit per pixel.
  *
- * **Creation example:**
+ * **Creation example**
  * ```kotlin
  * val image = BinaryImage(100, 100)
  * ```
  *
- * **Standard usage:**
+ * **Standard usage**
  * ```kotlin
  * image[10, 10] = true
  * val gameImage = image.toGameImage()
@@ -30,22 +30,22 @@ import java.io.InputStream
  * @property foreground The foreground color (for 1).
  * @constructor Creates a new binary image.
  */
-class BinaryImage(private val width: Int, private val height: Int) : RasterImage
+class BinaryImage(private val width : Int, private val height : Int) : RasterImage
 {
     /**
      * Background color (Color for 0)
      */
-    var background: Int = BLACK.argb
+    var background : Int = BLACK.argb
 
     /**
      * Image data
      */
-    private val data: ByteArray
+    private val data : ByteArray
 
     /**
      * Foreground color (Color for 1)
      */
-    var foreground: Int = WHITE.argb
+    var foreground : Int = WHITE.argb
 
     init
     {
@@ -73,7 +73,7 @@ class BinaryImage(private val width: Int, private val height: Int) : RasterImage
      * @param y The y coordinate.
      * @throws IllegalArgumentException If (x, y) is outside the image.
      */
-    private fun check(x: Int, y: Int)
+    private fun check(x : Int, y : Int)
     {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height)
         {
@@ -101,7 +101,7 @@ class BinaryImage(private val width: Int, private val height: Int) : RasterImage
     /**
      * Indicates if the pixel bit at the given coordinates is active or not.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val isActive = image[10, 10]
      * ```
@@ -110,7 +110,7 @@ class BinaryImage(private val width: Int, private val height: Int) : RasterImage
      * @param y The y coordinate of the pixel.
      * @return `true` if the pixel bit is active, `false` otherwise.
      */
-    operator fun get(x: Int, y: Int): Boolean
+    operator fun get(x : Int, y : Int) : Boolean
     {
         this.check(x, y)
         val p = x + (y * this.width)
@@ -126,16 +126,16 @@ class BinaryImage(private val width: Int, private val height: Int) : RasterImage
      * @throws IOException On reading issue.
      */
     @Throws(IOException::class)
-    fun parseBitmapStream(inputStream: InputStream)
+    fun parseBitmapStream(inputStream : InputStream)
     {
         this.clear()
         val buffer = ByteArray(4)
         var y = this.height - 1
-        var index: Int
-        var maskRead: Int
-        var x: Int
-        var line: Int
-        var pix: Int
+        var index : Int
+        var maskRead : Int
+        var x : Int
+        var line : Int
+        var pix : Int
 
         while (y >= 0)
         {
@@ -174,7 +174,7 @@ class BinaryImage(private val width: Int, private val height: Int) : RasterImage
     /**
      * Activates or deactivates a pixel.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image[10, 10] = true
      * ```
@@ -183,7 +183,7 @@ class BinaryImage(private val width: Int, private val height: Int) : RasterImage
      * @param y The y coordinate of the pixel.
      * @param on The new active status.
      */
-    operator fun set(x: Int, y: Int, on: Boolean)
+    operator fun set(x : Int, y : Int, on : Boolean)
     {
         this.check(x, y)
         val p = x + (y * this.width)
@@ -203,7 +203,7 @@ class BinaryImage(private val width: Int, private val height: Int) : RasterImage
     /**
      * Switches the activation status of a pixel.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.switchOnOff(10, 10)
      * ```
@@ -211,7 +211,7 @@ class BinaryImage(private val width: Int, private val height: Int) : RasterImage
      * @param x The x coordinate of the pixel.
      * @param y The y coordinate of the pixel.
      */
-    fun switchOnOff(x: Int, y: Int)
+    fun switchOnOff(x : Int, y : Int)
     {
         this.check(x, y)
         val p = x + (y * this.width)
@@ -233,7 +233,7 @@ class BinaryImage(private val width: Int, private val height: Int) : RasterImage
      *
      * @return The converted image.
      */
-    override fun toGameImage(): GameImage
+    override fun toGameImage() : GameImage
     {
         val length = this.width * this.height
         val pixels = IntArray(length)

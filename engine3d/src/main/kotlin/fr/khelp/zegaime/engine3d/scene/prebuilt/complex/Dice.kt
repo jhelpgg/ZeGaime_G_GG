@@ -19,7 +19,7 @@ import kotlin.math.max
 /**
  * Create a dice
  * @param value Initial value: 1, 2, 3, 4, 5 or 6
- * @throws IllegalArgumentException If value not 1, 2, 3, 4, 5 or 6
+ * @throws IllegalArgumentException If the value is not 1, 2, 3, 4, 5 or 6
  */
 class Dice(name : String, value : Int = random(1, 6)) : Node(name)
 {
@@ -59,7 +59,6 @@ class Dice(name : String, value : Int = random(1, 6)) : Node(name)
      * @param value New dice value: 1, 2, 3, 4, 5 or 6
      * @param timeMilliseconds Animation duration
      * @return Created animation
-     * @throws IllegalArgumentException If value not 1, 2, 3, 4, 5 or 6
      */
     fun value(value : Int, timeMilliseconds : Long = 1L) : Animation
     {

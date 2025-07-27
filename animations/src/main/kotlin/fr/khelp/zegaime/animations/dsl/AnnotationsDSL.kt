@@ -8,24 +8,18 @@ package fr.khelp.zegaime.animations.dsl
  * For example, to create a sequential animation:
  *
  * ```kotlin
- * val animation = sequential {
- *      loop {
- *          basic(1f, 2f, 1000) {
- *              //...
- *          }
- *          action {
- *              //...
- *          }
+ * val animation = animationsSequential {
+ *      +animationLoop {
+ *          animationHeader =  ...
+ *
+ *          animationLooped =   ...
  *      }
- *      parallel {
- *          basic(4, 8, 500) {
- *              //...
+ *      +animationParallel {
+ *          +animationInt(42) {
+ *               ...
  *          }
- *          keyFrame<Int> {
- *              frame(0, 1)
- *              frame(100, 5)
- *              frame(250, 2)
- *              frame(500, 8)
+ *          +animationAction {
+ *              action = ...
  *          }
  *      }
  * }
@@ -42,11 +36,9 @@ annotation class AnimationDSL
  * For example, to create a key time animation:
  *
  * ```kotlin
- * val animation = keyFrame<Float> {
- *      frame(0, 1f)
- *      frame(100, 5f)
- *      frame(250, 2f)
- *      frame(500, 8f)
+ * val animation = animationInt(42) {
+ *      73.at(128L)
+ *      80.at(1024L, InterpolationSine)
  * }
  * ```
  */

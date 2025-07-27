@@ -24,7 +24,7 @@ internal class CommentBlock : BlockExtension()
      * @throws IOException If the stream contains invalid comment block extension data.
      */
     @Throws(IOException::class)
-    override fun read(inputStream: InputStream)
+    override fun read(inputStream : InputStream)
     {
         val stringBuilder = StringBuilder()
         var subBlock = readSubBlock(inputStream)

@@ -12,28 +12,28 @@ import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
  * To create a long animation, you can use the DSL:
  *
  * ```kotlin
- * val animation = keyFrame<Long> {
- *      frame(0, 1L)
- *      frame(100, 5L)
- *      frame(250, 2L)
- *      frame(500, 8L)
- * }
+ * val animation = animationLong(0L) {
+ *        1L.at(0L)
+ *        5L.at(100L, InterpolationSine)
+ *        2L.at(200L)
+ *        8L.at(500L, InterpolationHesitate)
+ *   }
  * ```
  *
  * Or create an instance of [AnimationLong] and add frames to it:
  *
  * ```kotlin
  * val animation = AnimationLong()
- * animation.frame(0, 1L)
- * animation.frame(100, 5L)
- * animation.frame(250, 2L)
- * animation.frame(500, 8L)
+ * animation.addKeyTimeValue(0L, 1L)
+ * animation.addKeyTimeValue(100L, 5L, InterpolationSine)
+ * animation.addKeyTimeValue(250L, 2L)
+ * animation.addKeyTimeValue(500L, 8L, InterpolationHesitate)
  * ```
  *
  * To observe the value changes:
  *
  * ```kotlin
- * animation.value.observedBy { long ->
+ * animation.value.register { long ->
  *      println("Value changed: $long")
  * }
  * ```
@@ -41,11 +41,11 @@ import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
  * @property initialValue Initial value of the animation.
  * @constructor Create a new animation of [Long].
  */
-class AnimationLong(private val initialValue: Long = 0L) :
+class AnimationLong(private val initialValue : Long = 0L) :
     AnimationKeyTime<ObservableSource<Long>, Long>(ObservableSource(initialValue))
 {
     /** Observable value of the animation */
-    val value: Observable<Long> = this.animated.observable
+    val value : Observable<Long> = this.animated.observable
 
     /**
      * Called at animation initialization.
@@ -64,7 +64,7 @@ class AnimationLong(private val initialValue: Long = 0L) :
      * @param animated The animated object.
      * @return The current value.
      */
-    override fun getValue(animated: ObservableSource<Long>): Long = animated.value
+    override fun getValue(animated : ObservableSource<Long>) : Long = animated.value
 
     /**
      * Set the current value of the animation.
@@ -72,7 +72,7 @@ class AnimationLong(private val initialValue: Long = 0L) :
      * @param animated The animated object.
      * @param value The new value.
      */
-    override fun setValue(animated: ObservableSource<Long>, value: Long)
+    override fun setValue(animated : ObservableSource<Long>, value : Long)
     {
         animated.value = value
     }
@@ -86,11 +86,11 @@ class AnimationLong(private val initialValue: Long = 0L) :
      * @param afterValue The value of the next frame.
      * @param afterCoefficient The coefficient of the next frame.
      */
-    override fun interpolate(animated: ObservableSource<Long>,
-                             beforeValue: Long,
-                             beforeCoefficient: Double,
-                             afterValue: Long,
-                             afterCoefficient: Double)
+    override fun interpolate(animated : ObservableSource<Long>,
+                             beforeValue : Long,
+                             beforeCoefficient : Double,
+                             afterValue : Long,
+                             afterCoefficient : Double)
     {
         animated.value = (beforeValue * beforeCoefficient + afterValue * afterCoefficient).toLong()
     }

@@ -12,7 +12,7 @@ import fr.khelp.zegaime.database.type.DataType
  * - `%` matches any sequence of characters.
  * - `_` matches any single character.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * // Matches any name starting with "test"
  * val condition = COLUMN_NAME LIKE "test%"
@@ -22,7 +22,7 @@ import fr.khelp.zegaime.database.type.DataType
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.STRING`.
  */
-infix fun Column.LIKE(pattern: String): Condition
+infix fun Column.LIKE(pattern : String) : Condition
 {
     this.checkType(DataType.STRING)
     return Condition(arrayOf(this), "${this.name} LIKE '$pattern'")

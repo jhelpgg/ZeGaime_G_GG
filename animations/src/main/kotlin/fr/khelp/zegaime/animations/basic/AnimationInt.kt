@@ -12,28 +12,28 @@ import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
  * To create an int animation, you can use the DSL:
  *
  * ```kotlin
- * val animation = keyFrame<Int> {
- *      frame(0, 1)
- *      frame(100, 5)
- *      frame(250, 2)
- *      frame(500, 8)
- * }
+ * val animation =  animationInt(0) {
+ *        1.at(0L)
+ *        5.at(100L, InterpolationSine)
+ *        2.at(200L)
+ *        8.at(500L, InterpolationHesitate)
+ *   }
  * ```
  *
  * Or create an instance of [AnimationInt] and add frames to it:
  *
  * ```kotlin
  * val animation = AnimationInt()
- * animation.frame(0, 1)
- * animation.frame(100, 5)
- * animation.frame(250, 2)
- * animation.frame(500, 8)
+ * animation.addKeyTimeValue(0L, 1)
+ * animation.addKeyTimeValue(100L, 5, InterpolationSine)
+ * animation.addKeyTimeValue(250L, 2)
+ * animation.addKeyTimeValue(500L, 8, InterpolationHesitate)
  * ```
  *
  * To observe the value changes:
  *
  * ```kotlin
- * animation.value.observedBy { int ->
+ * animation.value.register { int ->
  *      println("Value changed: $int")
  * }
  * ```
@@ -41,11 +41,11 @@ import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
  * @property initialValue Initial value of the animation.
  * @constructor Create a new animation of [Int].
  */
-class AnimationInt(private val initialValue: Int = 0) :
+class AnimationInt(private val initialValue : Int = 0) :
     AnimationKeyTime<ObservableSource<Int>, Int>(ObservableSource(initialValue))
 {
     /** Observable value of the animation */
-    val value: Observable<Int> = this.animated.observable
+    val value : Observable<Int> = this.animated.observable
 
     /**
      * Called at animation initialization.
@@ -64,7 +64,7 @@ class AnimationInt(private val initialValue: Int = 0) :
      * @param animated The animated object.
      * @return The current value.
      */
-    override fun getValue(animated: ObservableSource<Int>): Int = animated.value
+    override fun getValue(animated : ObservableSource<Int>) : Int = animated.value
 
     /**
      * Set the current value of the animation.
@@ -72,7 +72,7 @@ class AnimationInt(private val initialValue: Int = 0) :
      * @param animated The animated object.
      * @param value The new value.
      */
-    override fun setValue(animated: ObservableSource<Int>, value: Int)
+    override fun setValue(animated : ObservableSource<Int>, value : Int)
     {
         animated.value = value
     }
@@ -86,11 +86,11 @@ class AnimationInt(private val initialValue: Int = 0) :
      * @param afterValue The value of the next frame.
      * @param afterCoefficient The coefficient of the next frame.
      */
-    override fun interpolate(animated: ObservableSource<Int>,
-                             beforeValue: Int,
-                             beforeCoefficient: Double,
-                             afterValue: Int,
-                             afterCoefficient: Double)
+    override fun interpolate(animated : ObservableSource<Int>,
+                             beforeValue : Int,
+                             beforeCoefficient : Double,
+                             afterValue : Int,
+                             afterCoefficient : Double)
     {
         animated.value = (beforeValue * beforeCoefficient + afterValue * afterCoefficient).toInt()
     }

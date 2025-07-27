@@ -27,18 +27,18 @@ import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
  * @property valueFlow An observable that emits the value of the preference when it changes.
  * @constructor Creates a new preference.
  */
-sealed class Preference<T : Any, PT : PreferenceType<T>> protected constructor(val name: String,
-                                                                               internal val type: PT,
-                                                                               initialValue: T)
+sealed class Preference<T : Any, PT : PreferenceType<T>>(val name : String,
+                                                         internal val type : PT,
+                                                         initialValue : T)
 {
     /** Preference value flow mutable version */
     private val valueFlowMutable = ObservableSource<T>(initialValue)
 
     /** Preference value flow read only version */
-    val valueFlow: Observable<T> = valueFlowMutable.observable
+    val valueFlow : Observable<T> = valueFlowMutable.observable
 
     /** Current preference value */
-    var value: T = initialValue
+    var value : T = initialValue
         set(value)
         {
             if (allowUpdate(field, value))
@@ -56,5 +56,5 @@ sealed class Preference<T : Any, PT : PreferenceType<T>> protected constructor(v
      * @param newValue The new value to replace the current value with.
      * @return `true` if the replacement is allowed, `false` otherwise.
      */
-    protected abstract fun allowUpdate(currentValue: T, newValue: T): Boolean
+    protected abstract fun allowUpdate(currentValue : T, newValue : T) : Boolean
 }

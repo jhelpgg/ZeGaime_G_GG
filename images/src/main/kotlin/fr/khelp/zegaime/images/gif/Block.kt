@@ -26,7 +26,7 @@ internal abstract class Block
      * @throws IOException If the stream does not contain valid data for the target block.
      */
     @Throws(IOException::class)
-    internal abstract fun read(inputStream: InputStream)
+    internal abstract fun read(inputStream : InputStream)
 }
 
 /**
@@ -43,7 +43,7 @@ internal object IgnoreBlock : Block()
      * @throws IOException Never happens.
      */
     @Throws(IOException::class)
-    override fun read(inputStream: InputStream) = Unit
+    override fun read(inputStream : InputStream) = Unit
 }
 
 /**
@@ -62,7 +62,7 @@ internal object EndBlock : Block()
      * @throws IOException Never happens.
      */
     @Throws(IOException::class)
-    override fun read(inputStream: InputStream) = Unit
+    override fun read(inputStream : InputStream) = Unit
 }
 
 /**
@@ -76,17 +76,17 @@ internal object EndBlock : Block()
  * @throws IOException If the stream does not contain a valid block.
  */
 @Throws(IOException::class)
-internal fun readBlock(inputStream: InputStream, colorResolution: Int): Block
+internal fun readBlock(inputStream : InputStream, colorResolution : Int) : Block
 {
     val type = inputStream.read()
     val block =
         when (type)
         {
             BLOCK_IMAGE_DESCRIPTOR -> ImageDescriptorBlock(colorResolution)
-            BLOCK_EXTENSION -> readBlockExtension(inputStream)
-            BLOCK_END_GIF -> EndBlock
-            0 -> IgnoreBlock
-            else -> throw IOException("Unknown block type : $type")
+            BLOCK_EXTENSION        -> readBlockExtension(inputStream)
+            BLOCK_END_GIF          -> EndBlock
+            0                      -> IgnoreBlock
+            else                   -> throw IOException("Unknown block type : $type")
         }
 
     block.type = type

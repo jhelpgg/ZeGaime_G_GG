@@ -31,7 +31,7 @@ import javax.crypto.Cipher
  */
 class RSAPublicKey
 {
-    private val publicKey: PublicKey
+    private val publicKey : PublicKey
 
     /**
      * Creates an RSA public key from a `java.security.PublicKey` instance.
@@ -40,7 +40,7 @@ class RSAPublicKey
      *
      * @param publicKey The public key instance.
      */
-    internal constructor(publicKey: PublicKey)
+    internal constructor(publicKey : PublicKey)
     {
         this.publicKey = publicKey
     }
@@ -50,7 +50,7 @@ class RSAPublicKey
      *
      * @param inputStream The input stream to read the key from.
      */
-    constructor(inputStream: InputStream)
+    constructor(inputStream : InputStream)
     {
         val keyFactory = KeyFactory.getInstance(ALGORITHM_RSA)
 
@@ -66,7 +66,7 @@ class RSAPublicKey
      *
      * @param outputStream The output stream to write the key to.
      */
-    fun save(outputStream: OutputStream)
+    fun save(outputStream : OutputStream)
     {
         val keyFactory = KeyFactory.getInstance(ALGORITHM_RSA)
 
@@ -85,7 +85,7 @@ class RSAPublicKey
      *
      * @return A cipher for encryption.
      */
-    internal fun cipher(): Cipher
+    internal fun cipher() : Cipher
     {
         val cipher = Cipher.getInstance(RSA_CIPHER)
         cipher.init(Cipher.ENCRYPT_MODE, publicKey)
@@ -98,14 +98,14 @@ class RSAPublicKey
      * @param clearStream The input stream to encrypt.
      * @param encryptedStream The output stream to write the encrypted data to.
      */
-    fun encrypt(clearStream: InputStream, encryptedStream: OutputStream)
+    fun encrypt(clearStream : InputStream, encryptedStream : OutputStream)
     {
         val cipher = Cipher.getInstance(RSA_CIPHER)
         cipher.init(Cipher.ENCRYPT_MODE, publicKey)
         val temp = ByteArray(245)
-        var crypted: ByteArray
+        var crypted : ByteArray
 
-        var read: Int = clearStream.readFully(temp)
+        var read : Int = clearStream.readFully(temp)
 
         while (read >= 0)
         {
@@ -125,7 +125,7 @@ class RSAPublicKey
      * @param signature The signature to verify.
      * @return `true` if the signature is valid, `false` otherwise.
      */
-    fun validSignature(message: InputStream, signature: InputStream): Boolean
+    fun validSignature(message : InputStream, signature : InputStream) : Boolean
     {
         val sign = Signature.getInstance(RSA_SIGNATURE)
         sign.initVerify(this.publicKey)
@@ -161,6 +161,6 @@ class RSAPublicKey
      *
      * @return A string representation of the public key.
      */
-    override fun toString(): String =
+    override fun toString() : String =
         this.publicKey.toString()
 }

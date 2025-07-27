@@ -5,11 +5,11 @@ import fr.khelp.zegaime.engine3d.render.Material
 /**
  * Creates a material using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val material = material {
- *     diffuse = RED
- *     specular = WHITE
+ *     colorDiffuse = RED
+ *     colorSpecular = WHITE
  * }
  * ```
  *
@@ -17,7 +17,7 @@ import fr.khelp.zegaime.engine3d.render.Material
  * @return The created material.
  */
 @MaterialDSL
-fun material(create: Material.() -> Unit): Material
+fun material(create : Material.() -> Unit) : Material
 {
     val material = Material()
     material.create()
@@ -27,17 +27,17 @@ fun material(create: Material.() -> Unit): Material
 /**
  * Edits a material using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myMaterial.edit {
- *     diffuse = BLUE
+ *     colorDiffuse = BLUE
  * }
  * ```
  *
  * @param edit The lambda function to edit the material.
  */
 @MaterialDSL
-fun Material.edit(edit: Material.() -> Unit)
+fun Material.edit(edit : Material.() -> Unit)
 {
     this.edit()
 }

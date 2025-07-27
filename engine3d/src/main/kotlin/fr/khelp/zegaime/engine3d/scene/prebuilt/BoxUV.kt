@@ -11,6 +11,6 @@ package fr.khelp.zegaime.engine3d.scene.prebuilt
  * @param left Describes how UV are put on left
  * @param right Describes how UV are put on right
  */
-open class BoxUV(val face: FaceUV = FaceUV(), val back: FaceUV = FaceUV(),
-                 val top: FaceUV = FaceUV(), val bottom: FaceUV = FaceUV(),
-                 val left: FaceUV = FaceUV(), val right: FaceUV = FaceUV())
+open class BoxUV(val face : FaceUV = FaceUV(), val back : FaceUV = FaceUV(),
+                 val top : FaceUV = FaceUV(), val bottom : FaceUV = FaceUV(),
+                 val left : FaceUV = FaceUV(), val right : FaceUV = FaceUV())

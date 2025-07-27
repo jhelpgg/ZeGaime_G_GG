@@ -6,17 +6,17 @@ import fr.khelp.zegaime.engine3d.geometry.Mesh
 /**
  * Adds a face to the mesh using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myMesh.face {
- *     add(0, 1, 2)
+ *     add(position, uv, normal)
  * }
  * ```
  *
  * @param faceFiller The lambda function to create the face.
  */
 @FaceDSL
-fun Mesh.face(faceFiller: Face.() -> Unit)
+fun Mesh.face(faceFiller : Face.() -> Unit)
 {
     val face = Face()
     face.faceFiller()

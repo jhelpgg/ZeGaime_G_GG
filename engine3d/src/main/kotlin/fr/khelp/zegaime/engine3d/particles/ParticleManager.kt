@@ -7,11 +7,11 @@ import org.lwjgl.opengl.GL11
  *
  * This class is responsible for playing, stopping and rendering the particle effects.
  *
- * **Creation example:**
+ * **Creation example**
  * This class is not meant to be instantiated directly.
  * It is created by the `Window3D` class.
  *
- * **Standard usage:**
+ * **Standard usage**
  * ```kotlin
  * val particleManager = window3D.particleManager
  * particleManager.play(myParticleEffect)
@@ -28,7 +28,7 @@ class ParticleManager internal constructor()
      *
      * @param particleEffect The particle effect to play.
      */
-    fun play(particleEffect: ParticleEffect)
+    fun play(particleEffect : ParticleEffect)
     {
         particleEffect.start()
 
@@ -43,7 +43,7 @@ class ParticleManager internal constructor()
      *
      * @param particleEffect The particle effect to stop.
      */
-    fun stop(particleEffect: ParticleEffect)
+    fun stop(particleEffect : ParticleEffect)
     {
         synchronized(this.particleEffects)
         {

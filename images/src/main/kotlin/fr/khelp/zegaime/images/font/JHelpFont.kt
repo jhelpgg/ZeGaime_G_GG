@@ -16,6 +16,7 @@ import java.awt.Shape
 import java.awt.font.GlyphVector
 import java.io.InputStream
 import java.util.Collections
+import java.util.Objects
 import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.round
@@ -47,7 +48,7 @@ import kotlin.math.round
  * @property family The family of the font.
  * @property maximumCharacterWidth The maximum width of a character in the font.
  */
-class JHelpFont(val font: Font, val underline: Boolean = false)
+class JHelpFont(val font : Font, val underline : Boolean = false)
 {
     companion object
     {
@@ -60,7 +61,7 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
          * @param italic Indicates if the font should be italic.
          * @return The created font.
          */
-        internal fun createFont(family: String, size: Int, bold: Boolean = false, italic: Boolean = false): Font
+        internal fun createFont(family : String, size : Int, bold : Boolean = false, italic : Boolean = false) : Font
         {
             var style = Font.PLAIN
 
@@ -80,7 +81,7 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
         /**
          * Creates a font from a stream.
          *
-         * **Usage example:**
+         * **Usage example**
          * ```kotlin
          * val font = JHelpFont.createFont(FontType.TRUETYPE, stream, 12, FontValue.TRUE, FontValue.FALSE, false).waitAndGet()
          * ```
@@ -93,8 +94,8 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
          * @param underline Indicates if the font should be underlined.
          * @return A future that will contain the created font.
          */
-        fun createFont(type: FontType, stream: InputStream, size: Int,
-                       bold: FontValue, italic: FontValue, underline: Boolean): Future<JHelpFont> =
+        fun createFont(type : FontType, stream : InputStream, size : Int,
+                       bold : FontValue, italic : FontValue, underline : Boolean) : Future<JHelpFont> =
             obtainFont(type, stream, size, bold, italic, underline)
                 .afterSucceed { font ->
                     if (font == DEFAULT_FONT)
@@ -119,7 +120,7 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
         /**
          * Obtains a font from a stream.
          *
-         * **Usage example:**
+         * **Usage example**
          * ```kotlin
          * val font = JHelpFont.obtainFont(FontType.TRUETYPE, stream, 12).waitAndGet()
          * ```
@@ -132,9 +133,9 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
          * @param underline Indicates if the font should be underlined.
          * @return A future that will contain the created font, or `null` if the stream is not a managed font.
          */
-        fun obtainFont(type: FontType, stream: InputStream, size: Int,
-                       bold: FontValue = FontValue.AS_DEFINED, italic: FontValue = FontValue.AS_DEFINED,
-                       underline: Boolean = false): Future<JHelpFont> =
+        fun obtainFont(type : FontType, stream : InputStream, size : Int,
+                       bold : FontValue = FontValue.AS_DEFINED, italic : FontValue = FontValue.AS_DEFINED,
+                       underline : Boolean = false) : Future<JHelpFont> =
             {
                 try
                 {
@@ -156,16 +157,16 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
 
                     when (bold)
                     {
-                        FontValue.FALSE -> Unit
+                        FontValue.FALSE      -> Unit
                         FontValue.AS_DEFINED -> style = style or (fontStyle and Font.BOLD)
-                        FontValue.TRUE -> style = style or Font.BOLD
+                        FontValue.TRUE       -> style = style or Font.BOLD
                     }
 
                     when (italic)
                     {
-                        FontValue.FALSE -> Unit
+                        FontValue.FALSE      -> Unit
                         FontValue.AS_DEFINED -> style = style or (fontStyle and Font.ITALIC)
-                        FontValue.TRUE -> style = style or Font.ITALIC
+                        FontValue.TRUE       -> style = style or Font.ITALIC
                     }
 
                     if (fontSize != size || style != fontStyle)
@@ -186,7 +187,7 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
 
                     JHelpFont(font, underline)
                 }
-                catch (exception: Exception)
+                catch (exception : Exception)
                 {
                     exception(exception, "Failed to create the font")
                     DEFAULT_FONT
@@ -195,42 +196,44 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
     }
 
     /**Font measure metrics*/
-    private lateinit var fontMetrics: FontMetrics
+    private lateinit var fontMetrics : FontMetrics
+
     /**
      * The height of the font.
      */
-    val fontHeight: Int get() = this.fontMetrics.height
+    val fontHeight : Int get() = this.fontMetrics.height
+
     /**
      * The ascent of the font.
      */
-    val ascent: Int get() = this.fontMetrics.ascent
+    val ascent : Int get() = this.fontMetrics.ascent
 
     /**
      * Font size
      */
-    val size: Int = this.font.size
+    val size : Int = this.font.size
 
     /**
      * Indicates if font is bold
      *
      * @return `true` if font is bold
      */
-    val bold: Boolean = this.font.style and Font.BOLD != 0
+    val bold : Boolean = this.font.style and Font.BOLD != 0
 
     /**
      * Indicates if font is italic
      *
      * @return `true` if font is italic
      */
-    val italic: Boolean = this.font.style and Font.ITALIC != 0
+    val italic : Boolean = this.font.style and Font.ITALIC != 0
 
     /**
      * The family of the font.
      */
-    val family: String = this.font.family
+    val family : String = this.font.family
 
     /**Maximum width of a character*/
-    val maximumCharacterWidth: Int by lazy {
+    val maximumCharacterWidth : Int by lazy {
         var maximum = 0
 
         for (character in 32..127)
@@ -254,14 +257,14 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
      * @param italic Indicates if have to italic
      * @param underline Indicates if have to underline
      */
-    constructor(family: String, size: Int, bold: Boolean = false, italic: Boolean = false,
-                underline: Boolean = false) :
+    constructor(family : String, size : Int, bold : Boolean = false, italic : Boolean = false,
+                underline : Boolean = false) :
             this(createFont(family, size, bold, italic), underline)
 
     /**
      * Computes the text lines representation with this font with an alpha mask.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val textParagraph = font.computeTextParagraph("Hello, world!", TextAlignment.CENTER, 100)
      * ```
@@ -273,9 +276,9 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
      * @param trim Indicates if it has to trim lines.
      * @return A couple of the list of each computed line and the total size of all lines together.
      */
-    fun computeTextParagraph(text: String, textAlign: TextAlignment,
-                             limitWidth: Int = Int.MAX_VALUE, limitHeight: Int = Int.MAX_VALUE,
-                             trim: Boolean = true): TextParagraph
+    fun computeTextParagraph(text : String, textAlign : TextAlignment,
+                             limitWidth : Int = Int.MAX_VALUE, limitHeight : Int = Int.MAX_VALUE,
+                             trim : Boolean = true) : TextParagraph
     {
         val limit = max(this.maximumCharacterWidth + 2, limitWidth)
 
@@ -283,14 +286,14 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
         val lines = StringExtractor(text, "\n\r", "", "")
         val size = Dimension()
 
-        var width: Int
-        var index: Int
-        var start: Int
+        var width : Int
+        var index : Int
+        var start : Int
         val height = this.fontHeight
 
         var line = lines.next()
-        var head: String
-        var tail: String
+        var head : String
+        var tail : String
 
         while (line != null)
         {
@@ -382,8 +385,8 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
             when (textAlign)
             {
                 TextAlignment.CENTER -> textLine.x = (size.width - textLine.width) shr 1
-                TextAlignment.LEFT -> textLine.x = 0
-                TextAlignment.RIGHT -> textLine.x = size.width - textLine.width
+                TextAlignment.LEFT   -> textLine.x = 0
+                TextAlignment.RIGHT  -> textLine.x = size.width - textLine.width
             }
         }
 
@@ -396,7 +399,7 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
     /**
      * Computes the size of a string.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val size = font.stringSize("Hello, world!")
      * ```
@@ -404,7 +407,7 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
      * @param string The string to measure.
      * @return The size of the string.
      */
-    fun stringSize(string: String): Dimension
+    fun stringSize(string : String) : Dimension
     {
         val bounds = this.font.getStringBounds(string, FONT_RENDER_CONTEXT)
         return Dimension(ceil(bounds.width).toInt(), ceil(bounds.height).toInt())
@@ -413,7 +416,7 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
     /**
      * Computes the width of a string.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val width = font.stringWidth("Hello, world!")
      * ```
@@ -421,7 +424,7 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
      * @param string The string to measure.
      * @return The width of the string.
      */
-    fun stringWidth(string: String): Int
+    fun stringWidth(string : String) : Int
     {
         val bounds = this.font.getStringBounds(string, FONT_RENDER_CONTEXT)
         return ceil(bounds.width + 1.0).toInt()
@@ -434,7 +437,7 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
      * @param y The y coordinate of the top.
      * @return The y result.
      */
-    fun underlinePosition(string: String, y: Int): Int
+    fun underlinePosition(string : String, y : Int) : Int
     {
         val lineMetrics = this.font.getLineMetrics(string, FONT_RENDER_CONTEXT)
 
@@ -447,7 +450,7 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
      * @param string The string.
      * @return The glyph vector.
      */
-    fun glyphVector(string: String): GlyphVector =
+    fun glyphVector(string : String) : GlyphVector =
         this.font.createGlyphVector(FONT_RENDER_CONTEXT, string)
 
     /**
@@ -458,7 +461,7 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
      * @param y The y coordinate.
      * @return The shape of the string.
      */
-    fun shape(string: String, x: Int = 0, y: Int = 0): Shape =
+    fun shape(string : String, x : Int = 0, y : Int = 0) : Shape =
         this.glyphVector(string)
             .getOutline(x.toFloat(), y + this.font.getLineMetrics(string, FONT_RENDER_CONTEXT).ascent)
 
@@ -468,7 +471,7 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
      * @param other The reference object with which to compare.
      * @return `true` if this object is the same as the obj argument; `false` otherwise.
      */
-    override fun equals(other: Any?): Boolean
+    override fun equals(other : Any?) : Boolean
     {
         if (this === other)
         {
@@ -482,4 +485,7 @@ class JHelpFont(val font: Font, val underline: Boolean = false)
 
         return this.underline == other.underline && this.font == other.font
     }
+
+    override fun hashCode() : Int =
+        Objects.hash(this.underline, this.font)
 }

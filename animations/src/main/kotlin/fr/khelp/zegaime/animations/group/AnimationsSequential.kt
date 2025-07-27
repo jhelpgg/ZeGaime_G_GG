@@ -10,8 +10,16 @@ import fr.khelp.zegaime.animations.Animation
  * To create a sequential animation, you can use the DSL:
  *
  * ```kotlin
- * val animation = sequential {
- *      // Add animations here
+ * val animation = animationsSequential {
+ *      + animationAction {
+ *          // ...
+ *      }
+ *
+ *      + animationDouble(42.73) {
+ *          // ...
+ *      }
+ *
+ *      // ....
  * }
  * ```
  *
@@ -29,8 +37,10 @@ class AnimationsSequential : Animation
 {
     /** List of animations to play in sequence */
     private val animations = ArrayList<Animation>()
+
     /** Start time of the current animation */
     private var currentAnimationStartTime = 0L
+
     /** Index of the current animation */
     private var animationIndex = 0
 
@@ -39,7 +49,7 @@ class AnimationsSequential : Animation
      *
      * @param animation The animation to add.
      */
-    operator fun plusAssign(animation: Animation)
+    operator fun plusAssign(animation : Animation)
     {
         synchronized(this.animations)
         {
@@ -74,7 +84,7 @@ class AnimationsSequential : Animation
      * @param millisecondsSinceStarted Time since the animation started.
      * @return `true` if there are still animations to play, `false` otherwise.
      */
-    override fun animate(millisecondsSinceStarted: Long): Boolean
+    override fun animate(millisecondsSinceStarted : Long) : Boolean
     {
         synchronized(this.animations)
         {

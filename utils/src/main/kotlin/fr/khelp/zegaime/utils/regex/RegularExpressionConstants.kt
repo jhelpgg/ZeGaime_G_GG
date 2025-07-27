@@ -3,7 +3,6 @@ package fr.khelp.zegaime.utils.regex
 import fr.khelp.zegaime.utils.extensions.allCharactersExcludeThose
 import fr.khelp.zegaime.utils.extensions.atMost
 import fr.khelp.zegaime.utils.extensions.between
-import fr.khelp.zegaime.utils.extensions.oneOrMore
 import fr.khelp.zegaime.utils.extensions.plus
 import fr.khelp.zegaime.utils.extensions.regularExpression
 import fr.khelp.zegaime.utils.extensions.zeroOrMore
@@ -15,7 +14,7 @@ import fr.khelp.zegaime.utils.texts.lowerCaseInterval
 import fr.khelp.zegaime.utils.texts.upperCaseInterval
 
 /**
- * Any charachter except line return
+ * Any character except line return
  */
 val ANY : RegularExpression get() = RegularExpression(".")
 

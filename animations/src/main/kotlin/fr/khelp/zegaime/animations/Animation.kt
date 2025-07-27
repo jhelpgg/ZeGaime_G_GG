@@ -66,7 +66,7 @@ interface Animation
      * @return `true` if animation should continue. `false` if animation reaches its end
      */
     @AnimationTask
-    fun animate(millisecondsSinceStarted: Long): Boolean
+    fun animate(millisecondsSinceStarted : Long) : Boolean
 
     /**
      * Called when animation stopped for any reason (finished, canceled, ...).

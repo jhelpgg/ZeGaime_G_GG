@@ -13,16 +13,16 @@ import fr.khelp.zegaime.utils.tasks.observable.Observable
 internal interface SoundInterface
 {
     /** The total size of the sound. */
-    val totalSize: Long
+    val totalSize : Long
 
     /** The current position of the sound. */
-    var position: Long
+    var position : Long
 
     /** The current state of the sound. */
-    val soundState: Observable<SoundState>
+    val soundState : Observable<SoundState>
 
     /** The current progress of the sound. */
-    val soundProgress: Observable<SoundProgress>
+    val soundProgress : Observable<SoundProgress>
 
     /**
      * Properly destroys the sound.

@@ -13,7 +13,7 @@ import java.net.URL
 /**
  * The directory where sounds are stored.
  */
-val DIRECTORY_SOUNDS: File by lazy {
+val DIRECTORY_SOUNDS : File by lazy {
     val directory = File(outsideDirectory, "media/sounds/")
     directory.createDirectory()
     directory
@@ -22,7 +22,7 @@ val DIRECTORY_SOUNDS: File by lazy {
 /**
  * Creates a sound from a file.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val sound = soundFromFile(myFile)
  * ```
@@ -30,15 +30,15 @@ val DIRECTORY_SOUNDS: File by lazy {
  * @param file The sound file.
  * @return The created sound.
  */
-fun soundFromFile(file: File): Sound
+fun soundFromFile(file : File) : Sound
 {
     val sound =
         when (file.extension.lowercase())
         {
-            "mp3" -> SoundMP3(file)
-            "mid" -> SoundMidi(file)
+            "mp3"  -> SoundMP3(file)
+            "mid"  -> SoundMidi(file)
             "midi" -> SoundMidi(file)
-            else -> SoundOther(file)
+            else   -> SoundOther(file)
         }
 
     return Sound(sound)
@@ -47,7 +47,7 @@ fun soundFromFile(file: File): Sound
 /**
  * Creates a sound from a distant URL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val sound = soundFromURL(myUrl)
  * ```
@@ -55,7 +55,7 @@ fun soundFromFile(file: File): Sound
  * @param url The URL where to get the sound.
  * @return The created sound.
  */
-fun soundFromURL(url: URL): Sound
+fun soundFromURL(url : URL) : Sound
 {
     val name = url.toString()
     val fileName = name.replace("://", "/")
@@ -70,7 +70,7 @@ fun soundFromURL(url: URL): Sound
 /**
  * Creates a sound from a stream.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val sound = soundFromStream({ myInputStream }, "mySound.wav")
  * ```
@@ -79,7 +79,7 @@ fun soundFromURL(url: URL): Sound
  * @param fileName The file name to give to the sound.
  * @return The created sound.
  */
-fun soundFromStream(streamProducer: () -> InputStream, fileName: String): Sound
+fun soundFromStream(streamProducer : () -> InputStream, fileName : String) : Sound
 {
     val destination = File(DIRECTORY_SOUNDS, fileName)
 

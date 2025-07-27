@@ -26,9 +26,9 @@ class ComparableNaturalOrderComparatorTests
     @Test
     fun `compare custom objects`()
     {
-        data class Person(val name: String, val age: Int) : Comparable<Person>
+        data class Person(val name : String, val age : Int) : Comparable<Person>
         {
-            override fun compareTo(other: Person): Int =
+            override fun compareTo(other : Person) : Int =
                 this.age.compareTo(other.age)
         }
 

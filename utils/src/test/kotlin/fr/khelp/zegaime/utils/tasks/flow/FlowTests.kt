@@ -1,12 +1,11 @@
 package fr.khelp.zegaime.utils.tasks.flow
 
-import fr.khelp.zegaime.utils.tasks.TaskContext
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 class FlowTests
 {
@@ -29,7 +28,7 @@ class FlowTests
     }
 
     @Test
-    fun `unregister`()
+    fun unregister()
     {
         val flowSource = FlowSource<Int>()
         val flow = flowSource.flow
@@ -47,7 +46,7 @@ class FlowTests
     }
 
     @Test
-    fun `then`()
+    fun then()
     {
         val flowSource = FlowSource<Int>()
         val flow = flowSource.flow
@@ -66,7 +65,7 @@ class FlowTests
     }
 
     @Test
-    fun `cancel`()
+    fun cancel()
     {
         val flowSource = FlowSource<Int>()
         val flow = flowSource.flow

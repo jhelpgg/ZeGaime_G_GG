@@ -61,7 +61,7 @@ class DataRowResult internal constructor(private val statement : Statement,
     /**
      * Returns the index of the column with the given name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val nameIndex = result.columnIndex("name")
      * ```
@@ -74,7 +74,7 @@ class DataRowResult internal constructor(private val statement : Statement,
     /**
      * Returns the index of the given column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val nameIndex = result.columnIndex(COLUMN_NAME)
      * ```
@@ -87,7 +87,7 @@ class DataRowResult internal constructor(private val statement : Statement,
     /**
      * Returns the column at the given index.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val column = result.column(0)
      * ```
@@ -102,7 +102,7 @@ class DataRowResult internal constructor(private val statement : Statement,
      *
      * See the documentation for more explanation about the read row result DSL syntax.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * result.next {
      *     val name = getString(COLUMN_NAME)
@@ -131,7 +131,7 @@ class DataRowResult internal constructor(private val statement : Statement,
     /**
      * Closes the result properly and frees the link to the database.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * result.close()
      * ```

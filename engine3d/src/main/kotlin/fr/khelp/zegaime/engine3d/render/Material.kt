@@ -63,10 +63,10 @@ class Material
     var sphericRate = 1f
 
     /**Diffuse texture*/
-    var textureDiffuse: Texture? = null
+    var textureDiffuse : Texture? = null
 
     /**Spherical texture*/
-    var textureSpheric: Texture? = null
+    var textureSpheric : Texture? = null
 
     /**
      * Reset all settings to put as default.
@@ -138,7 +138,7 @@ class Material
      *
      * @param object3D Object to render.
      */
-    internal fun renderMaterial(object3D: Object3D)
+    internal fun renderMaterial(object3D : Object3D)
     {
         this.prepareMaterial()
         //

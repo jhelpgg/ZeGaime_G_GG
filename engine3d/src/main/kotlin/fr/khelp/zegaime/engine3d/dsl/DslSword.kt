@@ -7,7 +7,7 @@ import fr.khelp.zegaime.engine3d.utils.position
 /**
  * Creates a sword using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val sword = sword("mySword") {
  *     size = 4f
@@ -20,7 +20,7 @@ import fr.khelp.zegaime.engine3d.utils.position
  * @return The created sword.
  */
 @PrebuiltDSL
-fun sword(swordID: String, create: SwordCreator.() -> Unit): Sword
+fun sword(swordID : String, create : SwordCreator.() -> Unit) : Sword
 {
     val swordCreator = SwordCreator(swordID)
     swordCreator.create()
@@ -33,12 +33,12 @@ fun sword(swordID: String, create: SwordCreator.() -> Unit): Sword
  * @property swordID The ID of the sword.
  * @constructor Creates a new sword creator.
  */
-class SwordCreator(private val swordID: String)
+class SwordCreator(private val swordID : String)
 {
     /**
      * The size of the sword.
      */
-    var size: Float = 3.3f
+    var size : Float = 3.3f
         set(value)
         {
             field = value.coerceIn(2f, 5f)
@@ -56,7 +56,7 @@ class SwordCreator(private val swordID: String)
      *
      * @return The created sword.
      */
-    internal operator fun invoke(): Sword
+    internal operator fun invoke() : Sword
     {
         val sword = Sword(this.swordID, this.size)
         sword.position(this.position)

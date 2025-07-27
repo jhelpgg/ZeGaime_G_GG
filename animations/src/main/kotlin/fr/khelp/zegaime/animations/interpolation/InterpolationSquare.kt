@@ -15,5 +15,5 @@ data object InterpolationSquare : Interpolation
      * @param percent The value to interpolate, between 0 and 1.
      * @return The interpolated value.
      */
-    override operator fun invoke(percent: Double) = percent * percent
+    override operator fun invoke(percent : Double) = percent * percent
 }

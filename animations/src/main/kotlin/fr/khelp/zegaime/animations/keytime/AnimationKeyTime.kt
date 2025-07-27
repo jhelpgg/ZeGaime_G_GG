@@ -44,12 +44,13 @@ import fr.khelp.zegaime.utils.collections.lists.SortedArray
  * @property animated The object to animate.
  * @constructor Create a new key time animation.
  */
-abstract class AnimationKeyTime<O : Any, V : Any>(protected val animated: O) : Animation
+abstract class AnimationKeyTime<O : Any, V : Any>(protected val animated : O) : Animation
 {
     /** The sorted list of key times. */
     private val keyTimes = SortedArray<KeyTime<V>>(unique = true)
+
     /** The initial value of the animated object. */
-    private lateinit var initialValue: V
+    private lateinit var initialValue : V
 
     /**
      * Adds a key time value to the animation.
@@ -61,7 +62,7 @@ abstract class AnimationKeyTime<O : Any, V : Any>(protected val animated: O) : A
      * @param interpolation The interpolation to use to reach this value.
      * @throws IllegalArgumentException if the time is negative.
      */
-    fun addKeyTimeValue(timeMilliseconds: Long, value: V, interpolation: Interpolation = InterpolationLinear)
+    fun addKeyTimeValue(timeMilliseconds : Long, value : V, interpolation : Interpolation = InterpolationLinear)
     {
         argumentCheck(timeMilliseconds >= 0L) { "Time must be >= 0, not $timeMilliseconds" }
 
@@ -89,7 +90,7 @@ abstract class AnimationKeyTime<O : Any, V : Any>(protected val animated: O) : A
      * @param millisecondsSinceStarted The time since the animation started.
      * @return `true` if the animation is still playing, `false` otherwise.
      */
-    override fun animate(millisecondsSinceStarted: Long): Boolean =
+    override fun animate(millisecondsSinceStarted : Long) : Boolean =
         synchronized(this.keyTimes)
         {
             if (this.keyTimes.empty)
@@ -104,7 +105,7 @@ abstract class AnimationKeyTime<O : Any, V : Any>(protected val animated: O) : A
 
             when
             {
-                minimum < 0 ->
+                minimum < 0        ->
                 {
                     val keyTimeAfter = this.keyTimes[0]
                     val coefficient =
@@ -115,7 +116,7 @@ abstract class AnimationKeyTime<O : Any, V : Any>(protected val animated: O) : A
                                      keyTimeAfter.value, coefficient)
                 }
 
-                maximum < 0 ->
+                maximum < 0        ->
                 {
                     stillAnimated = false
                     this.setValue(this.animated, this.keyTimes[this.keyTimes.size - 1].value)
@@ -124,7 +125,7 @@ abstract class AnimationKeyTime<O : Any, V : Any>(protected val animated: O) : A
                 minimum == maximum ->
                     this.setValue(this.animated, this.keyTimes[minimum].value)
 
-                else ->
+                else               ->
                 {
                     val keyBefore = this.keyTimes[minimum]
                     val keyAfter = this.keyTimes[maximum]
@@ -146,7 +147,7 @@ abstract class AnimationKeyTime<O : Any, V : Any>(protected val animated: O) : A
      * @param animated The object to get the value from.
      * @return The current value of the object.
      */
-    protected abstract fun getValue(animated: O): V
+    protected abstract fun getValue(animated : O) : V
 
     /**
      * Sets the value of the animated object.
@@ -154,7 +155,7 @@ abstract class AnimationKeyTime<O : Any, V : Any>(protected val animated: O) : A
      * @param animated The object to set the value to.
      * @param value The value to set.
      */
-    protected abstract fun setValue(animated: O, value: V)
+    protected abstract fun setValue(animated : O, value : V)
 
     /**
      * Interpolates the value between two keyframes and applies it to the animated object.
@@ -179,7 +180,7 @@ abstract class AnimationKeyTime<O : Any, V : Any>(protected val animated: O) : A
      * @param afterValue The value of the next keyframe.
      * @param afterCoefficient The coefficient of the next keyframe.
      */
-    protected abstract fun interpolate(animated: O,
-                                       beforeValue: V, beforeCoefficient: Double,
-                                       afterValue: V, afterCoefficient: Double)
+    protected abstract fun interpolate(animated : O,
+                                       beforeValue : V, beforeCoefficient : Double,
+                                       afterValue : V, afterCoefficient : Double)
 }

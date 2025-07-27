@@ -11,7 +11,7 @@ import fr.khelp.zegaime.engine3d.utils.position
 /**
  * Creates a robot using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val robot = robot("myRobot") {
  *     position = NodePosition(x = 1f)
@@ -26,7 +26,7 @@ import fr.khelp.zegaime.engine3d.utils.position
  * @return The created robot.
  */
 @PrebuiltDSL
-fun robot(robotID: String, create: RobotCreator.() -> Unit): Robot
+fun robot(robotID : String, create : RobotCreator.() -> Unit) : Robot
 {
     val robotCreator = RobotCreator(robotID)
     robotCreator.create()
@@ -36,11 +36,11 @@ fun robot(robotID: String, create: RobotCreator.() -> Unit): Robot
 /**
  * DSL creator for robots.
  *
- * @property robotID The ID of the robot.
+ * @param robotID The ID of the robot.
  * @constructor Creates a new robot creator.
  */
 @PrebuiltDSL
-class RobotCreator(robotID: String)
+class RobotCreator(robotID : String)
 {
     /**
      * The created robot.
@@ -50,7 +50,7 @@ class RobotCreator(robotID: String)
     /**
      * The position of the robot.
      */
-    var position: NodePosition
+    var position : NodePosition
         get() = this.robot.position
         set(value)
         {
@@ -60,12 +60,12 @@ class RobotCreator(robotID: String)
     /**
      * The material of the robot's body.
      */
-    val materialBody: Material = this.robot.materialBody
+    val materialBody : Material = this.robot.materialBody
 
     /**
      * The position of the robot's limbs.
      */
-    var robotPosition: RobotPosition
+    var robotPosition : RobotPosition
         get() = this.robot.robotPosition
         set(value)
         {
@@ -75,7 +75,7 @@ class RobotCreator(robotID: String)
     /**
      * The color of the robot's right arm.
      */
-    var rightArmColor: Color4f
+    var rightArmColor : Color4f
         get() = this.robot.rightArmColor
         set(value)
         {
@@ -85,7 +85,7 @@ class RobotCreator(robotID: String)
     /**
      * The color of the robot's left arm.
      */
-    var leftArmColor: Color4f
+    var leftArmColor : Color4f
         get() = this.robot.leftArmColor
         set(value)
         {
@@ -95,7 +95,7 @@ class RobotCreator(robotID: String)
     /**
      * The color of the robot's right leg.
      */
-    var rightLegColor: Color4f
+    var rightLegColor : Color4f
         get() = this.robot.rightLegColor
         set(value)
         {
@@ -105,7 +105,7 @@ class RobotCreator(robotID: String)
     /**
      * The color of the robot's left leg.
      */
-    var leftLegColor: Color4f
+    var leftLegColor : Color4f
         get() = this.robot.leftLegColor
         set(value)
         {
@@ -118,7 +118,7 @@ class RobotCreator(robotID: String)
      * @param fill The lambda function to configure the head.
      */
     @RobotDSL
-    fun head(fill: Head.() -> Unit)
+    fun head(fill : Head.() -> Unit)
     {
         this.robot.head.fill()
     }
@@ -129,7 +129,7 @@ class RobotCreator(robotID: String)
      * @param edit The lambda function to edit the material.
      */
     @MaterialDSL
-    fun materialBody(edit: Material.() -> Unit)
+    fun materialBody(edit : Material.() -> Unit)
     {
         this.materialBody.edit(edit)
     }

@@ -16,11 +16,11 @@ import fr.khelp.zegaime.utils.collections.iterations.transform
 /**
  * Represents a table in the database.
  *
- * **Creation example:**
+ * **Creation example**
  * This class is not meant to be instantiated directly.
  * Use the `Database.table` method.
  *
- * **Standard usage:**
+ * **Standard usage**
  * ```kotlin
  * val table = database.table("myTable") {
  *     "name" AS DataType.STRING
@@ -32,7 +32,7 @@ import fr.khelp.zegaime.utils.collections.iterations.transform
  * @property readOnly Indicates if the table is read-only.
  * @property numberColumns The number of columns in the table.
  */
-class Table internal constructor(val name: String, val readOnly: Boolean, private val database: Database) :
+class Table internal constructor(val name : String, val readOnly : Boolean, private val database : Database) :
     Iterable<Column>
 {
     private val columns = ArrayList<Column>()
@@ -48,7 +48,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
     /**
      * Checks if a column exists in the table.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * table.checkColumn(COLUMN_NAME)
      * ```
@@ -57,7 +57,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @throws TableHaveNoSuchColumnException If the column does not exist in the table.
      */
     @Throws(TableHaveNoSuchColumnException::class)
-    fun checkColumn(column: Column)
+    fun checkColumn(column : Column)
     {
         if (column !in this)
         {
@@ -68,7 +68,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
     /**
      * Checks if the table is read-only.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * table.checkReadOnly()
      * ```
@@ -87,7 +87,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
     /**
      * Returns the column at the given index.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val column = table[0]
      * ```
@@ -95,13 +95,13 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @param index The index of the column.
      * @return The column at the given index.
      */
-    operator fun get(index: Int) =
+    operator fun get(index : Int) =
         this.columns[index]
 
     /**
      * Returns the column with the given name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val column = table.getColumn("name")
      * ```
@@ -111,13 +111,13 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @throws NoSuchElementException If the column does not exist.
      */
     @Throws(NoSuchElementException::class)
-    fun getColumn(nameSearched: String) =
+    fun getColumn(nameSearched : String) =
         this.columns.first { column -> nameSearched.equals(column.name, true) }
 
     /**
      * Returns the column with the given name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val column = table.obtainColumn("name")
      * ```
@@ -125,13 +125,13 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @param nameSearched The name of the column.
      * @return The column with the given name, or `null` if it does not exist.
      */
-    fun obtainColumn(nameSearched: String) =
+    fun obtainColumn(nameSearched : String) =
         this.columns.firstOrNull { column -> nameSearched.equals(column.name, true) }
 
     /**
      * Checks if the table contains the given column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * if (COLUMN_NAME in table) {
      *     // ...
@@ -141,7 +141,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @param column The column to check.
      * @return `true` if the table contains the column, `false` otherwise.
      */
-    operator fun contains(column: Column) =
+    operator fun contains(column : Column) =
         column in this.columns
 
     /**
@@ -149,7 +149,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      *
      * This method is used in the table creation DSL.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "name" AS DataType.STRING
      * ```
@@ -157,7 +157,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @param dataType The data type of the column.
      */
     @CreateTableDSL
-    infix fun String.AS(dataType: DataType)
+    infix fun String.AS(dataType : DataType)
     {
         argumentCheck(this.validName()) { "Invalid column name : $this" }
         argumentCheck(this@Table.obtainColumn(this) == null) { "A column named $this already exists in table ${this@Table.name}" }
@@ -168,7 +168,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
     /**
      * Defines a foreign key for the ID column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * idForeign(otherTable, "other_id")
      * ```
@@ -177,7 +177,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @param column The name of the foreign column.
      */
     @CreateTableDSL
-    fun idForeign(table: Table, column: String)
+    fun idForeign(table : Table, column : String)
     {
         this.idForeign(table, table.getColumn(column))
     }
@@ -185,7 +185,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
     /**
      * Defines a foreign key for the ID column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * idForeign(otherTable, COLUMN_OTHER_ID)
      * ```
@@ -194,7 +194,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @param column The foreign column.
      */
     @CreateTableDSL
-    fun idForeign(table: Table, column: Column)
+    fun idForeign(table : Table, column : Column)
     {
         column.checkType(DataType.INTEGER)
         table.checkColumn(column)
@@ -205,7 +205,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
     /**
      * Defines a foreign key for a column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "other_id" FOREIGN otherTable
      * ```
@@ -213,7 +213,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @param table The foreign table.
      */
     @CreateTableDSL
-    infix fun String.FOREIGN(table: Table)
+    infix fun String.FOREIGN(table : Table)
     {
         argumentCheck(this.validName()) { "Invalid column name : $name" }
         argumentCheck(this@Table.obtainColumn(this) == null) { "A column named $this already exists in table ${this@Table.name}" }
@@ -226,7 +226,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
     /**
      * Returns an iterator over the columns of the table.
      */
-    override fun iterator(): Iterator<Column> =
+    override fun iterator() : Iterator<Column> =
         this.columns.iterator()
 
     /**
@@ -240,7 +240,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      *
      * See the documentation for more explanation about the select DSL syntax.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val result = table.select {
      *     +COLUMN_NAME
@@ -252,7 +252,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @return The result of the query.
      */
     @SelectDSL
-    fun select(selectCreator: Select.() -> Unit): DataRowResult
+    fun select(selectCreator : Select.() -> Unit) : DataRowResult
     {
         val select = Select(this)
         selectCreator(select)
@@ -264,7 +264,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      *
      * See the documentation for more explanation about the insert DSL syntax.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val id = table.insert {
      *     COLUMN_NAME IS "John"
@@ -276,7 +276,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @return The ID of the inserted row.
      */
     @InsertDSL
-    fun insert(insertCreator: Insert.() -> Unit): Int
+    fun insert(insertCreator : Insert.() -> Unit) : Int
     {
         this.checkReadOnly()
         val insert = Insert(this)
@@ -289,7 +289,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      *
      * See the documentation for more explanation about the insert list DSL syntax.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * table.insertList {
      *     add {
@@ -306,7 +306,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @param insertListCreator A lambda function to define the insert list.
      */
     @InsertDSL
-    fun insertList(insertListCreator: InsertList.() -> Unit)
+    fun insertList(insertListCreator : InsertList.() -> Unit)
     {
         insertListCreator(InsertList(this))
     }
@@ -316,7 +316,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      *
      * See the documentation for more explanation about the update DSL syntax.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val updatedRows = table.update {
      *     COLUMN_AGE IS 31
@@ -328,7 +328,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @return The number of updated rows.
      */
     @UpdateDSL
-    fun update(updateCreator: Update.() -> Unit): Int
+    fun update(updateCreator : Update.() -> Unit) : Int
     {
         this.checkReadOnly()
         val update = Update(this)
@@ -341,7 +341,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      *
      * See the documentation for more explanation about the delete DSL syntax.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val deletedRows = table.delete {
      *     where { condition = COLUMN_AGE LESS_THAN 18 }
@@ -352,7 +352,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @return The number of deleted rows.
      */
     @DeleteSL
-    fun delete(deleteCreator: Delete.() -> Unit): Int
+    fun delete(deleteCreator : Delete.() -> Unit) : Int
     {
         this.checkReadOnly()
         val delete = Delete(this)
@@ -361,12 +361,12 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
     }
 
     /**
-     * Obtains the ID of a row that matches a condition.
+     * Gets the ID of a row that matches a condition.
      *
      * If no row matches, [ROW_NOT_EXISTS] is returned.
      * If at least 2 rows match, [ROW_NOT_UNIQUE] is returned.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val id = table.rowID {
      *     condition = COLUMN_NAME EQUALS "John"
@@ -377,7 +377,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @return The row ID, or [ROW_NOT_EXISTS] or [ROW_NOT_UNIQUE].
      */
     @WhereDSL
-    fun rowID(whereCreator: Where.() -> Unit): Int
+    fun rowID(whereCreator : Where.() -> Unit) : Int
     {
         val result = this.select {
             +COLUMN_ID
@@ -390,7 +390,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
             return ROW_NOT_EXISTS
         }
 
-        var id: Int = -1
+        var id : Int = -1
         result.next {
             id = this.getID(1)
         }
@@ -410,7 +410,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      *
      * For enumerations, use the other [appendColumn] method.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * table.appendColumn("email", DataType.STRING)
      * ```
@@ -418,7 +418,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @param name The name of the column.
      * @param type The data type of the column.
      */
-    fun appendColumn(name: String, type: DataType)
+    fun appendColumn(name : String, type : DataType)
     {
         this.checkReadOnly()
         argumentCheck(name.validName()) { "Invalid column name : $name" }
@@ -433,7 +433,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
     /**
      * Appends a column of enumeration type.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * table.appendColumn("status", MyEnum.A)
      * ```
@@ -441,7 +441,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @param name The name of the column.
      * @param defaultValue The default value for the column.
      */
-    fun <E : Enum<E>> appendColumn(name: String, defaultValue: E)
+    fun <E : Enum<E>> appendColumn(name : String, defaultValue : E)
     {
         this.checkReadOnly()
         argumentCheck(name.validName()) { "Invalid column name : $name" }
@@ -456,7 +456,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      *
      * For enumerations, use the other [insertColumn] method.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * table.insertColumn("email", DataType.STRING, COLUMN_AGE)
      * ```
@@ -465,7 +465,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @param type The data type of the new column.
      * @param before The column before which to insert the new column.
      */
-    fun insertColumn(name: String, type: DataType, before: Column)
+    fun insertColumn(name : String, type : DataType, before : Column)
     {
         this.checkReadOnly()
         this.checkColumn(before)
@@ -484,7 +484,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
     /**
      * Inserts a column of enumeration type before another column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * table.insertColumn("status", MyEnum.A, COLUMN_AGE)
      * ```
@@ -493,7 +493,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @param defaultValue The default value for the new column.
      * @param before The column before which to insert the new column.
      */
-    fun <E : Enum<E>> insertColumn(name: String, defaultValue: E, before: Column)
+    fun <E : Enum<E>> insertColumn(name : String, defaultValue : E, before : Column)
     {
         this.checkReadOnly()
         this.checkColumn(before)
@@ -515,7 +515,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      *
      * For enumerations, use the other [insertColumn] method.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * table.insertColumn("email", DataType.STRING, "age")
      * ```
@@ -524,7 +524,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @param type The data type of the new column.
      * @param beforeColumnName The name of the column before which to insert the new column.
      */
-    fun insertColumn(name: String, type: DataType, beforeColumnName: String)
+    fun insertColumn(name : String, type : DataType, beforeColumnName : String)
     {
         this.insertColumn(name, type, this.getColumn(beforeColumnName))
     }
@@ -532,7 +532,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
     /**
      * Inserts a column of enumeration type before another column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * table.insertColumn("status", MyEnum.A, "age")
      * ```
@@ -541,7 +541,7 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
      * @param defaultValue The default value for the new column.
      * @param beforeColumnName The name of the column before which to insert the new column.
      */
-    fun <E : Enum<E>> insertColumn(name: String, defaultValue: E, beforeColumnName: String)
+    fun <E : Enum<E>> insertColumn(name : String, defaultValue : E, beforeColumnName : String)
     {
         this.insertColumn(name, defaultValue, this.getColumn(beforeColumnName))
     }
@@ -549,14 +549,14 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
     /**
      * Removes a column from the table.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * table.removeColumn(COLUMN_EMAIL)
      * ```
      *
      * @param column The column to remove.
      */
-    fun removeColumn(column: Column)
+    fun removeColumn(column : Column)
     {
         this.checkReadOnly()
         this.checkColumn(column)
@@ -573,14 +573,14 @@ class Table internal constructor(val name: String, val readOnly: Boolean, privat
     /**
      * Removes a column from the table.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * table.removeColumn("email")
      * ```
      *
      * @param columnName The name of the column to remove.
      */
-    fun removeColumn(columnName: String)
+    fun removeColumn(columnName : String)
     {
         this.removeColumn(this.getColumn(columnName))
     }

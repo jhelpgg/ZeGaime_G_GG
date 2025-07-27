@@ -7,18 +7,20 @@ private val injected = HashMap<String, Any>()
 /**
  * Public for reified usage, not use it directly outside this file. Use [injected]
  */
-class InjectedInternal<I>(private val className: String, private val qualifier: String)
+class InjectedInternal<I>(private val className : String, private val qualifier : String)
 {
-    operator fun getValue(thisRef: Any, property: KProperty<*>): I
+    @Suppress("UNCHECKED_CAST")
+    operator fun getValue(thisRef : Any, property : KProperty<*>) : I
     {
-        return injected["${this.className}:${this.qualifier}"]?.let { instance -> instance as I } ?: throw InjectionNotFoundException("${this.className}:${this.qualifier}")
+        return injected["${this.className}:${this.qualifier}"]?.let { instance -> instance as I }
+               ?: throw InjectionNotFoundException("${this.className}:${this.qualifier}")
     }
 }
 
 /**
  * Public for reified usage, not use it directly outside this file. Recommend to use [inject]
  */
-fun <I : Any> injectInternal(clazz: Class<I>, instance: I, qualifier: String)
+fun <I : Any> injectInternal(clazz : Class<I>, instance : I, qualifier : String)
 {
     injected["${clazz.name}:$qualifier"] = instance
 }
@@ -41,7 +43,7 @@ fun <I : Any> injectInternal(clazz: Class<I>, instance: I, qualifier: String)
  *
  * The `qualifier` permits to inject different implementations of the same interface
  */
-inline fun <reified I : Any> inject(instance: I, qualifier: String = "")
+inline fun <reified I : Any> inject(instance : I, qualifier : String = "")
 {
     injectInternal(I::class.java, instance, qualifier)
 }
@@ -66,10 +68,11 @@ inline fun <reified I : Any> inject(instance: I, qualifier: String = "")
  * @throws InjectionNotFoundException if no instance is found for interface and qualifier
  */
 @Throws(InjectionNotFoundException::class)
-inline fun <reified I : Any> injected(qualifier: String = ""): InjectedInternal<I> = InjectedInternal<I>(I::class.java.name, qualifier)
+inline fun <reified I : Any> injected(qualifier : String = "") : InjectedInternal<I> =
+    InjectedInternal<I>(I::class.java.name, qualifier)
 
 /**
  * Indicates if an instance is provided for interface and qualifier
  */
-fun <I : Any> isInjected(clazz: Class<I>, qualifier: String = ""): Boolean =
+fun <I : Any> isInjected(clazz : Class<I>, qualifier : String = "") : Boolean =
     "${clazz.name}:$qualifier" in injected

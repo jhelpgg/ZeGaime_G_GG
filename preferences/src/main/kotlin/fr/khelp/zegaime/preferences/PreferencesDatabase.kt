@@ -46,7 +46,7 @@ object PreferencesDatabase
      *
      * If the preference does not exist, a new one is created with a default value of `false`.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val myPreference = PreferencesDatabase.getBoolean("myPreference")
      * myPreference.value = true
@@ -58,8 +58,8 @@ object PreferencesDatabase
      */
     fun getBoolean(name : String) : PreferenceBoolean
     {
-        return this.getPreference(name, false, PreferenceTypeBoolean) { name, value ->
-            PreferenceBoolean(name, value)
+        return this.getPreference(name, false, PreferenceTypeBoolean) { preferenceName, value ->
+            PreferenceBoolean(preferenceName, value)
         }
     }
 
@@ -68,7 +68,7 @@ object PreferencesDatabase
      *
      * If the preference does not exist, a new one is created with a default value of `0`.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val myPreference = PreferencesDatabase.getInt("myPreference")
      * myPreference.value = 1
@@ -80,8 +80,8 @@ object PreferencesDatabase
      */
     fun getInt(name : String) : PreferenceInt
     {
-        return this.getPreference(name, 0, PreferenceTypeInt) { name, value ->
-            PreferenceInt(name, value)
+        return this.getPreference(name, 0, PreferenceTypeInt) { preferenceName, value ->
+            PreferenceInt(preferenceName, value)
         }
     }
 
@@ -90,7 +90,7 @@ object PreferencesDatabase
      *
      * If the preference does not exist, a new one is created with a default value of `0L`.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val myPreference = PreferencesDatabase.getLong("myPreference")
      * myPreference.value = 1L
@@ -102,8 +102,8 @@ object PreferencesDatabase
      */
     fun getLong(name : String) : PreferenceLong
     {
-        return this.getPreference(name, 0L, PreferenceTypeLong) { name, value ->
-            PreferenceLong(name, value)
+        return this.getPreference(name, 0L, PreferenceTypeLong) { preferenceName, value ->
+            PreferenceLong(preferenceName, value)
         }
     }
 
@@ -112,7 +112,7 @@ object PreferencesDatabase
      *
      * If the preference does not exist, a new one is created with a default value of `0.0f`.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val myPreference = PreferencesDatabase.getFloat("myPreference")
      * myPreference.value = 1.0f
@@ -124,8 +124,8 @@ object PreferencesDatabase
      */
     fun getFloat(name : String) : PreferenceFloat
     {
-        return this.getPreference(name, 0f, PreferenceTypeFloat) { name, value ->
-            PreferenceFloat(name, value)
+        return this.getPreference(name, 0f, PreferenceTypeFloat) { preferenceName, value ->
+            PreferenceFloat(preferenceName, value)
         }
     }
 
@@ -134,7 +134,7 @@ object PreferencesDatabase
      *
      * If the preference does not exist, a new one is created with a default value of `0.0`.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val myPreference = PreferencesDatabase.getDouble("myPreference")
      * myPreference.value = 1.0
@@ -146,8 +146,8 @@ object PreferencesDatabase
      */
     fun getDouble(name : String) : PreferenceDouble
     {
-        return this.getPreference(name, 0.0, PreferenceTypeDouble) { name, value ->
-            PreferenceDouble(name, value)
+        return this.getPreference(name, 0.0, PreferenceTypeDouble) { preferenceName, value ->
+            PreferenceDouble(preferenceName, value)
         }
     }
 
@@ -156,7 +156,7 @@ object PreferencesDatabase
      *
      * If the preference does not exist, a new one is created with a default value of `""`.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val myPreference = PreferencesDatabase.getString("myPreference")
      * myPreference.value = "hello"
@@ -168,8 +168,8 @@ object PreferencesDatabase
      */
     fun getString(name : String) : PreferenceString
     {
-        return this.getPreference(name, "", PreferenceTypeString) { name, value ->
-            PreferenceString(name, value)
+        return this.getPreference(name, "", PreferenceTypeString) { preferenceName, value ->
+            PreferenceString(preferenceName, value)
         }
     }
 
@@ -182,7 +182,7 @@ object PreferencesDatabase
      * Updates a preference in the database.
      *
      * @param preference The preference to update.
-     * 
+     *
      */
     internal fun <T : Any, PT : PreferenceType<T>> update(preference : Preference<T, PT>)
     {
@@ -221,7 +221,7 @@ object PreferencesDatabase
                 throw IllegalArgumentException("The preference $name is ${preference.type} not a $preferenceType")
             }
 
-            ("UNCHECKED_CAST")
+            @Suppress("UNCHECKED_CAST")
             return preference as P
         }
 

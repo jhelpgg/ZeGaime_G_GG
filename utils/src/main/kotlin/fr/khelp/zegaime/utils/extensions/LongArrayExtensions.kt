@@ -7,7 +7,7 @@ package fr.khelp.zegaime.utils.extensions
  * @param footer String after the content
  * @return The string representation
  */
-fun LongArray.string(header: String = "[", separator: String = ", ", footer: String = "]"): String
+fun LongArray.string(header : String = "[", separator : String = ", ", footer : String = "]") : String
 {
     val stringBuilder = StringBuilder()
     stringBuilder.append(header)
@@ -27,7 +27,7 @@ fun LongArray.string(header: String = "[", separator: String = ", ", footer: Str
     return stringBuilder.toString()
 }
 
-fun LongArray.same(other: LongArray): Boolean
+fun LongArray.same(other : LongArray) : Boolean
 {
     val size = this.size
 

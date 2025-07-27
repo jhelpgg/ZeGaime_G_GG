@@ -12,5 +12,5 @@ abstract class RegularExpressionElement
      * @param resolveGroup Indicates if group ID must be resolved
      * @return String representation
      */
-   internal abstract fun regexString(resolveGroup:Boolean): String
+    internal abstract fun regexString(resolveGroup : Boolean) : String
 }

@@ -95,7 +95,8 @@ val String.anyWordExceptThis : RegularExpression
 val String.anyNonWhiteSpaceExceptThis : RegularExpression
     get()
     {
-        argumentCheck(!WHITE_SPACE.matcher(this).find()) { "The given String '$this' contains at least one white space" }
+        argumentCheck(!WHITE_SPACE.matcher(this)
+            .find()) { "The given String '$this' contains at least one white space" }
         val interval = this.toCharArray().interval
         val format =
             when (interval)

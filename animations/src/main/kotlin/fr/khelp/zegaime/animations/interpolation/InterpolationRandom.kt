@@ -20,10 +20,10 @@ data object InterpolationRandom : Interpolation
      * @param percent The value to interpolate, between 0 and 1.
      * @return The interpolated value.
      */
-    override operator fun invoke(percent: Double) =
+    override operator fun invoke(percent : Double) =
         when
         {
             percent.nul || equals(percent, 1.0) -> percent
-            else -> random(percent, 1.0)
+            else                                -> random(percent, 1.0)
         }
 }

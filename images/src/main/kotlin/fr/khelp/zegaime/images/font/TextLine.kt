@@ -15,6 +15,6 @@ package fr.khelp.zegaime.images.font
  * @property endOfLine Indicates if the part is the end of a line of the original complete text.
  * @constructor Creates a new text line.
  */
-data class TextLine(val text: String,
-                    var x: Int, val y: Int, val width: Int, val height: Int,
-                    val endOfLine: Boolean)
+data class TextLine(val text : String,
+                    var x : Int, val y : Int, val width : Int, val height : Int,
+                    val endOfLine : Boolean)

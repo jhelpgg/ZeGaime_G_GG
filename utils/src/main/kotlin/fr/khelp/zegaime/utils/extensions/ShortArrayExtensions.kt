@@ -7,7 +7,7 @@ package fr.khelp.zegaime.utils.extensions
  * @param footer String after the content
  * @return The string representation
  */
-fun ShortArray.string(header: String = "[", separator: String = ", ", footer: String = "]"): String
+fun ShortArray.string(header : String = "[", separator : String = ", ", footer : String = "]") : String
 {
     val stringBuilder = StringBuilder()
     stringBuilder.append(header)
@@ -27,7 +27,7 @@ fun ShortArray.string(header: String = "[", separator: String = ", ", footer: St
     return stringBuilder.toString()
 }
 
-fun ShortArray.same(other: ShortArray): Boolean
+fun ShortArray.same(other : ShortArray) : Boolean
 {
     val size = this.size
 

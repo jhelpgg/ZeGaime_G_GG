@@ -14,10 +14,13 @@ import fr.khelp.zegaime.utils.tasks.parallel
  * To create an animation action, we can use the DSL:
  *
  * ```kotlin
- * val animation = sequential {
- *    // ...
- *    action { println("Hello") }
- *    // ...
+ * val animationPrint = animationAction {
+ *      action = { println("Action played !") }
+ * }
+ *
+ * val animationLoad = animationAction {
+ *      action = {  loadObj() }
+ *      taskContext = TaskContext.FILE
  * }
  * ```
  *
@@ -31,8 +34,8 @@ import fr.khelp.zegaime.utils.tasks.parallel
  * @property taskContext Context where launch the action. By default, it uses an independent thread.
  * @constructor Create the animation action.
  */
-class AnimationAction(private val action: () -> Unit,
-                      private val taskContext: TaskContext = TaskContext.INDEPENDENT) : Animation
+class AnimationAction(private val action : () -> Unit,
+                      private val taskContext : TaskContext = TaskContext.INDEPENDENT) : Animation
 {
     /**
      * Launch the action in parallel and indicates that the animation is finished.
@@ -40,7 +43,7 @@ class AnimationAction(private val action: () -> Unit,
      * @param millisecondsSinceStarted Time since animation started. Not used here.
      * @return `false` to indicate that the animation is finished.
      */
-    override fun animate(millisecondsSinceStarted: Long): Boolean
+    override fun animate(millisecondsSinceStarted : Long) : Boolean
     {
         this::action.parallel(this.taskContext)
         return false

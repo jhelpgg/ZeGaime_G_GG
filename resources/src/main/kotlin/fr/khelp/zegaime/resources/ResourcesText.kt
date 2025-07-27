@@ -25,7 +25,7 @@ import java.util.Locale
  * @property observableChange An observable that emits a value when the texts change.
  * @constructor Creates a new resources text. For internal use only.
  */
-class ResourcesText internal constructor(private var basePath: String, val resources: Resources)
+class ResourcesText internal constructor(private var basePath : String, val resources : Resources)
 {
     companion object
     {
@@ -45,7 +45,7 @@ class ResourcesText internal constructor(private var basePath: String, val resou
          * @param text The text.
          * @return The standard text key.
          */
-        fun standardTextKey(text: String): String =
+        fun standardTextKey(text : String) : String =
             "${ResourcesText.STANDARD_TEXT_HEADER}$text${ResourcesText.STANDARD_TEXT_FOOTER}"
     }
 
@@ -65,7 +65,7 @@ class ResourcesText internal constructor(private var basePath: String, val resou
     /**
      * Returns the text for the given key.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val myText = resourcesText["myKey"]
      * ```
@@ -73,7 +73,7 @@ class ResourcesText internal constructor(private var basePath: String, val resou
      * @param key The key of the text.
      * @return The text for the given key.
      */
-    operator fun get(key: String): String
+    operator fun get(key : String) : String
     {
         val matcher = ResourcesText.TEXT_REGEX.matcher(key)
 
@@ -87,7 +87,7 @@ class ResourcesText internal constructor(private var basePath: String, val resou
         }
     }
 
-    private fun loadTexts(locale: Locale)
+    private fun loadTexts(locale : Locale)
     {
         synchronized(this.texts) { this.texts.clear() }
 
@@ -116,7 +116,7 @@ class ResourcesText internal constructor(private var basePath: String, val resou
         this.observableSource.value = this
     }
 
-    private fun loadText(path: String)
+    private fun loadText(path : String)
     {
         var comment = false
         var keyRead = false
@@ -130,8 +130,8 @@ class ResourcesText internal constructor(private var basePath: String, val resou
 
                       when (lineTrim)
                       {
-                          ResourcesText.START_COMMENT -> comment = true
-                          ResourcesText.END_COMMENT -> comment = false
+                          ResourcesText.START_COMMENT  -> comment = true
+                          ResourcesText.END_COMMENT    -> comment = false
                           ResourcesText.TEXT_SEPARATOR ->
                               if (keyRead && !comment)
                               {
@@ -144,7 +144,7 @@ class ResourcesText internal constructor(private var basePath: String, val resou
                                   key = ""
                               }
 
-                          else ->
+                          else                         ->
                               if (!comment)
                               {
                                   if (!keyRead && lineTrim.isNotEmpty())

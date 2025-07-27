@@ -5,4 +5,4 @@ package fr.khelp.zegaime.utils.tasks.future.status
  *
  * @property reason Cancellation reason
  */
-data class PromiseCanceled(val reason:String) : PromiseStatus
+data class PromiseCanceled(val reason : String) : PromiseStatus

@@ -6,5 +6,5 @@ package fr.khelp.zegaime.engine3d.utils
  * @param position3D The position to multiply.
  * @return The multiplied position.
  */
-operator fun Number.times(position3D: NodePosition): NodePosition =
+operator fun Number.times(position3D : NodePosition) : NodePosition =
     position3D * this

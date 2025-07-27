@@ -7,8 +7,8 @@ import fr.khelp.zegaime.utils.elementExistsCheck
  */
 class Queue<T> : Collection<T>
 {
-    private var head: QueueElement<T>? = null
-    private var tail: QueueElement<T>? = null
+    private var head : QueueElement<T>? = null
+    private var tail : QueueElement<T>? = null
     private var count = 0
 
     val empty get() = this.head == null
@@ -18,7 +18,7 @@ class Queue<T> : Collection<T>
     /**
      * Add element at the end of the queue
      */
-    fun inQueue(element: T)
+    fun inQueue(element : T)
     {
         if (this.head === null)
         {
@@ -38,7 +38,7 @@ class Queue<T> : Collection<T>
      *
      * Don't abuse call of it, it is for very urgent things, this method break the "queue logic"
      */
-    fun ahead(element: T)
+    fun ahead(element : T)
     {
         if (this.head === null)
         {
@@ -56,7 +56,7 @@ class Queue<T> : Collection<T>
      * Remove and return the first element of the queue
      */
     @Throws
-    fun outQueue(): T
+    fun outQueue() : T
     {
         elementExistsCheck(this.head != null) { "The queue is empty" }
 
@@ -76,15 +76,15 @@ class Queue<T> : Collection<T>
      * Look the first element of the queue
      */
     @Throws
-    fun peek(): T =
+    fun peek() : T =
         this.head?.element ?: throw IllegalStateException("The queue is empty")
 
     /**
      * Remove all elements in queue that match given condition
      */
-    fun removeIf(condition: (T) -> Boolean)
+    fun removeIf(condition : (T) -> Boolean)
     {
-        var parent: QueueElement<T>? = null
+        var parent : QueueElement<T>? = null
         var current = this.head
 
         while (current != null)
@@ -128,10 +128,10 @@ class Queue<T> : Collection<T>
         this.tail = null
     }
 
-    override fun iterator(): Iterator<T> =
+    override fun iterator() : Iterator<T> =
         QueueIterator(this.head)
 
-    override operator fun contains(element: T): Boolean
+    override operator fun contains(element : T) : Boolean
     {
         var current = this.head
 
@@ -148,7 +148,7 @@ class Queue<T> : Collection<T>
         return false
     }
 
-    override fun containsAll(elements: Collection<T>): Boolean
+    override fun containsAll(elements : Collection<T>) : Boolean
     {
         for (element in elements)
         {
@@ -161,7 +161,7 @@ class Queue<T> : Collection<T>
         return true
     }
 
-    override fun toString(): String
+    override fun toString() : String
     {
         val stringBuilder = StringBuilder()
         stringBuilder.append('[')
@@ -182,9 +182,9 @@ class Queue<T> : Collection<T>
         return stringBuilder.toString()
     }
 
-    override val size: Int
+    override val size : Int
         get() = this.count
 
-    override fun isEmpty(): Boolean =
+    override fun isEmpty() : Boolean =
         this.head == null
 }

@@ -29,7 +29,7 @@ import java.io.OutputStream
  * @property outputStream The output stream to write the video to.
  * @constructor Creates a new video writer.
  */
-class VideoWriter(val width: Int, val height: Int, val fps: Int, val outputStream: OutputStream)
+class VideoWriter(val width : Int, val height : Int, val fps : Int, val outputStream : OutputStream)
 {
     /**
      * Creates a new video writer with a default FPS of 25.
@@ -38,7 +38,7 @@ class VideoWriter(val width: Int, val height: Int, val fps: Int, val outputStrea
      * @param height The height of the video.
      * @param outputStream The output stream to write the video to.
      */
-    constructor(width: Int, height: Int, outputStream: OutputStream) : this(width, height, 25, outputStream)
+    constructor(width : Int, height : Int, outputStream : OutputStream) : this(width, height, 25, outputStream)
 
     init
     {
@@ -52,7 +52,7 @@ class VideoWriter(val width: Int, val height: Int, val fps: Int, val outputStrea
      *
      * @param image The image to append.
      */
-    fun appendImage(image: GameImage)
+    fun appendImage(image : GameImage)
     {
         val imageResized = image.resize(this.width, this.height)
         val byteArrayOutputStream = ByteArrayOutputStream()
@@ -71,7 +71,7 @@ class VideoWriter(val width: Int, val height: Int, val fps: Int, val outputStrea
         {
             this.outputStream.flush()
         }
-        catch (_: Exception)
+        catch (_ : Exception)
         {
         }
 
@@ -79,7 +79,7 @@ class VideoWriter(val width: Int, val height: Int, val fps: Int, val outputStrea
         {
             this.outputStream.close()
         }
-        catch (_: Exception)
+        catch (_ : Exception)
         {
         }
     }

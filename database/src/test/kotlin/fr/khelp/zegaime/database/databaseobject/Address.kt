@@ -13,9 +13,9 @@ class Address(@PrimaryKey val street : String,
     override fun equals(other : Any?) : Boolean =
         when
         {
-             this === other -> true
+            this === other                     -> true
             null == other || other !is Address -> false
-            else -> this.street == other.street && this.number == other.number
+            else                               -> this.street == other.street && this.number == other.number
         }
 
     override fun hashCode() : Int =

@@ -7,20 +7,23 @@ import java.io.InputStream
  * Stream for read integer array
  * @param array Array to read
  */
-class IntegerArrayInputStream(private val array: IntArray) : InputStream()
+class IntegerArrayInputStream(private val array : IntArray) : InputStream()
 {
     /**
      * Temporary bytes to read
      */
     private val bytes = IntArray(4)
+
     /**
      * Read index in array
      */
     private var index = 0
+
     /**
      * Array size
      */
     private val length = this.array.size
+
     /**
      * Read index in temporary bytes
      */
@@ -34,7 +37,7 @@ class IntegerArrayInputStream(private val array: IntArray) : InputStream()
      * @see InputStream.read
      */
     @Throws(IOException::class)
-    override fun read(): Int
+    override fun read() : Int
     {
         if (this.index >= this.length && this.read >= 4)
         {
@@ -54,5 +57,4 @@ class IntegerArrayInputStream(private val array: IntArray) : InputStream()
 
         return this.bytes[this.read++]
     }
-
 }

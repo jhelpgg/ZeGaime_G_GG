@@ -16,7 +16,6 @@ import kotlin.math.min
 fun Long.bounds(bound1 : Long, bound2 : Long) =
     max(min(bound1, bound2), min(max(bound1, bound2), this))
 
-
 /**
  * Compute the greater common divider of this number and given one
  * @param long Given number
@@ -39,7 +38,6 @@ infix fun Long.GCD(long : Long) : Long
 
     return maximum
 }
-
 
 /**
  * Compute the lower common multiple of this number and given one

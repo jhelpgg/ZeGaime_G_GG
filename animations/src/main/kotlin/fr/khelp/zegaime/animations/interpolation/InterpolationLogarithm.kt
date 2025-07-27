@@ -18,6 +18,6 @@ data object InterpolationLogarithm : Interpolation
      * @param percent The value to interpolate, between 0 and 1.
      * @return The interpolated value.
      */
-    override operator fun invoke(percent: Double) =
+    override operator fun invoke(percent : Double) =
         ln1p(percent) / ln(2.0)
 }

@@ -37,11 +37,11 @@ import org.lwjgl.opengl.GL11
  * @property alpha The alpha component of the color (0.0 to 1.0).
  * @constructor Creates a new color.
  */
-class Color4f(red: Float, green: Float = red, blue: Float = red, alpha: Float = 1f)
+class Color4f(red : Float, green : Float = red, blue : Float = red, alpha : Float = 1f)
 {
     companion object
     {
-        private fun partEquals(part1: Float, part2: Float) =
+        private fun partEquals(part1 : Float, part2 : Float) =
             (part1 * 255f).toInt() == (part2 * 255f).toInt()
     }
 
@@ -49,14 +49,17 @@ class Color4f(red: Float, green: Float = red, blue: Float = red, alpha: Float = 
      * The red component of the color (0.0 to 1.0).
      */
     val red = red.coerceIn(0f, 1f)
+
     /**
      * The green component of the color (0.0 to 1.0).
      */
     val green = green.coerceIn(0f, 1f)
+
     /**
      * The blue component of the color (0.0 to 1.0).
      */
     val blue = blue.coerceIn(0f, 1f)
+
     /**
      * The alpha component of the color (0.0 to 1.0).
      */
@@ -65,20 +68,21 @@ class Color4f(red: Float, green: Float = red, blue: Float = red, alpha: Float = 
     /**
      * The color as a `fr.khelp.zegaime.images.color.Color` instance.
      */
-    val color: Color get() = argb(this.alpha, this.red, this.green, this.blue)
+    val color : Color get() = argb(this.alpha, this.red, this.green, this.blue)
 
     /**
      * Creates a new color from an ARGB integer.
      *
      * @param color The ARGB integer.
      */
-    constructor(color: Int) : this(color.red / 255f, color.green / 255f, color.blue / 255f, color.alpha / 255f)
+    constructor(color : Int) : this(color.red / 255f, color.green / 255f, color.blue / 255f, color.alpha / 255f)
+
     /**
      * Creates a new color from a `fr.khelp.zegaime.images.color.Color` instance.
      *
      * @param color The color instance.
      */
-    constructor(color: Color) : this(color.red / 255f, color.green / 255f, color.blue / 255f, color.alpha / 255f)
+    constructor(color : Color) : this(color.red / 255f, color.green / 255f, color.blue / 255f, color.alpha / 255f)
 
     /**
      * Push the color in the float buffer.
@@ -87,7 +91,7 @@ class Color4f(red: Float, green: Float = red, blue: Float = red, alpha: Float = 
      *
      * @return Filled float buffer.
      */
-    internal fun putInFloatBuffer(): FloatBuffer
+    internal fun putInFloatBuffer() : FloatBuffer
     {
         TEMPORARY_FLOAT_BUFFER.rewind()
         TEMPORARY_FLOAT_BUFFER.put(this.red)
@@ -107,7 +111,7 @@ class Color4f(red: Float, green: Float = red, blue: Float = red, alpha: Float = 
      * @param percent Multiplier of percent of color.
      * @return Filled float buffer.
      */
-    internal fun putInFloatBuffer(percent: Float): FloatBuffer
+    internal fun putInFloatBuffer(percent : Float) : FloatBuffer
     {
         TEMPORARY_FLOAT_BUFFER.rewind()
         TEMPORARY_FLOAT_BUFFER.put(this.red * percent)
@@ -136,7 +140,7 @@ class Color4f(red: Float, green: Float = red, blue: Float = red, alpha: Float = 
      *
      * @param alpha The alpha value.
      */
-    internal fun glColor4f(alpha: Float)
+    internal fun glColor4f(alpha : Float)
     {
         GL11.glColor4f(this.red, this.green, this.blue, alpha)
     }
@@ -156,7 +160,7 @@ class Color4f(red: Float, green: Float = red, blue: Float = red, alpha: Float = 
      *
      * @return A hash code value for this object.
      */
-    override fun hashCode(): Int = Objects.hash(this.alpha, this.red, this.green, this.blue)
+    override fun hashCode() : Int = Objects.hash(this.alpha, this.red, this.green, this.blue)
 
     /**
      * Indicates whether some other object is "equal to" this one.
@@ -164,7 +168,7 @@ class Color4f(red: Float, green: Float = red, blue: Float = red, alpha: Float = 
      * @param other The reference object with which to compare.
      * @return `true` if this object is the same as the obj argument; `false` otherwise.
      */
-    override fun equals(other: Any?): Boolean
+    override fun equals(other : Any?) : Boolean
     {
         if (this === other)
         {

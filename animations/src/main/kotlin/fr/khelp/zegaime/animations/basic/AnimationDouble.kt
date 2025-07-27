@@ -12,11 +12,11 @@ import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
  * To create a double animation, you can use the DSL:
  *
  * ```kotlin
- * val animation = keyFrame<Double> {
- *      frame(0, 1.0)
- *      frame(100, 5.0)
- *      frame(250, 2.0)
- *      frame(500, 8.0)
+ * val animation = animationDouble(0.0) {
+ *      1.0.at(0L)
+ *      5.0.at(100L, InterpolationSine)
+ *      2.0.at(200L)
+ *      8.0.at(500L, InterpolationHesitate)
  * }
  * ```
  *
@@ -24,16 +24,16 @@ import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
  *
  * ```kotlin
  * val animation = AnimationDouble()
- * animation.frame(0, 1.0)
- * animation.frame(100, 5.0)
- * animation.frame(250, 2.0)
- * animation.frame(500, 8.0)
+ * animation.addKeyTimeValue(0L, 1.0)
+ * animation.addKeyTimeValue(100L, 5.0, InterpolationSine)
+ * animation.addKeyTimeValue(250L, 2.0)
+ * animation.addKeyTimeValue(500L, 8.0, InterpolationHesitate)
  * ```
  *
  * To observe the value changes:
  *
  * ```kotlin
- * animation.value.observedBy { double ->
+ * animation.value.register { double ->
  *      println("Value changed: $double")
  * }
  * ```
@@ -41,11 +41,11 @@ import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
  * @property initialValue Initial value of the animation.
  * @constructor Create a new animation of [Double].
  */
-class AnimationDouble(private val initialValue: Double = 0.0) :
+class AnimationDouble(private val initialValue : Double = 0.0) :
     AnimationKeyTime<ObservableSource<Double>, Double>(ObservableSource<Double>(initialValue))
 {
     /** Observable value of the animation */
-    val value: Observable<Double> = this.animated.observable
+    val value : Observable<Double> = this.animated.observable
 
     /**
      * Called at animation initialization.
@@ -64,7 +64,7 @@ class AnimationDouble(private val initialValue: Double = 0.0) :
      * @param animated The animated object.
      * @return The current value.
      */
-    override fun getValue(animated: ObservableSource<Double>): Double = animated.value
+    override fun getValue(animated : ObservableSource<Double>) : Double = animated.value
 
     /**
      * Set the current value of the animation.
@@ -72,7 +72,7 @@ class AnimationDouble(private val initialValue: Double = 0.0) :
      * @param animated The animated object.
      * @param value The new value.
      */
-    override fun setValue(animated: ObservableSource<Double>, value: Double)
+    override fun setValue(animated : ObservableSource<Double>, value : Double)
     {
         animated.value = value
     }
@@ -86,11 +86,11 @@ class AnimationDouble(private val initialValue: Double = 0.0) :
      * @param afterValue The value of the next frame.
      * @param afterCoefficient The coefficient of the next frame.
      */
-    override fun interpolate(animated: ObservableSource<Double>,
-                             beforeValue: Double,
-                             beforeCoefficient: Double,
-                             afterValue: Double,
-                             afterCoefficient: Double)
+    override fun interpolate(animated : ObservableSource<Double>,
+                             beforeValue : Double,
+                             beforeCoefficient : Double,
+                             afterValue : Double,
+                             afterCoefficient : Double)
     {
         animated.value = (beforeValue * beforeCoefficient + afterValue * afterCoefficient)
     }

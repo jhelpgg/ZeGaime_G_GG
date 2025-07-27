@@ -19,12 +19,12 @@ import fr.khelp.zegaime.utils.math.compare
  *
  * @constructor Creates a new double preference. For internal use only.
  */
-class PreferenceDouble internal constructor(name: String, initialValue: Double) :
+class PreferenceDouble internal constructor(name : String, initialValue : Double) :
     Preference<Double, PreferenceTypeDouble>(name, PreferenceTypeDouble, initialValue)
 {
     /**
      * Returns `true` if the new value is different from the current value.
      */
-    override fun allowUpdate(currentValue: Double, newValue: Double): Boolean =
+    override fun allowUpdate(currentValue : Double, newValue : Double) : Boolean =
         compare(currentValue, newValue) != 0
 }

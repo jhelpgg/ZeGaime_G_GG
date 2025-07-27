@@ -39,7 +39,7 @@ val PICK_EPSILON = 1e-5f
  * @param blue2 The blue component of the second color.
  * @return `true` if the colors are the same, `false` otherwise.
  */
-fun pickSame(red1: Float, green1: Float, blue1: Float, red2: Float, green2: Float, blue2: Float): Boolean =
+fun pickSame(red1 : Float, green1 : Float, blue1 : Float, red2 : Float, green2 : Float, blue2 : Float) : Boolean =
     abs(red1 - red2) <= PICK_EPSILON && abs(green1 - green2) <= PICK_EPSILON && abs(blue1 - blue2) <= PICK_EPSILON
 
 /**
@@ -59,10 +59,10 @@ private val combination2 = floatArrayOf(1f, 2f, 1f)
  */
 private val combination3 = floatArrayOf(1f, 3f, 3f, 1f)
 
-private fun Bernoulli2(index: Int, t: Float) =
+private fun Bernoulli2(index : Int, t : Float) =
     combination2[index] * t.pow(index.toFloat()) * (1f - t).pow((2 - index).toFloat())
 
-private fun Bernoulli3(index: Int, t: Float) =
+private fun Bernoulli3(index : Int, t : Float) =
     combination3[index] * t.pow(index.toFloat()) * (1f - t).pow((3 - index).toFloat())
 
 /**
@@ -75,7 +75,7 @@ private fun Bernoulli3(index: Int, t: Float) =
  * @param t  Interpolation time
  * @return Interpolated value
  */
-private fun cubic(cp: Float, p1: Float, p2: Float, p3: Float, t: Float) =
+private fun cubic(cp : Float, p1 : Float, p2 : Float, p3 : Float, t : Float) =
     Bernoulli3(0, t) * cp +
     Bernoulli3(1, t) * p1 +
     Bernoulli3(2, t) * p2 +
@@ -98,10 +98,10 @@ private val combinationDouble2 = doubleArrayOf(1.0, 2.0, 1.0)
  */
 private val combinationDouble3 = doubleArrayOf(1.0, 3.0, 3.0, 1.0)
 
-private fun BernoulliDouble2(index: Int, t: Double) =
+private fun BernoulliDouble2(index : Int, t : Double) =
     combinationDouble2[index] * t.pow(index.toDouble()) * (1f - t).pow((2 - index).toDouble())
 
-private fun BernoulliDouble3(index: Int, t: Double) =
+private fun BernoulliDouble3(index : Int, t : Double) =
     combinationDouble3[index] * t.pow(index.toDouble()) * (1f - t).pow((3 - index).toDouble())
 
 /**
@@ -114,7 +114,7 @@ private fun BernoulliDouble3(index: Int, t: Double) =
  * @param t  Interpolation time
  * @return Interpolated value
  */
-fun cubic(cp: Double, p1: Double, p2: Double, p3: Double, t: Double) =
+fun cubic(cp : Double, p1 : Double, p2 : Double, p3 : Double, t : Double) =
     BernoulliDouble3(0, t) * cp +
     BernoulliDouble3(1, t) * p1 +
     BernoulliDouble3(2, t) * p2 +
@@ -129,7 +129,7 @@ fun cubic(cp: Double, p1: Double, p2: Double, p3: Double, t: Double) =
  * @param t  Interpolation time
  * @return Interpolated value
  */
-fun quadratic(cp: Double, p1: Double, p2: Double, t: Double) =
+fun quadratic(cp : Double, p1 : Double, p2 : Double, t : Double) =
     BernoulliDouble2(0, t) * cp +
     BernoulliDouble2(1, t) * p1 +
     BernoulliDouble2(2, t) * p2
@@ -144,7 +144,7 @@ fun quadratic(cp: Double, p1: Double, p2: Double, t: Double) =
  * @param precision Precision used
  * @return Interpolated values
  */
-fun cubics(cp: Float, p1: Float, p2: Float, p3: Float, precision: Int): FloatArray
+fun cubics(cp : Float, p1 : Float, p2 : Float, p3 : Float, precision : Int) : FloatArray
 {
     val cubics = FloatArray(precision)
     val step = 1f / (precision - 1f)
@@ -173,7 +173,7 @@ fun cubics(cp: Float, p1: Float, p2: Float, p3: Float, precision: Int): FloatArr
  * @param t  Interpolation time
  * @return Interpolated value
  */
-private fun quadratic(cp: Float, p1: Float, p2: Float, t: Float) =
+private fun quadratic(cp : Float, p1 : Float, p2 : Float, t : Float) =
     Bernoulli2(0, t) * cp +
     Bernoulli2(1, t) * p1 +
     Bernoulli2(2, t) * p2
@@ -187,7 +187,7 @@ private fun quadratic(cp: Float, p1: Float, p2: Float, t: Float) =
  * @param precision Precision used
  * @return Interpolated values
  */
-fun quadratics(cp: Float, p1: Float, p2: Float, precision: Int): FloatArray
+fun quadratics(cp : Float, p1 : Float, p2 : Float, precision : Int) : FloatArray
 {
     val quadratics = FloatArray(precision)
     val step = 1f / (precision - 1f)
@@ -220,8 +220,8 @@ fun quadratics(cp: Float, p1: Float, p2: Float, precision: Int): FloatArray
  * @param segment2y2 The Y coordinate of the second point of the second segment.
  * @return The intersection point, or `null` if the segments do not intersect.
  */
-fun segmentIntersection(segment1x1: Float, segment1y1: Float, segment1x2: Float, segment1y2: Float,
-                        segment2x1: Float, segment2y1: Float, segment2x2: Float, segment2y2: Float): Point2D?
+fun segmentIntersection(segment1x1 : Float, segment1y1 : Float, segment1x2 : Float, segment1y2 : Float,
+                        segment2x1 : Float, segment2y1 : Float, segment2x2 : Float, segment2y2 : Float) : Point2D?
 {
     /*
 p1 = s11 + t1 * (s12-s11) (0<=t1<=1)
@@ -287,8 +287,8 @@ p1 = p2 =>
  * @param pointY The Y coordinate of the point.
  * @return `true` if the segment contains the point, `false` otherwise.
  */
-fun segmentContainsPoint(segmentX1: Float, segmentY1: Float, segmentX2: Float, segmentY2: Float,
-                         pointX: Float, pointY: Float): Boolean
+fun segmentContainsPoint(segmentX1 : Float, segmentY1 : Float, segmentX2 : Float, segmentY2 : Float,
+                         pointX : Float, pointY : Float) : Boolean
 {
     /*
      p = s1 + t * (s2-s1)  | (0<=t<=1)
@@ -322,7 +322,7 @@ fun segmentContainsPoint(segmentX1: Float, segmentY1: Float, segmentX2: Float, s
  * @param point3 The third point.
  * @return `true` if the points are in counter-clockwise order, `false` otherwise.
  */
-fun counterClockWise(point1: Point2D, point2: Point2D, point3: Point2D): Boolean
+fun counterClockWise(point1 : Point2D, point2 : Point2D, point3 : Point2D) : Boolean
 {
     val x31 = point1.x - point3.x
     val x32 = point2.x - point3.x
@@ -337,7 +337,7 @@ fun counterClockWise(point1: Point2D, point2: Point2D, point3: Point2D): Boolean
  * @param points The list of points.
  * @return `true` if the list of points is convex, `false` otherwise.
  */
-fun convex(points: List<Point2D>): Boolean = convex(*points.toTypedArray())
+fun convex(points : List<Point2D>) : Boolean = convex(*points.toTypedArray())
 
 /**
  * Checks if a list of points is convex.
@@ -345,7 +345,7 @@ fun convex(points: List<Point2D>): Boolean = convex(*points.toTypedArray())
  * @param points The list of points.
  * @return `true` if the list of points is convex, `false` otherwise.
  */
-fun convex(vararg points: Point2D): Boolean
+fun convex(vararg points : Point2D) : Boolean
 {
     val size = points.size
 
@@ -375,7 +375,7 @@ fun convex(vararg points: Point2D): Boolean
  * @param point2 The second point.
  * @return The distance between the two points.
  */
-fun distance(point1: Point3D, point2: Point3D): Float =
+fun distance(point1 : Point3D, point2 : Point3D) : Float =
     sqrt(square(point2.x - point1.x) + square(point2.y - point1.y) + square(point2.z - point1.z))
 
 /**
@@ -389,5 +389,5 @@ fun distance(point1: Point3D, point2: Point3D): Float =
  * @param z2 The Z coordinate of the second vector.
  * @return The scalar product of the two vectors.
  */
-fun scalarProduct(x1: Float, y1: Float, z1: Float, x2: Float, y2: Float, z2: Float): Point3D =
+fun scalarProduct(x1 : Float, y1 : Float, z1 : Float, x2 : Float, y2 : Float, z2 : Float) : Point3D =
     Point3D(y1 * z2 - z1 * y2, z1 * x2 - x1 * z2, x1 * y2 - y1 * x2)

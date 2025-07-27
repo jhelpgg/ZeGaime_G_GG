@@ -10,9 +10,10 @@ import fr.khelp.zegaime.images.drawImage
  * @property image The current image of the animation.
  * @constructor Creates a new GIF image.
  */
-class GifImage(private val gif: GIF)
+class GifImage(private val gif : GIF)
 {
     private var lastIndex = 0
+
     /**
      * The current image of the animation.
      */
@@ -38,7 +39,7 @@ class GifImage(private val gif: GIF)
      *
      * @return `true` if the animation should continue, `false` otherwise.
      */
-    fun update(): Boolean
+    fun update() : Boolean
     {
         if (this.gif.numberOfImage == 1)
         {

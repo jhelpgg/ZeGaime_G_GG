@@ -13,7 +13,7 @@ import fr.khelp.zegaime.engine3d.scene.prebuilt.complex.robot.Robot
 /**
  * Adds a child node to this node using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myNode.node("childNode") {
  *     // ...
@@ -25,7 +25,7 @@ import fr.khelp.zegaime.engine3d.scene.prebuilt.complex.robot.Robot
  * @return The created child node.
  */
 @NodeDSL
-fun Node.node(nodeId: String, nodeCreate: Node.() -> Unit): Node
+fun Node.node(nodeId : String, nodeCreate : Node.() -> Unit) : Node
 {
     val node = Node(nodeId)
     node.nodeCreate()
@@ -36,7 +36,7 @@ fun Node.node(nodeId: String, nodeCreate: Node.() -> Unit): Node
 /**
  * Adds a 3D object to this node using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myNode.object3D("myObject") {
  *     // ...
@@ -48,7 +48,7 @@ fun Node.node(nodeId: String, nodeCreate: Node.() -> Unit): Node
  * @return The created 3D object.
  */
 @NodeDSL
-fun Node.object3D(objectId: String, objectCreate: Object3DCreator.() -> Unit): Object3D
+fun Node.object3D(objectId : String, objectCreate : Object3DCreator.() -> Unit) : Object3D
 {
     val object3DCreator = Object3DCreator(objectId)
     object3DCreator.objectCreate()
@@ -60,7 +60,7 @@ fun Node.object3D(objectId: String, objectCreate: Object3DCreator.() -> Unit): O
 /**
  * Adds a plane to this node using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myNode.plane("myPlane") {
  *     // ...
@@ -72,7 +72,7 @@ fun Node.object3D(objectId: String, objectCreate: Object3DCreator.() -> Unit): O
  * @return The created plane.
  */
 @NodeDSL
-fun Node.plane(planeID: String, planeCreate: PlaneCreator.() -> Unit): Plane
+fun Node.plane(planeID : String, planeCreate : PlaneCreator.() -> Unit) : Plane
 {
     val planeCreator = PlaneCreator(planeID)
     planeCreator.planeCreate()
@@ -84,7 +84,7 @@ fun Node.plane(planeID: String, planeCreate: PlaneCreator.() -> Unit): Plane
 /**
  * Adds a box to this node using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myNode.box("myBox") {
  *     // ...
@@ -96,7 +96,7 @@ fun Node.plane(planeID: String, planeCreate: PlaneCreator.() -> Unit): Plane
  * @return The created box.
  */
 @NodeDSL
-fun Node.box(boxID: String, create: BoxCreator.() -> Unit): Box
+fun Node.box(boxID : String, create : BoxCreator.() -> Unit) : Box
 {
     val boxCreator = BoxCreator(boxID)
     boxCreator.create()
@@ -108,7 +108,7 @@ fun Node.box(boxID: String, create: BoxCreator.() -> Unit): Box
 /**
  * Adds a sphere to this node using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myNode.sphere("mySphere") {
  *     // ...
@@ -120,7 +120,7 @@ fun Node.box(boxID: String, create: BoxCreator.() -> Unit): Box
  * @return The created sphere.
  */
 @NodeDSL
-fun Node.sphere(sphereID: String, sphereCreate: SphereCreator.() -> Unit): Sphere
+fun Node.sphere(sphereID : String, sphereCreate : SphereCreator.() -> Unit) : Sphere
 {
     val sphereCreator = SphereCreator(sphereID)
     sphereCreator.sphereCreate()
@@ -132,7 +132,7 @@ fun Node.sphere(sphereID: String, sphereCreate: SphereCreator.() -> Unit): Spher
 /**
  * Adds a revolution object to this node using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myNode.revolution("myRevolution") {
  *     // ...
@@ -144,7 +144,7 @@ fun Node.sphere(sphereID: String, sphereCreate: SphereCreator.() -> Unit): Spher
  * @return The created revolution object.
  */
 @NodeDSL
-fun Node.revolution(revolutionID: String, revolutionCreate: RevolutionCreator.() -> Unit): Revolution
+fun Node.revolution(revolutionID : String, revolutionCreate : RevolutionCreator.() -> Unit) : Revolution
 {
     val revolutionCreator = RevolutionCreator(Revolution(revolutionID))
     revolutionCreator.revolutionCreate()
@@ -156,7 +156,7 @@ fun Node.revolution(revolutionID: String, revolutionCreate: RevolutionCreator.()
 /**
  * Adds a dice to this node using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myNode.dice("myDice") {
  *     // ...
@@ -168,7 +168,7 @@ fun Node.revolution(revolutionID: String, revolutionCreate: RevolutionCreator.()
  * @return The created dice.
  */
 @NodeDSL
-fun Node.dice(diceID: String, diceCreate: DiceCreator.() -> Unit): Dice
+fun Node.dice(diceID : String, diceCreate : DiceCreator.() -> Unit) : Dice
 {
     val diceCreator = DiceCreator(diceID)
     diceCreator.diceCreate()
@@ -180,7 +180,7 @@ fun Node.dice(diceID: String, diceCreate: DiceCreator.() -> Unit): Dice
 /**
  * Adds a sword to this node using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myNode.sword("mySword") {
  *     // ...
@@ -192,7 +192,7 @@ fun Node.dice(diceID: String, diceCreate: DiceCreator.() -> Unit): Dice
  * @return The created sword.
  */
 @NodeDSL
-fun Node.sword(swordID: String, create: SwordCreator.() -> Unit): Sword
+fun Node.sword(swordID : String, create : SwordCreator.() -> Unit) : Sword
 {
     val swordCreator = SwordCreator(swordID)
     swordCreator.create()
@@ -204,7 +204,7 @@ fun Node.sword(swordID: String, create: SwordCreator.() -> Unit): Sword
 /**
  * Adds a robot to this node using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myNode.robot("myRobot") {
  *     // ...
@@ -216,7 +216,7 @@ fun Node.sword(swordID: String, create: SwordCreator.() -> Unit): Sword
  * @return The created robot.
  */
 @NodeDSL
-fun Node.robot(robotID: String, create: RobotCreator.() -> Unit): Robot
+fun Node.robot(robotID : String, create : RobotCreator.() -> Unit) : Robot
 {
     val robotCreator = RobotCreator(robotID)
     robotCreator.create()

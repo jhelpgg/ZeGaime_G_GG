@@ -10,7 +10,7 @@ package fr.khelp.zegaime.utils
  * @throws IllegalArgumentException if the condition is not met.
  */
 @Throws(IllegalArgumentException::class)
-inline fun argumentCheck(condition: Boolean, messageIfFail: () -> String)
+inline fun argumentCheck(condition : Boolean, messageIfFail : () -> String)
 {
     if (!condition)
     {
@@ -28,7 +28,7 @@ inline fun argumentCheck(condition: Boolean, messageIfFail: () -> String)
  * @throws IllegalStateException if the condition is not met.
  */
 @Throws(IllegalStateException::class)
-inline fun stateCheck(condition: Boolean, messageIfFail: () -> String)
+inline fun stateCheck(condition : Boolean, messageIfFail : () -> String)
 {
     if (!condition)
     {
@@ -49,7 +49,7 @@ inline fun stateCheck(condition: Boolean, messageIfFail: () -> String)
  * @throws NullPointerException if the value is null.
  */
 @Throws(NullPointerException::class)
-inline fun <T> notNullCheck(value: T?, messageIfNull: () -> String): T =
+inline fun <T> notNullCheck(value : T?, messageIfNull : () -> String) : T =
     value ?: throw NullPointerException(messageIfNull())
 
 /**
@@ -62,7 +62,7 @@ inline fun <T> notNullCheck(value: T?, messageIfNull: () -> String): T =
  * @throws NoSuchElementException if the condition is not met.
  */
 @Throws(NoSuchElementException::class)
-inline fun elementExistsCheck(condition: Boolean, messageIfFail: () -> String)
+inline fun elementExistsCheck(condition : Boolean, messageIfFail : () -> String)
 {
     if (!condition)
     {
@@ -82,7 +82,7 @@ inline fun elementExistsCheck(condition: Boolean, messageIfFail: () -> String)
  * @throws AssertionError if the condition is not met.
  */
 @Throws(AssertionError::class)
-inline fun <R> assertion(condition: Boolean, message: String = "Assertion failed", action: () -> R): R
+inline fun <R> assertion(condition : Boolean, message : String = "Assertion failed", action : () -> R) : R
 {
     if (condition.not())
     {

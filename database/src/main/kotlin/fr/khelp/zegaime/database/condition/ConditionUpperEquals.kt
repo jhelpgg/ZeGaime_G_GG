@@ -11,7 +11,7 @@ import java.util.Calendar
  *
  * The column type must be `DataType.STRING`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_NAME UPPER_EQUALS "test"
  * ```
@@ -20,7 +20,7 @@ import java.util.Calendar
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.STRING`.
  */
-infix fun Column.UPPER_EQUALS(string: String): Condition
+infix fun Column.UPPER_EQUALS(string : String) : Condition
 {
     this.checkType(DataType.STRING)
     return Condition(arrayOf(this), "${this.name}>='$string'")
@@ -31,7 +31,7 @@ infix fun Column.UPPER_EQUALS(string: String): Condition
  *
  * The column type must be `DataType.BYTE`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_VALUE UPPER_EQUALS 1.toByte()
  * ```
@@ -40,7 +40,7 @@ infix fun Column.UPPER_EQUALS(string: String): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.BYTE`.
  */
-infix fun Column.UPPER_EQUALS(value: Byte): Condition
+infix fun Column.UPPER_EQUALS(value : Byte) : Condition
 {
     this.checkType(DataType.BYTE)
     return Condition(arrayOf(this), "${this.name}>=$value")
@@ -51,7 +51,7 @@ infix fun Column.UPPER_EQUALS(value: Byte): Condition
  *
  * The column type must be `DataType.SHORT`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_VALUE UPPER_EQUALS 1.toShort()
  * ```
@@ -60,7 +60,7 @@ infix fun Column.UPPER_EQUALS(value: Byte): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.SHORT`.
  */
-infix fun Column.UPPER_EQUALS(value: Short): Condition
+infix fun Column.UPPER_EQUALS(value : Short) : Condition
 {
     this.checkType(DataType.SHORT)
     return Condition(arrayOf(this), "${this.name}>=$value")
@@ -71,7 +71,7 @@ infix fun Column.UPPER_EQUALS(value: Short): Condition
  *
  * The column type must be `DataType.INTEGER`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_AGE UPPER_EQUALS 18
  * ```
@@ -80,7 +80,7 @@ infix fun Column.UPPER_EQUALS(value: Short): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.INTEGER`.
  */
-infix fun Column.UPPER_EQUALS(value: Int): Condition
+infix fun Column.UPPER_EQUALS(value : Int) : Condition
 {
     this.checkType(DataType.INTEGER)
     return Condition(arrayOf(this), "${this.name}>=$value")
@@ -91,7 +91,7 @@ infix fun Column.UPPER_EQUALS(value: Int): Condition
  *
  * The column type must be `DataType.LONG`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_TIMESTAMP UPPER_EQUALS 1234567890L
  * ```
@@ -100,7 +100,7 @@ infix fun Column.UPPER_EQUALS(value: Int): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.LONG`.
  */
-infix fun Column.UPPER_EQUALS(value: Long): Condition
+infix fun Column.UPPER_EQUALS(value : Long) : Condition
 {
     this.checkType(DataType.LONG)
     return Condition(arrayOf(this), "${this.name}>=$value")
@@ -111,7 +111,7 @@ infix fun Column.UPPER_EQUALS(value: Long): Condition
  *
  * The column type must be `DataType.FLOAT`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_PRICE UPPER_EQUALS 12.34f
  * ```
@@ -120,7 +120,7 @@ infix fun Column.UPPER_EQUALS(value: Long): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.FLOAT`.
  */
-infix fun Column.UPPER_EQUALS(value: Float): Condition
+infix fun Column.UPPER_EQUALS(value : Float) : Condition
 {
     this.checkType(DataType.FLOAT)
     return Condition(arrayOf(this), "${this.name}>=$value")
@@ -131,7 +131,7 @@ infix fun Column.UPPER_EQUALS(value: Float): Condition
  *
  * The column type must be `DataType.DOUBLE`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_PRICE UPPER_EQUALS 12.34
  * ```
@@ -140,7 +140,7 @@ infix fun Column.UPPER_EQUALS(value: Float): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.DOUBLE`.
  */
-infix fun Column.UPPER_EQUALS(value: Double): Condition
+infix fun Column.UPPER_EQUALS(value : Double) : Condition
 {
     this.checkType(DataType.DOUBLE)
     return Condition(arrayOf(this), "${this.name}>=$value")
@@ -151,7 +151,7 @@ infix fun Column.UPPER_EQUALS(value: Double): Condition
  *
  * The column type must be `DataType.CALENDAR`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_DATE UPPER_EQUALS Calendar.getInstance()
  * ```
@@ -160,7 +160,7 @@ infix fun Column.UPPER_EQUALS(value: Double): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.CALENDAR`.
  */
-infix fun Column.UPPER_EQUALS(value: Calendar): Condition
+infix fun Column.UPPER_EQUALS(value : Calendar) : Condition
 {
     this.checkType(DataType.CALENDAR)
     return Condition(arrayOf(this), "${this.name}>=${value.timeInMillis}")
@@ -171,7 +171,7 @@ infix fun Column.UPPER_EQUALS(value: Calendar): Condition
  *
  * The column type must be `DataType.DATE`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_DATE UPPER_EQUALS DataDate(2023, 1, 1)
  * ```
@@ -180,7 +180,7 @@ infix fun Column.UPPER_EQUALS(value: Calendar): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.DATE`.
  */
-infix fun Column.UPPER_EQUALS(value: DataDate): Condition
+infix fun Column.UPPER_EQUALS(value : DataDate) : Condition
 {
     this.checkType(DataType.DATE)
     return Condition(arrayOf(this), "${this.name}>=${value.serialized}")
@@ -191,7 +191,7 @@ infix fun Column.UPPER_EQUALS(value: DataDate): Condition
  *
  * The column type must be `DataType.TIME`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_TIME UPPER_EQUALS DataTime(12, 0, 0)
  * ```
@@ -200,7 +200,7 @@ infix fun Column.UPPER_EQUALS(value: DataDate): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.TIME`.
  */
-infix fun Column.UPPER_EQUALS(value: DataTime): Condition
+infix fun Column.UPPER_EQUALS(value : DataTime) : Condition
 {
     this.checkType(DataType.TIME)
     return Condition(arrayOf(this), "${this.name}>=${value.serialized}")

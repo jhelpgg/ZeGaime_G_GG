@@ -34,5 +34,5 @@ sealed interface Interpolation
      * @param percent The linear value to transform, between 0 and 1.
      * @return The transformed value.
      */
-    operator fun invoke(percent: Double): Double
+    operator fun invoke(percent : Double) : Double
 }

@@ -9,13 +9,14 @@ import fr.khelp.zegaime.images.gif.GifImage
  *
  * This texture is animated and can be played using the `AnimationManager`.
  *
- * **Creation example:**
+ * **Creation example**
  * ```kotlin
- * val gif = GIF.load("myGif.gif")
+ * val resources : Resources = ...
+ * val gif = resources.gif("myGif.gif")
  * val textureGif = TextureGif(gif)
  * ```
  *
- * **Standard usage:**
+ * **Standard usage**
  * ```kotlin
  * myMaterial.textureDiffuse = textureGif
  * AnimationManager.play(textureGif)
@@ -23,7 +24,7 @@ import fr.khelp.zegaime.images.gif.GifImage
  *
  * @constructor Creates a new GIF texture.
  */
-class TextureGif private constructor(private val gifImage: GifImage) : Texture(gifImage.image),
+class TextureGif private constructor(private val gifImage : GifImage) : Texture(gifImage.image),
                                                                         Animation
 {
     /**
@@ -31,7 +32,7 @@ class TextureGif private constructor(private val gifImage: GifImage) : Texture(g
      *
      * @param gif The GIF instance.
      */
-    constructor(gif: GIF) : this(GifImage(gif))
+    constructor(gif : GIF) : this(GifImage(gif))
 
     /**
      * Called when the animation is initialized.
@@ -51,6 +52,6 @@ class TextureGif private constructor(private val gifImage: GifImage) : Texture(g
      * @param millisecondsSinceStarted The number of milliseconds since the animation started.
      * @return `true` if the animation should continue, `false` otherwise.
      */
-    override fun animate(millisecondsSinceStarted: Long): Boolean =
+    override fun animate(millisecondsSinceStarted : Long) : Boolean =
         this.gifImage.update()
 }

@@ -1,6 +1,5 @@
 package fr.khelp.zegaime.engine3d.scene
 
-import fr.khelp.zegaime.engine3d.particles.ParticleManager
 import fr.khelp.zegaime.engine3d.render.BLACK
 import fr.khelp.zegaime.engine3d.render.Color4f
 import fr.khelp.zegaime.engine3d.render.Texture

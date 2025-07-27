@@ -16,9 +16,9 @@ import org.lwjgl.opengl.GL11
  * @property scaleZ The scale factor on the Z axis.
  * @constructor Creates a new node position.
  */
-data class NodePosition(val x: Float = 0f, val y: Float = 0f, val z: Float = 0f,
-                        val angleX: Float = 0f, val angleY: Float = 0f, val angleZ: Float = 0f,
-                        val scaleX: Float = 1f, val scaleY: Float = 1f, val scaleZ: Float = 1f)
+data class NodePosition(val x : Float = 0f, val y : Float = 0f, val z : Float = 0f,
+                        val angleX : Float = 0f, val angleY : Float = 0f, val angleZ : Float = 0f,
+                        val scaleX : Float = 1f, val scaleY : Float = 1f, val scaleZ : Float = 1f)
 {
     /**
      * Adds two node positions.
@@ -26,7 +26,7 @@ data class NodePosition(val x: Float = 0f, val y: Float = 0f, val z: Float = 0f,
      * @param nodePosition The other node position.
      * @return The sum of the two node positions.
      */
-    operator fun plus(nodePosition: NodePosition): NodePosition =
+    operator fun plus(nodePosition : NodePosition) : NodePosition =
         NodePosition(x = this.x + nodePosition.x,
                      y = this.y + nodePosition.y,
                      z = this.z + nodePosition.z,
@@ -45,7 +45,7 @@ data class NodePosition(val x: Float = 0f, val y: Float = 0f, val z: Float = 0f,
      * @param nodePosition The other node position.
      * @return The difference of the two node positions.
      */
-    operator fun minus(nodePosition: NodePosition): NodePosition =
+    operator fun minus(nodePosition : NodePosition) : NodePosition =
         NodePosition(x = this.x - nodePosition.x,
                      y = this.y - nodePosition.y,
                      z = this.z - nodePosition.z,
@@ -64,7 +64,7 @@ data class NodePosition(val x: Float = 0f, val y: Float = 0f, val z: Float = 0f,
      * @param times The factor.
      * @return The multiplied node position.
      */
-    operator fun times(times: Float): NodePosition =
+    operator fun times(times : Float) : NodePosition =
         NodePosition(times * this.x,
                      times * this.y,
                      times * this.z,
@@ -81,7 +81,7 @@ data class NodePosition(val x: Float = 0f, val y: Float = 0f, val z: Float = 0f,
      * @param number The factor.
      * @return The multiplied node position.
      */
-    operator fun times(number: Number): NodePosition =
+    operator fun times(number : Number) : NodePosition =
         this.times(number.toFloat())
 
     /**

@@ -34,7 +34,7 @@ internal class ApplicationBlock : BlockExtension()
      * @throws IOException If the stream contains invalid data for an application extension block.
      */
     @Throws(IOException::class)
-    override fun read(inputStream: InputStream)
+    override fun read(inputStream : InputStream)
     {
         val size = inputStream.read()
 

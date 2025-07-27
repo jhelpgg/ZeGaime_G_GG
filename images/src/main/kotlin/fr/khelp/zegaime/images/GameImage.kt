@@ -58,6 +58,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     {
         /** A dummy 1x1 image. */
         val DUMMY = GameImage(1, 1)
+
         /** A 32x32 image with a dark and light gray checkerboard pattern. */
         val DARK_LIGHT : GameImage by lazy {
             val gameImage = GameImage(32, 32)
@@ -69,6 +70,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
             }
             gameImage
         }
+
         /** A paint that uses the [DARK_LIGHT] image as a texture. */
         val DARK_LIGHT_PAINT : Paint by lazy {
             TexturePaint(GameImage.DARK_LIGHT.image,
@@ -80,7 +82,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         /**
          * Loads an image from an input stream.
          *
-         * **Usage example:**
+         * **Usage example**
          * ```kotlin
          * val image = GameImage.load(inputStream)
          * ```
@@ -94,7 +96,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
         /**
          * Loads a thumbnail of an image from an input stream.
          *
-         * **Usage example:**
+         * **Usage example**
          * ```kotlin
          * val thumbnail = GameImage.loadThumbnail(inputStream, 50, 50)
          * ```
@@ -143,7 +145,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Saves the image to an output stream in the specified format.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.save(outputStream, ImageFormat.PNG)
      * ```
@@ -158,7 +160,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
 
     /**
      * The underlying buffered image.
-     * 
+     *
      */
     internal val image : BufferedImage = BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
     private val refreshCount = AtomicInteger(0)
@@ -168,7 +170,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Clears the image with the given color.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.clear(Color.RED)
      * ```
@@ -187,7 +189,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Draws on the image using a [Graphics2D] context.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.draw { graphics ->
      *     graphics.color = Color.BLUE
@@ -236,7 +238,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Draws on the image using a [PercentGraphics] context.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.drawPercent { percentGraphics ->
      *     percentGraphics.color = Color.BLUE
@@ -254,7 +256,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Draws the image on a [Graphics] context at the specified coordinates.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.drawOn(graphics, 10, 10)
      * ```
@@ -271,7 +273,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Draws the image on a [Graphics] context at the specified coordinates and with the specified dimensions.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.drawOn(graphics, 10, 10, 50, 50)
      * ```
@@ -290,7 +292,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Draws a part of the image on a [Graphics] context.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.drawOnPart(graphics, 10, 10, 20, 20, 30, 30)
      * ```
@@ -337,7 +339,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Grabs the pixels of a part of the image.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val pixels = image.grabPixels(10, 10, 20, 20)
      * ```
@@ -369,7 +371,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Puts pixels on the image.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.putPixels(10, 10, 20, 20, pixels)
      * ```
@@ -401,7 +403,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Resizes the image.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val resizedImage = image.resize(50, 50)
      * ```
@@ -429,7 +431,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Creates a copy of the image.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val copy = image.copy()
      * ```
@@ -446,7 +448,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Copies the given image to this image.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.copy(otherImage)
      * ```
@@ -464,7 +466,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Converts the image to grayscale.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.gray()
      * ```
@@ -483,7 +485,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Tints the image with the given color.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.tint(Color.RED)
      * ```
@@ -507,7 +509,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Colorizes the image with the given color.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.colorize(Color.RED)
      * ```
@@ -531,7 +533,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Changes the contrast of the image.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.contrast(1.5)
      * ```
@@ -552,7 +554,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Rotates the image by 180 degrees.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val rotatedImage = image.rotate180()
      * ```
@@ -585,7 +587,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Rotates the image by 270 degrees.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val rotatedImage = image.rotate270()
      * ```
@@ -626,7 +628,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Rotates the image by 90 degrees.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val rotatedImage = image.rotate90()
      * ```
@@ -678,7 +680,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
      *
      * But it's done faster.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.flipBoth()
      * ```
@@ -707,7 +709,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Flips the image horizontally.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.flipHorizontal()
      * ```
@@ -744,7 +746,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Flips the image vertically.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.flipVertical()
      * ```
@@ -772,7 +774,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Converts the image to a [BufferedImage].
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val bufferedImage = image.toBufferedImage()
      * ```
@@ -790,7 +792,7 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
     /**
      * Clears a rectangle in the image with the given color.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image.clearRectangle(10, 10, 20, 20, Color.RED.argb)
      * ```

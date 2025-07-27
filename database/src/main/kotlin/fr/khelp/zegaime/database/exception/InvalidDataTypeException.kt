@@ -7,7 +7,7 @@ import fr.khelp.zegaime.database.type.DataType
  *
  * This exception is thrown when a method expects a certain data type, but another one is provided.
  *
- * **Creation example:**
+ * **Creation example**
  * ```kotlin
  * throw InvalidDataTypeException(DataType.STRING, DataType.INTEGER)
  * ```
@@ -16,5 +16,5 @@ import fr.khelp.zegaime.database.type.DataType
  * @param expectedType The expected data type.
  * @constructor Creates a new invalid data type exception.
  */
-class InvalidDataTypeException(invalidType: DataType, expectedType: DataType) :
+class InvalidDataTypeException(invalidType : DataType, expectedType : DataType) :
     Exception("This method require data type $expectedType but used with $invalidType")

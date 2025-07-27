@@ -32,7 +32,7 @@ internal object DataObjectManager
      * @param databaseObject The database object.
      * @return The table description.
      */
-    internal fun tableDescription(databaseObject: DatabaseObject): TableDescription
+    internal fun tableDescription(databaseObject : DatabaseObject) : TableDescription
     {
         val key = "${databaseObject.database.path}:${databaseObject::class.java.name}"
         val tableDescription = this.tables[key]
@@ -57,8 +57,8 @@ internal object DataObjectManager
      * @param classDatabaseObject The class of the database object.
      * @return The table description.
      */
-    internal fun tableDescription(database: Database,
-                                  classDatabaseObject: Class<out DatabaseObject>): TableDescription =
+    internal fun tableDescription(database : Database,
+                                  classDatabaseObject : Class<out DatabaseObject>) : TableDescription =
         this.createUpdateTableDescription(database, classDatabaseObject, "", "")
 
     /**
@@ -73,10 +73,10 @@ internal object DataObjectManager
      * @param foreignColumn The name of the foreign column.
      * @return The table description.
      */
-    private fun createUpdateTableDescription(database: Database,
-                                             classDatabaseObject: Class<out DatabaseObject>,
-                                             foreignTable: String,
-                                             foreignColumn: String): TableDescription
+    private fun createUpdateTableDescription(database : Database,
+                                             classDatabaseObject : Class<out DatabaseObject>,
+                                             foreignTable : String,
+                                             foreignColumn : String) : TableDescription
     {
         val key = "${database.path}:${classDatabaseObject.name}"
         var tableDescription = this.tables[key]
@@ -136,7 +136,7 @@ internal object DataObjectManager
             for (index in newIndex until newSize)
             {
                 val field = fields[index]
-                stateCheck(!field.type.isEnum && !DatabaseObject::class.java.isAssignableFrom(field.type)) {"Can't add automatically enum or DataObject : ${field.name}"}
+                stateCheck(!field.type.isEnum && !DatabaseObject::class.java.isAssignableFrom(field.type)) { "Can't add automatically enum or DataObject : ${field.name}" }
                 oldTable.appendColumn(field.name, field.type.toDataType())
             }
         }
@@ -182,33 +182,46 @@ internal object DataObjectManager
                 {
                     when (type)
                     {
-                        Boolean::class.java ->
+                        Boolean::class.java   ->
                             columnName AS DataType.BOOLEAN
-                        Byte::class.java ->
+
+                        Byte::class.java      ->
                             columnName AS DataType.BYTE
-                        Short::class.java ->
+
+                        Short::class.java     ->
                             columnName AS DataType.SHORT
-                        Int::class.java ->
+
+                        Int::class.java       ->
                             columnName AS DataType.INTEGER
-                        Long::class.java ->
+
+                        Long::class.java      ->
                             columnName AS DataType.LONG
-                        Float::class.java ->
+
+                        Float::class.java     ->
                             columnName AS DataType.FLOAT
-                        Double::class.java ->
+
+                        Double::class.java    ->
                             columnName AS DataType.DOUBLE
-                        String::class.java ->
+
+                        String::class.java    ->
                             columnName AS DataType.STRING
+
                         ByteArray::class.java ->
                             columnName AS DataType.BYTE_ARRAY
-                        IntArray::class.java ->
+
+                        IntArray::class.java  ->
                             columnName AS DataType.INT_ARRAY
-                        Calendar::class.java ->
+
+                        Calendar::class.java  ->
                             columnName AS DataType.CALENDAR
-                        DataTime::class.java ->
+
+                        DataTime::class.java  ->
                             columnName AS DataType.TIME
-                        DataDate::class.java ->
+
+                        DataDate::class.java  ->
                             columnName AS DataType.DATE
-                        else ->
+
+                        else                  ->
                             if (type.isEnum)
                             {
                                 columnName AS DataType.ENUM

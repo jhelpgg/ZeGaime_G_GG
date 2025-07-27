@@ -12,4 +12,4 @@ import fr.khelp.zegaime.database.Table
  * @property primaryKeys The names of the primary key columns.
  * @constructor Creates a new table description.
  */
-internal class TableDescription(val table: Table, val primaryKeys: Array<String>)
+internal class TableDescription(val table : Table, val primaryKeys : Array<String>)

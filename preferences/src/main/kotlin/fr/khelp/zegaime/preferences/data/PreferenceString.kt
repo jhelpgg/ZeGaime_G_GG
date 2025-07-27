@@ -18,12 +18,12 @@ import fr.khelp.zegaime.preferences.type.PreferenceTypeString
  *
  * @constructor Creates a new string preference. For internal use only.
  */
-class PreferenceString internal constructor(name: String, initialValue: String) :
+class PreferenceString internal constructor(name : String, initialValue : String) :
     Preference<String, PreferenceTypeString>(name, PreferenceTypeString, initialValue)
 {
     /**
      * Returns `true` if the new value is different from the current value.
      */
-    override fun allowUpdate(currentValue: String, newValue: String): Boolean =
+    override fun allowUpdate(currentValue : String, newValue : String) : Boolean =
         currentValue != newValue
 }

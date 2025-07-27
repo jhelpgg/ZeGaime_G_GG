@@ -1,9 +1,9 @@
 package fr.khelp.zegaime.security.des
 
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 class TripleDESTests
 {
@@ -24,7 +24,7 @@ class TripleDESTests
     }
 
     @Test
-    fun `valid`()
+    fun valid()
     {
         val tripleDES = TripleDES("my_login", "my_password")
         Assertions.assertTrue(tripleDES.valid("my_login", "my_password"))

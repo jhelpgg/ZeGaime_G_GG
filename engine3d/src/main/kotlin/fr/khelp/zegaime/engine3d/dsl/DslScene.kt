@@ -13,9 +13,9 @@ import fr.khelp.zegaime.engine3d.scene.prebuilt.complex.Sword
 import fr.khelp.zegaime.engine3d.scene.prebuilt.complex.robot.Robot
 
 /**
- * Fills the scene of the 3D window using the DSL.
+ * Fills the scene with the 3D window using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myWindow3D.scene {
  *     // ...
@@ -25,7 +25,7 @@ import fr.khelp.zegaime.engine3d.scene.prebuilt.complex.robot.Robot
  * @param sceneFill The lambda function to fill the scene.
  */
 @SceneDSL
-fun Window3D.scene(sceneFill: Scene.() -> Unit)
+fun Window3D.scene(sceneFill : Scene.() -> Unit)
 {
     this.scene.sceneFill()
 }
@@ -33,7 +33,7 @@ fun Window3D.scene(sceneFill: Scene.() -> Unit)
 /**
  * Adds a node to the scene using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myScene.node("myNode") {
  *     // ...
@@ -45,7 +45,7 @@ fun Window3D.scene(sceneFill: Scene.() -> Unit)
  * @return The created node.
  */
 @SceneDSL
-fun Scene.node(nodeId: String, nodeCreate: Node.() -> Unit): Node
+fun Scene.node(nodeId : String, nodeCreate : Node.() -> Unit) : Node
 {
     val node = Node(nodeId)
     node.nodeCreate()
@@ -56,7 +56,7 @@ fun Scene.node(nodeId: String, nodeCreate: Node.() -> Unit): Node
 /**
  * Adds a 3D object to the scene using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myScene.object3D("myObject") {
  *     // ...
@@ -68,7 +68,7 @@ fun Scene.node(nodeId: String, nodeCreate: Node.() -> Unit): Node
  * @return The created 3D object.
  */
 @SceneDSL
-fun Scene.object3D(objectId: String, objectCreate: Object3DCreator.() -> Unit): Object3D
+fun Scene.object3D(objectId : String, objectCreate : Object3DCreator.() -> Unit) : Object3D
 {
     val object3DCreator = Object3DCreator(objectId)
     object3DCreator.objectCreate()
@@ -80,7 +80,7 @@ fun Scene.object3D(objectId: String, objectCreate: Object3DCreator.() -> Unit): 
 /**
  * Adds a plane to the scene using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myScene.plane("myPlane") {
  *     // ...
@@ -92,7 +92,7 @@ fun Scene.object3D(objectId: String, objectCreate: Object3DCreator.() -> Unit): 
  * @return The created plane.
  */
 @SceneDSL
-fun Scene.plane(planeID: String, planeCreate: PlaneCreator.() -> Unit): Plane
+fun Scene.plane(planeID : String, planeCreate : PlaneCreator.() -> Unit) : Plane
 {
     val planeCreator = PlaneCreator(planeID)
     planeCreator.planeCreate()
@@ -104,7 +104,7 @@ fun Scene.plane(planeID: String, planeCreate: PlaneCreator.() -> Unit): Plane
 /**
  * Adds a box to the scene using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myScene.box("myBox") {
  *     // ...
@@ -116,7 +116,7 @@ fun Scene.plane(planeID: String, planeCreate: PlaneCreator.() -> Unit): Plane
  * @return The created box.
  */
 @SceneDSL
-fun Scene.box(boxID: String, create: BoxCreator.() -> Unit): Box
+fun Scene.box(boxID : String, create : BoxCreator.() -> Unit) : Box
 {
     val boxCreator = BoxCreator(boxID)
     boxCreator.create()
@@ -128,7 +128,7 @@ fun Scene.box(boxID: String, create: BoxCreator.() -> Unit): Box
 /**
  * Adds a sphere to the scene using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myScene.sphere("mySphere") {
  *     // ...
@@ -140,7 +140,7 @@ fun Scene.box(boxID: String, create: BoxCreator.() -> Unit): Box
  * @return The created sphere.
  */
 @SceneDSL
-fun Scene.sphere(sphereID: String, sphereCreate: SphereCreator.() -> Unit): Sphere
+fun Scene.sphere(sphereID : String, sphereCreate : SphereCreator.() -> Unit) : Sphere
 {
     val sphereCreator = SphereCreator(sphereID)
     sphereCreator.sphereCreate()
@@ -152,7 +152,7 @@ fun Scene.sphere(sphereID: String, sphereCreate: SphereCreator.() -> Unit): Sphe
 /**
  * Adds a revolution object to the scene using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myScene.revolution("myRevolution") {
  *     // ...
@@ -164,7 +164,7 @@ fun Scene.sphere(sphereID: String, sphereCreate: SphereCreator.() -> Unit): Sphe
  * @return The created revolution object.
  */
 @SceneDSL
-fun Scene.revolution(revolutionID: String, revolutionCreate: RevolutionCreator.() -> Unit): Revolution
+fun Scene.revolution(revolutionID : String, revolutionCreate : RevolutionCreator.() -> Unit) : Revolution
 {
     val revolutionCreator = RevolutionCreator(Revolution(revolutionID))
     revolutionCreator.revolutionCreate()
@@ -176,7 +176,7 @@ fun Scene.revolution(revolutionID: String, revolutionCreate: RevolutionCreator.(
 /**
  * Adds a dice to the scene using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myScene.dice("myDice") {
  *     // ...
@@ -188,7 +188,7 @@ fun Scene.revolution(revolutionID: String, revolutionCreate: RevolutionCreator.(
  * @return The created dice.
  */
 @SceneDSL
-fun Scene.dice(diceID: String, diceCreate: DiceCreator.() -> Unit): Dice
+fun Scene.dice(diceID : String, diceCreate : DiceCreator.() -> Unit) : Dice
 {
     val diceCreator = DiceCreator(diceID)
     diceCreator.diceCreate()
@@ -200,7 +200,7 @@ fun Scene.dice(diceID: String, diceCreate: DiceCreator.() -> Unit): Dice
 /**
  * Adds a sword to the scene using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myScene.sword("mySword") {
  *     // ...
@@ -212,7 +212,7 @@ fun Scene.dice(diceID: String, diceCreate: DiceCreator.() -> Unit): Dice
  * @return The created sword.
  */
 @SceneDSL
-fun Scene.sword(swordID: String, create: SwordCreator.() -> Unit): Sword
+fun Scene.sword(swordID : String, create : SwordCreator.() -> Unit) : Sword
 {
     val swordCreator = SwordCreator(swordID)
     swordCreator.create()
@@ -224,7 +224,7 @@ fun Scene.sword(swordID: String, create: SwordCreator.() -> Unit): Sword
 /**
  * Adds a robot to the scene using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myScene.robot("myRobot") {
  *     // ...
@@ -236,7 +236,7 @@ fun Scene.sword(swordID: String, create: SwordCreator.() -> Unit): Sword
  * @return The created robot.
  */
 @SceneDSL
-fun Scene.robot(robotID: String, create: RobotCreator.() -> Unit): Robot
+fun Scene.robot(robotID : String, create : RobotCreator.() -> Unit) : Robot
 {
     val robotCreator = RobotCreator(robotID)
     robotCreator.create()

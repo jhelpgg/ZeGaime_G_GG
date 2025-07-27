@@ -1,13 +1,12 @@
 package fr.khelp.zegaime.utils.tasks.observable
 
-import fr.khelp.zegaime.utils.tasks.TaskContext
 import fr.khelp.zegaime.utils.tasks.future.status.FutureSucceed
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 class ObservableTests
 {
@@ -34,7 +33,7 @@ class ObservableTests
     }
 
     @Test
-    fun `unregister`()
+    fun unregister()
     {
         val observableSource = ObservableSource(0)
         val observable = observableSource.observable
@@ -55,7 +54,7 @@ class ObservableTests
     }
 
     @Test
-    fun `then`()
+    fun then()
     {
         val observableSource = ObservableSource(0)
         val observable = observableSource.observable
@@ -63,7 +62,10 @@ class ObservableTests
         val latch = CountDownLatch(1)
 
         val future = observable.then { "Number: $it" }
-        val status =  Assertions.assertInstanceOf(FutureSucceed::class.java, future.waitForCompletion()) as FutureSucceed<Observable<String>>
+        @Suppress("UNCHECKED_CAST")
+        val status =
+            Assertions.assertInstanceOf(FutureSucceed::class.java,
+                                        future.waitForCompletion()) as FutureSucceed<Observable<String>>
         val childObservable = status.result
 
         childObservable.register {
@@ -81,7 +83,7 @@ class ObservableTests
     }
 
     @Test
-    fun `cancel`()
+    fun cancel()
     {
         val observableSource = ObservableSource(0)
         val observable = observableSource.observable
@@ -89,7 +91,10 @@ class ObservableTests
         val latch = CountDownLatch(1)
 
         val future = observable.then { it * 2 }
-        val status =  Assertions.assertInstanceOf(FutureSucceed::class.java, future.waitForCompletion()) as FutureSucceed<Observable<Int>>
+        @Suppress("UNCHECKED_CAST")
+        val status =
+            Assertions.assertInstanceOf(FutureSucceed::class.java,
+                                        future.waitForCompletion()) as FutureSucceed<Observable<Int>>
         val childObservable = status.result
 
         childObservable.register {

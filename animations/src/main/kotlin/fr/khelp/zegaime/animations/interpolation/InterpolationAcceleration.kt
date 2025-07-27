@@ -13,7 +13,7 @@ import kotlin.math.pow
  * A value greater than 1.0 means more acceleration.
  * @constructor Creates a new acceleration interpolation.
  */
-class InterpolationAcceleration(factor: Double = 2.0) : Interpolation
+class InterpolationAcceleration(factor : Double = 2.0) : Interpolation
 {
     /** The acceleration factor, ensured to be positive. */
     private val factor = 2.0 * max(EPSILON, factor)
@@ -26,5 +26,5 @@ class InterpolationAcceleration(factor: Double = 2.0) : Interpolation
      * @param percent The value to interpolate, between 0 and 1.
      * @return The interpolated value.
      */
-    override operator fun invoke(percent: Double) = percent.pow(this.factor)
+    override operator fun invoke(percent : Double) = percent.pow(this.factor)
 }

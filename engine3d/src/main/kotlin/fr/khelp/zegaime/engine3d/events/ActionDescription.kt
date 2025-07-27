@@ -10,6 +10,6 @@ package fr.khelp.zegaime.engine3d.events
  * @property keyCode The key code mapped to the action.
  * @constructor Creates a new action description.
  */
-internal class ActionDescription(val actionCode: ActionCode,
-                                 var joystickCode: JoystickCode = actionCode.defaultJoystickCode,
-                                 var keyCode: Int = actionCode.defaultKeyCode)
+internal class ActionDescription(val actionCode : ActionCode,
+                                 var joystickCode : JoystickCode = actionCode.defaultJoystickCode,
+                                 var keyCode : Int = actionCode.defaultKeyCode)

@@ -10,7 +10,7 @@ import kotlin.math.max
  */
 class ArrayInt(initialSize : Int = 128) : Iterable<Int>
 {
-    /**Array of ints*/
+    /**Array of int*/
     private var array = IntArray(max(128, initialSize))
 
     /**Array size*/
@@ -23,9 +23,9 @@ class ArrayInt(initialSize : Int = 128) : Iterable<Int>
     var sorted : SortedStatus = SortedStatus.SORTED
         private set
 
-    constructor(vararg integers:Int) : this(integers.size)
+    constructor(vararg integers : Int) : this(integers.size)
     {
-        for(integer in integers)
+        for (integer in integers)
         {
             this.add(integer)
         }
@@ -46,15 +46,13 @@ class ArrayInt(initialSize : Int = 128) : Iterable<Int>
     }
 
     /**
-     * Expand, if need, the capacity
-     *
-     * @param more Number of free space at least need
+     * Expand, if it needs, the capacity
      */
-    private fun expand(more : Int)
+    private fun expand()
     {
-        if (this.size + more >= this.array.size)
+        if (this.size + 1 >= this.array.size)
         {
-            var newSize = this.size + more
+            var newSize = this.size + 1
             newSize += newSize / 10 + 1
 
             val temp = IntArray(newSize)
@@ -71,7 +69,7 @@ class ArrayInt(initialSize : Int = 128) : Iterable<Int>
      */
     fun add(integer : Int)
     {
-        this.expand(1)
+        this.expand()
 
         this.sorted =
             when
@@ -90,7 +88,7 @@ class ArrayInt(initialSize : Int = 128) : Iterable<Int>
     /***
      * Add all elements of an array
      *
-     * @param toAdd
+     * @param arrayInt Array to add
      * Array to add its elements
      */
     fun addAll(arrayInt : ArrayInt) = arrayInt.forEach(this::add)
@@ -99,9 +97,9 @@ class ArrayInt(initialSize : Int = 128) : Iterable<Int>
     operator fun plusAssign(arrayInt : ArrayInt) = this.addAll(arrayInt)
 
     /**
-     * Enumeration/Iterator over ints
+     * Enumeration/Iterator over int
      */
-    fun iteratorInt() = EnumerationIteratorInt(Arrays.copyOf(this.array, this.size))
+    fun iteratorInt() = EnumerationIteratorInt(this.array.copyOf(this.size))
 
     /**
      * Clear the array
@@ -170,7 +168,7 @@ class ArrayInt(initialSize : Int = 128) : Iterable<Int>
     /**
      * Index of an integer or -1 if integer not in the array.
      *
-     * Search is in O(LN(n)) but work only if the array is sorted
+     * Search is in O(LN(n)) but works only if the array is sorted
      *
      * @param integer Integer search
      * @return Integer index or -1 if integer not in the array
@@ -234,7 +232,7 @@ class ArrayInt(initialSize : Int = 128) : Iterable<Int>
     }
 
     /**
-     * Obtain an integer from the array
+     * Gets an integer from the array
      *
      * @param index Integer index
      * @return Integer
@@ -254,15 +252,15 @@ class ArrayInt(initialSize : Int = 128) : Iterable<Int>
      */
     fun insert(integer : Int, index : Int)
     {
-        var index = index
-        this.expand(1)
+        var indexLocal = index
+        this.expand()
 
-        if (index < 0)
+        if (indexLocal < 0)
         {
-            index = 0
+            indexLocal = 0
         }
 
-        if (index >= this.size)
+        if (indexLocal >= this.size)
         {
             this.add(integer)
 
@@ -273,24 +271,24 @@ class ArrayInt(initialSize : Int = 128) : Iterable<Int>
             when
             {
                 this.sorted == SortedStatus.SORTED
-                && (index == 0 || integer >= this.array[index - 1]) && integer <= this.array[index] -> SortedStatus.SORTED
+                && (indexLocal == 0 || integer >= this.array[indexLocal - 1]) && integer <= this.array[indexLocal] -> SortedStatus.SORTED
 
                 this.sorted == SortedStatus.SORTED                                                  -> SortedStatus.NOT_SORTED
                 else                                                                                -> this.sorted
             }
 
-        System.arraycopy(this.array, index, this.array, index + 1, this.array.size - index - 1)
+        System.arraycopy(this.array, indexLocal, this.array, indexLocal + 1, this.array.size - indexLocal - 1)
 
-        this.array[index] = integer
+        this.array[indexLocal] = integer
         this.size++
     }
 
-    /**Indicates if array is empty*/
+    /**Indicates if the array is empty*/
     val empty
         get() = this.size == 0
 
     /**
-     * Indicates if array is sorted.
+     * Indicates if the array is sorted.
      *
      * If the sorted status is unknown, it takes the time to compute and update the sorted status
      */
@@ -388,7 +386,7 @@ class ArrayInt(initialSize : Int = 128) : Iterable<Int>
     /**
      * Sort array in unique mode.
      *
-     * That is to say if tow integer are equals, only one is keep.
+     * That is to say, if two integers are equals, only one is kept.
      *
      * For example, [2, 5, 9, 2, 6, 2, 5, 7, 1] -> [1, 2, 5, 6, 7, 9]
      */
@@ -418,7 +416,7 @@ class ArrayInt(initialSize : Int = 128) : Iterable<Int>
     }
 
     /**
-     * Convert in int array
+     * Convert in an int array
      *
      * @return Extracted array
      */

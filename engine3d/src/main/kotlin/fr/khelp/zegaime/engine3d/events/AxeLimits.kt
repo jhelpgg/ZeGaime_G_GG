@@ -8,10 +8,10 @@ package fr.khelp.zegaime.engine3d.events
  * @param initialValue The initial value of the axis.
  * @constructor Creates a new axe limits.
  */
-internal class AxeLimits(initialValue: Float)
+internal class AxeLimits(initialValue : Float)
 {
-    private val negativeDetection: Float
-    private val positiveDetection: Float
+    private val negativeDetection : Float
+    private val positiveDetection : Float
 
     init
     {
@@ -22,12 +22,14 @@ internal class AxeLimits(initialValue: Float)
                 this.negativeDetection = -2f
                 this.positiveDetection = 0.5f
             }
-            initialValue > 0.25f ->
+
+            initialValue > 0.25f  ->
             {
                 this.negativeDetection = -0.5f
                 this.positiveDetection = 2f
             }
-            else ->
+
+            else                  ->
             {
                 this.negativeDetection = -0.25f
                 this.positiveDetection = 0.25f
@@ -41,11 +43,11 @@ internal class AxeLimits(initialValue: Float)
      * @param value The value of the axis.
      * @return The way of the axis.
      */
-    fun way(value: Float): AxeWay =
+    fun way(value : Float) : AxeWay =
         when
         {
             value < this.negativeDetection -> AxeWay.NEGATIVE
             value > this.positiveDetection -> AxeWay.POSITIVE
-            else -> AxeWay.NEUTRAL
+            else                           -> AxeWay.NEUTRAL
         }
 }

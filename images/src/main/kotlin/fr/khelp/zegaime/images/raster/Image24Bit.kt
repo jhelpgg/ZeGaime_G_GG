@@ -3,7 +3,6 @@ package fr.khelp.zegaime.images.raster
 import fr.khelp.zegaime.images.GameImage
 import fr.khelp.zegaime.images.color.base.COLOR_BLACK
 import fr.khelp.zegaime.utils.argumentCheck
-import fr.khelp.zegaime.utils.extensions.shl
 import fr.khelp.zegaime.utils.extensions.toUnsignedInt
 import fr.khelp.zegaime.utils.io.readFully
 import java.io.IOException
@@ -27,7 +26,7 @@ import java.io.InputStream
  * @property height The height of the image.
  * @constructor Creates a new 24-bit image.
  */
-class Image24Bit(val width: Int, val height: Int) : RasterImage
+class Image24Bit(val width : Int, val height : Int) : RasterImage
 {
     /**Image data*/
     private val data = IntArray(this.width * this.height)
@@ -72,7 +71,7 @@ class Image24Bit(val width: Int, val height: Int) : RasterImage
      *
      * @return The converted image.
      */
-    override fun toGameImage(): GameImage
+    override fun toGameImage() : GameImage
     {
         val gameImage = GameImage(this.width, this.height)
         gameImage.putPixels(0, 0, this.width, this.height, this.data)
@@ -82,7 +81,7 @@ class Image24Bit(val width: Int, val height: Int) : RasterImage
     /**
      * Returns the color of the pixel at the given coordinates.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val color = image[10, 10]
      * ```
@@ -91,7 +90,7 @@ class Image24Bit(val width: Int, val height: Int) : RasterImage
      * @param y The y coordinate of the pixel.
      * @return The color of the pixel.
      */
-    operator fun get(x: Int, y: Int): Int
+    operator fun get(x : Int, y : Int) : Int
     {
         argumentCheck(x < 0 || x >= this.width || y < 0 || y >= this.height) { "x must be in [0, ${this.width}[ and y in [0, ${this.height}[ but specified point ($x, $y)" }
         return this.data[x + (y * this.width)]
@@ -104,13 +103,13 @@ class Image24Bit(val width: Int, val height: Int) : RasterImage
      * @throws IOException On reading issue.
      */
     @Throws(IOException::class)
-    fun parseBitmapStream(inputStream: InputStream)
+    fun parseBitmapStream(inputStream : InputStream)
     {
         this.clear()
         val buffer = ByteArray(4)
         var y = this.height - 1
-        var x: Int
-        var line: Int
+        var x : Int
+        var line : Int
         while (y >= 0)
         {
             line = y * this.width
@@ -133,7 +132,7 @@ class Image24Bit(val width: Int, val height: Int) : RasterImage
     /**
      * Sets the color of the pixel at the given coordinates.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * image[10, 10] = Color.RED.argb
      * ```
@@ -142,7 +141,7 @@ class Image24Bit(val width: Int, val height: Int) : RasterImage
      * @param y The y coordinate of the pixel.
      * @param color The new color of the pixel.
      */
-    operator fun set(x: Int, y: Int, color: Int)
+    operator fun set(x : Int, y : Int, color : Int)
     {
         argumentCheck(x < 0 || x >= this.width || y < 0 || y >= this.height) { "x must be in [0, ${this.width}[ and y in [0, ${this.height}[ but specified point ($x, $y)" }
         this.data[x + (y * this.width)] = color

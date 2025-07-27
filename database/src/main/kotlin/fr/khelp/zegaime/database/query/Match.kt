@@ -6,11 +6,11 @@ import fr.khelp.zegaime.database.Table
 /**
  * Represents a subquery for a `IN` condition.
  *
- * **Creation example:**
+ * **Creation example**
  * This class is not meant to be instantiated directly.
  * It is used in the `Column.IN` method.
  *
- * **Standard usage:**
+ * **Standard usage**
  * ```kotlin
  * val condition = COLUMN_ID IN {
  *     select(otherTable) {
@@ -27,12 +27,12 @@ class Match internal constructor()
     /**
      * The select query of the subquery.
      */
-    internal var select: Select? = null
+    internal var select : Select? = null
 
     /**
      * Specifies the select query for the subquery.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * select(otherTable) {
      *     +COLUMN_ID
@@ -44,7 +44,7 @@ class Match internal constructor()
      * @param selectCreator A lambda function to define the select query.
      */
     @SelectDSL
-    fun select(table: Table, selectCreator: Select.() -> Unit)
+    fun select(table : Table, selectCreator : Select.() -> Unit)
     {
         val select = Select(table)
         selectCreator(select)

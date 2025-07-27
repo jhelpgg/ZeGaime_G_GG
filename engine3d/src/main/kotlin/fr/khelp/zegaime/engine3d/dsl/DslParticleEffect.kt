@@ -10,7 +10,7 @@ import kotlin.math.max
 /**
  * Creates a particle effect using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val particleEffect = particleEffect {
  *     nodeInstant(100, 1.seconds) {
@@ -23,7 +23,7 @@ import kotlin.math.max
  * @return The created particle effect.
  */
 @ParticleDSL
-fun particleEffect(create: ParticleEffectCreator.() -> Unit): ParticleEffect
+fun particleEffect(create : ParticleEffectCreator.() -> Unit) : ParticleEffect
 {
     val particleEffectCreator = ParticleEffectCreator()
     particleEffectCreator.create()
@@ -52,9 +52,9 @@ class ParticleEffectCreator
      * @param fill The lambda function to configure the particle node.
      */
     @ParticleDSL
-    fun nodeInstant(numberParticle: Int,
-                    lifeTime: Time,
-                    fill: ParticleNode.() -> Unit)
+    fun nodeInstant(numberParticle : Int,
+                    lifeTime : Time,
+                    fill : ParticleNode.() -> Unit)
     {
         this.node(numberParticle, lifeTime, 0.milliseconds, 0.milliseconds, fill)
     }
@@ -68,10 +68,10 @@ class ParticleEffectCreator
      * @param fill The lambda function to configure the particle node.
      */
     @ParticleDSL
-    fun nodeInstant(numberParticle: Int,
-                    lifeTime: Time,
-                    instantEmission: Time,
-                    fill: ParticleNode.() -> Unit)
+    fun nodeInstant(numberParticle : Int,
+                    lifeTime : Time,
+                    instantEmission : Time,
+                    fill : ParticleNode.() -> Unit)
     {
         this.node(numberParticle, lifeTime, instantEmission, instantEmission, fill)
     }
@@ -85,10 +85,10 @@ class ParticleEffectCreator
      * @param fill The lambda function to configure the particle node.
      */
     @ParticleDSL
-    fun node(numberParticle: Int,
-             lifeTime: Time,
-             stopEmission: Time,
-             fill: ParticleNode.() -> Unit)
+    fun node(numberParticle : Int,
+             lifeTime : Time,
+             stopEmission : Time,
+             fill : ParticleNode.() -> Unit)
     {
         this.node(numberParticle, lifeTime, 0.milliseconds, stopEmission, fill)
     }
@@ -103,11 +103,11 @@ class ParticleEffectCreator
      * @param fill The lambda function to configure the particle node.
      */
     @ParticleDSL
-    fun node(numberParticle: Int,
-             lifeTime: Time,
-             startEmission: Time,
-             stopEmission: Time,
-             fill: ParticleNode.() -> Unit)
+    fun node(numberParticle : Int,
+             lifeTime : Time,
+             startEmission : Time,
+             stopEmission : Time,
+             fill : ParticleNode.() -> Unit)
     {
         val numberParticleLocal = max(1, numberParticle)
         val lifeTimeLocal = max(1.milliseconds, lifeTime)

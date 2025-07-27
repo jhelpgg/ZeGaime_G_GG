@@ -16,7 +16,6 @@ internal object NodeComparatorOrderZ : Comparator<Node>
      * @param node1 Node 1
      * @param node2 Node 2
      * @return Result
-     * @see Comparator.compare
      */
-    override fun compare(node1: Node, node2: Node) = sign(node2.zOrder - node1.zOrder)
+    override fun compare(node1 : Node, node2 : Node) = sign(node2.zOrder - node1.zOrder)
 }

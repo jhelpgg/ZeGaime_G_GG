@@ -10,7 +10,7 @@ import fr.khelp.zegaime.engine3d.utils.position
  *
  * This animation interpolates the position, rotation and scale of a node over time.
  *
- * **Creation example:**
+ * **Creation example**
  * ```kotlin
  * val animation = AnimationNodeKeyTime(myNode)
  * animation.addKeyTimeValue(0, NodePosition(x = 0f))
@@ -25,7 +25,7 @@ import fr.khelp.zegaime.engine3d.utils.position
  * @param node The node to animate.
  * @constructor Creates a new node key time animation.
  */
-class AnimationNodeKeyTime(node: Node) : AnimationKeyTime<Node, NodePosition>(node)
+class AnimationNodeKeyTime(node : Node) : AnimationKeyTime<Node, NodePosition>(node)
 {
     /**
      * Gets the current position of the node.
@@ -33,7 +33,7 @@ class AnimationNodeKeyTime(node: Node) : AnimationKeyTime<Node, NodePosition>(no
      * @param animated The node.
      * @return The current position of the node.
      */
-    override fun getValue(animated: Node): NodePosition =
+    override fun getValue(animated : Node) : NodePosition =
         animated.position
 
     /**
@@ -42,7 +42,7 @@ class AnimationNodeKeyTime(node: Node) : AnimationKeyTime<Node, NodePosition>(no
      * @param animated The node.
      * @param value The new position of the node.
      */
-    override fun setValue(animated: Node, value: NodePosition)
+    override fun setValue(animated : Node, value : NodePosition)
     {
         animated.position(value)
     }
@@ -56,9 +56,9 @@ class AnimationNodeKeyTime(node: Node) : AnimationKeyTime<Node, NodePosition>(no
      * @param afterValue The position of the next keyframe.
      * @param afterCoefficient The coefficient of the next keyframe.
      */
-    override fun interpolate(animated: Node,
-                             beforeValue: NodePosition, beforeCoefficient: Double,
-                             afterValue: NodePosition, afterCoefficient: Double)
+    override fun interpolate(animated : Node,
+                             beforeValue : NodePosition, beforeCoefficient : Double,
+                             afterValue : NodePosition, afterCoefficient : Double)
     {
         animated.position(NodePosition(x = (beforeValue.x * beforeCoefficient + afterValue.x * afterCoefficient).toFloat(),
                                        y = (beforeValue.y * beforeCoefficient + afterValue.y * afterCoefficient).toFloat(),

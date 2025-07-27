@@ -10,7 +10,7 @@ import org.hsqldb.lib.SecureFileUtil
  * Internal object for accessing the database.
  *
  * This object is responsible for creating the database connection and setting up the security.
- * 
+ *
  */
 internal object DatabaseAccess
 {

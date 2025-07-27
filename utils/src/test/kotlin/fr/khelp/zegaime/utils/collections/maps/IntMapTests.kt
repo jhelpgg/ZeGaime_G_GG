@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 
 class IntMapTests
 {
-    private lateinit var intMap: IntMap<String>
+    private lateinit var intMap : IntMap<String>
 
     @BeforeEach
     fun setup()
@@ -51,7 +51,7 @@ class IntMapTests
     }
 
     @Test
-    fun `iterator`()
+    fun iterator()
     {
         val list = intMap.toList()
         Assertions.assertEquals(3, list.size)
@@ -61,7 +61,7 @@ class IntMapTests
     }
 
     @Test
-    fun `keys`()
+    fun keys()
     {
         val keys = intMap.keys().toList()
         Assertions.assertEquals(3, keys.size)
@@ -71,7 +71,7 @@ class IntMapTests
     }
 
     @Test
-    fun `values`()
+    fun values()
     {
         val values = intMap.values().toList()
         Assertions.assertEquals(3, values.size)
@@ -81,7 +81,7 @@ class IntMapTests
     }
 
     @Test
-    fun `clear`()
+    fun clear()
     {
         intMap.clear()
         Assertions.assertTrue(intMap.empty)

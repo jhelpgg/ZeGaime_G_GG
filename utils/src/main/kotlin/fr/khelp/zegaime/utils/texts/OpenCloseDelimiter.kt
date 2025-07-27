@@ -7,4 +7,7 @@ package fr.khelp.zegaime.utils.texts
  * @param countOpenClose Indicates if have to count open/close characters
  * @param counter Internal counter
  */
-internal data class OpenCloseDelimiter(val open: Char, val close: Char, val countOpenClose: Boolean, var counter: Int = 0)
+internal data class OpenCloseDelimiter(val open : Char,
+                                       val close : Char,
+                                       val countOpenClose : Boolean,
+                                       var counter : Int = 0)

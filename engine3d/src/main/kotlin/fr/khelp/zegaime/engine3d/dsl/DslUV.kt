@@ -7,7 +7,7 @@ import fr.khelp.zegaime.engine3d.scene.prebuilt.FaceUV
 /**
  * Creates a face UV mapping using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val faceUV = faceUV {
  *     minU = 0.25f
@@ -19,7 +19,7 @@ import fr.khelp.zegaime.engine3d.scene.prebuilt.FaceUV
  * @return The created face UV mapping.
  */
 @UvDSL
-fun faceUV(create: FaceUVCreator.() -> Unit): FaceUV
+fun faceUV(create : FaceUVCreator.() -> Unit) : FaceUV
 {
     val faceUVCreator = FaceUVCreator()
     faceUVCreator.create()
@@ -37,20 +37,22 @@ class FaceUVCreator
     /**
      * The minimum U coordinate.
      */
-    var minU: Float = 0f
+    var minU : Float = 0f
+
     /**
      * The maximum U coordinate.
      */
-    var maxU: Float = 1f
+    var maxU : Float = 1f
 
     /**
      * The minimum V coordinate.
      */
-    var minV: Float = 0f
+    var minV : Float = 0f
+
     /**
      * The maximum V coordinate.
      */
-    var maxV: Float = 1f
+    var maxV : Float = 1f
 
     /**
      * Creates the face UV mapping.
@@ -59,14 +61,14 @@ class FaceUVCreator
      *
      * @return The created face UV mapping.
      */
-    operator fun invoke(): FaceUV =
+    operator fun invoke() : FaceUV =
         FaceUV(this.minU, this.maxU, this.minV, this.maxV)
 }
 
 /**
  * Creates a box UV mapping using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val boxUV = boxUV {
  *     face {
@@ -80,7 +82,7 @@ class FaceUVCreator
  * @return The created box UV mapping.
  */
 @UvDSL
-fun boxUV(create: BoxUVCreator.() -> Unit): BoxUV
+fun boxUV(create : BoxUVCreator.() -> Unit) : BoxUV
 {
     val boxUVCreator = BoxUVCreator()
     boxUVCreator.create()
@@ -107,7 +109,7 @@ class BoxUVCreator
      *
      * @param create The lambda function to create the UV mapping.
      */
-    fun face(create: FaceUVCreator.() -> Unit)
+    fun face(create : FaceUVCreator.() -> Unit)
     {
         this.faceCreator.create()
     }
@@ -117,7 +119,7 @@ class BoxUVCreator
      *
      * @param create The lambda function to create the UV mapping.
      */
-    fun back(create: FaceUVCreator.() -> Unit)
+    fun back(create : FaceUVCreator.() -> Unit)
     {
         this.backCreator.create()
     }
@@ -127,7 +129,7 @@ class BoxUVCreator
      *
      * @param create The lambda function to create the UV mapping.
      */
-    fun top(create: FaceUVCreator.() -> Unit)
+    fun top(create : FaceUVCreator.() -> Unit)
     {
         this.topCreator.create()
     }
@@ -137,7 +139,7 @@ class BoxUVCreator
      *
      * @param create The lambda function to create the UV mapping.
      */
-    fun bottom(create: FaceUVCreator.() -> Unit)
+    fun bottom(create : FaceUVCreator.() -> Unit)
     {
         this.bottomCreator.create()
     }
@@ -147,7 +149,7 @@ class BoxUVCreator
      *
      * @param create The lambda function to create the UV mapping.
      */
-    fun left(create: FaceUVCreator.() -> Unit)
+    fun left(create : FaceUVCreator.() -> Unit)
     {
         this.leftCreator.create()
     }
@@ -157,7 +159,7 @@ class BoxUVCreator
      *
      * @param create The lambda function to create the UV mapping.
      */
-    fun right(create: FaceUVCreator.() -> Unit)
+    fun right(create : FaceUVCreator.() -> Unit)
     {
         this.rightCreator.create()
     }
@@ -169,7 +171,7 @@ class BoxUVCreator
      *
      * @return The created box UV mapping.
      */
-    internal operator fun invoke(): BoxUV =
+    internal operator fun invoke() : BoxUV =
         BoxUV(face = this.faceCreator(), back = this.backCreator(),
               top = this.topCreator(), bottom = this.bottomCreator(),
               left = this.leftCreator(), right = this.rightCreator())
@@ -178,7 +180,7 @@ class BoxUVCreator
 /**
  * Creates a cross UV mapping using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val crossUV = crossUV {
  *     u1 = 0.4f
@@ -190,7 +192,7 @@ class BoxUVCreator
  * @return The created cross UV mapping.
  */
 @UvDSL
-fun crossUV(create: CrossUVCreator.() -> Unit): CrossUV
+fun crossUV(create : CrossUVCreator.() -> Unit) : CrossUV
 {
     val crossUVCreator = CrossUVCreator()
     crossUVCreator.create()
@@ -208,24 +210,27 @@ class CrossUVCreator
     /**
      * The first U coordinate.
      */
-    var u1: Float = 1f / 3f
+    var u1 : Float = 1f / 3f
+
     /**
      * The second U coordinate.
      */
-    var u2: Float = 2f / 3f
+    var u2 : Float = 2f / 3f
 
     /**
      * The first V coordinate.
      */
-    var v1: Float = 0.25f
+    var v1 : Float = 0.25f
+
     /**
      * The second V coordinate.
      */
-    var v2: Float = 0.5f
+    var v2 : Float = 0.5f
+
     /**
      * The third V coordinate.
      */
-    var v3: Float = 0.75f
+    var v3 : Float = 0.75f
 
     /**
      * Creates the cross UV mapping.
@@ -234,7 +239,7 @@ class CrossUVCreator
      *
      * @return The created cross UV mapping.
      */
-    internal operator fun invoke(): CrossUV =
+    internal operator fun invoke() : CrossUV =
         CrossUV(u1 = this.u1, u2 = this.u2,
                 v1 = this.v1, v2 = this.v2, v3 = this.v3)
 }

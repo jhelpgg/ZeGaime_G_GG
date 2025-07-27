@@ -22,7 +22,7 @@ import java.io.IOException
 import java.sql.Connection
 import java.util.concurrent.atomic.AtomicBoolean
 
-/**Table of meta data that stores the tables name*/
+/**Table of metadata that stores the tables name*/
 const val METADATA_TABLE_OF_TABLES = "TABLE_OF_TABLES"
 
 /**Table name column in [METADATA_TABLE_OF_TABLES]*/
@@ -52,7 +52,7 @@ const val METADATA_TABLE_OF_TABLES_COLUMNS_COLUMN_TABLE_ID = "tableID"
 const val ROW_NOT_EXISTS = -1
 
 /**
- * Returned by [Table.rowID] if condition match to more than one row match
+ * Returned by [Table.rowID] if condition matches to more than one row match
  */
 const val ROW_NOT_UNIQUE = -2
 
@@ -65,12 +65,12 @@ const val ROW_NOT_UNIQUE = -2
  * It is recommended to close the database properly with the [close] method when it is no longer needed,
  * at least before exiting the application.
  *
- * **Creation example:**
+ * **Creation example**
  * ```kotlin
  * val database = Database.database("login", "password", "path/to/database")
  * ```
  *
- * **Standard usage:**
+ * **Standard usage**
  * ```kotlin
  * val table = database.table("myTable") {
  *     "name" AS DataType.STRING
@@ -96,7 +96,7 @@ class Database private constructor(login : String, password : String, val path :
          * If a database is already opened for the given path, it will be returned.
          * Otherwise, a new database connection will be created.
          *
-         * **Usage example:**
+         * **Usage example**
          * ```kotlin
          * val database = Database.database("login", "password", "path/to/database")
          * ```
@@ -139,13 +139,13 @@ class Database private constructor(login : String, password : String, val path :
 
     /**
      * The table that contains all tables reference.
-     * 
+     *
      */
     val metadataTableOfTables : Table
 
     /**
      * The table of tables' columns.
-     * 
+     *
      */
     val metadataTableOfTablesColumn : Table
 
@@ -196,7 +196,7 @@ class Database private constructor(login : String, password : String, val path :
     /**
      * Checks if the given login and password are valid for this database.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * if (database.valid("login", "password")) {
      *     // ...
@@ -216,7 +216,7 @@ class Database private constructor(login : String, password : String, val path :
     /**
      * Commits the last changes and closes the database connection properly.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * database.close()
      * ```
@@ -233,7 +233,7 @@ class Database private constructor(login : String, password : String, val path :
     /**
      * Obtains a table by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val table = database.obtainTable("myTable")
      * ```
@@ -317,7 +317,7 @@ class Database private constructor(login : String, password : String, val path :
     /**
      * Removes a table from the database.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * database.dropTable("myTable")
      * ```
@@ -334,7 +334,7 @@ class Database private constructor(login : String, password : String, val path :
      *
      * See the documentation to know more about the table creation DSL syntax.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val table = database.table("myTable") {
      *     "name" AS DataType.STRING
@@ -358,7 +358,7 @@ class Database private constructor(login : String, password : String, val path :
     /**
      * Removes a table from the database.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * database.dropTable(myTable)
      * ```

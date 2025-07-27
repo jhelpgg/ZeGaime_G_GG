@@ -5,8 +5,8 @@ package fr.khelp.zegaime.engine3d.events
  * @param index Axes or button joystick index
  * @param joystickInputType Nature of joystick event : from an axis or a button ?
  */
-enum class JoystickCode constructor(val index: Int,
-                                    val joystickInputType: JoystickInputType)
+enum class JoystickCode constructor(val index : Int,
+                                    val joystickInputType : JoystickInputType)
 {
     /**
      * Joystick axis 1 positive press
@@ -174,7 +174,7 @@ enum class JoystickCode constructor(val index: Int,
          * @param positive Positive or negative press ?
          * @return Associated Joystick code **OR** [NONE] if none corresponds
          */
-        fun obtainAxis(index: Int, positive: Boolean) =
+        fun obtainAxis(index : Int, positive : Boolean) =
             if (positive) obtain(index, JoystickInputType.AXIS_POSITIVE)
             else obtain(index, JoystickInputType.AXIS_NEGATIVE)
 
@@ -184,7 +184,7 @@ enum class JoystickCode constructor(val index: Int,
          * @param index Button index
          * @return Associated Joystick code **OR** [NONE] if none corresponds
          */
-        fun obtainButton(index: Int) = obtain(index, JoystickInputType.BUTTON)
+        fun obtainButton(index : Int) = obtain(index, JoystickInputType.BUTTON)
 
         /**
          * Obtain Joystick code associate to given index and joystick input type
@@ -193,9 +193,8 @@ enum class JoystickCode constructor(val index: Int,
          * @param joystickInputType Joystick input type (Axis positive, axis negative or button)
          * @return Associated Joystick code **OR** [NONE] if none corresponds
          */
-        private fun obtain(index: Int, joystickInputType: JoystickInputType) =
-            JoystickCode.values()
-                .firstOrNull { it.index == index && it.joystickInputType == joystickInputType }
+        private fun obtain(index : Int, joystickInputType : JoystickInputType) =
+            entries.firstOrNull { it.index == index && it.joystickInputType == joystickInputType }
             ?: JoystickCode.NONE
     }
 

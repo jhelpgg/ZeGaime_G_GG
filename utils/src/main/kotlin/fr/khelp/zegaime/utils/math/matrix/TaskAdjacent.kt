@@ -7,7 +7,7 @@ package fr.khelp.zegaime.utils.math.matrix
  * @param index Adjacent computed cell index
  * @param x Adjacent cell X
  */
-internal class TaskAdjacent(val adjacent: DoubleArray,
-                            val sign: Double,
-                            val index: Int,
-                            val x: Int)
+internal class TaskAdjacent(val adjacent : DoubleArray,
+                            val sign : Double,
+                            val index : Int,
+                            val x : Int)

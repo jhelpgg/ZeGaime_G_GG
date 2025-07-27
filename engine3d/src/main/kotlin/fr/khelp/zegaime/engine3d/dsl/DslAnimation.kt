@@ -12,11 +12,11 @@ import fr.khelp.zegaime.engine3d.utils.NodePosition
 /**
  * Creates a node animation using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val animation = animationNode(myNode) {
- *     frame(0, NodePosition(x = 0f))
- *     frame(1000, NodePosition(x = 10f))
+ *     NodePosition(x = 0f).at(0L)
+ *     NodePosition(x = 10f).at(1000L, InterpolationSine)
  * }
  * ```
  *
@@ -25,7 +25,7 @@ import fr.khelp.zegaime.engine3d.utils.NodePosition
  * @return The created animation.
  */
 @AnimationDSL
-fun animationNode(node: Node, create: AnimationNodeCreator.() -> Unit): AnimationNodeKeyTime
+fun animationNode(node : Node, create : AnimationNodeCreator.() -> Unit) : AnimationNodeKeyTime
 {
     val animationNodeCreator = AnimationNodeCreator(node)
     animationNodeCreator.create()
@@ -35,11 +35,11 @@ fun animationNode(node: Node, create: AnimationNodeCreator.() -> Unit): Animatio
 /**
  * Creates a robot animation using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val animation = animationRobot(myRobot) {
- *     frame(0, RobotPosition(neckAngleX = 0f))
- *     frame(1000, RobotPosition(neckAngleX = 10f))
+ *     RobotPosition(neckAngleX = 0f).at(100L)
+ *     RobotPosition(neckAngleX = 10f).at(1000L)
  * }
  * ```
  *
@@ -48,7 +48,7 @@ fun animationNode(node: Node, create: AnimationNodeCreator.() -> Unit): Animatio
  * @return The created animation.
  */
 @AnimationDSL
-fun animationRobot(robot: Robot, create: AnimationRobotCreator.() -> Unit): AnimationRobotKeyTime
+fun animationRobot(robot : Robot, create : AnimationRobotCreator.() -> Unit) : AnimationRobotKeyTime
 {
     val animationNodeCreator = AnimationRobotCreator(robot)
     animationNodeCreator.create()
@@ -62,12 +62,12 @@ fun animationRobot(robot: Robot, create: AnimationRobotCreator.() -> Unit): Anim
  * @constructor Creates a new node animation creator.
  */
 @AnimationDSL
-class AnimationNodeCreator(node: Node) : DslAnimationKeyFrame<Node, NodePosition>(AnimationNodeKeyTime(node))
+class AnimationNodeCreator(node : Node) : DslAnimationKeyFrame<Node, NodePosition>(AnimationNodeKeyTime(node))
 {
     /**
      * The created animation.
      */
-    internal val animation: AnimationNodeKeyTime = this.animationKeyTime as AnimationNodeKeyTime
+    internal val animation : AnimationNodeKeyTime = this.animationKeyTime as AnimationNodeKeyTime
 }
 
 /**
@@ -77,10 +77,10 @@ class AnimationNodeCreator(node: Node) : DslAnimationKeyFrame<Node, NodePosition
  * @constructor Creates a new robot animation creator.
  */
 @AnimationDSL
-class AnimationRobotCreator(robot: Robot) : DslAnimationKeyFrame<Robot, RobotPosition>(AnimationRobotKeyTime(robot))
+class AnimationRobotCreator(robot : Robot) : DslAnimationKeyFrame<Robot, RobotPosition>(AnimationRobotKeyTime(robot))
 {
     /**
      * The created animation.
      */
-    internal val animation: AnimationRobotKeyTime = this.animationKeyTime as AnimationRobotKeyTime
+    internal val animation : AnimationRobotKeyTime = this.animationKeyTime as AnimationRobotKeyTime
 }

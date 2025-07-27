@@ -24,7 +24,7 @@ import java.io.OutputStream
  * @param login The login to use for encryption and decryption.
  * @param password The password to use for encryption and decryption.
  */
-class TripleDES(login: String, password: String)
+class TripleDES(login : String, password : String)
 {
     private val first = CrypterDES(login)
     private val second = CrypterDES("${login}_${password}")
@@ -38,7 +38,7 @@ class TripleDES(login: String, password: String)
      * @throws IOException On IO error.
      */
     @Throws(IOException::class)
-    fun encrypt(clearStream: InputStream, encryptedStream: OutputStream)
+    fun encrypt(clearStream : InputStream, encryptedStream : OutputStream)
     {
         var byteArrayOutputStream = ByteArrayOutputStream()
         this.first.encrypt(clearStream, byteArrayOutputStream)
@@ -57,7 +57,7 @@ class TripleDES(login: String, password: String)
      * @throws IOException On IO error.
      */
     @Throws(IOException::class)
-    fun decrypt(encryptedStream: InputStream, clearStream: OutputStream)
+    fun decrypt(encryptedStream : InputStream, clearStream : OutputStream)
     {
         var byteArrayOutputStream = ByteArrayOutputStream()
         this.third.decrypt(encryptedStream, byteArrayOutputStream)
@@ -75,7 +75,7 @@ class TripleDES(login: String, password: String)
      * @param password The password to check.
      * @return `true` if the login and password are valid, `false` otherwise.
      */
-    fun valid(login: String, password: String) =
+    fun valid(login : String, password : String) =
         this.first.passwordValid(login) && this.third.passwordValid(password)
 
     /**
@@ -86,6 +86,6 @@ class TripleDES(login: String, password: String)
      * @param other The other crypter.
      * @return `true` if the keys are the same, `false` otherwise.
      */
-    internal fun sameKeys(other: TripleDES) =
+    internal fun sameKeys(other : TripleDES) =
         this.first.sameKey(other.first) && this.second.sameKey(other.second) && this.third.sameKey(other.third)
 }

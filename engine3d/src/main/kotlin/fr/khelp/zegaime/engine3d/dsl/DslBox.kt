@@ -14,7 +14,7 @@ import fr.khelp.zegaime.engine3d.utils.position
  * @param fill The lambda function to create the UV mapping.
  */
 @PrebuiltDSL
-fun Box.boxUV(fill: BoxUVCreator.() -> Unit)
+fun Box.boxUV(fill : BoxUVCreator.() -> Unit)
 {
     val boxUVCreator = BoxUVCreator()
     boxUVCreator.fill()
@@ -27,7 +27,7 @@ fun Box.boxUV(fill: BoxUVCreator.() -> Unit)
  * @param fill The lambda function to create the UV mapping.
  */
 @PrebuiltDSL
-fun Box.crossUV(fill: CrossUVCreator.() -> Unit)
+fun Box.crossUV(fill : CrossUVCreator.() -> Unit)
 {
     val crossUVCreator = CrossUVCreator()
     crossUVCreator.fill()
@@ -37,12 +37,18 @@ fun Box.crossUV(fill: CrossUVCreator.() -> Unit)
 /**
  * Creates a box using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val box = box("myBox") {
  *     position = NodePosition(x = 1f)
  *     boxUV {
- *         top = Uv(0f, 0f, 1f, 1f)
+ *         top {
+ *              minU = 0.1f
+ *              maxU = 0.85f
+ *              minV = 0f
+ *              maxV = 2f // For repeat 2 times in V
+ *         }
+ *         // ...
  *     }
  * }
  * ```
@@ -52,7 +58,7 @@ fun Box.crossUV(fill: CrossUVCreator.() -> Unit)
  * @return The created box.
  */
 @PrebuiltDSL
-fun box(boxID: String, create: BoxCreator.() -> Unit): Box
+fun box(boxID : String, create : BoxCreator.() -> Unit) : Box
 {
     val boxCreator = BoxCreator(boxID)
     boxCreator.create()
@@ -66,24 +72,27 @@ fun box(boxID: String, create: BoxCreator.() -> Unit): Box
  * @constructor Creates a new box creator.
  */
 @PrebuiltDSL
-class BoxCreator(private val boxID: String)
+class BoxCreator(private val boxID : String)
 {
     /**
      * The position of the box.
      */
     var position = NodePosition()
+
     /**
      * The material of the box.
      */
-    var material: Material = Material()
+    var material : Material = Material()
+
     /**
      * The material of the box when it is selected.
      */
-    var materialForSelection: Material = Material()
+    var materialForSelection : Material = Material()
+
     /**
      * The color of the wireframe.
      */
-    var wireColor: Color4f = DEFAULT_WIRE_FRAME_COLOR
+    var wireColor : Color4f = DEFAULT_WIRE_FRAME_COLOR
     private var boxUV = BoxUV()
 
     /**
@@ -92,7 +101,7 @@ class BoxCreator(private val boxID: String)
      * @param create The lambda function to create the UV mapping.
      */
     @UvDSL
-    fun boxUV(create: BoxUVCreator.() -> Unit)
+    fun boxUV(create : BoxUVCreator.() -> Unit)
     {
         val boxUVCreator = BoxUVCreator()
         boxUVCreator.create()
@@ -105,7 +114,7 @@ class BoxCreator(private val boxID: String)
      * @param create The lambda function to create the UV mapping.
      */
     @UvDSL
-    fun crossUV(create: CrossUVCreator.() -> Unit)
+    fun crossUV(create : CrossUVCreator.() -> Unit)
     {
         val crossUVCreator = CrossUVCreator()
         crossUVCreator.create()
@@ -118,7 +127,7 @@ class BoxCreator(private val boxID: String)
      * @param create The lambda function to create the material.
      */
     @MaterialDSL
-    fun materialCreate(create: Material.() -> Unit)
+    fun materialCreate(create : Material.() -> Unit)
     {
         this.material = material(create)
     }
@@ -129,7 +138,7 @@ class BoxCreator(private val boxID: String)
      * @param create The lambda function to create the material.
      */
     @MaterialDSL
-    fun materialForSelectionCreate(create: Material.() -> Unit)
+    fun materialForSelectionCreate(create : Material.() -> Unit)
     {
         this.materialForSelection = material(create)
     }
@@ -141,7 +150,7 @@ class BoxCreator(private val boxID: String)
      *
      * @return The created box.
      */
-    internal operator fun invoke(): Box
+    internal operator fun invoke() : Box
     {
         val box = Box(this.boxID, this.boxUV)
         box.position(this.position)

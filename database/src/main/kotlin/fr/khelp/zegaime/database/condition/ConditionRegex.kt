@@ -15,7 +15,7 @@ import java.util.regex.Pattern
  *
  * The column type must be `DataType.STRING`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val pattern = Pattern.compile("test.*")
  * val condition = COLUMN_NAME.regex(table, pattern)
@@ -26,7 +26,7 @@ import java.util.regex.Pattern
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.STRING`.
  */
-fun Column.regex(table: Table, pattern: Pattern): Condition
+fun Column.regex(table : Table, pattern : Pattern) : Condition
 {
     table.checkColumn(this)
     this.checkType(DataType.STRING)
@@ -60,9 +60,9 @@ fun Column.regex(table: Table, pattern: Pattern): Condition
  *
  * The column type must be `DataType.STRING`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
- * val regex = RegularExpression("test.*")
+ * val regex = "test".regularExpression + ANY.zeroOrMore
  * val condition = COLUMN_NAME.regex(table, regex)
  * ```
  *
@@ -71,7 +71,7 @@ fun Column.regex(table: Table, pattern: Pattern): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.STRING`.
  */
-fun Column.regex(table: Table, regularExpression: RegularExpression): Condition
+fun Column.regex(table : Table, regularExpression : RegularExpression) : Condition
 {
     table.checkColumn(this)
     this.checkType(DataType.STRING)

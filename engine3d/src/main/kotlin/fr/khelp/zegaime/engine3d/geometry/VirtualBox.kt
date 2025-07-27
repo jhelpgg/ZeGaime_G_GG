@@ -89,7 +89,6 @@ class VirtualBox
             return false
         }
 
-
         val zMin = max(this.minZ, virtualBox.minZ)
         val zMax = min(this.maxZ, virtualBox.maxZ)
 

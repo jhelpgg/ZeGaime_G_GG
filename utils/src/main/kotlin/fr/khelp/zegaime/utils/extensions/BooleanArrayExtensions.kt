@@ -7,7 +7,7 @@ package fr.khelp.zegaime.utils.extensions
  * @param footer String after the content
  * @return The string representation
  */
-fun BooleanArray.string(header: String = "[", separator: String = ", ", footer: String = "]"): String
+fun BooleanArray.string(header : String = "[", separator : String = ", ", footer : String = "]") : String
 {
     val stringBuilder = StringBuilder()
     stringBuilder.append(header)
@@ -27,7 +27,7 @@ fun BooleanArray.string(header: String = "[", separator: String = ", ", footer: 
     return stringBuilder.toString()
 }
 
-fun BooleanArray.same(other: BooleanArray): Boolean
+fun BooleanArray.same(other : BooleanArray) : Boolean
 {
     val size = this.size
 

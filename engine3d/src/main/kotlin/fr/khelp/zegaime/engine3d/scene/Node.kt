@@ -62,7 +62,7 @@ import org.lwjgl.opengl.GL11
  * @property numberOfChild The number of children of the node.
  * @constructor Creates a new node.
  */
-open class Node(val id: String) : Iterable<Node>
+open class Node(val id : String) : Iterable<Node>
 {
     companion object
     {
@@ -98,7 +98,7 @@ open class Node(val id: String) : Iterable<Node>
     /**
      * The X position of the node.
      */
-    var x: Float = 0f
+    var x : Float = 0f
         set(value)
         {
             val oldValue = field
@@ -109,10 +109,11 @@ open class Node(val id: String) : Iterable<Node>
                 this.nodePositionObservableSource.value = this.position
             }
         }
+
     /**
      * The Y position of the node.
      */
-    var y: Float = 0f
+    var y : Float = 0f
         set(value)
         {
             val oldValue = field
@@ -123,10 +124,11 @@ open class Node(val id: String) : Iterable<Node>
                 this.nodePositionObservableSource.value = this.position
             }
         }
+
     /**
      * The Z position of the node.
      */
-    var z: Float = 0f
+    var z : Float = 0f
         set(value)
         {
             val oldValue = field
@@ -141,7 +143,7 @@ open class Node(val id: String) : Iterable<Node>
     /**
      * The rotation angle around the X axis.
      */
-    var angleX: Float = 0f
+    var angleX : Float = 0f
         set(value)
         {
             val oldValue = field
@@ -152,10 +154,11 @@ open class Node(val id: String) : Iterable<Node>
                 this.nodePositionObservableSource.value = this.position
             }
         }
+
     /**
      * The rotation angle around the Y axis.
      */
-    var angleY: Float = 0f
+    var angleY : Float = 0f
         set(value)
         {
             val oldValue = field
@@ -166,10 +169,11 @@ open class Node(val id: String) : Iterable<Node>
                 this.nodePositionObservableSource.value = this.position
             }
         }
+
     /**
      * The rotation angle around the Z axis.
      */
-    var angleZ: Float = 0f
+    var angleZ : Float = 0f
         set(value)
         {
             val oldValue = field
@@ -184,7 +188,7 @@ open class Node(val id: String) : Iterable<Node>
     /**
      * The scale factor on the X axis.
      */
-    var scaleX: Float = 1f
+    var scaleX : Float = 1f
         set(value)
         {
             val oldValue = field
@@ -195,10 +199,11 @@ open class Node(val id: String) : Iterable<Node>
                 this.nodePositionObservableSource.value = this.position
             }
         }
+
     /**
      * The scale factor on the Y axis.
      */
-    var scaleY: Float = 1f
+    var scaleY : Float = 1f
         set(value)
         {
             val oldValue = field
@@ -209,10 +214,11 @@ open class Node(val id: String) : Iterable<Node>
                 this.nodePositionObservableSource.value = this.position
             }
         }
+
     /**
      * The scale factor on the Z axis.
      */
-    var scaleZ: Float = 1f
+    var scaleZ : Float = 1f
         set(value)
         {
             val oldValue = field
@@ -225,35 +231,41 @@ open class Node(val id: String) : Iterable<Node>
         }
 
     private val nodePositionObservableSource = ObservableSource<NodePosition>(NodePosition())
+
     /**
      * An observable that emits the node position changes.
      */
-    val nodePositionObservable: Observable<NodePosition> = this.nodePositionObservableSource.observable
+    val nodePositionObservable : Observable<NodePosition> = this.nodePositionObservableSource.observable
 
     /**Parent node*/
-    var parent: Node? = null
+    var parent : Node? = null
         protected set
+
     /**
      * Indicates if the node is visible.
      */
-    var visible: Boolean = true
+    var visible : Boolean = true
+
     /**
      * Indicates if the node can be picked.
      */
-    var canBePick: Boolean = true
+    var canBePick : Boolean = true
+
     /**
      * The center of the node.
      */
-    open val center: Point3D get() = Point3D(this.x, this.y, this.z)
+    open val center : Point3D get() = Point3D(this.x, this.y, this.z)
+
     /**
      * The virtual box of the node.
      */
-    open val virtualBox: VirtualBox get() = VirtualBox()
+    open val virtualBox : VirtualBox get() = VirtualBox()
     private val children = ArrayList<Node>(8)
+
     /**
      * The root node of the scene graph.
      */
-    val root: Node by lazy {
+    val root : Node by lazy {
         var root = this
 
         while (root.parent != null)
@@ -265,24 +277,25 @@ open class Node(val id: String) : Iterable<Node>
     }
 
     /**Color picking ID*/
-    val colorPickingId: Int
+    val colorPickingId : Int
+
     /**
      * The number of children of the node.
      */
-    val numberOfChild: Int get() = synchronized(this.children) { this.children.size }
+    val numberOfChild : Int get() = synchronized(this.children) { this.children.size }
 
     /**Node Z order*/
     internal var zOrder = 0f
     internal var countInRender = false
 
     /**Red part of picking color*/
-    private val redPicking: Float
+    private val redPicking : Float
 
     /**Green part of picking color*/
-    private val greenPicking: Float
+    private val greenPicking : Float
 
     /**Blue part of picking color*/
-    private val bluePicking: Float
+    private val bluePicking : Float
 
     init
     {
@@ -297,7 +310,7 @@ open class Node(val id: String) : Iterable<Node>
      *
      * @param node The child node to add.
      */
-    fun addChild(node: Node)
+    fun addChild(node : Node)
     {
         node.parent?.removeChild(node)
         node.parent = this
@@ -313,7 +326,7 @@ open class Node(val id: String) : Iterable<Node>
      *
      * @param node The child node to remove.
      */
-    fun removeChild(node: Node)
+    fun removeChild(node : Node)
     {
         synchronized(this.children)
         {
@@ -346,7 +359,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param index The index of the child node.
      * @return The child node at the specified index.
      */
-    fun child(index: Int): Node =
+    fun child(index : Int) : Node =
         synchronized(this.children)
         {
             this.children[index]
@@ -357,7 +370,7 @@ open class Node(val id: String) : Iterable<Node>
      *
      * @return The total virtual box.
      */
-    fun totalBox(): VirtualBox
+    fun totalBox() : VirtualBox
     {
         val virtualBox = VirtualBox()
         val stack = Stack<Node>()
@@ -386,7 +399,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param box The virtual box to project.
      * @return The projected virtual box.
      */
-    fun projectionPure(box: VirtualBox): VirtualBox
+    fun projectionPure(box : VirtualBox) : VirtualBox
     {
         val virtualBox = VirtualBox()
         virtualBox.add(this.projectionPure(Point3D(box.minX, box.minY, box.minZ)))
@@ -406,7 +419,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param id The ID of the node to find.
      * @return The node with the given ID, or `null` if it is not found.
      */
-    fun <N : Node> findById(id: String): N?
+    fun <N : Node> findById(id : String) : N?
     {
         val queue = Queue<Node>()
         queue.inQueue(this)
@@ -439,14 +452,14 @@ open class Node(val id: String) : Iterable<Node>
      *
      * @return The cloned node.
      */
-    fun cloneHierarchy(): Node
+    fun cloneHierarchy() : Node
     {
         val clone =
             when (this)
             {
-                is Object3D -> ObjectClone("clone_${this.id}", this)
+                is Object3D    -> ObjectClone("clone_${this.id}", this)
                 is ObjectClone -> ObjectClone("clone_${this.id}", this.reference)
-                else -> Node("clone_${this.id}")
+                else           -> Node("clone_${this.id}")
             }
 
         clone.x = this.x
@@ -484,7 +497,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param material The material to apply.
      * @param materialForSelection The material to apply when the node is selected.
      */
-    fun applyMaterialHierarchically(material: Material, materialForSelection: Material = material)
+    fun applyMaterialHierarchically(material : Material, materialForSelection : Material = material)
     {
         val stack = Stack<Node>()
         stack.push(this)
@@ -512,7 +525,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param limit1 The first limit.
      * @param limit2 The second limit.
      */
-    fun limitX(limit1: Float, limit2: Float)
+    fun limitX(limit1 : Float, limit2 : Float)
     {
         this.limitMinX = min(limit1, limit2)
         this.limitMaxX = max(limit1, limit2)
@@ -525,7 +538,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param limit1 The first limit.
      * @param limit2 The second limit.
      */
-    fun limitY(limit1: Float, limit2: Float)
+    fun limitY(limit1 : Float, limit2 : Float)
     {
         this.limitMinY = min(limit1, limit2)
         this.limitMaxY = max(limit1, limit2)
@@ -538,7 +551,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param limit1 The first limit.
      * @param limit2 The second limit.
      */
-    fun limitZ(limit1: Float, limit2: Float)
+    fun limitZ(limit1 : Float, limit2 : Float)
     {
         this.limitMinZ = min(limit1, limit2)
         this.limitMaxZ = max(limit1, limit2)
@@ -551,7 +564,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param limit1 The first limit.
      * @param limit2 The second limit.
      */
-    fun limitAngleX(limit1: Float, limit2: Float)
+    fun limitAngleX(limit1 : Float, limit2 : Float)
     {
         this.limitMinAngleX = min(limit1, limit2)
         this.limitMaxAngleX = max(limit1, limit2)
@@ -564,7 +577,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param limit1 The first limit.
      * @param limit2 The second limit.
      */
-    fun limitAngleY(limit1: Float, limit2: Float)
+    fun limitAngleY(limit1 : Float, limit2 : Float)
     {
         this.limitMinAngleY = min(limit1, limit2)
         this.limitMaxAngleY = max(limit1, limit2)
@@ -577,7 +590,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param limit1 The first limit.
      * @param limit2 The second limit.
      */
-    fun limitAngleZ(limit1: Float, limit2: Float)
+    fun limitAngleZ(limit1 : Float, limit2 : Float)
     {
         this.limitMinAngleZ = min(limit1, limit2)
         this.limitMaxAngleZ = max(limit1, limit2)
@@ -590,7 +603,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param limit1 The first limit.
      * @param limit2 The second limit.
      */
-    fun limitScaleX(limit1: Float, limit2: Float)
+    fun limitScaleX(limit1 : Float, limit2 : Float)
     {
         this.limitMinScaleX = max(Node.MIN_SCALE, min(limit1, limit2))
         this.limitMaxScaleX = max(limit1, limit2)
@@ -603,7 +616,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param limit1 The first limit.
      * @param limit2 The second limit.
      */
-    fun limitScaleY(limit1: Float, limit2: Float)
+    fun limitScaleY(limit1 : Float, limit2 : Float)
     {
         this.limitMinScaleY = max(Node.MIN_SCALE, min(limit1, limit2))
         this.limitMaxScaleY = max(limit1, limit2)
@@ -616,7 +629,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param limit1 The first limit.
      * @param limit2 The second limit.
      */
-    fun limitScaleZ(limit1: Float, limit2: Float)
+    fun limitScaleZ(limit1 : Float, limit2 : Float)
     {
         this.limitMinScaleZ = max(Node.MIN_SCALE, min(limit1, limit2))
         this.limitMaxScaleZ = max(limit1, limit2)
@@ -710,7 +723,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param point3D Point to project
      * @return Projected point
      */
-    fun projection(point3D: Point3D): Point3D
+    fun projection(point3D : Point3D) : Point3D
     {
         var point = point3D
         val stack = Stack<Node>()
@@ -739,7 +752,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param point3D Point to project.
      * @return Projected point.
      */
-    fun projectionPure(point3D: Point3D): Point3D
+    fun projectionPure(point3D : Point3D) : Point3D
     {
         var point = point3D
         point = point.add(this.x, this.y, this.z)
@@ -759,7 +772,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param point3D Point to project
      * @return Projected point
      */
-    fun reverseProjection(point3D: Point3D): Point3D
+    fun reverseProjection(point3D : Point3D) : Point3D
     {
         var node = this
         var parent = this.parent
@@ -783,9 +796,9 @@ open class Node(val id: String) : Iterable<Node>
      * @param point3D Point to project.
      * @return Projected point.
      */
-    internal fun reverseProjectionWithRoot(point3D: Point3D): Point3D
+    internal fun reverseProjectionWithRoot(point3D : Point3D) : Point3D
     {
-        var node: Node? = this
+        var node : Node? = this
         var point = point3D
 
         while (node != null)
@@ -803,7 +816,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param virtualBox Virtual box to project.
      * @return Projected virtual box.
      */
-    fun reverseProjection(virtualBox: VirtualBox): VirtualBox
+    fun reverseProjection(virtualBox : VirtualBox) : VirtualBox
     {
         val box = VirtualBox()
         box.add(this.reverseProjection(Point3D(virtualBox.minX, virtualBox.minY, virtualBox.minZ)))
@@ -817,7 +830,7 @@ open class Node(val id: String) : Iterable<Node>
         return box
     }
 
-    private fun projectedBox(): VirtualBox
+    private fun projectedBox() : VirtualBox
     {
         val box = this.virtualBox
 
@@ -838,7 +851,7 @@ open class Node(val id: String) : Iterable<Node>
         return virtualBox
     }
 
-    private fun reverseProjectionPure(point3D: Point3D): Point3D
+    private fun reverseProjectionPure(point3D : Point3D) : Point3D
     {
         var vect = point3D.toVect3f()
         val rotZ = Rotf(Vec3f(0f, 0f, 1f), -this.angleZ.degreeToRadian)
@@ -853,7 +866,7 @@ open class Node(val id: String) : Iterable<Node>
     /**
      * Returns an iterator over the children of this node.
      */
-    override fun iterator(): Iterator<Node> =
+    override fun iterator() : Iterator<Node> =
         synchronized(this.children)
         {
             this.children.iterator()
@@ -881,7 +894,7 @@ open class Node(val id: String) : Iterable<Node>
     internal fun matrixRootToMe()
     {
         val stack = Stack<Node>()
-        var node: Node? = this
+        var node : Node? = this
 
         while (node != null)
         {
@@ -950,7 +963,7 @@ open class Node(val id: String) : Iterable<Node>
      * @param color Picking color.
      * @return Node pick.
      */
-    internal fun pickingNode(color: Color4f): Node?
+    internal fun pickingNode(color : Color4f) : Node?
     {
         val red = color.red
         val green = color.green
@@ -985,7 +998,7 @@ open class Node(val id: String) : Iterable<Node>
         return null
     }
 
-    private fun itIsMePick(pickRed: Float, pickGreen: Float, pickBlue: Float): Boolean =
+    private fun itIsMePick(pickRed : Float, pickGreen : Float, pickBlue : Float) : Boolean =
         pickSame(this.redPicking, this.greenPicking, this.bluePicking, pickRed, pickGreen, pickBlue)
 
     /**
@@ -993,6 +1006,6 @@ open class Node(val id: String) : Iterable<Node>
      *
      * @return A string representation of the node.
      */
-    override fun toString(): String =
+    override fun toString() : String =
         "${this.javaClass.name} : ${this.id} : ${this.hashCode()}"
 }

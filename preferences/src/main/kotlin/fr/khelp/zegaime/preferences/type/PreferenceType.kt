@@ -17,7 +17,7 @@ sealed interface PreferenceType<T : Any>
      * @param value The value to serialize.
      * @return The serialized version.
      */
-    fun serialize(value: T): String
+    fun serialize(value : T) : String
 
     /**
      * Parses a string serialized by [serialize] to retrieve the original value.
@@ -27,5 +27,5 @@ sealed interface PreferenceType<T : Any>
      * @throws IllegalArgumentException If the serialized value cannot be parsed.
      */
     @Throws(IllegalArgumentException::class)
-    fun parse(serialized: String): T
+    fun parse(serialized : String) : T
 }

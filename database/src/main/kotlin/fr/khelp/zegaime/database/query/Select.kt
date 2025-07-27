@@ -11,7 +11,7 @@ import fr.khelp.zegaime.database.condition.Condition
  *
  * If no columns are selected, it selects all columns in the table in their declaration order.
  *
- * **Creation example:**
+ * **Creation example**
  * This class is not meant to be instantiated directly.
  * Use the `Table.select` method.
  *
@@ -29,20 +29,23 @@ import fr.khelp.zegaime.database.condition.Condition
  * @property numberColumns The number of columns in the selection.
  * @constructor Creates a new select query. For internal use only.
  */
-class Select internal constructor(val table: Table) : Iterable<Column>
+class Select internal constructor(val table : Table) : Iterable<Column>
 {
     /**
      * The list of columns to select.
      */
     private val columns = ArrayList<Column>()
+
     /**
      * The condition of the select query.
      */
-    private var condition: Condition? = null
+    private var condition : Condition? = null
+
     /**
      * The column to order the result by.
      */
-    private var columnOrder: Column? = null
+    private var columnOrder : Column? = null
+
     /**
      * Indicates if the order is ascendant or descendant.
      */
@@ -68,7 +71,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
      * @param index The index of the column.
      * @return The column at the given index.
      */
-    operator fun get(index: Int) =
+    operator fun get(index : Int) =
         if (this.columns.isEmpty())
         {
             this.table[index]
@@ -81,7 +84,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
     /**
      * Returns an iterator over the selected columns.
      */
-    override fun iterator(): Iterator<Column> =
+    override fun iterator() : Iterator<Column> =
         if (this.columns.isEmpty())
         {
             this.table.iterator()
@@ -97,7 +100,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
      * @param name The name of the column.
      * @return The column with the given name, or `null` if it does not exist in the selection.
      */
-    fun column(name: String): Column? =
+    fun column(name : String) : Column? =
         if (this.columns.isEmpty())
         {
             this.table.obtainColumn(name)
@@ -113,7 +116,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
      * @param column The column.
      * @return The 0-based index of the column, or -1 if it is not in the selection.
      */
-    fun columnIndex(column: Column): Int =
+    fun columnIndex(column : Column) : Int =
         if (this.columns.isEmpty())
         {
             this.table.indexOf(column)
@@ -129,7 +132,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
      * @param name The name of the column.
      * @return The 0-based index of the column, or -1 if it is not in the selection.
      */
-    fun columnIndex(name: String): Int
+    fun columnIndex(name : String) : Int
     {
         val column = column(name) ?: return -1
         return columnIndex(column)
@@ -138,7 +141,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
     /**
      * Selects a column to be present in the result.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * +COLUMN_NAME
      * ```
@@ -152,7 +155,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
     /**
      * Selects a column to be present in the result.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * +"name"
      * ```
@@ -172,7 +175,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
     /**
      * Specifies the condition that the selected rows must match.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * where { condition = COLUMN_AGE GREATER_THAN 18 }
      * ```
@@ -180,7 +183,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
      * @param whereCreator A lambda function to define the where clause.
      */
     @WhereDSL
-    fun where(whereCreator: Where.() -> Unit)
+    fun where(whereCreator : Where.() -> Unit)
     {
         val where = Where(this.table)
         whereCreator(where)
@@ -192,7 +195,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
     /**
      * If specified, it will sort the result on the given column in ascending order.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * ascendant(COLUMN_AGE)
      * ```
@@ -200,7 +203,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
      * @param column The column to sort by.
      */
     @SelectDSL
-    fun ascendant(column: Column)
+    fun ascendant(column : Column)
     {
         this.table.checkColumn(column)
         this.columnOrder = column
@@ -210,7 +213,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
     /**
      * If specified, it will sort the result on the given column in ascending order.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * ascendant("age")
      * ```
@@ -218,7 +221,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
      * @param columnName The name of the column to sort by.
      */
     @SelectDSL
-    fun ascendant(columnName: String)
+    fun ascendant(columnName : String)
     {
         this.ascendant(this.table.getColumn(columnName))
     }
@@ -226,7 +229,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
     /**
      * If specified, it will sort the result on the given column in descending order.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * descendant(COLUMN_AGE)
      * ```
@@ -234,7 +237,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
      * @param column The column to sort by.
      */
     @SelectDSL
-    fun descendant(column: Column)
+    fun descendant(column : Column)
     {
         this.table.checkColumn(column)
         this.columnOrder = column
@@ -244,7 +247,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
     /**
      * If specified, it will sort the result on the given column in descending order.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * descendant("age")
      * ```
@@ -252,7 +255,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
      * @param columnName The name of the column to sort by.
      */
     @SelectDSL
-    fun descendant(columnName: String)
+    fun descendant(columnName : String)
     {
         this.descendant(this.table.getColumn(columnName))
     }
@@ -264,7 +267,7 @@ class Select internal constructor(val table: Table) : Iterable<Column>
      *
      * @return The SQL representation of the select query.
      */
-    internal fun selectSQL(): String
+    internal fun selectSQL() : String
     {
         val query = StringBuilder()
         query.append("SELECT ")

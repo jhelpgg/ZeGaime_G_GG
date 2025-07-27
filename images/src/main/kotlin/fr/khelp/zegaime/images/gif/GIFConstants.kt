@@ -44,7 +44,7 @@ const val BLOCK_IMAGE_DESCRIPTOR = 0x2C
 /**
  * Default image duration in milliseconds.
  */
-const val DEFAULT_TIME: Long = 100
+const val DEFAULT_TIME : Long = 100
 
 /**
  * Do not dispose. The graphic is to be left in place.

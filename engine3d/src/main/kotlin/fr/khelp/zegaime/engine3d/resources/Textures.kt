@@ -10,28 +10,33 @@ import fr.khelp.zegaime.images.GameImage
  * @property path The path to the texture.
  * @constructor Creates a new texture resource.
  */
-enum class Textures(private val path: String)
+enum class Textures(private val path : String)
 {
     /**
      * Body costume texture.
      */
     BODY_COSTUME("textures/BodyCostume.png"),
+
     /**
      * Dice texture.
      */
     DICE("textures/Dice.png"),
+
     /**
      * Hair texture.
      */
     HAIR("textures/hair.png"),
+
     /**
      * Emerald texture.
      */
     EMERALD("textures/emerald.png"),
+
     /**
      * Rock texture.
      */
     ROCK("textures/TextureRock.png"),
+
     /**
      * Tile texture.
      */
@@ -42,10 +47,10 @@ enum class Textures(private val path: String)
     /**
      * The game image of the texture.
      */
-    val image: GameImage get() = Resources3D.resources.image(this.path)
+    val image : GameImage get() = Resources3D.resources.image(this.path)
 
     /**
      * The texture instance.
      */
-    val texture: Texture get() = Resources3D.resources.texture(this.path)
+    val texture : Texture get() = Resources3D.resources.texture(this.path)
 }

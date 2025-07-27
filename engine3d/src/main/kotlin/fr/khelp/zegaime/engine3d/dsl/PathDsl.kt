@@ -5,7 +5,7 @@ import fr.khelp.zegaime.engine3d.geometry.path.Path
 /**
  * Creates a path using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val path = path {
  *     moveTo(0f, 0f)
@@ -19,7 +19,7 @@ import fr.khelp.zegaime.engine3d.geometry.path.Path
  * @param pathFiller The lambda function to create the path.
  * @return The created path.
  */
-fun path(pathFiller: Path.() -> Unit): Path
+fun path(pathFiller : Path.() -> Unit) : Path
 {
     val path = Path()
     path.pathFiller()

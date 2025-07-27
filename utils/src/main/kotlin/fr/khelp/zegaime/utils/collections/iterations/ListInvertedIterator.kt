@@ -27,7 +27,7 @@ class ListInvertedIterator<T>(private val list : List<T>) : Iterator<T>
         }
 
         val value = this.list[this.index]
-        this.index --
+        this.index--
         return value
     }
 }

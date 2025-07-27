@@ -12,28 +12,28 @@ import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
  * To create a float animation, you can use the DSL:
  *
  * ```kotlin
- * val animation = keyFrame<Float> {
- *      frame(0, 1f)
- *      frame(100, 5f)
- *      frame(250, 2f)
- *      frame(500, 8f)
- * }
+ * val animation = animationFloat(0f) {
+ *        1f.at(0L)
+ *        5f.at(100L, InterpolationSine)
+ *        2f.at(200L)
+ *        8f.at(500L, InterpolationHesitate)
+ *   }
  * ```
  *
  * Or create an instance of [AnimationFloat] and add frames to it:
  *
  * ```kotlin
  * val animation = AnimationFloat()
- * animation.frame(0, 1f)
- * animation.frame(100, 5f)
- * animation.frame(250, 2f)
- * animation.frame(500, 8f)
+ * animation.addKeyTimeValue(0L, 1f)
+ * animation.addKeyTimeValue(100L, 5f, InterpolationSine)
+ * animation.addKeyTimeValue(250L, 2f)
+ * animation.addKeyTimeValue(500L, 8f, InterpolationHesitate)
  * ```
  *
  * To observe the value changes:
  *
  * ```kotlin
- * animation.value.observedBy { float ->
+ * animation.value.register { float ->
  *      println("Value changed: $float")
  * }
  * ```
@@ -41,11 +41,11 @@ import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
  * @property initialValue Initial value of the animation.
  * @constructor Create a new animation of [Float].
  */
-class AnimationFloat(private val initialValue: Float = 0f) :
+class AnimationFloat(private val initialValue : Float = 0f) :
     AnimationKeyTime<ObservableSource<Float>, Float>(ObservableSource(initialValue))
 {
     /** Observable value of the animation */
-    val value: Observable<Float> = this.animated.observable
+    val value : Observable<Float> = this.animated.observable
 
     /**
      * Called at animation initialization.
@@ -64,7 +64,7 @@ class AnimationFloat(private val initialValue: Float = 0f) :
      * @param animated The animated object.
      * @return The current value.
      */
-    override fun getValue(animated: ObservableSource<Float>): Float = animated.value
+    override fun getValue(animated : ObservableSource<Float>) : Float = animated.value
 
     /**
      * Set the current value of the animation.
@@ -72,7 +72,7 @@ class AnimationFloat(private val initialValue: Float = 0f) :
      * @param animated The animated object.
      * @param value The new value.
      */
-    override fun setValue(animated: ObservableSource<Float>, value: Float)
+    override fun setValue(animated : ObservableSource<Float>, value : Float)
     {
         animated.value = value
     }
@@ -86,11 +86,11 @@ class AnimationFloat(private val initialValue: Float = 0f) :
      * @param afterValue The value of the next frame.
      * @param afterCoefficient The coefficient of the next frame.
      */
-    override fun interpolate(animated: ObservableSource<Float>,
-                             beforeValue: Float,
-                             beforeCoefficient: Double,
-                             afterValue: Float,
-                             afterCoefficient: Double)
+    override fun interpolate(animated : ObservableSource<Float>,
+                             beforeValue : Float,
+                             beforeCoefficient : Double,
+                             afterValue : Float,
+                             afterCoefficient : Double)
     {
         animated.value = (beforeValue * beforeCoefficient + afterValue * afterCoefficient).toFloat()
     }

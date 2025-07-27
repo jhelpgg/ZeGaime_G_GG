@@ -13,7 +13,7 @@ data object PreferenceTypeLong : PreferenceType<Long>
      * @param value The long value to serialize.
      * @return The serialized string.
      */
-    override fun serialize(value: Long): String =
+    override fun serialize(value : Long) : String =
         value.toString()
 
     /**
@@ -24,6 +24,6 @@ data object PreferenceTypeLong : PreferenceType<Long>
      * @throws IllegalArgumentException If the string cannot be parsed to a long.
      */
     @Throws(IllegalArgumentException::class)
-    override fun parse(serialized: String): Long =
+    override fun parse(serialized : String) : Long =
         serialized.long()
 }

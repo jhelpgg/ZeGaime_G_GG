@@ -10,7 +10,7 @@ import fr.khelp.zegaime.utils.argumentCheck
  *
  * This is equivalent to the `IN` operator in SQL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_ID IN {
  *     select(otherTable, listOf(COLUMN_ID)) {
@@ -26,7 +26,7 @@ import fr.khelp.zegaime.utils.argumentCheck
  * @throws IllegalArgumentException if the column's data type is not compatible with the subquery's result type.
  */
 @MatchDSL
-infix fun Column.IN(matchCreator: Match.() -> Unit): Condition
+infix fun Column.IN(matchCreator : Match.() -> Unit) : Condition
 {
     val match = Match()
     matchCreator(match)

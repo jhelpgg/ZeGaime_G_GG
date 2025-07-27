@@ -26,41 +26,49 @@ internal class PlainTextBlock : BlockExtension()
      */
     var backgroundIndex = 0
         private set
+
     /**
      * Cell height
      */
     var cellHeight = 0
         private set
+
     /**
      * Cell width
      */
     var cellWidth = 0
         private set
+
     /**
      * Foreground color index
      */
     var foregroundIndex = 0
         private set
+
     /**
      * Grid height
      */
     var gridHeight = 0
         private set
+
     /**
      * Grid width
      */
     var gridWidth = 0
         private set
+
     /**
      * Grid X
      */
     var gridX = 0
         private set
+
     /**
      * Grid Y
      */
     var gridY = 0
         private set
+
     /**
      * Text to print
      */
@@ -74,7 +82,7 @@ internal class PlainTextBlock : BlockExtension()
      * @throws IOException If the data is not a valid plain text extension block.
      */
     @Throws(IOException::class)
-    override fun read(inputStream: InputStream)
+    override fun read(inputStream : InputStream)
     {
         val size = inputStream.read()
 

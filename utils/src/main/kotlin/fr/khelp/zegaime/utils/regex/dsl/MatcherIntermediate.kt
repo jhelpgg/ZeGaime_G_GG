@@ -6,7 +6,7 @@ package fr.khelp.zegaime.utils.regex.dsl
  * @see fr.khelp.zegaime.utils.regex.ResultMatcher.forEachMatch
  */
 @IntermediateDSL
-class MatcherIntermediate internal constructor(val intermediate: String)
+class MatcherIntermediate internal constructor(val intermediate : String)
 {
     /** The replacement for the intermediate part */
     internal val toAppend = StringBuilder()

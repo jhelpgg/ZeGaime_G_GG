@@ -9,9 +9,9 @@ import fr.khelp.zegaime.engine3d.utils.NodePosition
 import fr.khelp.zegaime.engine3d.utils.position
 
 /**
- * Fills the mesh of the 3D object using the DSL.
+ * Fills the mesh with the 3D object using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * myObject3D.mesh {
  *     // ...
@@ -21,7 +21,7 @@ import fr.khelp.zegaime.engine3d.utils.position
  * @param meshFiller The lambda function to fill the mesh.
  */
 @MeshDSL
-fun Object3D.mesh(meshFiller: Mesh.() -> Unit)
+fun Object3D.mesh(meshFiller : Mesh.() -> Unit)
 {
     this.mesh.meshFiller()
     this.refresh()
@@ -30,7 +30,7 @@ fun Object3D.mesh(meshFiller: Mesh.() -> Unit)
 /**
  * Creates a 3D object using the DSL.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val object3D = object3D("myObject") {
  *     position = NodePosition(x = 1f)
@@ -45,7 +45,7 @@ fun Object3D.mesh(meshFiller: Mesh.() -> Unit)
  * @return The created 3D object.
  */
 @PrebuiltDSL
-fun object3D(objectID: String, create: Object3DCreator.() -> Unit): Object3D
+fun object3D(objectID : String, create : Object3DCreator.() -> Unit) : Object3D
 {
     val object3DCreator = Object3DCreator(objectID)
     object3DCreator.create()
@@ -55,11 +55,11 @@ fun object3D(objectID: String, create: Object3DCreator.() -> Unit): Object3D
 /**
  * DSL creator for 3D objects.
  *
- * @property objectID The ID of the 3D object.
+ * @param objectID The ID of the 3D object.
  * @constructor Creates a new 3D object creator.
  */
 @PrebuiltDSL
-class Object3DCreator(objectID: String)
+class Object3DCreator(objectID : String)
 {
     /**
      * The created 3D object.
@@ -69,7 +69,7 @@ class Object3DCreator(objectID: String)
     /**
      * The position of the 3D object.
      */
-    var position: NodePosition
+    var position : NodePosition
         get() = this.object3D.position
         set(value)
         {
@@ -79,7 +79,7 @@ class Object3DCreator(objectID: String)
     /**
      * The material of the 3D object.
      */
-    var material: Material
+    var material : Material
         get() = this.object3D.material
         set(value)
         {
@@ -89,7 +89,7 @@ class Object3DCreator(objectID: String)
     /**
      * The material of the 3D object when it is selected.
      */
-    var materialForSelection: Material
+    var materialForSelection : Material
         get() = this.object3D.materialForSelection
         set(value)
         {
@@ -99,7 +99,7 @@ class Object3DCreator(objectID: String)
     /**
      * The color of the wireframe.
      */
-    var wireColor: Color4f
+    var wireColor : Color4f
         get() = this.object3D.wireColor
         set(value)
         {
@@ -109,7 +109,7 @@ class Object3DCreator(objectID: String)
     /**
      * The two-sided rule for the 3D object.
      */
-    var twoSidedRule: TwoSidedRule
+    var twoSidedRule : TwoSidedRule
         get() = this.object3D.twoSidedRule
         set(value)
         {
@@ -122,7 +122,7 @@ class Object3DCreator(objectID: String)
      * @param create The lambda function to create the material.
      */
     @MaterialDSL
-    fun materialCreate(create: Material.() -> Unit)
+    fun materialCreate(create : Material.() -> Unit)
     {
         this.material = material(create)
     }
@@ -133,18 +133,18 @@ class Object3DCreator(objectID: String)
      * @param create The lambda function to create the material.
      */
     @MaterialDSL
-    fun materialForSelectionCreate(create: Material.() -> Unit)
+    fun materialForSelectionCreate(create : Material.() -> Unit)
     {
         this.materialForSelection = material(create)
     }
 
     /**
-     * Fills the mesh of the 3D object.
+     * Fills the mesh with the 3D object.
      *
      * @param meshFiller The lambda function to fill the mesh.
      */
     @MeshDSL
-    fun mesh(meshFiller: Mesh.() -> Unit)
+    fun mesh(meshFiller : Mesh.() -> Unit)
     {
         this.object3D.mesh(meshFiller)
     }

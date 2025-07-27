@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  *
  * It is a singleton that manages all animations of the application.
  *
- * To play an animation, just call the [play] method.
+ * To play an animation, call the [play] method.
  *
  * For example:
  *
@@ -40,7 +40,7 @@ object AnimationManager
      *
      * @param animation Animation to play.
      */
-    fun play(animation: Animation)
+    fun play(animation : Animation)
     {
         synchronized(this.animations)
         {
@@ -66,7 +66,7 @@ object AnimationManager
      *
      * @param animation Animation to stop.
      */
-    fun stop(animation: Animation)
+    fun stop(animation : Animation)
     {
         synchronized(this.animations)
         {

@@ -10,7 +10,7 @@ import kotlin.math.max
  * @param maxWidths The maximum widths of the columns.
  * @return The string representation of the row.
  */
-private fun rowString(row: Array<String>, maxWidths: IntArray): String
+private fun rowString(row : Array<String>, maxWidths : IntArray) : String
 {
     val stringBuilder = StringBuilder()
     stringBuilder.append("|")
@@ -35,7 +35,7 @@ private fun rowString(row: Array<String>, maxWidths: IntArray): String
  * The result is printed from its current line to the end.
  * The result is consumed at the end of this method.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val result = table.select { ... }
  * printDataRowResult(result, System.out)
@@ -44,7 +44,7 @@ private fun rowString(row: Array<String>, maxWidths: IntArray): String
  * @param dataRowResult The row result to print.
  * @param printStream The print stream to use.
  */
-fun printDataRowResult(dataRowResult: DataRowResult, printStream: PrintStream)
+fun printDataRowResult(dataRowResult : DataRowResult, printStream : PrintStream)
 {
     // Collect data and compute cells' width
     val numberColumn = dataRowResult.numberOfColumns

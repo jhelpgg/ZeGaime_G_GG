@@ -22,23 +22,30 @@ import org.lwjgl.glfw.GLFW
  * ```kotlin
  * val actionManager = window3D.actionManager
  * actionManager.actionCodes.observedBy { actionCodes ->
- *     for (actionCode in actionCodes) {
- *         // ...
+ *     if(ActionCode.ACTION_UP in actionCodes) {
+ *          // Do up action
  *     }
+
+ *     if(ActionCode.ACTION_DOWN in actionCodes) {
+ *          // Do down action
+ *     }
+ *
+ *     // ...
  * }
  * ```
  *
  * @property actionCodes A flow that emits the currently active action codes.
  * @constructor Creates a new action manager. For internal use only.
  */
-class ActionManager internal constructor(keyboardManager: KeyboardManager, joystickManager: JoystickManager)
+class ActionManager internal constructor(keyboardManager : KeyboardManager, joystickManager : JoystickManager)
 {
     private val currentActionCodes = TreeSet<ActionCode>()
     private val actionCodesSource = FlowSource<Array<ActionCode>>()
+
     /**
      * A flow that emits the currently active action codes.
      */
-    val actionCodes: Flow<Array<ActionCode>> = this.actionCodesSource.flow
+    val actionCodes : Flow<Array<ActionCode>> = this.actionCodesSource.flow
 
     private val actionAssociations = ArrayList<ActionDescription>()
 
@@ -59,7 +66,7 @@ class ActionManager internal constructor(keyboardManager: KeyboardManager, joyst
      * @param joystickCode The joystick code to associate with the action.
      * @return The old joystick code associated with the action.
      */
-    fun associate(actionCode: ActionCode, joystickCode: JoystickCode): JoystickCode
+    fun associate(actionCode : ActionCode, joystickCode : JoystickCode) : JoystickCode
     {
         synchronized(this.actionAssociations)
         {
@@ -90,7 +97,7 @@ class ActionManager internal constructor(keyboardManager: KeyboardManager, joyst
      * @param keyCode The key code to associate with the action.
      * @return The old key code associated with the action.
      */
-    fun associate(actionCode: ActionCode, keyCode: Int): Int
+    fun associate(actionCode : ActionCode, keyCode : Int) : Int
     {
         synchronized(this.actionAssociations)
         {
@@ -120,7 +127,7 @@ class ActionManager internal constructor(keyboardManager: KeyboardManager, joyst
      * @param actionCode The action code.
      * @return The joystick code associated with the action.
      */
-    fun joystickAssociation(actionCode: ActionCode): JoystickCode
+    fun joystickAssociation(actionCode : ActionCode) : JoystickCode
     {
         synchronized(this.actionAssociations)
         {
@@ -142,7 +149,7 @@ class ActionManager internal constructor(keyboardManager: KeyboardManager, joyst
      * @param actionCode The action code.
      * @return The key code associated with the action.
      */
-    fun keyAssociation(actionCode: ActionCode): Int
+    fun keyAssociation(actionCode : ActionCode) : Int
     {
         synchronized(this.actionAssociations)
         {
@@ -171,7 +178,7 @@ class ActionManager internal constructor(keyboardManager: KeyboardManager, joyst
         }
     }
 
-    private fun keyAndJoystick(keys: IntArray, joystickCodes: List<JoystickCode>)
+    private fun keyAndJoystick(keys : IntArray, joystickCodes : List<JoystickCode>)
     {
         synchronized(this.actionAssociations)
         {

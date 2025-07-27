@@ -13,8 +13,10 @@ class RegularExpressionGroup internal constructor(internal val regularExpression
 {
     /** Indicates if it is the first time the group is used in string representation */
     internal var firstUse : Boolean = true
+
     /** Group ID */
     internal var groupID : Int = -1
+
     /** Parent regular expression that contains this group */
     internal var parent : RegularExpression? = null
         private set

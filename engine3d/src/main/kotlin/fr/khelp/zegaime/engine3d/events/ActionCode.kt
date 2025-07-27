@@ -11,9 +11,9 @@ import org.lwjgl.glfw.GLFW
  * @param defaultKeyCode The default key code for this action.
  * @param defaultJoystickCode The default joystick code for this action.
  */
-enum class ActionCode constructor(val preferenceKey: String,
-                                  val defaultKeyCode: Int,
-                                  val defaultJoystickCode: JoystickCode)
+enum class ActionCode constructor(val preferenceKey : String,
+                                  val defaultKeyCode : Int,
+                                  val defaultJoystickCode : JoystickCode)
 {
     /**
      * Go up : By default map to arrow up key and joystick vertical axis negative values

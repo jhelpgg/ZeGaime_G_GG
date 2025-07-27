@@ -16,14 +16,14 @@ private const val YEAR_SHIFT = MONTH_SHIFT + 4
  *
  * This class is immutable.
  *
- * **Creation example:**
+ * **Creation example**
  * ```kotlin
  * val date = DataDate(2023, 1, 1)
  * val today = DataDate()
  * val fromCalendar = DataDate(Calendar.getInstance())
  * ```
  *
- * **Standard usage:**
+ * **Standard usag:**
  * ```kotlin
  * val date = DataDate(2023, 1, 1)
  * println(date.year)
@@ -37,26 +37,29 @@ private const val YEAR_SHIFT = MONTH_SHIFT + 4
  * @property day The day of the month.
  * @constructor Creates a new date.
  */
-class DataDate(year: Int, month: Int, day: Int) : Comparable<DataDate>
+class DataDate(year : Int, month : Int, day : Int) : Comparable<DataDate>
 {
     /**
      * The year.
      */
-    val year: Int
+    val year : Int
+
     /**
      * The month (1-12).
      */
-    val month: Int
+    val month : Int
+
     /**
      * The day of the month.
      */
-    val day: Int
+    val day : Int
+
     /**
      * The serialized representation of the date.
      *
      * For internal use only.
      */
-    internal val serialized: Int
+    internal val serialized : Int
 
     init
     {
@@ -77,7 +80,7 @@ class DataDate(year: Int, month: Int, day: Int) : Comparable<DataDate>
      *
      * @param calendar The calendar instance.
      */
-    constructor(calendar: Calendar = Calendar.getInstance()) : this(calendar.year, calendar.month + 1, calendar.day)
+    constructor(calendar : Calendar = Calendar.getInstance()) : this(calendar.year, calendar.month + 1, calendar.day)
 
     /**
      * Creates a new date from a serialized representation.
@@ -86,7 +89,7 @@ class DataDate(year: Int, month: Int, day: Int) : Comparable<DataDate>
      *
      * @param serialized The serialized representation.
      */
-    internal constructor(serialized: Int) :
+    internal constructor(serialized : Int) :
             this((serialized and YEAR_MASK) shr YEAR_SHIFT,
                  (serialized and MONTH_MASK) shr MONTH_SHIFT,
                  serialized and DAY_MASK)
@@ -97,7 +100,7 @@ class DataDate(year: Int, month: Int, day: Int) : Comparable<DataDate>
      * @param other The other date to compare with.
      * @return A negative integer, zero, or a positive integer as this date is less than, equal to, or greater than the specified date.
      */
-    override operator fun compareTo(other: DataDate): Int =
+    override operator fun compareTo(other : DataDate) : Int =
         this.serialized - other.serialized
 
     /**
@@ -106,7 +109,7 @@ class DataDate(year: Int, month: Int, day: Int) : Comparable<DataDate>
      * @param other The reference object with which to compare.
      * @return `true` if this object is the same as the obj argument; `false` otherwise.
      */
-    override fun equals(other: Any?): Boolean
+    override fun equals(other : Any?) : Boolean
     {
         if (this === other)
         {
@@ -126,7 +129,7 @@ class DataDate(year: Int, month: Int, day: Int) : Comparable<DataDate>
      *
      * @return A hash code value for this object.
      */
-    override fun hashCode(): Int =
+    override fun hashCode() : Int =
         this.serialized
 
     /**
@@ -136,6 +139,6 @@ class DataDate(year: Int, month: Int, day: Int) : Comparable<DataDate>
      *
      * @return A string representation of the date.
      */
-    override fun toString(): String =
+    override fun toString() : String =
         String.format("%04d/%02d/%02d", this.year, this.month, this.day)
 }

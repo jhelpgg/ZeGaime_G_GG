@@ -13,7 +13,7 @@ import java.util.Calendar
  *
  * The column type must be `DataType.ID`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_ID NOT_EQUALS_ID 1
  * ```
@@ -22,7 +22,7 @@ import java.util.Calendar
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.ID`.
  */
-infix fun Column.NOT_EQUALS_ID(id: Int): Condition
+infix fun Column.NOT_EQUALS_ID(id : Int) : Condition
 {
     this.checkType(DataType.ID)
     return Condition(arrayOf(this), "${this.name}!=$id")
@@ -33,7 +33,7 @@ infix fun Column.NOT_EQUALS_ID(id: Int): Condition
  *
  * The column type must be `DataType.STRING`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_NAME NOT_EQUALS "test"
  * ```
@@ -42,7 +42,7 @@ infix fun Column.NOT_EQUALS_ID(id: Int): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.STRING`.
  */
-infix fun Column.NOT_EQUALS(string: String): Condition
+infix fun Column.NOT_EQUALS(string : String) : Condition
 {
     this.checkType(DataType.STRING)
     return Condition(arrayOf(this), "${this.name}!='$string'")
@@ -53,7 +53,7 @@ infix fun Column.NOT_EQUALS(string: String): Condition
  *
  * The column type must be `DataType.BOOLEAN`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_ACTIVE NOT_EQUALS true
  * ```
@@ -62,7 +62,7 @@ infix fun Column.NOT_EQUALS(string: String): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.BOOLEAN`.
  */
-infix fun Column.NOT_EQUALS(value: Boolean): Condition
+infix fun Column.NOT_EQUALS(value : Boolean) : Condition
 {
     this.checkType(DataType.BOOLEAN)
     return if (value)
@@ -80,7 +80,7 @@ infix fun Column.NOT_EQUALS(value: Boolean): Condition
  *
  * The column type must be `DataType.BYTE`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_VALUE NOT_EQUALS 1.toByte()
  * ```
@@ -89,7 +89,7 @@ infix fun Column.NOT_EQUALS(value: Boolean): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.BYTE`.
  */
-infix fun Column.NOT_EQUALS(value: Byte): Condition
+infix fun Column.NOT_EQUALS(value : Byte) : Condition
 {
     this.checkType(DataType.BYTE)
     return Condition(arrayOf(this), "${this.name}!=$value")
@@ -100,7 +100,7 @@ infix fun Column.NOT_EQUALS(value: Byte): Condition
  *
  * The column type must be `DataType.SHORT`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_VALUE NOT_EQUALS 1.toShort()
  * ```
@@ -109,7 +109,7 @@ infix fun Column.NOT_EQUALS(value: Byte): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.SHORT`.
  */
-infix fun Column.NOT_EQUALS(value: Short): Condition
+infix fun Column.NOT_EQUALS(value : Short) : Condition
 {
     this.checkType(DataType.SHORT)
     return Condition(arrayOf(this), "${this.name}!=$value")
@@ -120,7 +120,7 @@ infix fun Column.NOT_EQUALS(value: Short): Condition
  *
  * The column type must be `DataType.INTEGER`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_AGE NOT_EQUALS 18
  * ```
@@ -129,7 +129,7 @@ infix fun Column.NOT_EQUALS(value: Short): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.INTEGER`.
  */
-infix fun Column.NOT_EQUALS(value: Int): Condition
+infix fun Column.NOT_EQUALS(value : Int) : Condition
 {
     this.checkType(DataType.INTEGER)
     return Condition(arrayOf(this), "${this.name}!=$value")
@@ -140,7 +140,7 @@ infix fun Column.NOT_EQUALS(value: Int): Condition
  *
  * The column type must be `DataType.LONG`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_TIMESTAMP NOT_EQUALS 1234567890L
  * ```
@@ -149,7 +149,7 @@ infix fun Column.NOT_EQUALS(value: Int): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.LONG`.
  */
-infix fun Column.NOT_EQUALS(value: Long): Condition
+infix fun Column.NOT_EQUALS(value : Long) : Condition
 {
     this.checkType(DataType.LONG)
     return Condition(arrayOf(this), "${this.name}!=$value")
@@ -160,7 +160,7 @@ infix fun Column.NOT_EQUALS(value: Long): Condition
  *
  * The column type must be `DataType.FLOAT`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_PRICE NOT_EQUALS 12.34f
  * ```
@@ -169,7 +169,7 @@ infix fun Column.NOT_EQUALS(value: Long): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.FLOAT`.
  */
-infix fun Column.NOT_EQUALS(value: Float): Condition
+infix fun Column.NOT_EQUALS(value : Float) : Condition
 {
     this.checkType(DataType.FLOAT)
     return Condition(arrayOf(this), "${this.name}!=$value")
@@ -180,7 +180,7 @@ infix fun Column.NOT_EQUALS(value: Float): Condition
  *
  * The column type must be `DataType.DOUBLE`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_PRICE NOT_EQUALS 12.34
  * ```
@@ -189,7 +189,7 @@ infix fun Column.NOT_EQUALS(value: Float): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.DOUBLE`.
  */
-infix fun Column.NOT_EQUALS(value: Double): Condition
+infix fun Column.NOT_EQUALS(value : Double) : Condition
 {
     this.checkType(DataType.DOUBLE)
     return Condition(arrayOf(this), "${this.name}!=$value")
@@ -200,7 +200,7 @@ infix fun Column.NOT_EQUALS(value: Double): Condition
  *
  * The column type must be `DataType.BYTE_ARRAY`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_DATA NOT_EQUALS byteArrayOf(1, 2, 3)
  * ```
@@ -209,7 +209,7 @@ infix fun Column.NOT_EQUALS(value: Double): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.BYTE_ARRAY`.
  */
-infix fun Column.NOT_EQUALS(value: ByteArray): Condition
+infix fun Column.NOT_EQUALS(value : ByteArray) : Condition
 {
     this.checkType(DataType.BYTE_ARRAY)
     return Condition(arrayOf(this), "${this.name}!='${value.base64}'")
@@ -220,7 +220,7 @@ infix fun Column.NOT_EQUALS(value: ByteArray): Condition
  *
  * The column type must be `DataType.INT_ARRAY`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_DATA NOT_EQUALS intArrayOf(1, 2, 3)
  * ```
@@ -229,7 +229,7 @@ infix fun Column.NOT_EQUALS(value: ByteArray): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.INT_ARRAY`.
  */
-infix fun Column.NOT_EQUALS(value: IntArray): Condition
+infix fun Column.NOT_EQUALS(value : IntArray) : Condition
 {
     this.checkType(DataType.INT_ARRAY)
     return Condition(arrayOf(this), "${this.name}!='${value.serializeToByteArray().base64}'")
@@ -240,7 +240,7 @@ infix fun Column.NOT_EQUALS(value: IntArray): Condition
  *
  * The column type must be `DataType.CALENDAR`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_DATE NOT_EQUALS Calendar.getInstance()
  * ```
@@ -249,7 +249,7 @@ infix fun Column.NOT_EQUALS(value: IntArray): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.CALENDAR`.
  */
-infix fun Column.NOT_EQUALS(value: Calendar): Condition
+infix fun Column.NOT_EQUALS(value : Calendar) : Condition
 {
     this.checkType(DataType.CALENDAR)
     return Condition(arrayOf(this), "${this.name}!=${value.timeInMillis}")
@@ -260,7 +260,7 @@ infix fun Column.NOT_EQUALS(value: Calendar): Condition
  *
  * The column type must be `DataType.DATE`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_DATE NOT_EQUALS DataDate(2023, 1, 1)
  * ```
@@ -269,7 +269,7 @@ infix fun Column.NOT_EQUALS(value: Calendar): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.DATE`.
  */
-infix fun Column.NOT_EQUALS(value: DataDate): Condition
+infix fun Column.NOT_EQUALS(value : DataDate) : Condition
 {
     this.checkType(DataType.DATE)
     return Condition(arrayOf(this), "${this.name}!=${value.serialized}")
@@ -280,7 +280,7 @@ infix fun Column.NOT_EQUALS(value: DataDate): Condition
  *
  * The column type must be `DataType.TIME`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_TIME NOT_EQUALS DataTime(12, 0, 0)
  * ```
@@ -289,7 +289,7 @@ infix fun Column.NOT_EQUALS(value: DataDate): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.TIME`.
  */
-infix fun Column.NOT_EQUALS(value: DataTime): Condition
+infix fun Column.NOT_EQUALS(value : DataTime) : Condition
 {
     this.checkType(DataType.TIME)
     return Condition(arrayOf(this), "${this.name}!=${value.serialized}")
@@ -300,7 +300,7 @@ infix fun Column.NOT_EQUALS(value: DataTime): Condition
  *
  * The column type must be `DataType.ENUM`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * enum class MyEnum { A, B }
  * val condition = COLUMN_ENUM NOT_EQUALS MyEnum.A
@@ -310,7 +310,7 @@ infix fun Column.NOT_EQUALS(value: DataTime): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.ENUM`.
  */
-infix fun <E : Enum<E>> Column.NOT_EQUALS(value: E): Condition
+infix fun <E : Enum<E>> Column.NOT_EQUALS(value : E) : Condition
 {
     this.checkType(DataType.ENUM)
     return Condition(arrayOf(this), "${this.name}!='${value::class.java.name}:${value.name}'")

@@ -28,8 +28,8 @@ package fr.khelp.zegaime.engine3d.scene.prebuilt
  * @param v2 V border between face and bottom
  * @param v3 V border between bottom and back
  */
-class CrossUV(u1: Float = 1f / 3f, u2: Float = 2f / 3f,
-              v1: Float = 0.25f, v2: Float = 0.5f, v3: Float = 0.75f) :
+class CrossUV(u1 : Float = 1f / 3f, u2 : Float = 2f / 3f,
+              v1 : Float = 0.25f, v2 : Float = 0.5f, v3 : Float = 0.75f) :
     BoxUV(face = FaceUV(u1, u2, v1, v2), back = FaceUV(u1, u2, v3, 1f),
           top = FaceUV(u1, u2, 0f, v1), bottom = FaceUV(u1, u2, v2, v3),
           left = FaceUV(0f, u1, v1, v2), right = FaceUV(u2, 1f, v1, v2))

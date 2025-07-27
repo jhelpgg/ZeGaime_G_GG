@@ -17,16 +17,18 @@ internal class GraphicControlBlock : BlockExtension()
     /**
      * Disposal method
      */
-    var disposalMethod: Int = 0
+    var disposalMethod : Int = 0
         private set
+
     /**
      * Image duration time in milliseconds
      */
-    private var time: Long = 0
+    private var time : Long = 0
+
     /**
      * Transparency index
      */
-    var transparencyIndex: Int = 0
+    var transparencyIndex : Int = 0
         private set
 
     /**
@@ -36,7 +38,7 @@ internal class GraphicControlBlock : BlockExtension()
      * @throws IOException If the stream does not contain valid data for a graphic control block extension.
      */
     @Throws(IOException::class)
-    override fun read(inputStream: InputStream)
+    override fun read(inputStream : InputStream)
     {
         val size = inputStream.read()
 
@@ -74,5 +76,5 @@ internal class GraphicControlBlock : BlockExtension()
      * @param defaultTime The default time to return if the time is undefined.
      * @return The image time in milliseconds.
      */
-    fun time(defaultTime: Long) = if (this.time == 0L) defaultTime else this.time
+    fun time(defaultTime : Long) = if (this.time == 0L) defaultTime else this.time
 }

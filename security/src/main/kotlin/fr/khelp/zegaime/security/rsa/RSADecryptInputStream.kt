@@ -24,7 +24,7 @@ import java.util.Objects
  * @param keyPair The RSA key pair to use for decryption.
  * @param encryptedStream The input stream to decrypt.
  */
-class RSADecryptInputStream(keyPair: RSAKeyPair, encryptedStream: InputStream) : InputStream()
+class RSADecryptInputStream(keyPair : RSAKeyPair, encryptedStream : InputStream) : InputStream()
 {
     private val cipher = keyPair.cypher()
     private val bufferedInputStream = BufferedInputStream(encryptedStream)
@@ -44,7 +44,7 @@ class RSADecryptInputStream(keyPair: RSAKeyPair, encryptedStream: InputStream) :
      *
      * @return The next byte of data, or -1 if the end of the stream is reached.
      */
-    override fun read(): Int
+    override fun read() : Int
     {
         this.assureHave(1)
 
@@ -65,7 +65,7 @@ class RSADecryptInputStream(keyPair: RSAKeyPair, encryptedStream: InputStream) :
      * @param len The maximum number of bytes to read.
      * @return The total number of bytes read into the buffer, or -1 if there is no more data because the end of the stream has been reached.
      */
-    override fun read(b: ByteArray, off: Int, len: Int): Int
+    override fun read(b : ByteArray, off : Int, len : Int) : Int
     {
         Objects.checkFromIndexSize(off, len, b.size)
 
@@ -90,7 +90,7 @@ class RSADecryptInputStream(keyPair: RSAKeyPair, encryptedStream: InputStream) :
      * @param len The number of bytes to read.
      * @return The bytes read.
      */
-    override fun readNBytes(len: Int): ByteArray =
+    override fun readNBytes(len : Int) : ByteArray =
         this.readSomeBytes(len)
 
     /**
@@ -101,10 +101,10 @@ class RSADecryptInputStream(keyPair: RSAKeyPair, encryptedStream: InputStream) :
      * @param len The number of bytes to read.
      * @return The number of bytes read.
      */
-    override fun readNBytes(b: ByteArray, off: Int, len: Int): Int =
+    override fun readNBytes(b : ByteArray, off : Int, len : Int) : Int =
         this.readFully(b, off, len)
 
-    private fun assureHave(number: Int)
+    private fun assureHave(number : Int)
     {
         if (this.finished || this.cycleByteArray.size >= number)
         {

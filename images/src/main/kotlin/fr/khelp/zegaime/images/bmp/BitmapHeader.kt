@@ -23,10 +23,10 @@ import java.io.InputStream
  * This class is for internal use of the image system.
  *
  * @param inputStream Stream where read bitmap header.
- * @param jumpHeader Indicates if have to jump specific bitmap information or not.
- * @throws IOException If the stream not contains a valid bitmap header.
+ * @param jumpHeader Indicates if it has to jump specific bitmap information or not.
+ * @throws IOException If the stream doesn't contain a valid bitmap header.
  */
-class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Boolean = false)
+class BitmapHeader internal constructor(inputStream : InputStream, jumpHeader : Boolean = false)
 {
     companion object
     {
@@ -43,7 +43,7 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
         /**
          * Bitmap signature
          */
-        private val SIGNATURE = ('B'.toInt() and 0xFF) or (('M'.toInt() and 0xFF) shl 8)
+        private val SIGNATURE = ('B'.code and 0xFF) or (('M'.code and 0xFF) shl 8)
 
         /**
          * Image 1 bit type
@@ -83,7 +83,7 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
          * @throws IOException On reading issue
          */
         @Throws(IOException::class)
-        fun read2bytes(inputStream: InputStream): Int
+        fun read2bytes(inputStream : InputStream) : Int
         {
             inputStream.readFully(BitmapHeader.BUFFER_2)
             return (BitmapHeader.BUFFER_2[1] shl 8) or BitmapHeader.BUFFER_2[0].toUnsignedInt()
@@ -97,7 +97,7 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
          * @throws IOException On reading issue
          */
         @Throws(IOException::class)
-        fun read4bytes(inputStream: InputStream): Int
+        fun read4bytes(inputStream : InputStream) : Int
         {
             inputStream.readFully(BitmapHeader.BUFFER_4)
             return (BitmapHeader.BUFFER_4[3].toInt() and 0xFF shl 24 or (BitmapHeader.BUFFER_4[2].toInt() and 0xFF shl 16) or
@@ -109,61 +109,61 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
     /**
      * Color table
      */
-    private val colorTable: IntArray
+    private val colorTable : IntArray
 
     /**
      * Indicates if data are compressed
      */
-    val compressed: Boolean
+    val compressed : Boolean
 
     /**
      * File size
      */
-    val fileSize: Int
+    val fileSize : Int
 
     /**
      * Width
      */
-    val width: Int
+    val width : Int
 
     /**
      * Height
      */
-    val height: Int
+    val height : Int
 
     /**
      * Number color used
      */
-    val numberColorUsed: Int
+    val numberColorUsed : Int
 
     /**
      * Number of important colors
      */
-    val numberImportantColors: Int
+    val numberImportantColors : Int
 
     /**
      * Pixels per meter in X
      */
-    val pixelsPerMeterX: Int
+    val pixelsPerMeterX : Int
 
     /**
      * Pixels per meter in Y
      */
-    val pixelsPerMeterY: Int
+    val pixelsPerMeterY : Int
 
     /**
      * Raster data offset
      */
-    val rasterDataOffset: Int
+    val rasterDataOffset : Int
 
     /**
      * Raster image type
      */
-    val rasterImageType: RasterImageType
+    val rasterImageType : RasterImageType
 
     init
     {
-        var info: Int
+        var info : Int
 
         if (!jumpHeader)
         {
@@ -178,6 +178,7 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
 
             this.fileSize = BitmapHeader.read4bytes(inputStream)
             // Unused: test if 0 ?
+            @Suppress("UNUSED_VALUE")
             info = BitmapHeader.read4bytes(inputStream)
             this.rasterDataOffset = BitmapHeader.read4bytes(inputStream)
         }
@@ -215,13 +216,13 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
         this.rasterImageType =
             when (info)
             {
-                BitmapHeader.IMAGE_BINARY -> RasterImageType.IMAGE_BINARY
-                BitmapHeader.IMAGE_4_BITS -> RasterImageType.IMAGE_4_BITS
-                BitmapHeader.IMAGE_8_BITS -> RasterImageType.IMAGE_8_BITS
+                BitmapHeader.IMAGE_BINARY  -> RasterImageType.IMAGE_BINARY
+                BitmapHeader.IMAGE_4_BITS  -> RasterImageType.IMAGE_4_BITS
+                BitmapHeader.IMAGE_8_BITS  -> RasterImageType.IMAGE_8_BITS
                 BitmapHeader.IMAGE_16_BITS -> RasterImageType.IMAGE_16_BITS
                 BitmapHeader.IMAGE_24_BITS -> RasterImageType.IMAGE_24_BITS
                 BitmapHeader.IMAGE_32_BITS -> RasterImageType.IMAGE_32_BITS
-                else -> throw IOException(
+                else                       -> throw IOException(
                     "Number of bits MUST be 1, 4, 8, 16, 24 or 32 not $info")
             }
 
@@ -229,8 +230,8 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
 
         when (info)
         {
-            0 -> this.compressed = false
-            1 ->
+            0    -> this.compressed = false
+            1    ->
             {
                 if (this.rasterImageType !== RasterImageType.IMAGE_8_BITS)
                 {
@@ -241,7 +242,7 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
                 this.compressed = true
             }
 
-            2 ->
+            2    ->
             {
                 if (this.rasterImageType !== RasterImageType.IMAGE_4_BITS)
                 {
@@ -256,6 +257,7 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
         }
 
         // Ignored
+        @Suppress("UNUSED_VALUE")
         info = BitmapHeader.read4bytes(inputStream)
         this.pixelsPerMeterX = BitmapHeader.read4bytes(inputStream)
         this.pixelsPerMeterY = BitmapHeader.read4bytes(inputStream)
@@ -268,13 +270,13 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
                 RasterImageType.IMAGE_BINARY -> 2
                 RasterImageType.IMAGE_4_BITS -> 16
                 RasterImageType.IMAGE_8_BITS -> 256
-                else -> 0
+                else                         -> 0
             }
 
         this.colorTable = IntArray(numberColors)
-        var red: Int
-        var green: Int
-        var blue: Int
+        var red : Int
+        var green : Int
+        var blue : Int
         val black = BLACK.argb
 
         for (i in 0 until numberColors)
@@ -295,7 +297,7 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
      *
      * @param rasterImage Raster image to apply color table.
      */
-    fun applyColorTable(rasterImage: RasterImage)
+    fun applyColorTable(rasterImage : RasterImage)
     {
         if (this.colorTable.isEmpty())
         {
@@ -313,7 +315,7 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
 
             RasterImageType.IMAGE_4_BITS -> (rasterImage as Image4Bit).colors(0, *this.colorTable)
             RasterImageType.IMAGE_8_BITS -> (rasterImage as Image8Bit).colors(0, *this.colorTable)
-            else -> Unit
+            else                         -> Unit
         }
     }
 
@@ -335,11 +337,11 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
      * @throws IOException If stream not describes the desired raster image
      */
     @Throws(IOException::class)
-    fun readRasterImage(inputStream: InputStream, width: Int = this.width, height: Int = this.height,
-                        rasterImageType: RasterImageType = this.rasterImageType): RasterImage =
+    fun readRasterImage(inputStream : InputStream, width : Int = this.width, height : Int = this.height,
+                        rasterImageType : RasterImageType = this.rasterImageType) : RasterImage =
         when (rasterImageType)
         {
-            RasterImageType.IMAGE_BINARY ->
+            RasterImageType.IMAGE_BINARY  ->
             {
                 val rasterImage = BinaryImage(width, height)
                 this.applyColorTable(rasterImage)
@@ -347,7 +349,7 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
                 rasterImage
             }
 
-            RasterImageType.IMAGE_4_BITS ->
+            RasterImageType.IMAGE_4_BITS  ->
             {
                 val rasterImage = Image4Bit(width, height)
                 this.applyColorTable(rasterImage)
@@ -364,7 +366,7 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
                 rasterImage
             }
 
-            RasterImageType.IMAGE_8_BITS ->
+            RasterImageType.IMAGE_8_BITS  ->
             {
                 val rasterImage = Image8Bit(width, height)
                 this.applyColorTable(rasterImage)
@@ -402,6 +404,6 @@ class BitmapHeader internal constructor(inputStream: InputStream, jumpHeader: Bo
                 rasterImage
             }
 
-            else -> GameImage(width, height)
+            else                          -> GameImage(width, height)
         }
 }

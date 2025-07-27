@@ -7,5 +7,5 @@ package fr.khelp.zegaime.engine3d
  * @param cause Cause of the exception.
  * @constructor Creates a new window 3D can't be created exception.
  */
-class Window3DCantBeCreatedException(message: String, cause: Throwable = Throwable()) :
+class Window3DCantBeCreatedException(message : String, cause : Throwable = Throwable()) :
     RuntimeException(message, cause)

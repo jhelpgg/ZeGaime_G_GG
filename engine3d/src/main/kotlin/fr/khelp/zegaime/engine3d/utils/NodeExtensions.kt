@@ -5,7 +5,7 @@ import fr.khelp.zegaime.engine3d.scene.Node
 /**
  * The position of the node.
  */
-val Node.position: NodePosition
+val Node.position : NodePosition
     get() =
         NodePosition(this.x, this.y, this.z,
                      this.angleX, this.angleY, this.angleZ,
@@ -16,7 +16,7 @@ val Node.position: NodePosition
  *
  * @param nodePosition The new position of the node.
  */
-fun Node.position(nodePosition: NodePosition)
+fun Node.position(nodePosition : NodePosition)
 {
     this.x = nodePosition.x
     this.y = nodePosition.y

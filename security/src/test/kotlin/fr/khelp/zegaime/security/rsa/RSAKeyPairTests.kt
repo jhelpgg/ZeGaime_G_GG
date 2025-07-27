@@ -1,10 +1,10 @@
 package fr.khelp.zegaime.security.rsa
 
 import fr.khelp.zegaime.security.des.TripleDES
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 class RSAKeyPairTests
 {

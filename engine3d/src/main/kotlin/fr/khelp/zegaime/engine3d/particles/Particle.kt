@@ -25,11 +25,11 @@ import org.lwjgl.opengl.GL11
  * @property lifeDuration The life duration of the particle.
  * @constructor Creates a new particle.
  */
-internal class Particle(private val startTime: Time,
-                        private val position: NodePosition,
-                        private val speed: NodePosition,
-                        private val acceleration: NodePosition,
-                        private val lifeDuration: Time)
+internal class Particle(private val startTime : Time,
+                        private val position : NodePosition,
+                        private val speed : NodePosition,
+                        private val acceleration : NodePosition,
+                        private val lifeDuration : Time)
 {
     companion object
     {
@@ -42,7 +42,7 @@ internal class Particle(private val startTime: Time,
     /**
      * The material of the particle.
      */
-    var material: Material
+    var material : Material
         get() = this.plane.material
         set(value)
         {
@@ -50,30 +50,36 @@ internal class Particle(private val startTime: Time,
         }
 
     private var currentPosition = NodePosition()
+
     /**
      * The start diffuse color of the particle.
      */
     var diffuseStart = GRAY
+
     /**
      * The end diffuse color of the particle.
      */
     var diffuseEnd = GRAY
+
     /**
      * The interpolation for the diffuse color.
      */
-    var diffuseInterpolation: Interpolation = InterpolationLinear
+    var diffuseInterpolation : Interpolation = InterpolationLinear
+
     /**
      * The start alpha of the particle.
      */
     var alphaStart = 1.0f
+
     /**
      * The end alpha of the particle.
      */
     var alphaEnd = 1.0f
+
     /**
      * The interpolation for the alpha.
      */
-    var alphaInterpolation: Interpolation = InterpolationLinear
+    var alphaInterpolation : Interpolation = InterpolationLinear
 
     /**
      * Draws the particle.
@@ -92,7 +98,7 @@ internal class Particle(private val startTime: Time,
      * @param timeEffectMilliseconds The current time of the effect in milliseconds.
      * @return `true` if the particle is still alive, `false` otherwise.
      */
-    fun update(timeEffectMilliseconds: Long): Boolean
+    fun update(timeEffectMilliseconds : Long) : Boolean
     {
         val lifeDurationMilliseconds = this.lifeDuration.milliseconds
         var stillAlive = true

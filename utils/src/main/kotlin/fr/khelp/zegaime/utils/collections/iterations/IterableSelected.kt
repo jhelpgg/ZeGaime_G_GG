@@ -3,8 +3,9 @@ package fr.khelp.zegaime.utils.collections.iterations
 /**
  * [Iterable] that filter elements of given [Iterable] via the [criteria]
  */
-class IterableSelected<T : Any>(internal val criteria: (T) -> Boolean, internal val iterable: Iterable<T>) : Iterable<T>
+class IterableSelected<T : Any>(internal val criteria : (T) -> Boolean,
+                                internal val iterable : Iterable<T>) : Iterable<T>
 {
-    override fun iterator(): Iterator<T> =
+    override fun iterator() : Iterator<T> =
         IteratorSelected(this.criteria, this.iterable.iterator())
 }

@@ -42,12 +42,13 @@ import javax.crypto.Cipher
  */
 class RSAKeyPair
 {
-    private val privateKey: PrivateKey
+    private val privateKey : PrivateKey
+
     /**
      * The public key of the key pair.
      */
-    val publicKey: RSAPublicKey
-    private var tripleDES: TripleDES? = null
+    val publicKey : RSAPublicKey
+    private var tripleDES : TripleDES? = null
 
     /**
      * Creates a new RSA key pair.
@@ -69,7 +70,7 @@ class RSAKeyPair
      * @param inputStream The input stream to read the key pair from.
      * @throws LoginPasswordInvalidException If the login or password is not valid.
      */
-    constructor(tripleDES: TripleDES, inputStream: InputStream)
+    constructor(tripleDES : TripleDES, inputStream : InputStream)
     {
         try
         {
@@ -85,7 +86,7 @@ class RSAKeyPair
                 .generatePrivate(privateKeySpec)
             this.publicKey = RSAPublicKey(byteArrayInputStream)
         }
-        catch (exception: Exception)
+        catch (exception : Exception)
         {
             throw LoginPasswordInvalidException()
         }
@@ -98,7 +99,7 @@ class RSAKeyPair
      * @param outputStream The output stream to write the key pair to.
      * @throws LoginPasswordInvalidException If the login or password is not valid.
      */
-    fun save(tripleDES: TripleDES, outputStream: OutputStream)
+    fun save(tripleDES : TripleDES, outputStream : OutputStream)
     {
         val actualTripleDES = this.tripleDES
 
@@ -132,7 +133,7 @@ class RSAKeyPair
      *
      * @return A cipher for decryption.
      */
-    internal fun cypher(): Cipher
+    internal fun cypher() : Cipher
     {
         val cipher = Cipher.getInstance(RSA_CIPHER)
         cipher.init(Cipher.DECRYPT_MODE, this.privateKey)
@@ -147,7 +148,7 @@ class RSAKeyPair
      * @throws IOException On IO error.
      */
     @Throws(IOException::class)
-    fun decrypt(inputStream: InputStream, outputStream: OutputStream)
+    fun decrypt(inputStream : InputStream, outputStream : OutputStream)
     {
         val cipher = Cipher.getInstance(RSA_CIPHER)
         cipher.init(Cipher.DECRYPT_MODE, this.privateKey)
@@ -159,7 +160,7 @@ class RSAKeyPair
             size = 256
         }
 
-        var read: Int = inputStream.readFully(temp, 0, size)
+        var read : Int = inputStream.readFully(temp, 0, size)
 
         while (read >= 0 && size >= 0)
         {
@@ -188,7 +189,7 @@ class RSAKeyPair
      * @throws IOException On IO error.
      */
     @Throws(IOException::class)
-    fun sign(message: InputStream, signature: OutputStream)
+    fun sign(message : InputStream, signature : OutputStream)
     {
         val sign = Signature.getInstance(RSA_SIGNATURE)
         sign.initSign(this.privateKey)

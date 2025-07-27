@@ -17,24 +17,24 @@ interface RasterImage
     /**
      * Returns the width of the image.
      */
-    fun width(): Int
+    fun width() : Int
 
     /**
      * Returns the height of the image.
      */
-    fun height(): Int
+    fun height() : Int
 
     /**
      * Returns the type of the image.
      *
      * @return The type of the image.
      */
-    fun imageType(): RasterImageType
+    fun imageType() : RasterImageType
 
     /**
      * Converts the image to a [GameImage].
      *
      * @return The converted image.
      */
-    fun toGameImage(): GameImage
+    fun toGameImage() : GameImage
 }

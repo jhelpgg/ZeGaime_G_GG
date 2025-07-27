@@ -25,9 +25,9 @@ class Person(@PrimaryKey val name : String,
     override fun equals(other : Any?) : Boolean =
         when
         {
-            this === other -> true
+            this === other                    -> true
             null == other || other !is Person -> false
-            else -> this.name == other.name && this.age == other.age && this.address == other.address
+            else                              -> this.name == other.name && this.age == other.age && this.address == other.address
         }
 
     override fun hashCode() : Int =
@@ -35,5 +35,4 @@ class Person(@PrimaryKey val name : String,
 
     override fun toString() : String =
         "${this.name} ${this.age} yeas old at ${this.address}"
-
 }

@@ -30,7 +30,7 @@ class Barycenter
         }
 
         this.barycenter = (this.count * this.barycenter + value) / (this.count + 1.0)
-        this.count ++
+        this.count++
     }
 
     fun reset()

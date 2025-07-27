@@ -23,12 +23,12 @@ import java.util.Calendar
  * This is an abstract class that should be extended by any class that needs to be stored in the database.
  * The fields of the class will be automatically mapped to the columns of the table.
  *
- * **Creation example:**
+ * **Creation example**
  * ```kotlin
  * class User(database: Database, val name: String, val age: Int) : DatabaseObject(database)
  * ```
  *
- * **Standard usage:**
+ * **Standard usage**
  * ```kotlin
  * // Create a new user and wait for it to be stored in the database
  * val user = User(database, "John", 30).waitCreated()
@@ -39,14 +39,14 @@ import java.util.Calendar
  * @property database The database instance.
  * @constructor Creates a new database object.
  */
-abstract class DatabaseObject(internal val database: Database)
+abstract class DatabaseObject(internal val database : Database)
 {
     companion object
     {
         /**
          * Returns the table associated with the given class.
          *
-         * **Usage example:**
+         * **Usage example**
          * ```kotlin
          * val table = DatabaseObject.table(database, User::class.java)
          * ```
@@ -55,13 +55,13 @@ abstract class DatabaseObject(internal val database: Database)
          * @param clazz The class of the database object.
          * @return The table associated with the given class.
          */
-        fun table(database: Database, clazz: Class<out DatabaseObject>): Table =
+        fun table(database : Database, clazz : Class<out DatabaseObject>) : Table =
             DataObjectManager.tableDescription(database, clazz).table
 
         /**
          * Selects objects from the database.
          *
-         * **Usage example:**
+         * **Usage example**
          * ```kotlin
          * // Select all users older than 18
          * val users = DatabaseObject.select<User>(database) {
@@ -75,8 +75,8 @@ abstract class DatabaseObject(internal val database: Database)
          * @return A result set of the selected objects.
          */
         @WhereDatabaseObjectDSL
-        inline fun <reified DO : DatabaseObject> select(database: Database,
-                                                        whereCreator: WhereDatabaseObject<DO>.() -> Unit): DatabaseObjectResult<DO>
+        inline fun <reified DO : DatabaseObject> select(database : Database,
+                                                        whereCreator : WhereDatabaseObject<DO>.() -> Unit) : DatabaseObjectResult<DO>
         {
             val table = DatabaseObject.table(database, DO::class.java)
             val selectDatabaseObject = WhereDatabaseObject<DO>(table)
@@ -90,7 +90,7 @@ abstract class DatabaseObject(internal val database: Database)
         /**
          * Deletes objects from the database.
          *
-         * **Usage example:**
+         * **Usage example**
          * ```kotlin
          * // Delete all users younger than 18
          * val deletedRows = DatabaseObject.delete<User>(database) {
@@ -104,8 +104,8 @@ abstract class DatabaseObject(internal val database: Database)
          * @return The number of deleted rows.
          */
         @WhereDatabaseObjectDSL
-        inline fun <reified DO : DatabaseObject> delete(database: Database,
-                                                        deleteCreator: WhereDatabaseObject<DO>.() -> Unit): Int
+        inline fun <reified DO : DatabaseObject> delete(database : Database,
+                                                        deleteCreator : WhereDatabaseObject<DO>.() -> Unit) : Int
         {
             val table = DatabaseObject.table(database, DO::class.java)
             val deleteDatabaseObject = WhereDatabaseObject<DO>(table)
@@ -116,7 +116,7 @@ abstract class DatabaseObject(internal val database: Database)
         /**
          * Deletes a database object from the database.
          *
-         * **Usage example:**
+         * **Usage example**
          * ```kotlin
          * val deleted = DatabaseObject.delete(user)
          * ```
@@ -124,7 +124,7 @@ abstract class DatabaseObject(internal val database: Database)
          * @param databaseObject The database object to delete.
          * @return `true` if the object was deleted successfully, `false` otherwise.
          */
-        fun <DO : DatabaseObject> delete(databaseObject: DO): Boolean
+        fun <DO : DatabaseObject> delete(databaseObject : DO) : Boolean
         {
             val table = DatabaseObject.table(databaseObject.database, databaseObject.javaClass)
             val done = table.delete { where { condition = "ID" EQUALS_ID databaseObject.databaseID } } > 0
@@ -138,9 +138,9 @@ abstract class DatabaseObject(internal val database: Database)
      *
      * It is -1 if the object is not yet stored in the database.
      */
-    var databaseID: Int = -1
+    var databaseID : Int = -1
         private set
-    private val futureResult: Future<Unit>
+    private val futureResult : Future<Unit>
 
     init
     {
@@ -153,14 +153,14 @@ abstract class DatabaseObject(internal val database: Database)
      * This method should be called after creating a new database object to ensure that it is stored in the database
      * before being used.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val user = User(database, "John", 30).waitCreated()
      * ```
      *
      * @return The database object itself.
      */
-    fun <DO : DatabaseObject> waitCreated(): DO
+    fun <DO : DatabaseObject> waitCreated() : DO
     {
         this.futureResult.waitForCompletion()
         @Suppress("UNCHECKED_CAST")
@@ -173,7 +173,7 @@ abstract class DatabaseObject(internal val database: Database)
      * This method is called automatically when a field of the object is modified.
      * It can also be called manually to force an update.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * user.age = 31
      * user.update()
@@ -184,7 +184,7 @@ abstract class DatabaseObject(internal val database: Database)
         this.update(false)
     }
 
-    private fun update(checkID: Boolean)
+    private fun update(checkID : Boolean)
     {
         val tableDescription = DataObjectManager.tableDescription(this)
 
@@ -230,53 +230,53 @@ abstract class DatabaseObject(internal val database: Database)
                                 }
                             }
 
-                            DatabaseObject::class.java.isAssignableFrom(type) ->
+                            DatabaseObject::class.java.isAssignableFrom(type)                               ->
                             {
                                 val dataObject = (field[this@DatabaseObject] as DatabaseObject)
                                 dataObject.update()
                                 field.name IS dataObject.databaseID
                             }
 
-                            type == Boolean::class.java ->
+                            type == Boolean::class.java                                                     ->
                                 field.name IS field.getBoolean(this@DatabaseObject)
 
-                            type == Byte::class.java ->
+                            type == Byte::class.java                                                        ->
                                 field.name IS field.getByte(this@DatabaseObject)
 
-                            type == Short::class.java ->
+                            type == Short::class.java                                                       ->
                                 field.name IS field.getShort(this@DatabaseObject)
 
-                            type == Int::class.java ->
+                            type == Int::class.java                                                         ->
                                 field.name IS field.getInt(this@DatabaseObject)
 
-                            type == Long::class.java ->
+                            type == Long::class.java                                                        ->
                                 field.name IS field.getLong(this@DatabaseObject)
 
-                            type == Float::class.java ->
+                            type == Float::class.java                                                       ->
                                 field.name IS field.getFloat(this@DatabaseObject)
 
-                            type == Double::class.java ->
+                            type == Double::class.java                                                      ->
                                 field.name IS field.getDouble(this@DatabaseObject)
 
-                            type == String::class.java ->
+                            type == String::class.java                                                      ->
                                 field.name IS field.get(this@DatabaseObject) as String
 
-                            type == ByteArray::class.java ->
+                            type == ByteArray::class.java                                                   ->
                                 field.name IS field.get(this@DatabaseObject) as ByteArray
 
-                            type == IntArray::class.java ->
+                            type == IntArray::class.java                                                    ->
                                 field.name IS field.get(this@DatabaseObject) as IntArray
 
-                            type == Calendar::class.java ->
+                            type == Calendar::class.java                                                    ->
                                 field.name IS field.get(this@DatabaseObject) as Calendar
 
-                            type == DataTime::class.java ->
+                            type == DataTime::class.java                                                    ->
                                 field.name IS field.get(this@DatabaseObject) as DataTime
 
-                            type == DataDate::class.java ->
+                            type == DataDate::class.java                                                    ->
                                 field.name IS field.get(this@DatabaseObject) as DataDate
 
-                            type.isEnum ->
+                            type.isEnum                                                                     ->
                                 field.name IS_ENUM field.get(this@DatabaseObject)
                         }
                     }
@@ -302,53 +302,53 @@ abstract class DatabaseObject(internal val database: Database)
                                 }
                             }
 
-                            DatabaseObject::class.java.isAssignableFrom(type) ->
+                            DatabaseObject::class.java.isAssignableFrom(type)                               ->
                             {
                                 val dataObject = (field[this@DatabaseObject] as DatabaseObject)
                                 dataObject.update()
                                 field.name IS dataObject.databaseID
                             }
 
-                            type == Boolean::class.java ->
+                            type == Boolean::class.java                                                     ->
                                 field.name IS field.getBoolean(this@DatabaseObject)
 
-                            type == Byte::class.java ->
+                            type == Byte::class.java                                                        ->
                                 field.name IS field.getByte(this@DatabaseObject)
 
-                            type == Short::class.java ->
+                            type == Short::class.java                                                       ->
                                 field.name IS field.getShort(this@DatabaseObject)
 
-                            type == Int::class.java ->
+                            type == Int::class.java                                                         ->
                                 field.name IS field.getInt(this@DatabaseObject)
 
-                            type == Long::class.java ->
+                            type == Long::class.java                                                        ->
                                 field.name IS field.getLong(this@DatabaseObject)
 
-                            type == Float::class.java ->
+                            type == Float::class.java                                                       ->
                                 field.name IS field.getFloat(this@DatabaseObject)
 
-                            type == Double::class.java ->
+                            type == Double::class.java                                                      ->
                                 field.name IS field.getDouble(this@DatabaseObject)
 
-                            type == String::class.java ->
+                            type == String::class.java                                                      ->
                                 field.name IS field.get(this@DatabaseObject) as String
 
-                            type == ByteArray::class.java ->
+                            type == ByteArray::class.java                                                   ->
                                 field.name IS field.get(this@DatabaseObject) as ByteArray
 
-                            type == IntArray::class.java ->
+                            type == IntArray::class.java                                                    ->
                                 field.name IS field.get(this@DatabaseObject) as IntArray
 
-                            type == Calendar::class.java ->
+                            type == Calendar::class.java                                                    ->
                                 field.name IS field.get(this@DatabaseObject) as Calendar
 
-                            type == DataTime::class.java ->
+                            type == DataTime::class.java                                                    ->
                                 field.name IS field.get(this@DatabaseObject) as DataTime
 
-                            type == DataDate::class.java ->
+                            type == DataDate::class.java                                                    ->
                                 field.name IS field.get(this@DatabaseObject) as DataDate
 
-                            type.isEnum ->
+                            type.isEnum                                                                     ->
                                 field.name IS_ENUM field.get(this@DatabaseObject)
                         }
                     }
@@ -384,46 +384,46 @@ abstract class DatabaseObject(internal val database: Database)
                             field.name IS dataObject.databaseID
                         }
 
-                        type == Boolean::class.java ->
+                        type == Boolean::class.java                       ->
                             field.name IS field.getBoolean(this@DatabaseObject)
 
-                        type == Byte::class.java ->
+                        type == Byte::class.java                          ->
                             field.name IS field.getByte(this@DatabaseObject)
 
-                        type == Short::class.java ->
+                        type == Short::class.java                         ->
                             field.name IS field.getShort(this@DatabaseObject)
 
-                        type == Int::class.java ->
+                        type == Int::class.java                           ->
                             field.name IS field.getInt(this@DatabaseObject)
 
-                        type == Long::class.java ->
+                        type == Long::class.java                          ->
                             field.name IS field.getLong(this@DatabaseObject)
 
-                        type == Float::class.java ->
+                        type == Float::class.java                         ->
                             field.name IS field.getFloat(this@DatabaseObject)
 
-                        type == Double::class.java ->
+                        type == Double::class.java                        ->
                             field.name IS field.getDouble(this@DatabaseObject)
 
-                        type == String::class.java ->
+                        type == String::class.java                        ->
                             field.name IS field.get(this@DatabaseObject) as String
 
-                        type == ByteArray::class.java ->
+                        type == ByteArray::class.java                     ->
                             field.name IS field.get(this@DatabaseObject) as ByteArray
 
-                        type == IntArray::class.java ->
+                        type == IntArray::class.java                      ->
                             field.name IS field.get(this@DatabaseObject) as IntArray
 
-                        type == Calendar::class.java ->
+                        type == Calendar::class.java                      ->
                             field.name IS field.get(this@DatabaseObject) as Calendar
 
-                        type == DataTime::class.java ->
+                        type == DataTime::class.java                      ->
                             field.name IS field.get(this@DatabaseObject) as DataTime
 
-                        type == DataDate::class.java ->
+                        type == DataDate::class.java                      ->
                             field.name IS field.get(this@DatabaseObject) as DataDate
 
-                        type.isEnum ->
+                        type.isEnum                                       ->
                             field.name IS_ENUM field.get(this@DatabaseObject)
                     }
                 }
@@ -439,9 +439,9 @@ abstract class DatabaseObject(internal val database: Database)
         }
     }
 
-    private fun createConditionPrimaryKey(clazz: Class<out DatabaseObject>,
-                                          column: Column,
-                                          primaryKey: String): Condition
+    private fun createConditionPrimaryKey(clazz : Class<out DatabaseObject>,
+                                          column : Column,
+                                          primaryKey : String) : Condition
     {
         val field = clazz.getDeclaredField(primaryKey)
         field.isAccessible = true
@@ -456,49 +456,49 @@ abstract class DatabaseObject(internal val database: Database)
                 column EQUALS dataObject.databaseID
             }
 
-            type == Boolean::class.java ->
+            type == Boolean::class.java                       ->
                 column EQUALS field.getBoolean(this@DatabaseObject)
 
-            type == Byte::class.java ->
+            type == Byte::class.java                          ->
                 column EQUALS field.getByte(this@DatabaseObject)
 
-            type == Short::class.java ->
+            type == Short::class.java                         ->
                 column EQUALS field.getShort(this@DatabaseObject)
 
-            type == Int::class.java ->
+            type == Int::class.java                           ->
                 column EQUALS field.getInt(this@DatabaseObject)
 
-            type == Long::class.java ->
+            type == Long::class.java                          ->
                 column EQUALS field.getLong(this@DatabaseObject)
 
-            type == Float::class.java ->
+            type == Float::class.java                         ->
                 column EQUALS field.getFloat(this@DatabaseObject)
 
-            type == Double::class.java ->
+            type == Double::class.java                        ->
                 column EQUALS field.getDouble(this@DatabaseObject)
 
-            type == String::class.java ->
+            type == String::class.java                        ->
                 column EQUALS field.get(this@DatabaseObject) as String
 
-            type == ByteArray::class.java ->
+            type == ByteArray::class.java                     ->
                 column EQUALS field.get(this@DatabaseObject) as ByteArray
 
-            type == IntArray::class.java ->
+            type == IntArray::class.java                      ->
                 column EQUALS field.get(this@DatabaseObject) as IntArray
 
-            type == Calendar::class.java ->
+            type == Calendar::class.java                      ->
                 column EQUALS field.get(this@DatabaseObject) as Calendar
 
-            type == DataTime::class.java ->
+            type == DataTime::class.java                      ->
                 column EQUALS field.get(this@DatabaseObject) as DataTime
 
-            type == DataDate::class.java ->
+            type == DataDate::class.java                      ->
                 column EQUALS field.get(this@DatabaseObject) as DataDate
 
-            type.isEnum ->
+            type.isEnum                                       ->
                 column EQUALS_ENUM field.get(this@DatabaseObject)
 
-            else ->
+            else                                              ->
                 NEVER_MATCH_CONDITION
         }
     }

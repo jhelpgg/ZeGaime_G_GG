@@ -1,7 +1,5 @@
 package fr.khelp.zegaime.security.exception
 
-import java.lang.Exception
-
 /**
  * The message for a login/password invalid exception.
  */

@@ -17,8 +17,23 @@ import fr.khelp.zegaime.utils.argumentCheck
  * To create a loop animation, you can use the DSL:
  *
  * ```kotlin
- * val animation = loop(loops = 3) {
- *      // Looped animation here
+ * val animation = animationLoop {
+ *      animationHeader = animationParallel {
+ *          +animationAction{
+ *             action = { println("Animation started !" } }
+ *          }
+ *          // ...
+ *      }
+ *
+ *      animationLooped = animationSequential {
+ *          // ....
+ *      }
+ *
+ *      animationFooter = animationAction {
+ *             action = { println("Animation finished !" } }*
+ *      }
+ *
+ *      numberMaximumLoop = 5
  * }
  * ```
  *
@@ -35,15 +50,17 @@ import fr.khelp.zegaime.utils.argumentCheck
  * @constructor Create a new loop animation.
  * @throws IllegalArgumentException if the number of loops is not strictly positive.
  */
-class AnimationLoop(private val animationLooped: Animation,
-                    private val animationHeader: Animation = AnimationDoesNothing,
-                    private val animationFooter: Animation = AnimationDoesNothing,
-                    private val numberMaximumLoop: Int = Int.MAX_VALUE) : Animation
+class AnimationLoop(private val animationLooped : Animation,
+                    private val animationHeader : Animation = AnimationDoesNothing,
+                    private val animationFooter : Animation = AnimationDoesNothing,
+                    private val numberMaximumLoop : Int = Int.MAX_VALUE) : Animation
 {
     /** Current status of the loop animation */
     private var status = AnimationLoopStatus.IDLE
+
     /** Current loop count */
     private var loop = 0
+
     /** Reference time for the current animation part */
     private var referenceTime = 0L
 
@@ -85,13 +102,13 @@ class AnimationLoop(private val animationLooped: Animation,
      * @param millisecondsSinceStarted Time since the animation started.
      * @return `true` if the animation must continue, `false` otherwise.
      */
-    override fun animate(millisecondsSinceStarted: Long): Boolean
+    override fun animate(millisecondsSinceStarted : Long) : Boolean
     {
         var stillAnimated = true
 
         when (this.status)
         {
-            AnimationLoopStatus.IDLE -> stillAnimated = false
+            AnimationLoopStatus.IDLE   -> stillAnimated = false
 
             AnimationLoopStatus.HEADER ->
                 if (!this.animationHeader.animate(millisecondsSinceStarted - this.referenceTime))
@@ -102,7 +119,7 @@ class AnimationLoop(private val animationLooped: Animation,
                     this.referenceTime = millisecondsSinceStarted
                 }
 
-            AnimationLoopStatus.LOOP ->
+            AnimationLoopStatus.LOOP   ->
                 if (!this.animationLooped.animate(millisecondsSinceStarted - this.referenceTime))
                 {
                     this.animationLooped.finalization()
@@ -142,9 +159,9 @@ class AnimationLoop(private val animationLooped: Animation,
     {
         when (this.status)
         {
-            AnimationLoopStatus.IDLE -> Unit
+            AnimationLoopStatus.IDLE   -> Unit
             AnimationLoopStatus.HEADER -> this.animationHeader.finalization()
-            AnimationLoopStatus.LOOP -> this.animationLooped.finalization()
+            AnimationLoopStatus.LOOP   -> this.animationLooped.finalization()
             AnimationLoopStatus.FOOTER -> this.animationFooter.finalization()
         }
 

@@ -8,6 +8,7 @@ import kotlin.math.min
 
 val Float.degreeToRadian : Float get() = (this * PI_FLOAT) / 180f
 val Float.radianToDegree : Float get() = (this * 180f) / PI_FLOAT
+
 /**
  * Modulate a real inside an interval
  *
@@ -22,7 +23,7 @@ fun Float.modulo(minimum : Float, maximum : Float) : Float
     val min = min(minimum, maximum)
     val max = max(min, maximum)
 
-    if (real in min .. max)
+    if (real in min..max)
     {
         return real
     }

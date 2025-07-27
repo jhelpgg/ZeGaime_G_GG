@@ -5,9 +5,9 @@ import fr.khelp.zegaime.database.WhereDSL
 import fr.khelp.zegaime.database.condition.Condition
 
 /**
- * Represents a delete query.
+ * Represents a deletion query.
  *
- * **Creation example:**
+ * **Creation example**
  * This class is not meant to be instantiated directly.
  * Use the `Table.delete` method.
  *
@@ -21,17 +21,17 @@ import fr.khelp.zegaime.database.condition.Condition
  * @property table The table to delete from.
  * @constructor Creates a new delete query. For internal use only.
  */
-class Delete internal constructor(val table: Table)
+class Delete internal constructor(val table : Table)
 {
     /**
      * The condition of the delete query.
      */
-    private var condition: Condition? = null
+    private var condition : Condition? = null
 
     /**
-     * Specifies the delete condition.
+     * Specifies the deletion condition.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * where { condition = COLUMN_AGE LESS_THAN 18 }
      * ```
@@ -40,7 +40,7 @@ class Delete internal constructor(val table: Table)
      * @throws IllegalStateException if no condition is defined in the where clause.
      */
     @WhereDSL
-    fun where(whereCreator: Where.() -> Unit)
+    fun where(whereCreator : Where.() -> Unit)
     {
         val where = Where(this.table)
         whereCreator(where)
@@ -49,13 +49,13 @@ class Delete internal constructor(val table: Table)
     }
 
     /**
-     * Returns the SQL representation of the delete query.
+     * Returns the SQL representation of the deletion query.
      *
      * For internal use only.
      *
-     * @return The SQL representation of the delete query.
+     * @return The SQL representation of the deletion.
      */
-    internal fun deleteSQL(): String
+    internal fun deleteSQL() : String
     {
         val query = StringBuilder()
         query.append("DELETE FROM ")

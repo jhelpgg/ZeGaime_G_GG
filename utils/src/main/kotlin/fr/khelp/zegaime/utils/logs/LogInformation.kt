@@ -1,7 +1,7 @@
 package fr.khelp.zegaime.utils.logs
 
 import java.io.PrintStream
-import java.util.*
+import java.util.Arrays
 
 /**
  * Information for printing a log message
@@ -11,15 +11,16 @@ import java.util.*
  * @param throwable Throwable to print its stack trace
  * @param printStream Stream where print the log
  */
-data class LogInformation(val logLevel: LogLevel = LogLevel.VERBOSE,
-                          val stackTraceElement: StackTraceElement,
-                          val message: Array<out Any?>? = null,
-                          val throwable: Throwable? = null,
-                          val printStream: PrintStream = System.out) {
+data class LogInformation(val logLevel : LogLevel = LogLevel.VERBOSE,
+                          val stackTraceElement : StackTraceElement,
+                          val message : Array<out Any?>? = null,
+                          val throwable : Throwable? = null,
+                          val printStream : PrintStream = System.out)
+{
     /**
      * Indicates in other object equals to this debug information
      */
-    override fun equals(other: Any?): Boolean
+    override fun equals(other : Any?) : Boolean
     {
         if (this === other) return true
         if (other !is LogInformation) return false
@@ -40,7 +41,7 @@ data class LogInformation(val logLevel: LogLevel = LogLevel.VERBOSE,
     /**
      * Hash code
      */
-    override fun hashCode(): Int
+    override fun hashCode() : Int
     {
         var result = this.logLevel.hashCode()
         result = 31 * result + this.stackTraceElement.hashCode()

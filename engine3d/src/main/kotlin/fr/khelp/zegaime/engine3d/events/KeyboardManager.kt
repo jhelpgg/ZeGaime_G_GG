@@ -22,9 +22,15 @@ import org.lwjgl.glfw.GLFW
  * ```kotlin
  * val keyboardManager = window3D.keyboardManager
  * keyboardManager.keyPressed.observedBy { keyCodes ->
- *     for (keyCode in keyCodes) {
- *         // ...
+ *     if(GLFW.GLFW_KEY_UP in keyCodes) {
+ *          // Do up action
  *     }
+
+ *     if(GLFW.GLFW_KEY_LEFT in keyCodes) {
+ *          // Do left action
+ *     }
+ *
+ *     // ...
  * }
  * ```
  *
@@ -34,22 +40,23 @@ import org.lwjgl.glfw.GLFW
 class KeyboardManager internal constructor()
 {
     private val mutexCapture = Mutex()
-    private var nextKeyCode: Promise<Int>? = null
+    private var nextKeyCode : Promise<Int>? = null
 
     /**Current active key codes*/
     private val activeKeys = HashSet<Int>()
     private val keyPressedSource = FlowSource<IntArray>()
+
     /**
      * A flow that emits the currently pressed key codes.
      */
-    val keyPressed: Flow<IntArray> = this.keyPressedSource.flow
+    val keyPressed : Flow<IntArray> = this.keyPressedSource.flow
 
     /**
      * Capture the next key typed.
      *
      * @return A future that will contain the next key code typed.
      */
-    fun captureKeyCode(): Future<Int> =
+    fun captureKeyCode() : Future<Int> =
         this.mutexCapture {
             if (this.nextKeyCode == null)
             {
@@ -67,7 +74,7 @@ class KeyboardManager internal constructor()
      * @param keyCode The key code.
      * @param action The action type.
      */
-    internal fun keyEvent(keyCode: Int, action: Int)
+    internal fun keyEvent(keyCode : Int, action : Int)
     {
         if (action == GLFW.GLFW_PRESS)
         {

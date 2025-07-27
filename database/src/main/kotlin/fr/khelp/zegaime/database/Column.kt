@@ -10,7 +10,7 @@ import java.util.Objects
  * A column is defined by its name and its data type.
  * It can also have a foreign key relationship with another table.
  *
- * **Creation example:**
+ * **Creation example**
  * ```kotlin
  * // Create a column for the user name
  * val nameColumn = Column("name", DataType.TEXT)
@@ -18,7 +18,7 @@ import java.util.Objects
  * val ageColumn = Column("age", DataType.INTEGER)
  * ```
  *
- * **Standard usage:**
+ * **Standard usage**
  * ```kotlin
  * // Create a list of columns for a table
  * val columns = listOf(nameColumn, ageColumn)
@@ -31,7 +31,7 @@ import java.util.Objects
  * @see Table
  * @see DataType
  */
-data class Column internal constructor(val name: String, val type: DataType) : Comparable<Column>
+data class Column internal constructor(val name : String, val type : DataType) : Comparable<Column>
 {
     /**
      * The name of the foreign table if this column is a foreign key.
@@ -50,7 +50,7 @@ data class Column internal constructor(val name: String, val type: DataType) : C
     /**
      * Checks if the column's data type matches the expected data type.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val nameColumn = Column("name", DataType.TEXT)
      * nameColumn.checkType(DataType.TEXT) // This will not throw an exception
@@ -65,7 +65,7 @@ data class Column internal constructor(val name: String, val type: DataType) : C
      * @param expectedType The expected data type.
      * @throws InvalidDataTypeException if the column's data type does not match the expected data type.
      */
-    fun checkType(expectedType: DataType)
+    fun checkType(expectedType : DataType)
     {
         if (this.type != expectedType)
         {
@@ -81,7 +81,7 @@ data class Column internal constructor(val name: String, val type: DataType) : C
      * @param other The reference object with which to compare.
      * @return `true` if this object is the same as the obj argument; `false` otherwise.
      */
-    override fun equals(other: Any?): Boolean
+    override fun equals(other : Any?) : Boolean
     {
         if (this === other)
         {
@@ -103,7 +103,7 @@ data class Column internal constructor(val name: String, val type: DataType) : C
      *
      * @return A hash code value for this object.
      */
-    override fun hashCode(): Int =
+    override fun hashCode() : Int =
         Objects.hash(this.name.uppercase(), this.type)
 
     /**
@@ -114,7 +114,7 @@ data class Column internal constructor(val name: String, val type: DataType) : C
      * @param other The object to be compared.
      * @return A negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
      */
-    override operator fun compareTo(other: Column): Int =
+    override operator fun compareTo(other : Column) : Int =
         this.name.compareTo(other.name, true)
 }
 

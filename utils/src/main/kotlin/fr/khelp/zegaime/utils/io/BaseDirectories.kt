@@ -7,11 +7,11 @@ import java.io.IOException
 
 private class BaseDirectories
 
-
 /**
  * Path separator used in URL, ZIP, JAR
  */
 const val PATH_SEPARATOR = '/'
+
 /**
  * Path the represents the parent directory
  */
@@ -30,7 +30,7 @@ val outsideDirectory = File(File("").absolutePath)
 /**
  * "Home" directory
  */
-val homeDirectory: File by lazy {
+val homeDirectory : File by lazy {
     var directory = File(outsideDirectory, "home")
 
     try
@@ -47,7 +47,7 @@ val homeDirectory: File by lazy {
             }
         }
     }
-    catch (exception: Exception)
+    catch (exception : Exception)
     {
         exception(exception, "Failed to get home directory, use outside directory")
     }
@@ -58,8 +58,8 @@ val homeDirectory: File by lazy {
 /**
  * Temporary directory
  */
-val temporaryDirectory: File by lazy {
-    var directory: File? = null
+val temporaryDirectory : File by lazy {
+    var directory : File? = null
     var path = System.getProperty("user.home")
 
     if (path != null)
@@ -96,7 +96,6 @@ val temporaryDirectory: File by lazy {
     directory
 }
 
-
 /**
  * Create a temporary directory.
  *
@@ -106,7 +105,7 @@ val temporaryDirectory: File by lazy {
  * @throws IOException On creation issue
  */
 @Throws(IOException::class)
-fun createTemporaryDirectory(): File
+fun createTemporaryDirectory() : File
 {
     var name = 0
     var file = File(temporaryDirectory, "temp_$name")
@@ -136,7 +135,7 @@ fun createTemporaryDirectory(): File
  * @throws IOException On creation issue
  */
 @Throws(IOException::class)
-fun createTemporaryFile(string: String): File
+fun createTemporaryFile(string : String) : File
 {
     val file = File(temporaryDirectory, string)
 
@@ -157,9 +156,8 @@ fun createTemporaryFile(string: String): File
  * @param path Relative path
  * @return The file
  */
-fun obtainExternalFile(path: String): File =
+fun obtainExternalFile(path : String) : File =
     obtainFile(outsideDirectory, path)
-
 
 /**
  * Obtain a file relative to a directory
@@ -169,7 +167,7 @@ fun obtainExternalFile(path: String): File =
  * @param separator Separator used in path. By default it used `/`
  * @return The file
  */
-fun obtainFile(directory: File, path: String, separator: Char = PATH_SEPARATOR): File
+fun obtainFile(directory : File, path : String, separator : Char = PATH_SEPARATOR) : File
 {
     var file = directory
     val stringCutter = StringCutter(path, separator)

@@ -1,10 +1,10 @@
 package fr.khelp.zegaime.engine3d.utils
 
-import org.lwjgl.opengl.GL11
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.DoubleBuffer
 import java.nio.IntBuffer
+import org.lwjgl.opengl.GL11
 
 /**
  * A pure Kotlin implementation of some GLU functions.
@@ -18,14 +18,14 @@ private class Project
         private val IDENTITY_MATRIX = doubleArrayOf(1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0,
                                                     0.0, 0.0, 1.0)
 
-        private fun cross(var0: DoubleArray, var1: DoubleArray, var2: DoubleArray)
+        private fun cross(var0 : DoubleArray, var1 : DoubleArray, var2 : DoubleArray)
         {
             var2[0] = var0[1] * var1[2] - var0[2] * var1[1]
             var2[1] = var0[2] * var1[0] - var0[0] * var1[2]
             var2[2] = var0[0] * var1[1] - var0[1] * var1[0]
         }
 
-        private fun cross(var0: DoubleBuffer, var1: DoubleBuffer, var2: DoubleBuffer)
+        private fun cross(var0 : DoubleBuffer, var1 : DoubleBuffer, var2 : DoubleBuffer)
         {
             val var3 = var0.position()
             val var4 = var1.position()
@@ -35,7 +35,7 @@ private class Project
             var2.put(2 + var5, var0.get(0 + var3) * var1.get(1 + var4) - var0.get(1 + var3) * var1.get(0 + var4))
         }
 
-        private fun normalize(var0: DoubleArray)
+        private fun normalize(var0 : DoubleArray)
         {
             var var1 = Math.sqrt(var0[0] * var0[0] + var0[1] * var0[1] + var0[2] * var0[2])
             if (var1 != 0.0)
@@ -47,11 +47,11 @@ private class Project
             }
         }
 
-        private fun normalize(var0: DoubleBuffer)
+        private fun normalize(var0 : DoubleBuffer)
         {
             val var3 = var0.position()
             var var1 = Math.sqrt(var0.get(0 + var3) * var0.get(0 + var3) + var0.get(1 + var3) * var0.get(1 + var3) +
-                                         var0.get(2 + var3) * var0.get(2 + var3))
+                                 var0.get(2 + var3) * var0.get(2 + var3))
             if (var1 != 0.0)
             {
                 var1 = 1.0 / var1
@@ -61,7 +61,7 @@ private class Project
             }
         }
 
-        private fun slice(var0: DoubleBuffer, var1: Int, var2: Int): DoubleBuffer
+        private fun slice(var0 : DoubleBuffer, var1 : Int, var2 : Int) : DoubleBuffer
         {
             var0.position(var1)
             var0.limit(var1 + var2)
@@ -70,25 +70,25 @@ private class Project
     }
 
     private val forward = DoubleArray(3)
-    private val forwardBuf: DoubleBuffer
+    private val forwardBuf : DoubleBuffer
     private val `in` = DoubleArray(4)
-    private val inBuf: DoubleBuffer
+    private val inBuf : DoubleBuffer
     private val matrix = DoubleArray(16)
-    private val matrixBuf: DoubleBuffer
+    private val matrixBuf : DoubleBuffer
     private val out = DoubleArray(4)
-    private val outBuf: DoubleBuffer
+    private val outBuf : DoubleBuffer
     private val side = DoubleArray(3)
-    private val sideBuf: DoubleBuffer
+    private val sideBuf : DoubleBuffer
     private val tempMatrix = Array(4) { DoubleArray(4) }
-    private val tempMatrixBuf: DoubleBuffer
+    private val tempMatrixBuf : DoubleBuffer
     private val up = DoubleArray(3)
-    private val upBuf: DoubleBuffer
+    private val upBuf : DoubleBuffer
 
     init
     {
         val var1 = ByteBuffer.allocateDirect(128 * 8).order(ByteOrder.nativeOrder()).asDoubleBuffer()
-        val var2: Byte = 0
-        var var3: Byte = 16
+        val var2 : Byte = 0
+        var var3 : Byte = 16
         this.matrixBuf = Project.slice(var1, var2.toInt(), var3.toInt())
         var var4 = var2 + var3
         this.tempMatrixBuf = Project.slice(var1, var4, var3.toInt())
@@ -106,12 +106,12 @@ private class Project
         this.upBuf = Project.slice(var1, var4, var3.toInt())
     }
 
-    private fun __gluInvertMatrixd(var1: DoubleArray, var2: DoubleArray): Boolean
+    private fun __gluInvertMatrixd(var1 : DoubleArray, var2 : DoubleArray) : Boolean
     {
         val var9 = this.tempMatrix
 
-        var var3: Int
-        var var4: Int
+        var var3 : Int
+        var var4 : Int
         var3 = 0
         while (var3 < 4)
         {
@@ -141,8 +141,8 @@ private class Project
                 ++var4
             }
 
-            var var5: Int
-            var var7: Double
+            var var5 : Int
+            var var7 : Double
             if (var6 != var3)
             {
                 var5 = 0
@@ -196,14 +196,14 @@ private class Project
         return true
     }
 
-    private fun __gluInvertMatrixd(var1: DoubleBuffer, var2: DoubleBuffer): Boolean
+    private fun __gluInvertMatrixd(var1 : DoubleBuffer, var2 : DoubleBuffer) : Boolean
     {
         val var9 = var1.position()
         val var10 = var2.position()
         val var11 = this.tempMatrixBuf
 
-        var var3: Int
-        var var4: Int
+        var var3 : Int
+        var var4 : Int
         var3 = 0
         while (var3 < 4)
         {
@@ -233,8 +233,8 @@ private class Project
                 ++var4
             }
 
-            var var5: Int
-            var var7: Double
+            var var5 : Int
+            var var7 : Double
             if (var6 != var3)
             {
                 var5 = 0
@@ -289,38 +289,36 @@ private class Project
         return true
     }
 
-    private fun __gluMakeIdentityd(var1: DoubleBuffer)
+    private fun __gluMakeIdentityd(var1 : DoubleBuffer)
     {
         val var2 = var1.position()
         var1.put(Project.IDENTITY_MATRIX)
         var1.position(var2)
     }
 
-    private fun __gluMakeIdentityd(var1: DoubleArray)
+    private fun __gluMakeIdentityd(var1 : DoubleArray)
     {
         for (var2 in 0..15)
         {
             var1[var2] = Project.IDENTITY_MATRIX[var2]
         }
-
     }
 
-    private fun __gluMultMatricesd(var1: DoubleArray, var2: Int, var3: DoubleArray, var4: Int, var5: DoubleArray)
+    private fun __gluMultMatricesd(var1 : DoubleArray, var2 : Int, var3 : DoubleArray, var4 : Int, var5 : DoubleArray)
     {
         for (var6 in 0..3)
         {
             for (var7 in 0..3)
             {
                 var5[var6 * 4 + var7] = var1[var6 * 4 + 0 + var2] * var3[0 + var7 + var4] +
-                        var1[var6 * 4 + 1 + var2] * var3[4 + var7 + var4] +
-                        var1[var6 * 4 + 2 + var2] * var3[8 + var7 + var4] +
-                        var1[var6 * 4 + 3 + var2] * var3[12 + var7 + var4]
+                                        var1[var6 * 4 + 1 + var2] * var3[4 + var7 + var4] +
+                                        var1[var6 * 4 + 2 + var2] * var3[8 + var7 + var4] +
+                                        var1[var6 * 4 + 3 + var2] * var3[12 + var7 + var4]
             }
         }
-
     }
 
-    private fun __gluMultMatricesd(var1: DoubleBuffer, var2: DoubleBuffer, var3: DoubleBuffer)
+    private fun __gluMultMatricesd(var1 : DoubleBuffer, var2 : DoubleBuffer, var3 : DoubleBuffer)
     {
         val var4 = var1.position()
         val var5 = var2.position()
@@ -331,25 +329,23 @@ private class Project
             for (var8 in 0..3)
             {
                 var3.put(var7 * 4 + var8 + var6, var1.get(var7 * 4 + 0 + var4) * var2.get(0 + var8 + var5) +
-                        var1.get(var7 * 4 + 1 + var4) * var2.get(4 + var8 + var5) +
-                        var1.get(var7 * 4 + 2 + var4) * var2.get(8 + var8 + var5) +
-                        var1.get(var7 * 4 + 3 + var4) * var2.get(12 + var8 + var5))
+                                                 var1.get(var7 * 4 + 1 + var4) * var2.get(4 + var8 + var5) +
+                                                 var1.get(var7 * 4 + 2 + var4) * var2.get(8 + var8 + var5) +
+                                                 var1.get(var7 * 4 + 3 + var4) * var2.get(12 + var8 + var5))
             }
         }
-
     }
 
-    private fun __gluMultMatrixVecd(var1: DoubleArray, var2: Int, var3: DoubleArray, var4: DoubleArray)
+    private fun __gluMultMatrixVecd(var1 : DoubleArray, var2 : Int, var3 : DoubleArray, var4 : DoubleArray)
     {
         for (var5 in 0..3)
         {
             var4[var5] = var3[0] * var1[0 + var5 + var2] + var3[1] * var1[4 + var5 + var2] +
-                    var3[2] * var1[8 + var5 + var2] + var3[3] * var1[12 + var5 + var2]
+                         var3[2] * var1[8 + var5 + var2] + var3[3] * var1[12 + var5 + var2]
         }
-
     }
 
-    private fun __gluMultMatrixVecd(var1: DoubleBuffer, var2: DoubleBuffer, var3: DoubleBuffer)
+    private fun __gluMultMatrixVecd(var1 : DoubleBuffer, var2 : DoubleBuffer, var3 : DoubleBuffer)
     {
         val var4 = var2.position()
         val var5 = var3.position()
@@ -358,16 +354,15 @@ private class Project
         for (var7 in 0..3)
         {
             var3.put(var7 + var5, var2.get(0 + var4) * var1.get(0 + var7 + var6) +
-                    var2.get(1 + var4) * var1.get(4 + var7 + var6) +
-                    var2.get(2 + var4) * var1.get(8 + var7 + var6) +
-                    var2.get(3 + var4) * var1.get(12 + var7 + var6))
+                                  var2.get(1 + var4) * var1.get(4 + var7 + var6) +
+                                  var2.get(2 + var4) * var1.get(8 + var7 + var6) +
+                                  var2.get(3 + var4) * var1.get(12 + var7 + var6))
         }
-
     }
 
     fun gluLookAt(
-            var2: Double, var4: Double, var6: Double, var8: Double, var10: Double, var12: Double, var14: Double,
-            var16: Double, var18: Double)
+        var2 : Double, var4 : Double, var6 : Double, var8 : Double, var10 : Double, var12 : Double, var14 : Double,
+        var16 : Double, var18 : Double)
     {
         val var20 = this.forwardBuf
         val var21 = this.sideBuf
@@ -396,12 +391,12 @@ private class Project
         GL11.glTranslated(-var2, -var4, -var6)
     }
 
-    fun gluOrtho2D(var2: Double, var4: Double, var6: Double, var8: Double)
+    fun gluOrtho2D(var2 : Double, var4 : Double, var6 : Double, var8 : Double)
     {
         GL11.glOrtho(var2, var4, var6, var8, -1.0, 1.0)
     }
 
-    fun gluPerspective(var2: Double, var4: Double, var6: Double, var8: Double)
+    fun gluPerspective(var2 : Double, var4 : Double, var6 : Double, var8 : Double)
     {
         val var16 = var2 / 2.0 * 3.141592653589793 / 180.0
         val var14 = var8 - var6
@@ -420,19 +415,19 @@ private class Project
         }
     }
 
-    fun gluPickMatrix(var2: Double, var4: Double, var6: Double, var8: Double, var10: IntBuffer)
+    fun gluPickMatrix(var2 : Double, var4 : Double, var6 : Double, var8 : Double, var10 : IntBuffer)
     {
         if (var6 > 0.0 && var8 > 0.0)
         {
             val var11 = var10.position()
             GL11.glTranslated(
-                    (var10.get(2 + var11).toDouble() - 2.0 * (var2 - var10.get(0 + var11).toDouble())) / var6,
-                    (var10.get(3 + var11).toDouble() - 2.0 * (var4 - var10.get(1 + var11).toDouble())) / var8, 0.0)
+                (var10.get(2 + var11).toDouble() - 2.0 * (var2 - var10.get(0 + var11).toDouble())) / var6,
+                (var10.get(3 + var11).toDouble() - 2.0 * (var4 - var10.get(1 + var11).toDouble())) / var8, 0.0)
             GL11.glScaled(var10.get(2).toDouble() / var6, var10.get(3).toDouble() / var8, 1.0)
         }
     }
 
-    fun gluPickMatrix(var2: Double, var4: Double, var6: Double, var8: Double, var10: IntArray, var11: Int)
+    fun gluPickMatrix(var2 : Double, var4 : Double, var6 : Double, var8 : Double, var10 : IntArray, var11 : Int)
     {
         if (var6 > 0.0 && var8 > 0.0)
         {
@@ -443,9 +438,9 @@ private class Project
     }
 
     fun gluProject(
-            var1: Double, var3: Double, var5: Double, var7: DoubleArray, var8: Int, var9: DoubleArray, var10: Int,
-            var11: IntArray,
-            var12: Int, var13: DoubleArray, var14: Int): Boolean
+        var1 : Double, var3 : Double, var5 : Double, var7 : DoubleArray, var8 : Int, var9 : DoubleArray, var10 : Int,
+        var11 : IntArray,
+        var12 : Int, var13 : DoubleArray, var14 : Int) : Boolean
     {
         val var15 = this.`in`
         val var16 = this.out
@@ -473,8 +468,8 @@ private class Project
     }
 
     fun gluProject(
-            var1: Double, var3: Double, var5: Double, var7: DoubleBuffer, var8: DoubleBuffer, var9: IntBuffer,
-            var10: DoubleBuffer): Boolean
+        var1 : Double, var3 : Double, var5 : Double, var7 : DoubleBuffer, var8 : DoubleBuffer, var9 : IntBuffer,
+        var10 : DoubleBuffer) : Boolean
     {
         val var11 = this.inBuf
         val var12 = this.outBuf
@@ -504,9 +499,9 @@ private class Project
     }
 
     fun gluUnProject(
-            var1: Double, var3: Double, var5: Double, var7: DoubleArray, var8: Int, var9: DoubleArray, var10: Int,
-            var11: IntArray,
-            var12: Int, var13: DoubleArray, var14: Int): Boolean
+        var1 : Double, var3 : Double, var5 : Double, var7 : DoubleArray, var8 : Int, var9 : DoubleArray, var10 : Int,
+        var11 : IntArray,
+        var12 : Int, var13 : DoubleArray, var14 : Int) : Boolean
     {
         val var15 = this.`in`
         val var16 = this.out
@@ -543,8 +538,8 @@ private class Project
     }
 
     fun gluUnProject(
-            var1: Double, var3: Double, var5: Double, var7: DoubleBuffer, var8: DoubleBuffer, var9: IntBuffer,
-            var10: DoubleBuffer): Boolean
+        var1 : Double, var3 : Double, var5 : Double, var7 : DoubleBuffer, var8 : DoubleBuffer, var9 : IntBuffer,
+        var10 : DoubleBuffer) : Boolean
     {
         val var11 = this.inBuf
         val var12 = this.outBuf
@@ -583,9 +578,20 @@ private class Project
     }
 
     fun gluUnProject4(
-            var1: Double, var3: Double, var5: Double, var7: Double, var9: DoubleArray, var10: Int, var11: DoubleArray,
-            var12: Int,
-            var13: IntArray, var14: Int, var15: Double, var17: Double, var19: DoubleArray, var20: Int): Boolean
+        var1 : Double,
+        var3 : Double,
+        var5 : Double,
+        var7 : Double,
+        var9 : DoubleArray,
+        var10 : Int,
+        var11 : DoubleArray,
+        var12 : Int,
+        var13 : IntArray,
+        var14 : Int,
+        var15 : Double,
+        var17 : Double,
+        var19 : DoubleArray,
+        var20 : Int) : Boolean
     {
         val var21 = this.`in`
         val var22 = this.out
@@ -623,8 +629,8 @@ private class Project
     }
 
     fun gluUnProject4(
-            var1: Double, var3: Double, var5: Double, var7: Double, var9: DoubleBuffer, var10: DoubleBuffer,
-            var11: IntBuffer, var12: Double, var14: Double, var16: DoubleBuffer): Boolean
+        var1 : Double, var3 : Double, var5 : Double, var7 : Double, var9 : DoubleBuffer, var10 : DoubleBuffer,
+        var11 : IntBuffer, var12 : Double, var14 : Double, var16 : DoubleBuffer) : Boolean
     {
         val var17 = this.inBuf
         val var18 = this.outBuf
@@ -744,8 +750,8 @@ val versionString = "1.3"
  * @param upZ The Z coordinate of the up vector.
  */
 fun gluLookAt(
-        eyeX: Double, eyeY: Double, eyeZ: Double, centerX: Double, centerY: Double, centerZ: Double, upX: Double,
-        upY: Double, upZ: Double)
+    eyeX : Double, eyeY : Double, eyeZ : Double, centerX : Double, centerY : Double, centerZ : Double, upX : Double,
+    upY : Double, upZ : Double)
 {
     PROJECT.gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ)
 }
@@ -758,7 +764,7 @@ fun gluLookAt(
  * @param bottom The coordinate for the bottom horizontal clipping plane.
  * @param top The coordinate for the top horizontal clipping plane.
  */
-fun gluOrtho2D(left: Double, right: Double, bottom: Double, top: Double)
+fun gluOrtho2D(left : Double, right : Double, bottom : Double, top : Double)
 {
     PROJECT.gluOrtho2D(left, right, bottom, top)
 }
@@ -771,7 +777,7 @@ fun gluOrtho2D(left: Double, right: Double, bottom: Double, top: Double)
  * @param nearZ Value of Z near the screen.
  * @param farZ  Value of Z in depth.
  */
-fun gluPerspective(angle: Double, ratio: Double, nearZ: Double, farZ: Double)
+fun gluPerspective(angle : Double, ratio : Double, nearZ : Double, farZ : Double)
 {
     PROJECT.gluPerspective(angle, ratio, nearZ, farZ)
 }
@@ -786,7 +792,7 @@ fun gluPerspective(angle: Double, ratio: Double, nearZ: Double, farZ: Double)
  * @param viewport The viewport.
  * @param selectBuffer The selection buffer.
  */
-fun gluPickMatrix(x: Double, y: Double, width: Double, height: Double, viewport: IntArray, selectBuffer: Int)
+fun gluPickMatrix(x : Double, y : Double, width : Double, height : Double, viewport : IntArray, selectBuffer : Int)
 {
     PROJECT.gluPickMatrix(x, y, width, height, viewport, selectBuffer)
 }
@@ -800,7 +806,7 @@ fun gluPickMatrix(x: Double, y: Double, width: Double, height: Double, viewport:
  * @param height The height of the picking region.
  * @param viewport The viewport.
  */
-fun gluPickMatrix(x: Double, y: Double, width: Double, height: Double, viewport: IntBuffer)
+fun gluPickMatrix(x : Double, y : Double, width : Double, height : Double, viewport : IntBuffer)
 {
     PROJECT.gluPickMatrix(x, y, width, height, viewport)
 }
@@ -822,11 +828,29 @@ fun gluPickMatrix(x: Double, y: Double, width: Double, height: Double, viewport:
  * @return `true` if the function succeeds, `false` otherwise.
  */
 fun gluProject(
-        objX: Double, objY: Double, objZ: Double, modelMatrix: DoubleArray, modelMatrix_offset: Int, projMatrix: DoubleArray, projMatrix_offset: Int,
-        viewport: IntArray,
-        viewport_offset: Int, win_pos: DoubleArray, win_pos_offset: Int): Boolean
+    objX : Double,
+    objY : Double,
+    objZ : Double,
+    modelMatrix : DoubleArray,
+    modelMatrix_offset : Int,
+    projMatrix : DoubleArray,
+    projMatrix_offset : Int,
+    viewport : IntArray,
+    viewport_offset : Int,
+    win_pos : DoubleArray,
+    win_pos_offset : Int) : Boolean
 {
-    return PROJECT.gluProject(objX, objY, objZ, modelMatrix, modelMatrix_offset, projMatrix, projMatrix_offset, viewport, viewport_offset, win_pos, win_pos_offset)
+    return PROJECT.gluProject(objX,
+                              objY,
+                              objZ,
+                              modelMatrix,
+                              modelMatrix_offset,
+                              projMatrix,
+                              projMatrix_offset,
+                              viewport,
+                              viewport_offset,
+                              win_pos,
+                              win_pos_offset)
 }
 
 /**
@@ -846,11 +870,29 @@ fun gluProject(
  * @return `true` if the function succeeds, `false` otherwise.
  */
 fun gluUnProject(
-        winX: Double, winY: Double, winZ: Double, modelMatrix: DoubleArray, modelMatrix_offset: Int, projMatrix: DoubleArray, projMatrix_offset: Int,
-        viewport: IntArray,
-        viewport_offset: Int, obj_pos: DoubleArray, obj_pos_offset: Int): Boolean
+    winX : Double,
+    winY : Double,
+    winZ : Double,
+    modelMatrix : DoubleArray,
+    modelMatrix_offset : Int,
+    projMatrix : DoubleArray,
+    projMatrix_offset : Int,
+    viewport : IntArray,
+    viewport_offset : Int,
+    obj_pos : DoubleArray,
+    obj_pos_offset : Int) : Boolean
 {
-    return PROJECT.gluUnProject(winX, winY, winZ, modelMatrix, modelMatrix_offset, projMatrix, projMatrix_offset, viewport, viewport_offset, obj_pos, obj_pos_offset)
+    return PROJECT.gluUnProject(winX,
+                                winY,
+                                winZ,
+                                modelMatrix,
+                                modelMatrix_offset,
+                                projMatrix,
+                                projMatrix_offset,
+                                viewport,
+                                viewport_offset,
+                                obj_pos,
+                                obj_pos_offset)
 }
 
 /**
@@ -866,8 +908,13 @@ fun gluUnProject(
  * @return `true` if the function succeeds, `false` otherwise.
  */
 fun gluUnProject(
-        winX: Double, winY: Double, winZ: Double, modelMatrix: DoubleBuffer, projMatrix: DoubleBuffer, viewport: IntBuffer,
-        obj_pos: DoubleBuffer): Boolean
+    winX : Double,
+    winY : Double,
+    winZ : Double,
+    modelMatrix : DoubleBuffer,
+    projMatrix : DoubleBuffer,
+    viewport : IntBuffer,
+    obj_pos : DoubleBuffer) : Boolean
 {
     return PROJECT.gluUnProject(winX, winY, winZ, modelMatrix, projMatrix, viewport, obj_pos)
 }
@@ -892,13 +939,35 @@ fun gluUnProject(
  * @return `true` if the function succeeds, `false` otherwise.
  */
 fun gluUnProject4(
-        winX: Double, winY: Double, winZ: Double, winW: Double, modelMatrix: DoubleArray, modelMatrix_offset: Int,
-        projMatrix: DoubleArray, projMatrix_offset: Int,
-        viewport: IntArray, viewport_offset: Int, near: Double, far: Double, obj_pos: DoubleArray, obj_pos_offset: Int): Boolean
+    winX : Double,
+    winY : Double,
+    winZ : Double,
+    winW : Double,
+    modelMatrix : DoubleArray,
+    modelMatrix_offset : Int,
+    projMatrix : DoubleArray,
+    projMatrix_offset : Int,
+    viewport : IntArray,
+    viewport_offset : Int,
+    near : Double,
+    far : Double,
+    obj_pos : DoubleArray,
+    obj_pos_offset : Int) : Boolean
 {
-    return PROJECT.gluUnProject4(winX, winY, winZ, winW, modelMatrix, modelMatrix_offset, projMatrix, projMatrix_offset, viewport, viewport_offset, near,
+    return PROJECT.gluUnProject4(winX,
+                                 winY,
+                                 winZ,
+                                 winW,
+                                 modelMatrix,
+                                 modelMatrix_offset,
+                                 projMatrix,
+                                 projMatrix_offset,
+                                 viewport,
+                                 viewport_offset,
+                                 near,
                                  far,
-                                 obj_pos, obj_pos_offset)
+                                 obj_pos,
+                                 obj_pos_offset)
 }
 
 /**
@@ -917,8 +986,8 @@ fun gluUnProject4(
  * @return `true` if the function succeeds, `false` otherwise.
  */
 fun gluUnProject4(
-        winX: Double, winY: Double, winZ: Double, winW: Double, modelMatrix: DoubleBuffer, projMatrix: DoubleBuffer,
-        viewport: IntBuffer, near: Double, far: Double, obj_pos: DoubleBuffer): Boolean
+    winX : Double, winY : Double, winZ : Double, winW : Double, modelMatrix : DoubleBuffer, projMatrix : DoubleBuffer,
+    viewport : IntBuffer, near : Double, far : Double, obj_pos : DoubleBuffer) : Boolean
 {
     return PROJECT.gluUnProject4(winX, winY, winZ, winW, modelMatrix, projMatrix, viewport, near, far, obj_pos)
 }
@@ -936,8 +1005,13 @@ fun gluUnProject4(
  * @return `true` if the function succeeds, `false` otherwise.
  */
 fun gluProject(
-        objX: Double, objY: Double, objZ: Double, modelMatrix: DoubleBuffer, projMatrix: DoubleBuffer, viewport: IntBuffer,
-        win_pos: DoubleBuffer): Boolean
+    objX : Double,
+    objY : Double,
+    objZ : Double,
+    modelMatrix : DoubleBuffer,
+    projMatrix : DoubleBuffer,
+    viewport : IntBuffer,
+    win_pos : DoubleBuffer) : Boolean
 {
     return PROJECT.gluProject(objX, objY, objZ, modelMatrix, projMatrix, viewport, win_pos)
 }

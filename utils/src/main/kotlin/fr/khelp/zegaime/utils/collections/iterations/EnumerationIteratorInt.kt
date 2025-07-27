@@ -1,34 +1,38 @@
 package fr.khelp.zegaime.utils.collections.iterations
 
 import java.util.Enumeration
-import java.util.NoSuchElementException
 
 /**
  * Enumeration or iterator over int
  */
-class EnumerationIteratorInt : Iterable<Int>, Enumeration<Int>, Iterator<Int>
+class EnumerationIteratorInt : Iterable<Int>,
+                               Enumeration<Int>,
+                               Iterator<Int>
 {
     /**
      * Embed array
      */
-    private val array: IntArray?
+    private val array : IntArray?
+
     /**
      * Embed enumeration
      */
-    private val enumeration: Enumeration<Int>?
+    private val enumeration : Enumeration<Int>?
+
     /**
      * Read index in array
      */
-    private var index: Int = 0
+    private var index : Int = 0
+
     /**
      * Embed iterator
      */
-    private val iterator: Iterator<Int>?
+    private val iterator : Iterator<Int>?
 
     /**
      * Create enumeration/iterator based on enumeration
      */
-    constructor(enumeration: Enumeration<Int>)
+    constructor(enumeration : Enumeration<Int>)
     {
         this.array = null
         this.enumeration = enumeration
@@ -38,7 +42,7 @@ class EnumerationIteratorInt : Iterable<Int>, Enumeration<Int>, Iterator<Int>
     /**
      * Create enumeration/iterator based on iterator
      */
-    constructor(iterator: Iterator<Int>)
+    constructor(iterator : Iterator<Int>)
     {
         this.array = null
         this.enumeration = null
@@ -48,7 +52,7 @@ class EnumerationIteratorInt : Iterable<Int>, Enumeration<Int>, Iterator<Int>
     /**
      * Create enumeration/iterator based on array
      */
-    constructor(array: IntArray)
+    constructor(array : IntArray)
     {
         this.array = array
         this.enumeration = null
@@ -62,7 +66,7 @@ class EnumerationIteratorInt : Iterable<Int>, Enumeration<Int>, Iterator<Int>
      * contains at least one more element to provide;
      * `false` otherwise.
      */
-    override fun hasMoreElements(): Boolean
+    override fun hasMoreElements() : Boolean
     {
         if (this.enumeration != null)
         {
@@ -91,7 +95,7 @@ class EnumerationIteratorInt : Iterable<Int>, Enumeration<Int>, Iterator<Int>
      * @return the next element in the iteration
      * @throws NoSuchElementException if the iteration has no more elements
      */
-    override fun next(): Int
+    override fun next() : Int
     {
         if (this.enumeration != null)
         {

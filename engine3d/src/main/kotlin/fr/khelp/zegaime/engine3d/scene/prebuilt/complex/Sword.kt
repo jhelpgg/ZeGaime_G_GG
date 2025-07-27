@@ -85,8 +85,8 @@ class Sword(id : String, size : Float = 3.3f) : Node(id)
         clone.scaleY = 0.12f
         clone.scaleZ = 0.12f
         clone.x = 0f
-        clone.x = 0.4f
-        clone.x = 0.4f
+        clone.y = 0.4f
+        clone.z = 0.4f
         clone.material = this.baseMaterial
         this.addChild(clone)
 
@@ -147,9 +147,9 @@ class Sword(id : String, size : Float = 3.3f) : Node(id)
     }
 
     /**
-     * Position sword to be attach in a [Robot] back
+     * Position sword to be attached in a [fr.khelp.zegaime.engine3d.scene.prebuilt.complex.robot.Robot] back
      *
-     * @see Robot.putOnBack
+     * @see fr.khelp.zegaime.engine3d.scene.prebuilt.complex.robot.Robot.putOnBack
      */
     fun positionForBack()
     {
@@ -162,10 +162,10 @@ class Sword(id : String, size : Float = 3.3f) : Node(id)
     }
 
     /**
-     * Position sword to be take by a [Robot] hand
+     * Position sword to be taken by a [fr.khelp.zegaime.engine3d.scene.prebuilt.complex.robot.Robot] hand
      *
-     * @see Robot.putOnLeftHand
-     * @see Robot.putOnRightHand
+     * @see fr.khelp.zegaime.engine3d.scene.prebuilt.complex.robot.Robot.putOnLeftHand
+     * @see fr.khelp.zegaime.engine3d.scene.prebuilt.complex.robot.Robot.putOnRightHand
      */
     fun positionForHand()
     {

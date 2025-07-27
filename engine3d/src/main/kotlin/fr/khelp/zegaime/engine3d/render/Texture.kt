@@ -12,13 +12,13 @@ import org.lwjgl.system.MemoryStack
  *
  * A texture is an image that can be applied to a 3D object.
  *
- * **Creation example:**
+ * **Creation example**
  * ```kotlin
  * val gameImage = GameImage.load("myImage.png")
  * val texture = Texture(gameImage)
  * ```
  *
- * **Standard usage:**
+ * **Standard usage**
  * ```kotlin
  * myMaterial.textureDiffuse = texture
  * ```
@@ -28,18 +28,20 @@ import org.lwjgl.system.MemoryStack
  * @property height The height of the texture.
  * @constructor Creates a new texture.
  */
-open class Texture(val gameImage: GameImage)
+open class Texture(val gameImage : GameImage)
 {
     private val needRefresh = AtomicBoolean(true)
-    private var videoMemoryId: Int = -1
+    private var videoMemoryId : Int = -1
+
     /**
      * The width of the texture.
      */
-    val width: Int = this.gameImage.width
+    val width : Int = this.gameImage.width
+
     /**
      * The height of the texture.
      */
-    val height: Int = this.gameImage.height
+    val height : Int = this.gameImage.height
 
     init
     {

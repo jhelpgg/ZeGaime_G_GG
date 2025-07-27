@@ -8,7 +8,7 @@ import fr.khelp.zegaime.database.Column
  * This exception is thrown when an `INSERT` statement is executed without providing a value for a column
  * that does not have a default value.
  *
- * **Creation example:**
+ * **Creation example**
  * ```kotlin
  * throw NoValueDefinedAndNoDefaultValue(column)
  * ```
@@ -16,5 +16,5 @@ import fr.khelp.zegaime.database.Column
  * @param column The column for which no value was defined.
  * @constructor Creates a new no value defined and no default value exception.
  */
-class NoValueDefinedAndNoDefaultValue(column: Column) :
+class NoValueDefinedAndNoDefaultValue(column : Column) :
     Exception("No value defined for ${column.name} and no default value exists for ${column.type}")

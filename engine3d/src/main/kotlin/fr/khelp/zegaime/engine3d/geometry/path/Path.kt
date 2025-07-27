@@ -15,11 +15,6 @@ import kotlin.math.min
 
 class Path
 {
-    companion object
-    {
-        fun provider() : Path = Path()
-    }
-
     private val pathElements = ArrayList<PathElement>()
 
     val size : Int get() = this.pathElements.size

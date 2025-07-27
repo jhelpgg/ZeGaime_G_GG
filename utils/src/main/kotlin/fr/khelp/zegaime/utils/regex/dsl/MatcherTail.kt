@@ -6,7 +6,7 @@ package fr.khelp.zegaime.utils.regex.dsl
  * @see fr.khelp.zegaime.utils.regex.ResultMatcher.forEachMatch
  */
 @TailDSL
-class MatcherTail internal constructor(val tail: String)
+class MatcherTail internal constructor(val tail : String)
 {
     /** The replacement for the tail */
     internal val toAppend = StringBuilder()

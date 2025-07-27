@@ -111,7 +111,7 @@ class StringExtractor(string : String,
         this.escapeCharacters = escapeCharacters.toCharArray()
 
         this.index = 0
-        this.currentWordStart = - 1
+        this.currentWordStart = -1
         this.length = string.length
 
         this.openCloseIgnore = ArrayList<OpenCloseDelimiter>()
@@ -153,7 +153,6 @@ class StringExtractor(string : String,
 
         this.openCloseIgnore.add(OpenCloseDelimiter(open, close, countOpenClose))
     }
-
 
     /**
      * Next extracted string.
@@ -214,7 +213,7 @@ class StringExtractor(string : String,
             {
                 if (this.escapeCharacters.contains(character))
                 {
-                    this.index ++
+                    this.index++
                 }
                 else if (insideString)
                 {
@@ -225,7 +224,7 @@ class StringExtractor(string : String,
                         if (this.isStopAtString)
                         {
                             end = this.index
-                            this.index ++
+                            this.index++
                             break
                         }
                     }
@@ -241,7 +240,7 @@ class StringExtractor(string : String,
 
                     if (this.isStopAtString)
                     {
-                        start ++
+                        start++
                     }
 
                     insideString = true
@@ -260,30 +259,30 @@ class StringExtractor(string : String,
                     if (this.returnSeparators)
                     {
                         end = start + 1
-                        this.index ++
+                        this.index++
                         this.isSeparator = true
 
                         break
                     }
 
-                    start ++
+                    start++
                 }
             }
             else if (character == openClose.open && openClose.countOpenClose)
             {
-                openClose.counter ++
+                openClose.counter++
             }
             else if (character == openClose.close)
             {
-                openClose.counter --
+                openClose.counter--
 
-                if (! openClose.countOpenClose || openClose.counter == 0)
+                if (!openClose.countOpenClose || openClose.counter == 0)
                 {
                     openClose = null
                 }
             }
 
-            this.index ++
+            this.index++
 
             if (this.index < this.length)
             {
@@ -292,7 +291,7 @@ class StringExtractor(string : String,
         }
         while (this.index < this.length)
 
-        return if (! this.isCanReturnEmptyString && end == start)
+        return if (!this.isCanReturnEmptyString && end == start)
         {
             this.next()
         }

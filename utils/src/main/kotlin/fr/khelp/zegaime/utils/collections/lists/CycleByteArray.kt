@@ -13,8 +13,10 @@ class CycleByteArray(startSize : Int = 4096)
 {
     /** The byte array */
     private var array = ByteArray(max(8, startSize))
+
     /** Current read index */
     private var readIndex = 0
+
     /** Current write index */
     private var writeIndex = 0
 

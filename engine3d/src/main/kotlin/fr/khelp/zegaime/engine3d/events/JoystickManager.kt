@@ -25,9 +25,15 @@ import org.lwjgl.glfw.GLFW
  * ```kotlin
  * val joystickManager = window3D.joystickManager
  * joystickManager.joystickCodes.observedBy { joystickCodes ->
- *     for (joystickCode in joystickCodes) {
- *         // ...
+ *     if(JoystickCode.AXIS_1_POSITIVE in joystickCodes) {
+ *          // ...
  *     }
+
+ *     if(JoystickCode.BUTTON_6 in joystickCodes) {
+ *          // ...
+ *     }
+ *
+ *     // ...
  * }
  * ```
  *
@@ -37,10 +43,11 @@ import org.lwjgl.glfw.GLFW
 class JoystickManager internal constructor()
 {
     private val joystickCodesFlow = FlowSource<List<JoystickCode>>()
+
     /**
      * A flow that emits the currently active joystick codes.
      */
-    val joystickCodes: Flow<List<JoystickCode>> = this.joystickCodesFlow.flow
+    val joystickCodes : Flow<List<JoystickCode>> = this.joystickCodesFlow.flow
 
     private var initialized = false
     private val axisLimits = Array<AxeLimits>(JoystickCode.MAX_AXIS_INDEX + 1) { AxeLimits(0f) }
@@ -50,7 +57,7 @@ class JoystickManager internal constructor()
 
     /**Copy of last current active joystick codes and their status*/
     private val currentJoystickCodesCopy = HashMap<JoystickCode, JoystickStatus>()
-    private var nextJoystickCode: Promise<JoystickCode>? = null
+    private var nextJoystickCode : Promise<JoystickCode>? = null
     private val mutexCapture = Mutex()
     private val canCaptureJoystick = AtomicBoolean(false)
 
@@ -59,7 +66,7 @@ class JoystickManager internal constructor()
      *
      * @return A future that will contain the next joystick event.
      */
-    fun captureJoystick(): Future<JoystickCode> =
+    fun captureJoystick() : Future<JoystickCode> =
         this.mutexCapture {
             if (this.nextJoystickCode == null)
             {
@@ -99,7 +106,7 @@ class JoystickManager internal constructor()
      * @param joystickID The ID of the joystick.
      * @param event The event type.
      */
-    internal fun joystickConnected(joystickID: Int, event: Int)
+    internal fun joystickConnected(joystickID : Int, event : Int)
     {
         todo("joystickID=", joystickID, "<>", GLFW.GLFW_JOYSTICK_1, " event=", event, "<>", GLFW.GLFW_TRUE)
 
@@ -227,7 +234,7 @@ class JoystickManager internal constructor()
      * @param joystickCode Joystick code
      * @return Indicates if event is consumed
      */
-    private fun pressJoystick(joystickCode: JoystickCode): Boolean
+    private fun pressJoystick(joystickCode : JoystickCode) : Boolean
     {
         val consumed = this.mutexCapture {
             if (this.nextJoystickCode != null)

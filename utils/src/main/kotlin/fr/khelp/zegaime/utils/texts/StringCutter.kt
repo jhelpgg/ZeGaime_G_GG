@@ -1,6 +1,5 @@
 package fr.khelp.zegaime.utils.texts
 
-
 /**
  * Cut string to given character.
  *
@@ -8,12 +7,13 @@ package fr.khelp.zegaime.utils.texts
  * @param string String to cut
  * @param cut Character where cut
  */
-class StringCutter(private val string: String, private val cut: Char)
+class StringCutter(private val string : String, private val cut : Char)
 {
     /**
      * Current read index
      */
     private var index = 0
+
     /**
      * String length
      */
@@ -24,7 +24,7 @@ class StringCutter(private val string: String, private val cut: Char)
      *
      * @return Next part
      */
-    operator fun next(): String?
+    operator fun next() : String?
     {
         if (this.index < 0)
         {

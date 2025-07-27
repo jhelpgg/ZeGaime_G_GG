@@ -29,23 +29,14 @@ import org.lwjgl.opengl.GL11
  */
 class Face internal constructor() : Iterable<Vertex>
 {
-    companion object
-    {
-        /**
-         * Provides a new face instance.
-         *
-         * @return A new face instance.
-         */
-        fun provider(): Face = Face()
-    }
-
-    internal var barycenter: BarycenterPoint3D = BarycenterPoint3D()
-    internal var virtualBox: VirtualBox = VirtualBox()
+    internal var barycenter : BarycenterPoint3D = BarycenterPoint3D()
+    internal var virtualBox : VirtualBox = VirtualBox()
     private val vertices = ArrayList<Vertex>()
+
     /**
      * The number of vertices in the face.
      */
-    val size: Int get() = this.vertices.size
+    val size : Int get() = this.vertices.size
 
     /**
      * Adds a vertex to the face.
@@ -59,9 +50,9 @@ class Face internal constructor() : Iterable<Vertex>
      * @param normalY The Y coordinate of the normal.
      * @param normalZ The Z coordinate of the normal.
      */
-    fun add(x: Float, y: Float, z: Float,
-            uvU: Float, uvV: Float,
-            normalX: Float, normalY: Float, normalZ: Float)
+    fun add(x : Float, y : Float, z : Float,
+            uvU : Float, uvV : Float,
+            normalX : Float, normalY : Float, normalZ : Float)
     {
         this.barycenter.add(x.toDouble(), y.toDouble(), z.toDouble())
         this.virtualBox.add(x, y, z)
@@ -77,7 +68,7 @@ class Face internal constructor() : Iterable<Vertex>
      * @param uv The texture coordinates of the vertex.
      * @param normal The normal of the vertex.
      */
-    fun add(position: Point3D, uv: Point2D, normal: Point3D)
+    fun add(position : Point3D, uv : Point2D, normal : Point3D)
     {
         this.barycenter.add(position.x.toDouble(), position.y.toDouble(), position.z.toDouble())
         this.virtualBox.add(position.x, position.y, position.z)
@@ -89,7 +80,7 @@ class Face internal constructor() : Iterable<Vertex>
      *
      * @param vertex The vertex to add.
      */
-    fun add(vertex: Vertex)
+    fun add(vertex : Vertex)
     {
         this.barycenter.add(vertex.position.x.toDouble(), vertex.position.y.toDouble(), vertex.position.z.toDouble())
         this.virtualBox.add(vertex.position.x, vertex.position.y, vertex.position.z)
@@ -102,7 +93,7 @@ class Face internal constructor() : Iterable<Vertex>
      * @param index The index at which to insert the vertex.
      * @param vertex The vertex to insert.
      */
-    fun insert(index: Int, vertex: Vertex)
+    fun insert(index : Int, vertex : Vertex)
     {
         this.barycenter.add(vertex.position.x.toDouble(), vertex.position.y.toDouble(), vertex.position.z.toDouble())
         this.virtualBox.add(vertex.position.x, vertex.position.y, vertex.position.z)
@@ -124,14 +115,14 @@ class Face internal constructor() : Iterable<Vertex>
      * @param index The index of the vertex.
      * @return The vertex at the specified index.
      */
-    operator fun get(index: Int): Vertex = this.vertices[index]
+    operator fun get(index : Int) : Vertex = this.vertices[index]
 
     /**
      * Creates a copy of the face.
      *
      * @return A copy of the face.
      */
-    fun copy(): Face
+    fun copy() : Face
     {
         val copy = Face()
 
@@ -148,7 +139,7 @@ class Face internal constructor() : Iterable<Vertex>
      *
      * @param face The face to copy from.
      */
-    fun copy(face: Face)
+    fun copy(face : Face)
     {
         this.vertices.clear()
 
@@ -186,7 +177,7 @@ class Face internal constructor() : Iterable<Vertex>
      * @param solidityFactor The solidity factor of the movement.
      * @param near The number of near points to move.
      */
-    internal fun movePoint(point: Point3D, vector: Point3D, solidity: Float, solidityFactor: Float, near: Int)
+    internal fun movePoint(point : Point3D, vector : Point3D, solidity : Float, solidityFactor : Float, near : Int)
     {
         val indexStart = this.vertices.indexOfFirst { vertex -> vertex.position == point }
 
@@ -201,7 +192,7 @@ class Face internal constructor() : Iterable<Vertex>
         var newSolidity = solidity
         var indexForward = indexStart
         var indexBackward = indexStart
-        var isLast: Boolean
+        var isLast : Boolean
         val size = this.vertices.size
 
         for (time in 0 until near)
@@ -252,5 +243,5 @@ class Face internal constructor() : Iterable<Vertex>
     /**
      * Returns an iterator over the vertices of the face.
      */
-    override fun iterator(): Iterator<Vertex> = this.vertices.iterator()
+    override fun iterator() : Iterator<Vertex> = this.vertices.iterator()
 }

@@ -8,4 +8,4 @@ package fr.khelp.zegaime.resources.images
  * @property path The path to the image.
  * @constructor Creates a new image load description.
  */
-data class ImageLoad(val path: String) : ImageDescription
+data class ImageLoad(val path : String) : ImageDescription

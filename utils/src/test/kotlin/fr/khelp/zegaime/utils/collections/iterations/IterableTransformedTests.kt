@@ -9,7 +9,7 @@ class IterableTransformedTests
     fun `transform elements`()
     {
         val source = listOf(1, 2, 3, 4, 5)
-        val transformation = { number: Int -> "Number: $number" }
+        val transformation = { number : Int -> "Number: $number" }
         val iterableTransformed = IterableTransformed(transformation, source)
         val transformed = iterableTransformed.toList()
         Assertions.assertEquals(5, transformed.size)
@@ -24,7 +24,7 @@ class IterableTransformedTests
     fun `empty list`()
     {
         val source = emptyList<Int>()
-        val transformation = { number: Int -> "Number: $number" }
+        val transformation = { number : Int -> "Number: $number" }
         val iterableTransformed = IterableTransformed(transformation, source)
         val transformed = iterableTransformed.toList()
         Assertions.assertTrue(transformed.isEmpty())

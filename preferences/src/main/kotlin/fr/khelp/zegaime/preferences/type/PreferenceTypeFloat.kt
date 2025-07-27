@@ -13,7 +13,7 @@ data object PreferenceTypeFloat : PreferenceType<Float>
      * @param value The float value to serialize.
      * @return The serialized string.
      */
-    override fun serialize(value: Float): String =
+    override fun serialize(value : Float) : String =
         value.toString()
 
     /**
@@ -24,6 +24,6 @@ data object PreferenceTypeFloat : PreferenceType<Float>
      * @throws IllegalArgumentException If the string cannot be parsed to a float.
      */
     @Throws(IllegalArgumentException::class)
-    override fun parse(serialized: String): Float =
+    override fun parse(serialized : String) : Float =
         serialized.float()
 }

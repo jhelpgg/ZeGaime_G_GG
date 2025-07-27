@@ -13,4 +13,4 @@ import fr.khelp.zegaime.animations.Animation
  * @property playing Indicates if the animation is currently playing.
  * @constructor Create a new parallel animation element.
  */
-internal data class AnimationParallelElement(val animation: Animation, var playing: Boolean)
+internal data class AnimationParallelElement(val animation : Animation, var playing : Boolean)

@@ -12,7 +12,7 @@ import kotlin.math.max
  * @property tension The tension of the effect. A higher value means a more pronounced effect.
  * @constructor Creates a new anticipation-overshoot interpolation.
  */
-class InterpolationAnticipateOvershoot(tension: Double = 2.0) : Interpolation
+class InterpolationAnticipateOvershoot(tension : Double = 2.0) : Interpolation
 {
     /** The tension of the effect, ensured to be positive. */
     private val tension = max(EPSILON, tension)
@@ -27,7 +27,7 @@ class InterpolationAnticipateOvershoot(tension: Double = 2.0) : Interpolation
      * @param percent The value to interpolate, between 0 and 1.
      * @return The interpolated value.
      */
-    override operator fun invoke(percent: Double) =
+    override operator fun invoke(percent : Double) =
         when
         {
             percent.compare(0.5) < 0 ->
@@ -36,7 +36,7 @@ class InterpolationAnticipateOvershoot(tension: Double = 2.0) : Interpolation
                 0.5 * ((this.tension + 1.0) * value * value * value - this.tension * value * value)
             }
 
-            else ->
+            else                     ->
             {
                 val value = 2.0 * percent - 2.0
                 0.5 * ((this.tension + 1.0) * value * value * value + this.tension * value * value) + 1.0

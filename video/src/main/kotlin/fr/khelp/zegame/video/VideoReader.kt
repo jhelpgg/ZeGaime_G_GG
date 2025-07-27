@@ -9,7 +9,7 @@ import java.io.InputStream
 /**
  * Reads a video from an input stream.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val video = videoReader(inputStream)
  * ```
@@ -17,7 +17,7 @@ import java.io.InputStream
  * @param inputStream The input stream to read the video from.
  * @return The video read.
  */
-fun videoReader(inputStream: InputStream): Video
+fun videoReader(inputStream : InputStream) : Video
 {
     val width = inputStream.readInt()
     val height = inputStream.readInt()

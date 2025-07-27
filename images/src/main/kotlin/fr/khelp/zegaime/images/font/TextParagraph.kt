@@ -5,11 +5,11 @@ import java.awt.Dimension
 /**
  * Represents a paragraph of text, which is a list of [TextLine]s.
  *
- * **Creation example:**
+ * **Creation example**
  * This class is not meant to be instantiated directly.
  * It is returned by the `JHelpFont.computeTextParagraph` method.
  *
- * **Standard usage:**
+ * **Standard usage**
  * ```kotlin
  * val textParagraph = font.computeTextParagraph("Hello, world!", TextAlignment.CENTER, 100)
  * val lines = textParagraph.textLines
@@ -21,12 +21,12 @@ import java.awt.Dimension
  * @property string The string representation of the paragraph.
  * @constructor Creates a new text paragraph.
  */
-class TextParagraph(val textLines: List<TextLine>, val size: Dimension)
+class TextParagraph(val textLines : List<TextLine>, val size : Dimension)
 {
     /**
      * The string representation of the paragraph.
      */
-    val string: String by lazy {
+    val string : String by lazy {
         val stringBuilder = StringBuilder()
         var notFirst = false
 

@@ -7,9 +7,10 @@ import fr.khelp.zegame.video.Video
  *
  * This texture is animated and can be played using the `Video` class.
  *
- * **Creation example:**
+ * **Creation example**
  * ```kotlin
- * val video = Video("myVideo.mp4")
+ * val resources : Resources = ...
+ * val video = resources.video("myVideo")
  * val textureVideo = TextureVideo(video)
  * ```
  *
@@ -22,4 +23,4 @@ import fr.khelp.zegame.video.Video
  * @property video The video instance.
  * @constructor Creates a new video texture.
  */
-class TextureVideo(val video: Video) : Texture(video.image)
+class TextureVideo(val video : Video) : Texture(video.image)

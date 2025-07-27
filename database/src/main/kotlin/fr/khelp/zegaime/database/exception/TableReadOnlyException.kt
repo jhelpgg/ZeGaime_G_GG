@@ -7,12 +7,12 @@ import fr.khelp.zegaime.database.Table
  *
  * This exception is thrown when trying to insert, update or delete a row in a read-only table.
  *
- * **Creation example:**
+ * **Creation example**
  * ```kotlin
  * throw TableReadOnlyException(table)
  * ```
  *
  * @param table The read-only table.
- * @constructor Creates a new table read only exception.
+ * @constructor Creates a new table read-only exception.
  */
-class TableReadOnlyException(table: Table) : Exception("The table ${table.name} is read only")
+class TableReadOnlyException(table : Table) : Exception("The table ${table.name} is read only")

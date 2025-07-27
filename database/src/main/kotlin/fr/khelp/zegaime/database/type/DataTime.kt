@@ -50,26 +50,31 @@ class DataTime() : Comparable<DataTime>
      */
     var days = 0
         private set
+
     /**
      * The number of hours.
      */
     var hours = 0
         private set
+
     /**
      * The number of minutes.
      */
     var minutes = 0
         private set
+
     /**
      * The number of seconds.
      */
     var seconds = 0
         private set
+
     /**
      * The number of milliseconds.
      */
     var milliseconds = 0
         private set
+
     /**
      * The serialized representation of the time.
      *
@@ -88,7 +93,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @param dataTime The time duration to copy.
      */
-    constructor(dataTime: DataTime) : this()
+    constructor(dataTime : DataTime) : this()
     {
         this.copy(dataTime)
     }
@@ -101,7 +106,7 @@ class DataTime() : Comparable<DataTime>
      * @param seconds The number of seconds.
      * @param milliseconds The number of milliseconds.
      */
-    constructor(hours: Int, minutes: Int, seconds: Int, milliseconds: Int) : this()
+    constructor(hours : Int, minutes : Int, seconds : Int, milliseconds : Int) : this()
     {
         this.days = 0
         this.hours = hours
@@ -118,7 +123,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @param serialized The serialized representation.
      */
-    internal constructor(serialized: Int) : this()
+    internal constructor(serialized : Int) : this()
     {
         this.parse(serialized)
     }
@@ -128,7 +133,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @param dataTime The time duration to copy.
      */
-    fun copy(dataTime: DataTime)
+    fun copy(dataTime : DataTime)
     {
         this.days = dataTime.days
         this.hours = dataTime.hours
@@ -157,7 +162,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @param milliseconds The number of milliseconds to add.
      */
-    fun addMilliseconds(milliseconds: Int)
+    fun addMilliseconds(milliseconds : Int)
     {
         this.milliseconds += milliseconds
         this.validate()
@@ -168,7 +173,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @param milliseconds The number of milliseconds to subtract.
      */
-    fun subtractMilliseconds(milliseconds: Int)
+    fun subtractMilliseconds(milliseconds : Int)
     {
         this.milliseconds -= milliseconds
         this.validate()
@@ -179,7 +184,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @param seconds The number of seconds to add.
      */
-    fun addSeconds(seconds: Int)
+    fun addSeconds(seconds : Int)
     {
         this.seconds += seconds
         this.validate()
@@ -190,7 +195,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @param seconds The number of seconds to subtract.
      */
-    fun subtractSeconds(seconds: Int)
+    fun subtractSeconds(seconds : Int)
     {
         this.seconds -= seconds
         this.validate()
@@ -201,7 +206,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @param minutes The number of minutes to add.
      */
-    fun addMinutes(minutes: Int)
+    fun addMinutes(minutes : Int)
     {
         this.minutes += minutes
         this.validate()
@@ -212,7 +217,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @param minutes The number of minutes to subtract.
      */
-    fun subtractMinutes(minutes: Int)
+    fun subtractMinutes(minutes : Int)
     {
         this.minutes -= minutes
         this.validate()
@@ -223,7 +228,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @param hours The number of hours to add.
      */
-    fun addHours(hours: Int)
+    fun addHours(hours : Int)
     {
         this.hours += hours
         this.validate()
@@ -234,7 +239,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @param hours The number of hours to subtract.
      */
-    fun subtractHours(hours: Int)
+    fun subtractHours(hours : Int)
     {
         this.hours -= hours
         this.validate()
@@ -248,7 +253,7 @@ class DataTime() : Comparable<DataTime>
      * @param seconds The number of seconds to add.
      * @param milliseconds The number of milliseconds to add.
      */
-    fun add(hours: Int = 0, minutes: Int = 0, seconds: Int = 0, milliseconds: Int = 0)
+    fun add(hours : Int = 0, minutes : Int = 0, seconds : Int = 0, milliseconds : Int = 0)
     {
         this.hours += hours
         this.minutes += minutes
@@ -265,7 +270,7 @@ class DataTime() : Comparable<DataTime>
      * @param seconds The number of seconds to subtract.
      * @param milliseconds The number of milliseconds to subtract.
      */
-    fun subtract(hours: Int = 0, minutes: Int = 0, seconds: Int = 0, milliseconds: Int = 0)
+    fun subtract(hours : Int = 0, minutes : Int = 0, seconds : Int = 0, milliseconds : Int = 0)
     {
         this.hours -= hours
         this.minutes -= minutes
@@ -279,7 +284,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @param time The time duration to add.
      */
-    operator fun plusAssign(time: DataTime)
+    operator fun plusAssign(time : DataTime)
     {
         this.add(time.hours, time.minutes, time.seconds, time.milliseconds)
     }
@@ -290,7 +295,7 @@ class DataTime() : Comparable<DataTime>
      * @param time The time duration to add.
      * @return A new time duration.
      */
-    operator fun plus(time: DataTime): DataTime
+    operator fun plus(time : DataTime) : DataTime
     {
         val dataTime = DataTime(this)
         dataTime += time
@@ -302,7 +307,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @param time The time duration to subtract.
      */
-    operator fun minusAssign(time: DataTime)
+    operator fun minusAssign(time : DataTime)
     {
         this.subtract(time.hours, time.minutes, time.seconds, time.milliseconds)
     }
@@ -313,7 +318,7 @@ class DataTime() : Comparable<DataTime>
      * @param time The time duration to subtract.
      * @return A new time duration.
      */
-    operator fun minus(time: DataTime): DataTime
+    operator fun minus(time : DataTime) : DataTime
     {
         val dataTime = DataTime(this)
         dataTime -= time
@@ -326,7 +331,7 @@ class DataTime() : Comparable<DataTime>
      * @param other The other time duration to compare with.
      * @return A negative integer, zero, or a positive integer as this time duration is less than, equal to, or greater than the specified time duration.
      */
-    override operator fun compareTo(other: DataTime): Int
+    override operator fun compareTo(other : DataTime) : Int
     {
         var comparison = this.days - other.days
 
@@ -365,7 +370,7 @@ class DataTime() : Comparable<DataTime>
      * @param other The reference object with which to compare.
      * @return `true` if this object is the same as the obj argument; `false` otherwise.
      */
-    override fun equals(other: Any?): Boolean
+    override fun equals(other : Any?) : Boolean
     {
         if (this === other)
         {
@@ -385,7 +390,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @return A hash code value for this object.
      */
-    override fun hashCode(): Int =
+    override fun hashCode() : Int =
         this.serialized
 
     /**
@@ -395,7 +400,7 @@ class DataTime() : Comparable<DataTime>
      *
      * @return A string representation of the time duration.
      */
-    override fun toString(): String
+    override fun toString() : String
     {
         val stringBuilder = StringBuilder()
         var writing = false
@@ -433,7 +438,7 @@ class DataTime() : Comparable<DataTime>
         return stringBuilder.toString()
     }
 
-    private fun parse(serialized: Int)
+    private fun parse(serialized : Int)
     {
         this.serialized = serialized
         this.days = (serialized and DAYS_MASK) shr DAYS_SHIFT

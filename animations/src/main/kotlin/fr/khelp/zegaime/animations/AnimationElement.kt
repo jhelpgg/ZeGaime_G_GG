@@ -11,5 +11,5 @@ package fr.khelp.zegaime.animations
  * @property startTimeInMilliseconds Time when animation was started, in milliseconds.
  * @constructor Create the animation element.
  */
-internal data class AnimationElement(val animation: Animation,
-                                     val startTimeInMilliseconds: Long = System.currentTimeMillis())
+internal data class AnimationElement(val animation : Animation,
+                                     val startTimeInMilliseconds : Long = System.currentTimeMillis())

@@ -12,4 +12,4 @@ package fr.khelp.zegaime.sounds
  * @param cause The cause of the exception.
  * @constructor Creates a new sound exception.
  */
-class SoundException(message: String, cause: Throwable? = null) : RuntimeException(message, cause)
+class SoundException(message : String, cause : Throwable? = null) : RuntimeException(message, cause)

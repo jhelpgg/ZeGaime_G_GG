@@ -1,20 +1,16 @@
 package fr.khelp.zegaime.utils.tasks.future
 
-import fr.khelp.zegaime.utils.tasks.TaskContext
-import fr.khelp.zegaime.utils.tasks.future.status.FutureCanceled
-import fr.khelp.zegaime.utils.tasks.future.status.FutureFailed
-import fr.khelp.zegaime.utils.tasks.future.status.FutureSucceed
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 class FutureTests
 {
     @Test
-    fun `onSucceed`()
+    fun onSucceed()
     {
         val promise = Promise<String>()
         val future = promise.future
@@ -32,7 +28,7 @@ class FutureTests
     }
 
     @Test
-    fun `onFailed`()
+    fun onFailed()
     {
         val promise = Promise<String>()
         val future = promise.future
@@ -51,7 +47,7 @@ class FutureTests
     }
 
     @Test
-    fun `onCanceled`()
+    fun onCanceled()
     {
         val promise = Promise<String>()
         val future = promise.future
@@ -69,7 +65,7 @@ class FutureTests
     }
 
     @Test
-    fun `afterSucceed`()
+    fun afterSucceed()
     {
         val promise = Promise<String>()
         val future = promise.future
@@ -88,7 +84,7 @@ class FutureTests
     }
 
     @Test
-    fun `afterComplete`()
+    fun afterComplete()
     {
         val promise = Promise<String>()
         val future = promise.future
@@ -106,7 +102,7 @@ class FutureTests
     }
 
     @Test
-    fun `unwrap`()
+    fun unwrap()
     {
         val promise1 = Promise<String>()
         val future1 = promise1.future

@@ -11,8 +11,16 @@ import fr.khelp.zegaime.utils.collections.iterations.select
  * To create a parallel animation, you can use the DSL:
  *
  * ```kotlin
- * val animation = parallel {
- *      // Add animations here
+ * val animation = animationParallel {
+ *      + animationAction {
+ *          // ...
+ *      }
+ *
+ *      + animationDouble(42.73) {
+ *          // ...
+ *      }
+ *
+ *      // ....
  * }
  * ```
  *
@@ -30,6 +38,7 @@ class AnimationParallel : Animation
 {
     /** Indicates if the animation is currently playing */
     private var playing = false
+
     /** List of animations to play in parallel */
     private val animations = ArrayList<AnimationParallelElement>()
 
@@ -40,7 +49,7 @@ class AnimationParallel : Animation
      *
      * @param animation The animation to add.
      */
-    operator fun plusAssign(animation: Animation)
+    operator fun plusAssign(animation : Animation)
     {
         synchronized(this.animations)
         {
@@ -78,7 +87,7 @@ class AnimationParallel : Animation
      * @param millisecondsSinceStarted Time since the animation started.
      * @return `true` if at least one child animation is still playing, `false` otherwise.
      */
-    override fun animate(millisecondsSinceStarted: Long): Boolean
+    override fun animate(millisecondsSinceStarted : Long) : Boolean
     {
         var stillPlaying = false
 

@@ -1,6 +1,5 @@
 package fr.khelp.zegaime.utils.math.matrix
 
-
 /**
  * Parameters for multiplication task
  * @param x Cell X
@@ -12,11 +11,11 @@ package fr.khelp.zegaime.utils.math.matrix
  * @param first First matrix data
  * @param second Second matrix data
  */
-internal class TaskMultiplicationCell(val x: Int,
-                                      val y: Int,
-                                      val firstWidth: Int,
-                                      val secondWidth: Int,
-                                      val resultWidth: Int,
-                                      val result: DoubleArray,
-                                      val first: DoubleArray,
-                                      val second: DoubleArray)
+internal class TaskMultiplicationCell(val x : Int,
+                                      val y : Int,
+                                      val firstWidth : Int,
+                                      val secondWidth : Int,
+                                      val resultWidth : Int,
+                                      val result : DoubleArray,
+                                      val first : DoubleArray,
+                                      val second : DoubleArray)

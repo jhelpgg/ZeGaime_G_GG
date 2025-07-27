@@ -5,8 +5,6 @@ import fr.khelp.zegaime.images.color.BLACK
 import fr.khelp.zegaime.images.color.WHITE
 import fr.khelp.zegaime.images.color.argb
 import fr.khelp.zegaime.utils.extensions.and
-import fr.khelp.zegaime.utils.extensions.or
-import fr.khelp.zegaime.utils.extensions.shl
 import fr.khelp.zegaime.utils.extensions.toUnsignedInt
 import fr.khelp.zegaime.utils.io.readFully
 import java.io.EOFException
@@ -53,7 +51,7 @@ class PCX internal constructor()
          * @param offset The offset where to start reading the word.
          * @return The word read.
          */
-        private fun word(array: ByteArray, offset: Int): Int
+        private fun word(array : ByteArray, offset : Int) : Int
         {
             return array[offset].toUnsignedInt() or (array[offset + 1].toUnsignedInt() shl 8)
         }
@@ -62,95 +60,95 @@ class PCX internal constructor()
     /**
      * Indicates if a 256 palette is defined
      */
-    private var has256Palette: Boolean = false
+    private var has256Palette : Boolean = false
 
     /**
      * Image height
      */
-    var height: Int = 0
+    var height : Int = 0
         private set
 
     /**
      * DPI in horizontal
      */
-    private var horizontalDPI: Int = 0
+    private var horizontalDPI : Int = 0
 
     /**
      * Manufacturer code
      */
-    var manufacturer: Byte = 0
+    var manufacturer : Byte = 0
         private set
 
     /**
      * The name of the manufacturer.
      */
-    val manufacturerName: String get() = manufacturerToString(this.manufacturer)
+    val manufacturerName : String get() = manufacturerToString(this.manufacturer)
 
     /**
      * Number of byte per scanline
      */
-    private var numberBitsPerScanline: Int = 0
+    private var numberBitsPerScanline : Int = 0
 
     /**
      * Number of byte per pixel
      */
-    private var numberBytePerPixel: Int = 0
+    private var numberBytePerPixel : Int = 0
 
     /**
      * Number of color plane
      */
-    private var numberOfColorPlane: Int = 0
+    private var numberOfColorPlane : Int = 0
 
     /**
      * The 16 colors palette
      */
-    private lateinit var palette16: IntArray
+    private lateinit var palette16 : IntArray
 
     /**
      * The 256 colors palette
      */
-    private lateinit var palette256: IntArray
+    private lateinit var palette256 : IntArray
 
     /**
      * Scanline size
      */
-    private var scanLineSize: Int = 0
+    private var scanLineSize : Int = 0
 
     /**
      * Screen height
      */
-    private var screenHeight: Int = 0
+    private var screenHeight : Int = 0
 
     /**
      * Screen width
      */
-    private var screenWidth: Int = 0
+    private var screenWidth : Int = 0
 
     /**
      * Uncompressed image data
      */
-    private lateinit var uncompressed: IntArray
+    private lateinit var uncompressed : IntArray
 
     /**
      * PCX version code
      */
-    var version: Byte = 0
+    var version : Byte = 0
         private set
 
     /**
      * The name of the version.
      */
-    val versionName: String get() = versionToString(this.version)
+    val versionName : String get() = versionToString(this.version)
 
     /**
      * Vertical DPI
      */
-    private var verticalDPI: Int = 0
+    private var verticalDPI : Int = 0
 
     /**
      * Image width
      */
-    var width: Int = 0
+    var width : Int = 0
         private set
 
     /**
@@ -158,7 +156,7 @@ class PCX internal constructor()
      *
      * @param inputStream The input stream to read from.
      */
-    constructor(inputStream: InputStream) : this()
+    constructor(inputStream : InputStream) : this()
     {
         this.readHeader(inputStream)
         this.readImageData(inputStream)
@@ -170,16 +168,16 @@ class PCX internal constructor()
      *
      * @param pixels Pixels image to fill
      */
-    private fun fillPixels_1_BytePerPixel_1_ColorPlane(pixels: IntArray)
+    private fun fillPixels_1_BytePerPixel_1_ColorPlane(pixels : IntArray)
     {
         // Each bit represents a pixel, 1 => white, 0 => black
         val scanLine = IntArray(this.scanLineSize)
         var lineData = 0
         var pix = 0
-        var x: Int
-        var shift: Int
-        var read: Int
-        var index: Int
+        var x : Int
+        var shift : Int
+        var read : Int
+        var index : Int
         val white = WHITE.argb
         val black = BLACK.argb
 
@@ -229,7 +227,7 @@ class PCX internal constructor()
      *
      * @param pixels Pixels image to fill
      */
-    private fun fillPixels_1_BytePerPixel_3_ColorPlane(pixels: IntArray)
+    private fun fillPixels_1_BytePerPixel_3_ColorPlane(pixels : IntArray)
     {
         // The palette 16 index is dispatch like that, lower bits first, upper bits last (only first 8 colors (0-7) of
         // the palette are used)
@@ -237,10 +235,10 @@ class PCX internal constructor()
         val codes = IntArray(this.width)
         var lineData = 0
         var pix = 0
-        var x: Int
-        var shift: Int
-        var read: Int
-        var index: Int
+        var x : Int
+        var shift : Int
+        var read : Int
+        var index : Int
 
         for (y in 0 until this.height)
         {
@@ -338,17 +336,17 @@ class PCX internal constructor()
      *
      * @param pixels Pixels image to fill
      */
-    private fun fillPixels_1_BytePerPixel_4_ColorPlane(pixels: IntArray)
+    private fun fillPixels_1_BytePerPixel_4_ColorPlane(pixels : IntArray)
     {
         // The palette 16 index is dispatch like that, lower bits first, upper bits last
         val scanLine = IntArray(this.scanLineSize)
         val codes = IntArray(this.width)
         var lineData = 0
         var pix = 0
-        var x: Int
-        var shift: Int
-        var read: Int
-        var index: Int
+        var x : Int
+        var shift : Int
+        var read : Int
+        var index : Int
 
         for (y in 0 until this.height)
         {
@@ -467,15 +465,15 @@ class PCX internal constructor()
      *
      * @param pixels Pixels image to fill
      */
-    private fun fillPixels_4_BytePerPixel_1_ColorPlane(pixels: IntArray)
+    private fun fillPixels_4_BytePerPixel_1_ColorPlane(pixels : IntArray)
     {
         // Each byte contains 2 palette 16 indexes
         val scanLine = IntArray(this.scanLineSize)
         var lineData = 0
         var pix = 0
-        var x: Int
-        var read: Int
-        var index: Int
+        var x : Int
+        var read : Int
+        var index : Int
 
         for (y in 0 until this.height)
         {
@@ -509,18 +507,18 @@ class PCX internal constructor()
      *
      * @param pixels Pixels image to fill
      */
-    private fun fillPixels_4_BytePerPixel_4_ColorPlane(pixels: IntArray)
+    private fun fillPixels_4_BytePerPixel_4_ColorPlane(pixels : IntArray)
     {
         // RGBA all codes in 0-16, so have to multiply values per 16
         // 2 parts per byte
         val scanLine = IntArray(this.scanLineSize)
         var lineData = 0
         var pix = 0
-        var x: Int
-        var read: Int
-        var index: Int
-        var start: Int
-        var write: Int
+        var x : Int
+        var read : Int
+        var index : Int
+        var start : Int
+        var write : Int
 
         for (y in 0 until this.height)
         {
@@ -619,13 +617,13 @@ class PCX internal constructor()
      *
      * @param pixels Pixels image to fill
      */
-    private fun fillPixels_8_BytePerPixel_1_ColorPlane(pixels: IntArray)
+    private fun fillPixels_8_BytePerPixel_1_ColorPlane(pixels : IntArray)
     {
         // Each byte is 1 palette 256 index
         val scanLine = IntArray(this.scanLineSize)
         var lineData = 0
         var pix = 0
-        var x: Int
+        var x : Int
         for (y in 0 until this.height)
         {
             System.arraycopy(this.uncompressed, lineData, scanLine, 0, this.scanLineSize)
@@ -646,7 +644,7 @@ class PCX internal constructor()
      *
      * @param pixels Pixels image to fill
      */
-    private fun fillPixels_8_BytePerPixel_3_ColorPlane(pixels: IntArray)
+    private fun fillPixels_8_BytePerPixel_3_ColorPlane(pixels : IntArray)
     {
         // RGB color : ex for (5x3)
         // RRRRRGGGGGBBBBB
@@ -655,10 +653,10 @@ class PCX internal constructor()
         val scanLine = IntArray(this.scanLineSize)
         var lineData = 0
         var pix = 0
-        var x: Int
-        var index: Int
-        var start: Int
-        var write: Int
+        var x : Int
+        var index : Int
+        var start : Int
+        var write : Int
         val black = BLACK.argb
 
         for (y in 0 until this.height)
@@ -724,7 +722,7 @@ class PCX internal constructor()
      *
      * @param pixels Pixels image to fill
      */
-    private fun fillPixels_8_BytePerPixel_4_ColorPlane(pixels: IntArray)
+    private fun fillPixels_8_BytePerPixel_4_ColorPlane(pixels : IntArray)
     {
         // RGBA color : ex for (5x3)
         // RRRRRGGGGGBBBBBAAAAA
@@ -733,10 +731,10 @@ class PCX internal constructor()
         val scanLine = IntArray(this.scanLineSize)
         var lineData = 0
         var pix = 0
-        var x: Int
-        var index: Int
-        var start: Int
-        var write: Int
+        var x : Int
+        var index : Int
+        var start : Int
+        var write : Int
 
         for (y in 0 until this.height)
         {
@@ -802,7 +800,7 @@ class PCX internal constructor()
      * @throws IOException On reading issue.
      */
     @Throws(IOException::class)
-    private fun read256Palette(inputStream: InputStream)
+    private fun read256Palette(inputStream : InputStream)
     {
         var read = inputStream.read()
         this.has256Palette = read == 0x0C
@@ -818,7 +816,7 @@ class PCX internal constructor()
                 throw IOException("Not enough data for the 256 palette")
             }
 
-            var index: Int
+            var index : Int
             this.palette256 = IntArray(256)
 
             index = 0
@@ -853,7 +851,7 @@ class PCX internal constructor()
      * @throws IOException On reading issue.
      */
     @Throws(IOException::class)
-    internal fun readHeader(inputStream: InputStream)
+    internal fun readHeader(inputStream : InputStream)
     {
         // Header has 128 bytes fixed size
         val header = ByteArray(128)
@@ -887,7 +885,7 @@ class PCX internal constructor()
         this.horizontalDPI = PCX.word(header, 0x0C)
         this.verticalDPI = PCX.word(header, 0x0E)
 
-        var index: Int
+        var index : Int
         this.palette16 = IntArray(16)
         val black = BLACK.argb
 
@@ -927,14 +925,14 @@ class PCX internal constructor()
      * @throws IOException On reading issue.
      */
     @Throws(IOException::class)
-    private fun readImageData(inputStream: InputStream)
+    private fun readImageData(inputStream : InputStream)
     {
         val total = this.height * this.scanLineSize
         this.uncompressed = IntArray(total)
         var index = 0
-        var read: Int
-        var count: Int
-        var i: Int
+        var read : Int
+        var count : Int
+        var i : Int
 
         while (index < total)
         {
@@ -975,7 +973,7 @@ class PCX internal constructor()
     /**
      * Creates a new image from the PCX information.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val image = pcx.createImage()
      * ```
@@ -983,34 +981,34 @@ class PCX internal constructor()
      * @return The created image.
      * @throws IllegalStateException If how to create the image for this specific PCX information is unknown.
      */
-    fun createImage(): GameImage
+    fun createImage() : GameImage
     {
         val pixels = IntArray(this.width * this.height)
 
         when (this.numberBytePerPixel)
         {
-            1 -> when (this.numberOfColorPlane)
+            1    -> when (this.numberOfColorPlane)
             {
-                1 -> this.fillPixels_1_BytePerPixel_1_ColorPlane(pixels)
-                3 -> this.fillPixels_1_BytePerPixel_3_ColorPlane(pixels)
-                4 -> this.fillPixels_1_BytePerPixel_4_ColorPlane(pixels)
+                1    -> this.fillPixels_1_BytePerPixel_1_ColorPlane(pixels)
+                3    -> this.fillPixels_1_BytePerPixel_3_ColorPlane(pixels)
+                4    -> this.fillPixels_1_BytePerPixel_4_ColorPlane(pixels)
                 else -> throw IllegalStateException(
                     "Don't know how to convert numberBytePerPixel=${this.numberBytePerPixel} numberOfColorPlane=${this.numberOfColorPlane}")
             }
 
-            4 -> when (this.numberOfColorPlane)
+            4    -> when (this.numberOfColorPlane)
             {
-                1 -> this.fillPixels_4_BytePerPixel_1_ColorPlane(pixels)
-                4 -> this.fillPixels_4_BytePerPixel_4_ColorPlane(pixels)
+                1    -> this.fillPixels_4_BytePerPixel_1_ColorPlane(pixels)
+                4    -> this.fillPixels_4_BytePerPixel_4_ColorPlane(pixels)
                 else -> throw IllegalStateException(
                     "Don't know how to convert numberBytePerPixel=${this.numberBytePerPixel} numberOfColorPlane=${this.numberOfColorPlane}")
             }
 
-            8 -> when (this.numberOfColorPlane)
+            8    -> when (this.numberOfColorPlane)
             {
-                1 -> this.fillPixels_8_BytePerPixel_1_ColorPlane(pixels)
-                3 -> this.fillPixels_8_BytePerPixel_3_ColorPlane(pixels)
-                4 -> this.fillPixels_8_BytePerPixel_4_ColorPlane(pixels)
+                1    -> this.fillPixels_8_BytePerPixel_1_ColorPlane(pixels)
+                3    -> this.fillPixels_8_BytePerPixel_3_ColorPlane(pixels)
+                4    -> this.fillPixels_8_BytePerPixel_4_ColorPlane(pixels)
                 else -> throw IllegalStateException(
                     "Don't know how to convert numberBytePerPixel=${this.numberBytePerPixel} numberOfColorPlane=${this.numberOfColorPlane}")
             }
@@ -1029,6 +1027,6 @@ class PCX internal constructor()
      *
      * @return A string representation of the PCX image.
      */
-    override fun toString(): String =
+    override fun toString() : String =
         "PCX ${this.width}x${this.height} by ${manufacturerToString(this.manufacturer)} version ${versionToString(this.version)}"
 }

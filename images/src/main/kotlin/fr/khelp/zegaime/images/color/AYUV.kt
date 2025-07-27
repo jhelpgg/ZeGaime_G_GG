@@ -9,20 +9,23 @@ package fr.khelp.zegaime.images.color
  * @property v The second chrominance component (0-255).
  * @constructor Creates a new AYUV color.
  */
-class AYUV(alpha: Int, y: Int, u: Int, v: Int) : Color
+class AYUV(alpha : Int, y : Int, u : Int, v : Int) : Color
 {
     /**
      * The alpha component (0-255).
      */
     val alpha = alpha.coerceIn(0, 255)
+
     /**
      * The luminance component (0-255).
      */
     val y = y.coerceIn(0, 255)
+
     /**
      * The first chrominance component (0-255).
      */
     val u = u.coerceIn(0, 255)
+
     /**
      * The second chrominance component (0-255).
      */
@@ -31,17 +34,20 @@ class AYUV(alpha: Int, y: Int, u: Int, v: Int) : Color
     /**
      * Returns the alpha component.
      */
-    operator fun component1(): Int = this.alpha
+    operator fun component1() : Int = this.alpha
+
     /**
      * Returns the luminance component.
      */
-    operator fun component2(): Int = this.y
+    operator fun component2() : Int = this.y
+
     /**
      * Returns the first chrominance component.
      */
-    operator fun component3(): Int = this.u
+    operator fun component3() : Int = this.u
+
     /**
      * Returns the second chrominance component.
      */
-    operator fun component4(): Int = this.v
+    operator fun component4() : Int = this.v
 }

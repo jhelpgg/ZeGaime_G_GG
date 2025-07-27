@@ -49,14 +49,14 @@ val VERSION_PAINTBRUSH_WINDOWS = 4.toByte()
  * @param file The PCX image file.
  * @return The PCX image size, or `null` if the given file is not a valid PCX image file.
  */
-fun computePcxSize(file: File?): Dimension?
+fun computePcxSize(file : File?) : Dimension?
 {
     if (file == null || !file.exists() || file.isDirectory || !file.canRead())
     {
         return null
     }
 
-    var dimension: Dimension? = null
+    var dimension : Dimension? = null
     treatInputStream({ FileInputStream(file) },
                      { inputStream ->
                          val pcx = PCX()
@@ -73,7 +73,7 @@ fun computePcxSize(file: File?): Dimension?
  * @param file The file to test.
  * @return `true` if the file is a PCX image file, `false` otherwise.
  */
-fun isPCX(file: File) = computePcxSize(file) != null
+fun isPCX(file : File) = computePcxSize(file) != null
 
 /**
  * Converts a manufacturer code to its name.
@@ -81,11 +81,11 @@ fun isPCX(file: File) = computePcxSize(file) != null
  * @param manufacturer The manufacturer code.
  * @return The manufacturer name.
  */
-fun manufacturerToString(manufacturer: Byte) =
+fun manufacturerToString(manufacturer : Byte) =
     when (manufacturer)
     {
         MANUFACTURER_ZSOFT -> "ZSoft"
-        else -> "Manufacturer_${manufacturer and 0xFF}"
+        else               -> "Manufacturer_${manufacturer and 0xFF}"
     }
 
 /**
@@ -94,13 +94,13 @@ fun manufacturerToString(manufacturer: Byte) =
  * @param version The version code.
  * @return The version name.
  */
-fun versionToString(version: Byte) =
+fun versionToString(version : Byte) =
     when (version)
     {
         VERSION_PAINTBRUSH_V_2_5, VERSION_PAINTBRUSH_V_2_5_UNOFFICAL -> "Paintbrush v2.5"
-        VERSION_PAINTBRUSH_V_2_8_W -> "Paintbrush v2.8 w palette information"
-        VERSION_PAINTBRUSH_V_2_8_WO -> "Paintbrush v2.8 w/o palette information"
-        VERSION_PAINTBRUSH_WINDOWS -> "Paintbrush/Windows"
-        VERSION_PAINTBRUSH_V_3_0 -> "Paintbrush v3.0+"
-        else -> "More than Paintbrush v3.0+ (${version and 0xFF})"
+        VERSION_PAINTBRUSH_V_2_8_W                                   -> "Paintbrush v2.8 w palette information"
+        VERSION_PAINTBRUSH_V_2_8_WO                                  -> "Paintbrush v2.8 w/o palette information"
+        VERSION_PAINTBRUSH_WINDOWS                                   -> "Paintbrush/Windows"
+        VERSION_PAINTBRUSH_V_3_0                                     -> "Paintbrush v3.0+"
+        else                                                         -> "More than Paintbrush v3.0+ (${version and 0xFF})"
     }

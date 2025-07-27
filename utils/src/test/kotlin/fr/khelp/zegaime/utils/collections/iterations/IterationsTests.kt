@@ -78,7 +78,7 @@ class IterationsTests
     {
         val source =
             listOf(TestChild1("c1"), TestChild2("2"), TestParent("p"), TestChild1("c2"))
-        val iterable = source.selectInstance<TestParent,TestChild1>()
+        val iterable = source.selectInstance<TestParent, TestChild1>()
         val result = iterable.toList()
         Assertions.assertEquals(2, result.size)
         Assertions.assertEquals("c1", result[0].name)

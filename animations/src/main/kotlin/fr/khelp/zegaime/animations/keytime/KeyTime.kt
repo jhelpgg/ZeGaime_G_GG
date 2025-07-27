@@ -15,9 +15,9 @@ import fr.khelp.zegaime.animations.interpolation.Interpolation
  * @property interpolation The interpolation to use to reach this value.
  * @constructor Create a new key time.
  */
-internal data class KeyTime<V : Any>(val timeMilliseconds: Long,
-                                     val value: V,
-                                     val interpolation: Interpolation) : Comparable<KeyTime<V>>
+internal data class KeyTime<V : Any>(val timeMilliseconds : Long,
+                                     val value : V,
+                                     val interpolation : Interpolation) : Comparable<KeyTime<V>>
 {
     /**
      * Compares this key time with another one based on their time.
@@ -25,6 +25,6 @@ internal data class KeyTime<V : Any>(val timeMilliseconds: Long,
      * @param other The other key time to compare with.
      * @return A negative integer, zero, or a positive integer as this key time is less than, equal to, or greater than the specified key time.
      */
-    override fun compareTo(other: KeyTime<V>): Int =
+    override fun compareTo(other : KeyTime<V>) : Int =
         this.timeMilliseconds.compareTo(other.timeMilliseconds)
 }

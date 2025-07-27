@@ -14,7 +14,8 @@ import kotlin.math.max
  * @param interpolation The interpolation to use.
  * @return The created animation.
  */
-fun Robot.startPosition(numberMilliseconds: Long = 32L, interpolation: Interpolation = InterpolationLinear): Animation
+fun Robot.startPosition(numberMilliseconds : Long = 32L,
+                        interpolation : Interpolation = InterpolationLinear) : Animation
 {
     val animation = AnimationRobotKeyTime(this)
     animation.addKeyTimeValue(max(32L, numberMilliseconds), RobotPosition(), interpolation)
@@ -28,7 +29,7 @@ fun Robot.startPosition(numberMilliseconds: Long = 32L, interpolation: Interpola
  * @param numberStep The number of steps to make.
  * @return The created animation.
  */
-fun Robot.walk(numberMillisecondsPerStep: Long = 64L, numberStep: Int = 1): Animation
+fun Robot.walk(numberMillisecondsPerStep : Long = 64L, numberStep : Int = 1) : Animation
 {
     val time = max(64L, numberMillisecondsPerStep)
     val semiTime = time shr 1
@@ -61,7 +62,7 @@ fun Robot.walk(numberMillisecondsPerStep: Long = 64L, numberStep: Int = 1): Anim
  * @param numberStep The number of steps to make.
  * @return The created animation.
  */
-fun Robot.run(numberMillisecondsPerStep: Long = 32L, numberStep: Int = 1): Animation
+fun Robot.run(numberMillisecondsPerStep : Long = 32L, numberStep : Int = 1) : Animation
 {
     val frame = max(32L, numberMillisecondsPerStep)
     val semiFrame = frame shr 1

@@ -42,7 +42,7 @@ class GUI
      * @param width The width of the GUI.
      * @param height The height of the GUI.
      */
-    internal fun size(width: Int, height: Int)
+    internal fun size(width : Int, height : Int)
     {
         this.width = width
         this.height = height
@@ -53,8 +53,8 @@ class GUI
         when
         {
             this.width == this.height -> Unit
-            this.width > this.height -> this.plane.scaleX = this.width.toFloat() / this.height.toFloat()
-            else -> this.plane.scaleY = this.height.toFloat() / this.width.toFloat()
+            this.width > this.height  -> this.plane.scaleX = this.width.toFloat() / this.height.toFloat()
+            else                      -> this.plane.scaleY = this.height.toFloat() / this.width.toFloat()
         }
 
         this.plane.z = -1.2f
@@ -68,7 +68,7 @@ class GUI
      * @param mouseState The state of the mouse.
      * @return `true` if the event was consumed by the GUI, `false` otherwise.
      */
-    internal fun mouseState(mouseState: MouseState): Boolean
+    internal fun mouseState(mouseState : MouseState) : Boolean
     {
         return false
     }

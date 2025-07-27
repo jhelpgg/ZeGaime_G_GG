@@ -31,21 +31,22 @@ import java.util.Calendar
  * @property table The table to update.
  * @constructor Creates a new update query. For internal use only.
  */
-class Update internal constructor(val table: Table)
+class Update internal constructor(val table : Table)
 {
     /**
      * The new values for the columns.
      */
     private val columnValues = HashMap<Column, String>()
+
     /**
      * The condition of the update query.
      */
-    private var condition: Condition? = null
+    private var condition : Condition? = null
 
     /**
      * Specifies the new value for a string column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * COLUMN_NAME IS "John"
      * ```
@@ -53,7 +54,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun Column.IS(value: String)
+    infix fun Column.IS(value : String)
     {
         this@Update.table.checkColumn(this)
         this.checkType(DataType.STRING)
@@ -63,7 +64,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a string column by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "name" IS "John"
      * ```
@@ -71,7 +72,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun String.IS(value: String)
+    infix fun String.IS(value : String)
     {
         this@Update.table.getColumn(this) IS value
     }
@@ -79,7 +80,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a boolean column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * COLUMN_ACTIVE IS true
      * ```
@@ -87,7 +88,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun Column.IS(value: Boolean)
+    infix fun Column.IS(value : Boolean)
     {
         this@Update.table.checkColumn(this)
         this.checkType(DataType.BOOLEAN)
@@ -105,7 +106,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a boolean column by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "active" IS true
      * ```
@@ -113,7 +114,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun String.IS(value: Boolean)
+    infix fun String.IS(value : Boolean)
     {
         this@Update.table.getColumn(this) IS value
     }
@@ -121,7 +122,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a byte column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * COLUMN_VALUE IS 1.toByte()
      * ```
@@ -129,7 +130,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun Column.IS(value: Byte)
+    infix fun Column.IS(value : Byte)
     {
         this@Update.table.checkColumn(this)
         this.checkType(DataType.BYTE)
@@ -139,7 +140,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a byte column by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "value" IS 1.toByte()
      * ```
@@ -147,7 +148,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun String.IS(value: Byte)
+    infix fun String.IS(value : Byte)
     {
         this@Update.table.getColumn(this) IS value
     }
@@ -155,7 +156,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a short column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * COLUMN_VALUE IS 1.toShort()
      * ```
@@ -163,7 +164,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun Column.IS(value: Short)
+    infix fun Column.IS(value : Short)
     {
         this@Update.table.checkColumn(this)
         this.checkType(DataType.SHORT)
@@ -173,7 +174,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a short column by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "value" IS 1.toShort()
      * ```
@@ -181,7 +182,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun String.IS(value: Short)
+    infix fun String.IS(value : Short)
     {
         this@Update.table.getColumn(this) IS value
     }
@@ -189,7 +190,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for an integer column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * COLUMN_AGE IS 31
      * ```
@@ -197,7 +198,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun Column.IS(value: Int)
+    infix fun Column.IS(value : Int)
     {
         this@Update.table.checkColumn(this)
         this.checkType(DataType.INTEGER)
@@ -207,7 +208,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for an integer column by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "age" IS 31
      * ```
@@ -215,7 +216,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun String.IS(value: Int)
+    infix fun String.IS(value : Int)
     {
         this@Update.table.getColumn(this) IS value
     }
@@ -223,7 +224,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a long column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * COLUMN_TIMESTAMP IS 1234567890L
      * ```
@@ -231,7 +232,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun Column.IS(value: Long)
+    infix fun Column.IS(value : Long)
     {
         this@Update.table.checkColumn(this)
         this.checkType(DataType.LONG)
@@ -241,7 +242,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a long column by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "timestamp" IS 1234567890L
      * ```
@@ -249,7 +250,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun String.IS(value: Long)
+    infix fun String.IS(value : Long)
     {
         this@Update.table.getColumn(this) IS value
     }
@@ -257,7 +258,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a float column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * COLUMN_PRICE IS 12.34f
      * ```
@@ -265,7 +266,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun Column.IS(value: Float)
+    infix fun Column.IS(value : Float)
     {
         this@Update.table.checkColumn(this)
         this.checkType(DataType.FLOAT)
@@ -275,7 +276,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a float column by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "price" IS 12.34f
      * ```
@@ -283,7 +284,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun String.IS(value: Float)
+    infix fun String.IS(value : Float)
     {
         this@Update.table.getColumn(this) IS value
     }
@@ -291,7 +292,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a double column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * COLUMN_PRICE IS 12.34
      * ```
@@ -299,7 +300,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun Column.IS(value: Double)
+    infix fun Column.IS(value : Double)
     {
         this@Update.table.checkColumn(this)
         this.checkType(DataType.DOUBLE)
@@ -309,7 +310,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a double column by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "price" IS 12.34
      * ```
@@ -317,7 +318,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun String.IS(value: Double)
+    infix fun String.IS(value : Double)
     {
         this@Update.table.getColumn(this) IS value
     }
@@ -325,7 +326,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a byte array column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * COLUMN_DATA IS byteArrayOf(1, 2, 3)
      * ```
@@ -333,7 +334,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun Column.IS(value: ByteArray)
+    infix fun Column.IS(value : ByteArray)
     {
         this@Update.table.checkColumn(this)
         this.checkType(DataType.BYTE_ARRAY)
@@ -343,7 +344,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a byte array column by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "data" IS byteArrayOf(1, 2, 3)
      * ```
@@ -351,7 +352,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun String.IS(value: ByteArray)
+    infix fun String.IS(value : ByteArray)
     {
         this@Update.table.getColumn(this) IS value
     }
@@ -359,7 +360,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for an integer array column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * COLUMN_DATA IS intArrayOf(1, 2, 3)
      * ```
@@ -367,7 +368,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun Column.IS(value: IntArray)
+    infix fun Column.IS(value : IntArray)
     {
         this@Update.table.checkColumn(this)
         this.checkType(DataType.INT_ARRAY)
@@ -377,7 +378,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for an integer array column by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "data" IS intArrayOf(1, 2, 3)
      * ```
@@ -385,7 +386,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun String.IS(value: IntArray)
+    infix fun String.IS(value : IntArray)
     {
         this@Update.table.getColumn(this) IS value
     }
@@ -393,7 +394,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a calendar column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * COLUMN_DATE IS Calendar.getInstance()
      * ```
@@ -401,7 +402,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun Column.IS(value: Calendar)
+    infix fun Column.IS(value : Calendar)
     {
         this@Update.table.checkColumn(this)
         this.checkType(DataType.CALENDAR)
@@ -411,7 +412,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a calendar column by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "date" IS Calendar.getInstance()
      * ```
@@ -419,7 +420,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun String.IS(value: Calendar)
+    infix fun String.IS(value : Calendar)
     {
         this@Update.table.getColumn(this) IS value
     }
@@ -427,7 +428,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a date column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * COLUMN_DATE IS DataDate(2023, 1, 1)
      * ```
@@ -435,7 +436,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun Column.IS(value: DataDate)
+    infix fun Column.IS(value : DataDate)
     {
         this@Update.table.checkColumn(this)
         this.checkType(DataType.DATE)
@@ -445,7 +446,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a date column by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "date" IS DataDate(2023, 1, 1)
      * ```
@@ -453,7 +454,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun String.IS(value: DataDate)
+    infix fun String.IS(value : DataDate)
     {
         this@Update.table.getColumn(this) IS value
     }
@@ -461,7 +462,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a time column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * COLUMN_TIME IS DataTime(12, 0, 0)
      * ```
@@ -469,7 +470,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun Column.IS(value: DataTime)
+    infix fun Column.IS(value : DataTime)
     {
         this@Update.table.checkColumn(this)
         this.checkType(DataType.TIME)
@@ -479,7 +480,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for a time column by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "time" IS DataTime(12, 0, 0)
      * ```
@@ -487,7 +488,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun String.IS(value: DataTime)
+    infix fun String.IS(value : DataTime)
     {
         this@Update.table.getColumn(this) IS value
     }
@@ -495,7 +496,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for an enum column.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * COLUMN_ENUM IS MyEnum.A
      * ```
@@ -503,7 +504,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun <E : Enum<E>> Column.IS(value: E)
+    infix fun <E : Enum<E>> Column.IS(value : E)
     {
         this@Update.table.checkColumn(this)
         this.checkType(DataType.ENUM)
@@ -513,7 +514,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the new value for an enum column by its name.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * "enum" IS MyEnum.A
      * ```
@@ -521,7 +522,7 @@ class Update internal constructor(val table: Table)
      * @param value The new value.
      */
     @UpdateDSL
-    infix fun <E : Enum<E>> String.IS(value: E)
+    infix fun <E : Enum<E>> String.IS(value : E)
     {
         this@Update.table.getColumn(this) IS value
     }
@@ -529,7 +530,7 @@ class Update internal constructor(val table: Table)
     /**
      * Specifies the condition for the update.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * where { condition = COLUMN_NAME EQUALS "John" }
      * ```
@@ -537,7 +538,7 @@ class Update internal constructor(val table: Table)
      * @param whereCreator A lambda function to define the where clause.
      */
     @WhereDSL
-    fun where(whereCreator: Where.() -> Unit)
+    fun where(whereCreator : Where.() -> Unit)
     {
         val where = Where(this.table)
         whereCreator(where)
@@ -553,7 +554,7 @@ class Update internal constructor(val table: Table)
      *
      * @param columnValues The column values to transfer.
      */
-    internal fun transfer(columnValues: HashMap<Column, String>)
+    internal fun transfer(columnValues : HashMap<Column, String>)
     {
         for ((column, value) in columnValues)
         {
@@ -568,7 +569,7 @@ class Update internal constructor(val table: Table)
      *
      * @return The SQL representation of the update query.
      */
-    internal fun updateSQL(): String
+    internal fun updateSQL() : String
     {
         stateCheck(this.columnValues.isNotEmpty()) { "Must update at least one thing" }
         val query = StringBuilder()

@@ -10,7 +10,7 @@ import kotlin.math.max
  * @param title Widow title.
  * @param windowCreator Fill the window.
  */
-fun window3D(width: Int, height: Int, title: String, windowCreator: Window3D.() -> Unit)
+fun window3D(width : Int, height : Int, title : String, windowCreator : Window3D.() -> Unit)
 {
     val window3D = Window3D.createWindow3D(-1, -1, width, height, title,
                                            decorated = true, maximized = false, atTop = false)
@@ -24,7 +24,7 @@ fun window3D(width: Int, height: Int, title: String, windowCreator: Window3D.() 
  * @param title Widow title.
  * @param windowCreator Fill the window.
  */
-fun window3DFull(title: String, windowCreator: Window3D.() -> Unit)
+fun window3DFull(title : String, windowCreator : Window3D.() -> Unit)
 {
     val window3D = Window3D.createWindow3D(-1, -1, 800, 600, title,
                                            decorated = false, maximized = true, atTop = false)
@@ -42,7 +42,7 @@ fun window3DFull(title: String, windowCreator: Window3D.() -> Unit)
  * @param title Widow title.
  * @param windowCreator Fill the window.
  */
-fun window3DFix(x: Int, y: Int, width: Int, height: Int, title: String, windowCreator: Window3D.() -> Unit)
+fun window3DFix(x : Int, y : Int, width : Int, height : Int, title : String, windowCreator : Window3D.() -> Unit)
 {
     val window3D = Window3D.createWindow3D(max(0, x), max(0, y), width, height, title,
                                            decorated = false, maximized = false, atTop = true)

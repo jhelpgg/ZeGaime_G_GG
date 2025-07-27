@@ -1,9 +1,5 @@
 package fr.khelp.zegaime.engine3d.scene.prebuilt.complex.robot
 
-import fr.khelp.zegaime.animations.Animation
-import fr.khelp.zegaime.animations.interpolation.Interpolation
-import fr.khelp.zegaime.animations.interpolation.InterpolationLinear
-import fr.khelp.zegaime.engine3d.animations.AnimationRobotKeyTime
 import fr.khelp.zegaime.engine3d.dsl.edit
 import fr.khelp.zegaime.engine3d.dsl.mesh
 import fr.khelp.zegaime.engine3d.geometry.Point3D
@@ -18,7 +14,6 @@ import fr.khelp.zegaime.engine3d.scene.prebuilt.Box
 import fr.khelp.zegaime.engine3d.scene.prebuilt.CrossUV
 import fr.khelp.zegaime.engine3d.scene.prebuilt.Revolution
 import fr.khelp.zegaime.engine3d.scene.prebuilt.Sphere
-import kotlin.math.max
 
 class Robot(id : String) : Node(id)
 {

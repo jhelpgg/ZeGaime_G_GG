@@ -35,12 +35,12 @@ import fr.khelp.zegaime.database.query.Where
  * @see Update
  * @see Delete
  */
-class Condition internal constructor(internal val columns: Array<Column>, internal val sqlCondition: String)
+class Condition internal constructor(internal val columns : Array<Column>, internal val sqlCondition : String)
 {
     /**
      * Checks if all columns in the condition exist in the given table.
      *
-     * **Usage example:**
+     * **Usage example**
      * ```kotlin
      * val condition = COLUMN_NAME EQUALS "test"
      * try {
@@ -54,7 +54,7 @@ class Condition internal constructor(internal val columns: Array<Column>, intern
      * @param table The table to check against.
      * @throws fr.khelp.zegaime.database.exception.TableHaveNoSuchColumnException if a column in the condition does not exist in the table.
      */
-    fun checkAllColumns(table: Table)
+    fun checkAllColumns(table : Table)
     {
         for (column in this.columns)
         {

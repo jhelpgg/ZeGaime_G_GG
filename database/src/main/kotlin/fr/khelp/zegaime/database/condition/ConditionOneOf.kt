@@ -17,7 +17,7 @@ import java.util.Calendar
  *
  * The column type must be `DataType.ID`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_ID ONE_OF_ID intArrayOf(1, 2, 3)
  * ```
@@ -26,7 +26,7 @@ import java.util.Calendar
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.ID`.
  */
-infix fun Column.ONE_OF_ID(selection: IntArray): Condition
+infix fun Column.ONE_OF_ID(selection : IntArray) : Condition
 {
     this.checkType(DataType.ID)
 
@@ -34,7 +34,7 @@ infix fun Column.ONE_OF_ID(selection: IntArray): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS_ID selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${selection.string("(", ", ", ")")}")
     }
@@ -45,7 +45,7 @@ infix fun Column.ONE_OF_ID(selection: IntArray): Condition
  *
  * The column type must be `DataType.STRING`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_NAME ONE_OF arrayOf("test1", "test2")
  * ```
@@ -54,7 +54,7 @@ infix fun Column.ONE_OF_ID(selection: IntArray): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.STRING`.
  */
-infix fun Column.ONE_OF(selection: Array<String>): Condition
+infix fun Column.ONE_OF(selection : Array<String>) : Condition
 {
     this.checkType(DataType.STRING)
 
@@ -62,7 +62,7 @@ infix fun Column.ONE_OF(selection: Array<String>): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${selection.string("('", "', '", "')")}")
     }
@@ -73,7 +73,7 @@ infix fun Column.ONE_OF(selection: Array<String>): Condition
  *
  * The column type must be `DataType.BOOLEAN`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_ACTIVE ONE_OF booleanArrayOf(true, false)
  * ```
@@ -82,7 +82,7 @@ infix fun Column.ONE_OF(selection: Array<String>): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.BOOLEAN`.
  */
-infix fun Column.ONE_OF(selection: BooleanArray): Condition
+infix fun Column.ONE_OF(selection : BooleanArray) : Condition
 {
     this.checkType(DataType.BOOLEAN)
 
@@ -90,7 +90,7 @@ infix fun Column.ONE_OF(selection: BooleanArray): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${selection.string("(", ", ", ")")}")
     }
@@ -101,7 +101,7 @@ infix fun Column.ONE_OF(selection: BooleanArray): Condition
  *
  * The column type must be `DataType.BYTE`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_VALUE ONE_OF byteArrayOf(1.toByte(), 2.toByte())
  * ```
@@ -110,7 +110,7 @@ infix fun Column.ONE_OF(selection: BooleanArray): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.BYTE`.
  */
-infix fun Column.ONE_OF(selection: ByteArray): Condition
+infix fun Column.ONE_OF(selection : ByteArray) : Condition
 {
     this.checkType(DataType.BYTE)
 
@@ -118,7 +118,7 @@ infix fun Column.ONE_OF(selection: ByteArray): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${selection.string("(", ", ", ")")}")
     }
@@ -129,7 +129,7 @@ infix fun Column.ONE_OF(selection: ByteArray): Condition
  *
  * The column type must be `DataType.SHORT`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_VALUE ONE_OF shortArrayOf(1.toShort(), 2.toShort())
  * ```
@@ -138,7 +138,7 @@ infix fun Column.ONE_OF(selection: ByteArray): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.SHORT`.
  */
-infix fun Column.ONE_OF(selection: ShortArray): Condition
+infix fun Column.ONE_OF(selection : ShortArray) : Condition
 {
     this.checkType(DataType.SHORT)
 
@@ -146,7 +146,7 @@ infix fun Column.ONE_OF(selection: ShortArray): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${selection.string("(", ", ", ")")}")
     }
@@ -157,7 +157,7 @@ infix fun Column.ONE_OF(selection: ShortArray): Condition
  *
  * The column type must be `DataType.INTEGER`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_AGE ONE_OF intArrayOf(18, 19, 20)
  * ```
@@ -166,7 +166,7 @@ infix fun Column.ONE_OF(selection: ShortArray): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.INTEGER`.
  */
-infix fun Column.ONE_OF(selection: IntArray): Condition
+infix fun Column.ONE_OF(selection : IntArray) : Condition
 {
     this.checkType(DataType.INTEGER)
 
@@ -174,7 +174,7 @@ infix fun Column.ONE_OF(selection: IntArray): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${selection.string("(", ", ", ")")}")
     }
@@ -185,7 +185,7 @@ infix fun Column.ONE_OF(selection: IntArray): Condition
  *
  * The column type must be `DataType.LONG`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_TIMESTAMP ONE_OF longArrayOf(1234567890L, 1234567891L)
  * ```
@@ -194,7 +194,7 @@ infix fun Column.ONE_OF(selection: IntArray): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.LONG`.
  */
-infix fun Column.ONE_OF(selection: LongArray): Condition
+infix fun Column.ONE_OF(selection : LongArray) : Condition
 {
     this.checkType(DataType.LONG)
 
@@ -202,7 +202,7 @@ infix fun Column.ONE_OF(selection: LongArray): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${selection.string("(", ", ", ")")}")
     }
@@ -213,7 +213,7 @@ infix fun Column.ONE_OF(selection: LongArray): Condition
  *
  * The column type must be `DataType.FLOAT`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_PRICE ONE_OF floatArrayOf(12.34f, 56.78f)
  * ```
@@ -222,7 +222,7 @@ infix fun Column.ONE_OF(selection: LongArray): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.FLOAT`.
  */
-infix fun Column.ONE_OF(selection: FloatArray): Condition
+infix fun Column.ONE_OF(selection : FloatArray) : Condition
 {
     this.checkType(DataType.FLOAT)
 
@@ -230,7 +230,7 @@ infix fun Column.ONE_OF(selection: FloatArray): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${selection.string("(", ", ", ")")}")
     }
@@ -241,7 +241,7 @@ infix fun Column.ONE_OF(selection: FloatArray): Condition
  *
  * The column type must be `DataType.DOUBLE`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_PRICE ONE_OF doubleArrayOf(12.34, 56.78)
  * ```
@@ -250,7 +250,7 @@ infix fun Column.ONE_OF(selection: FloatArray): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.DOUBLE`.
  */
-infix fun Column.ONE_OF(selection: DoubleArray): Condition
+infix fun Column.ONE_OF(selection : DoubleArray) : Condition
 {
     this.checkType(DataType.DOUBLE)
 
@@ -258,7 +258,7 @@ infix fun Column.ONE_OF(selection: DoubleArray): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${selection.string("(", ", ", ")")}")
     }
@@ -269,7 +269,7 @@ infix fun Column.ONE_OF(selection: DoubleArray): Condition
  *
  * The column type must be `DataType.BYTE_ARRAY`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_DATA ONE_OF arrayOf(byteArrayOf(1, 2, 3), byteArrayOf(4, 5, 6))
  * ```
@@ -278,7 +278,7 @@ infix fun Column.ONE_OF(selection: DoubleArray): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.BYTE_ARRAY`.
  */
-infix fun Column.ONE_OF(selection: Array<ByteArray>): Condition
+infix fun Column.ONE_OF(selection : Array<ByteArray>) : Condition
 {
     this.checkType(DataType.BYTE_ARRAY)
 
@@ -286,7 +286,7 @@ infix fun Column.ONE_OF(selection: Array<ByteArray>): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${
                           selection.transformArray { array -> array.base64 }
@@ -300,7 +300,7 @@ infix fun Column.ONE_OF(selection: Array<ByteArray>): Condition
  *
  * The column type must be `DataType.INT_ARRAY`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_DATA ONE_OF arrayOf(intArrayOf(1, 2, 3), intArrayOf(4, 5, 6))
  * ```
@@ -309,7 +309,7 @@ infix fun Column.ONE_OF(selection: Array<ByteArray>): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.INT_ARRAY`.
  */
-infix fun Column.ONE_OF(selection: Array<IntArray>): Condition
+infix fun Column.ONE_OF(selection : Array<IntArray>) : Condition
 {
     this.checkType(DataType.INT_ARRAY)
 
@@ -317,7 +317,7 @@ infix fun Column.ONE_OF(selection: Array<IntArray>): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${
                           selection.transformArray { array -> array.serializeToByteArray().base64 }
@@ -331,7 +331,7 @@ infix fun Column.ONE_OF(selection: Array<IntArray>): Condition
  *
  * The column type must be `DataType.CALENDAR`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_DATE ONE_OF arrayOf(Calendar.getInstance(), Calendar.getInstance())
  * ```
@@ -340,7 +340,7 @@ infix fun Column.ONE_OF(selection: Array<IntArray>): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.CALENDAR`.
  */
-infix fun Column.ONE_OF(selection: Array<Calendar>): Condition
+infix fun Column.ONE_OF(selection : Array<Calendar>) : Condition
 {
     this.checkType(DataType.CALENDAR)
 
@@ -348,7 +348,7 @@ infix fun Column.ONE_OF(selection: Array<Calendar>): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${
                           selection.transformLong { array -> array.timeInMillis }
@@ -362,7 +362,7 @@ infix fun Column.ONE_OF(selection: Array<Calendar>): Condition
  *
  * The column type must be `DataType.DATE`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_DATE ONE_OF arrayOf(DataDate(2023, 1, 1), DataDate(2023, 1, 2))
  * ```
@@ -371,7 +371,7 @@ infix fun Column.ONE_OF(selection: Array<Calendar>): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.DATE`.
  */
-infix fun Column.ONE_OF(selection: Array<DataDate>): Condition
+infix fun Column.ONE_OF(selection : Array<DataDate>) : Condition
 {
     this.checkType(DataType.DATE)
 
@@ -379,7 +379,7 @@ infix fun Column.ONE_OF(selection: Array<DataDate>): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${
                           selection.transformInt { array -> array.serialized }
@@ -393,7 +393,7 @@ infix fun Column.ONE_OF(selection: Array<DataDate>): Condition
  *
  * The column type must be `DataType.TIME`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * val condition = COLUMN_TIME ONE_OF arrayOf(DataTime(12, 0, 0), DataTime(13, 0, 0))
  * ```
@@ -402,7 +402,7 @@ infix fun Column.ONE_OF(selection: Array<DataDate>): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.TIME`.
  */
-infix fun Column.ONE_OF(selection: Array<DataTime>): Condition
+infix fun Column.ONE_OF(selection : Array<DataTime>) : Condition
 {
     this.checkType(DataType.TIME)
 
@@ -410,7 +410,7 @@ infix fun Column.ONE_OF(selection: Array<DataTime>): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${
                           selection.transformInt { array -> array.serialized }
@@ -424,7 +424,7 @@ infix fun Column.ONE_OF(selection: Array<DataTime>): Condition
  *
  * The column type must be `DataType.ENUM`.
  *
- * **Usage example:**
+ * **Usage example**
  * ```kotlin
  * enum class MyEnum { A, B }
  * val condition = COLUMN_ENUM ONE_OF arrayOf(MyEnum.A, MyEnum.B)
@@ -434,7 +434,7 @@ infix fun Column.ONE_OF(selection: Array<DataTime>): Condition
  * @return A new condition.
  * @throws fr.khelp.zegaime.database.exception.InvalidDataTypeException if the column type is not `DataType.ENUM`.
  */
-infix fun <E : Enum<E>> Column.ONE_OF(selection: Array<E>): Condition
+infix fun <E : Enum<E>> Column.ONE_OF(selection : Array<E>) : Condition
 {
     this.checkType(DataType.ENUM)
 
@@ -442,7 +442,7 @@ infix fun <E : Enum<E>> Column.ONE_OF(selection: Array<E>): Condition
     {
         selection.isEmpty() -> NEVER_MATCH_CONDITION
         selection.size == 1 -> this EQUALS selection[0]
-        else ->
+        else                ->
             Condition(arrayOf(this),
                       "${this.name} IN ${
                           selection.transformArray { array -> "'${array::class.java.name}:${array.name}'" }

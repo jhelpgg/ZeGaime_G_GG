@@ -20,5 +20,5 @@ object AnimationDoesNothing : Animation
      * @param millisecondsSinceStarted Time since animation started. Not used here.
      * @return `false` to indicate that the animation is finished.
      */
-    override fun animate(millisecondsSinceStarted: Long): Boolean = false
+    override fun animate(millisecondsSinceStarted : Long) : Boolean = false
 }

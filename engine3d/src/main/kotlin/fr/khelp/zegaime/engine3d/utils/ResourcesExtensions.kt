@@ -13,7 +13,7 @@ private val textures = HashMap<String, Texture>()
  * @param path The path to the texture.
  * @return The texture.
  */
-fun Resources.texture(path: String): Texture =
+fun Resources.texture(path : String) : Texture =
     textures.getOrPut(path) { Texture(this.image(path)) }
 
 /**
@@ -22,7 +22,7 @@ fun Resources.texture(path: String): Texture =
  * @param path The path to the video.
  * @return The video texture.
  */
-fun Resources.textureVideo(path: String): TextureVideo =
+fun Resources.textureVideo(path : String) : TextureVideo =
     textures.getOrPut(path) { TextureVideo(this.video(path)) } as TextureVideo
 
 /**
@@ -31,5 +31,5 @@ fun Resources.textureVideo(path: String): TextureVideo =
  * @param path The path to the GIF.
  * @return The GIF texture.
  */
-fun Resources.textureGif(path: String): TextureGif =
+fun Resources.textureGif(path : String) : TextureGif =
     textures.getOrPut(path) { TextureGif(this.gif(path)) } as TextureGif

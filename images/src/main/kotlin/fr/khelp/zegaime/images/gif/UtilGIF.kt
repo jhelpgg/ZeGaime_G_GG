@@ -1,6 +1,5 @@
 package fr.khelp.zegaime.images.gif
 
-import fr.khelp.zegaime.utils.extensions.shl
 import fr.khelp.zegaime.utils.extensions.toUnsignedInt
 import fr.khelp.zegaime.utils.io.readFully
 import java.io.IOException
@@ -14,7 +13,7 @@ import java.io.InputStream
  * @param stringBuilder The string builder to append to.
  * @param data The ASCII bytes to append.
  */
-fun appendAsciiBytes(stringBuilder: StringBuilder, data: ByteArray)
+fun appendAsciiBytes(stringBuilder : StringBuilder, data : ByteArray)
 {
     for (b in data)
     {
@@ -33,7 +32,7 @@ fun appendAsciiBytes(stringBuilder: StringBuilder, data: ByteArray)
  * @throws IOException If the stream closes or reaches the end before the 2 bytes are read.
  */
 @Throws(IOException::class)
-fun read2ByteInt(inputStream: InputStream): Int
+fun read2ByteInt(inputStream : InputStream) : Int
 {
     val data = ByteArray(2)
     val read = inputStream.readFully(data)
@@ -57,7 +56,7 @@ fun read2ByteInt(inputStream: InputStream): Int
  * @throws IOException If the stream closes or ends before reading the entire string.
  */
 @Throws(IOException::class)
-fun readString(size: Int, inputStream: InputStream): String
+fun readString(size : Int, inputStream : InputStream) : String
 {
     val data = ByteArray(size)
     val read = inputStream.readFully(data)

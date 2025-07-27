@@ -11,10 +11,12 @@ internal enum class AxeWay
      * The axis is in the negative direction.
      */
     NEGATIVE,
+
     /**
      * The axis is in the neutral position.
      */
     NEUTRAL,
+
     /**
      * The axis is in the positive direction.
      */

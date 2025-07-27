@@ -31,6 +31,6 @@ enum class JoystickStatus
         when (this)
         {
             PRESSED, REPEATED -> JoystickStatus.REPEATED
-            RELEASED -> JoystickStatus.PRESSED
+            RELEASED          -> JoystickStatus.PRESSED
         }
 }

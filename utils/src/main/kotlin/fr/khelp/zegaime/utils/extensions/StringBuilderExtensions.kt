@@ -3,7 +3,7 @@ package fr.khelp.zegaime.utils.extensions
 /**
  * Append a byte on its hexadecimal version
  */
-fun StringBuilder.appendHexadecimal(byte: Byte): StringBuilder
+fun StringBuilder.appendHexadecimal(byte : Byte) : StringBuilder
 {
     val value = byte.toInt() and 0xFF
     this.append(Integer.toHexString((value shr 4) and 0xF))
@@ -17,7 +17,7 @@ fun StringBuilder.appendHexadecimal(byte: Byte): StringBuilder
  *
  * But if the number of digit of the integer is less the given number, some 0 are added to fit the size
  */
-fun StringBuilder.appendMinimumDigit(minimumDigit: Int, value: Int): StringBuilder =
+fun StringBuilder.appendMinimumDigit(minimumDigit : Int, value : Int) : StringBuilder =
     if (value < 0)
     {
         this.append(String.format("%0${minimumDigit + 1}d", value))

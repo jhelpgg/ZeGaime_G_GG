@@ -1,7 +1,6 @@
 package fr.khelp.zegaime.images.gif
 
 import fr.khelp.zegaime.utils.extensions.and
-import fr.khelp.zegaime.utils.extensions.shl
 import fr.khelp.zegaime.utils.extensions.toUnsignedInt
 import fr.khelp.zegaime.utils.logs.warning
 import java.io.IOException
@@ -21,7 +20,7 @@ import java.io.InputStream
  * @property y The y coordinate of the image.
  * @constructor Creates a new image descriptor block.
  */
-internal class ImageDescriptorBlock internal constructor(val colorResolution: Int) : Block()
+internal class ImageDescriptorBlock internal constructor(val colorResolution : Int) : Block()
 {
     companion object
     {
@@ -44,24 +43,24 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution: In
     /**
      * Actual buffered 32 bits
      */
-    private var buffer32: Int = 0
+    private var buffer32 : Int = 0
 
     /**
      * Image well ordered, uncompressed color indexes
      */
-    lateinit var colorIndexes: IntArray
+    lateinit var colorIndexes : IntArray
         private set
 
     /**
      * Image height
      */
-    var height: Int = 0
+    var height : Int = 0
         private set
 
     /**
      * Indicates if image is interlaced
      */
-    private var interlaced: Boolean = false
+    private var interlaced : Boolean = false
 
     /**
      * Indicates that we reach the last block
@@ -71,7 +70,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution: In
     /**
      * Local image color table
      */
-    var localColorTable: GIFColorTable? = null
+    var localColorTable : GIFColorTable? = null
         private set
 
     /**
@@ -92,13 +91,13 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution: In
     /**
      * Image width
      */
-    var width: Int = 0
+    var width : Int = 0
         private set
 
     /**
      * Image x
      */
-    var x: Int = 0
+    var x : Int = 0
         private set
 
     /**
@@ -109,7 +108,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution: In
     /**
      * Image Y
      */
-    var y: Int = 0
+    var y : Int = 0
         private set
 
     /**
@@ -129,20 +128,20 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution: In
      * @throws IOException If stream reach end or close suddenly
      */
     @Throws(IOException::class)
-    private fun getCode(codeSize: Int, codeMask: Int, inputStream: InputStream,
-                        subBlock: SubBlock, endCode: Int): Pair<Int, SubBlock>
+    private fun getCode(codeSize : Int, codeMask : Int, inputStream : InputStream,
+                        subBlock : SubBlock, endCode : Int) : Pair<Int, SubBlock>
     {
-        var subBlock = subBlock
+        var subBlockLocal = subBlock
 
         if (this.bitPos + codeSize > 32)
         {
-            return Pair(endCode, subBlock) // No more data available
+            return Pair(endCode, subBlockLocal) // No more data available
         }
 
         val code = this.buffer32 shr this.bitPos and codeMask
         this.bitPos += codeSize
-        var blockLength = subBlock.size
-        var block = subBlock.data
+        var blockLength = subBlockLocal.size
+        var block = subBlockLocal.data
 
         // Shift in a byte of new data at a time
         while (this.bitPos >= 8 && !this.lastBlockFound)
@@ -154,17 +153,17 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution: In
             if (this.nextByte >= blockLength)
             {
                 // Get next block size
-                subBlock = readSubBlock(inputStream)
+                subBlockLocal = readSubBlock(inputStream)
 
-                if (subBlock === EMPTY)
+                if (subBlockLocal === EMPTY)
                 {
                     this.lastBlockFound = true
-                    return Pair(code, subBlock)
+                    return Pair(code, subBlockLocal)
                 }
                 else
                 {
-                    blockLength = subBlock.size
-                    block = subBlock.data
+                    blockLength = subBlockLocal.size
+                    block = subBlockLocal.data
                     this.nextByte = 0
                 }
             }
@@ -172,7 +171,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution: In
             this.buffer32 = this.buffer32 or (block[this.nextByte++].toUnsignedInt() shl 24)
         }
 
-        return Pair(code, subBlock)
+        return Pair(code, subBlockLocal)
     }
 
     /**
@@ -184,8 +183,8 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution: In
      * @param length  Code lengths to initialize
      * @param lzwCode Read LZW code
      */
-    private fun initializeStringTable(prefix: IntArray, suffix: ByteArray, initial: ByteArray, length: IntArray,
-                                      lzwCode: Int)
+    private fun initializeStringTable(prefix : IntArray, suffix : ByteArray, initial : ByteArray, length : IntArray,
+                                      lzwCode : Int)
     {
         val numEntries = 1 shl lzwCode
 
@@ -213,7 +212,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution: In
      * @throws IOException If stream is not valid image data
      */
     @Throws(IOException::class)
-    private fun readImage(inputStream: InputStream)
+    private fun readImage(inputStream : InputStream)
     {
         val lzwCode = inputStream.read()
 
@@ -242,7 +241,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution: In
                 (data[2].toUnsignedInt() shl 16) or (data[3].toUnsignedInt() shl 24)
         val clearCode = 1 shl lzwCode
         val endCode = clearCode + 1
-        var code: Int
+        var code : Int
         var oldCode = 0
         val prefix = IntArray(4096)
         val suffix = ByteArray(4096)
@@ -253,7 +252,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution: In
         var tableIndex = (1 shl lzwCode) + 2
         var codeSize = lzwCode + 1
         var codeMask = (1 shl codeSize) - 1
-        var pair: Pair<Int, SubBlock> = Pair(0, subBlock)
+        var pair : Pair<Int, SubBlock> = Pair(0, subBlock)
 
         while (pair.first != endCode)
         {
@@ -282,7 +281,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution: In
             }
             else
             {
-                val newSuffixIndex: Int
+                val newSuffixIndex : Int
                 if (code < tableIndex)
                 {
                     newSuffixIndex = code
@@ -333,7 +332,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution: In
      * @param data   Uncompressed indexes
      * @param length Data length
      */
-    private fun writeImage(data: ByteArray, length: Int)
+    private fun writeImage(data : ByteArray, length : Int)
     {
         val size = this.colorIndexes.size
 
@@ -377,7 +376,7 @@ internal class ImageDescriptorBlock internal constructor(val colorResolution: In
      * @throws IOException If the stream is not a valid image descriptor block.
      */
     @Throws(IOException::class)
-    override fun read(inputStream: InputStream)
+    override fun read(inputStream : InputStream)
     {
         this.x = read2ByteInt(inputStream)
         this.y = read2ByteInt(inputStream)

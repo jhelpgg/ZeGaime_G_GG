@@ -14,5 +14,5 @@ data object InterpolationLinear : Interpolation
      * @param percent The value to interpolate, between 0 and 1.
      * @return The same value as the input.
      */
-    override fun invoke(percent: Double): Double = percent
+    override fun invoke(percent : Double) : Double = percent
 }

@@ -22,19 +22,19 @@ import fr.khelp.zegaime.utils.tasks.observable.Observable
  * @property destroyOnEnd Indicates if the sound should be destroyed when it reaches the end.
  * @constructor Creates a new sound. For internal use only.
  */
-class Sound internal constructor(private val soundInterface: SoundInterface)
+class Sound internal constructor(private val soundInterface : SoundInterface)
 {
     /** Current sound state */
-    val soundStateObservable: Observable<SoundState> = this.soundInterface.soundState
+    val soundStateObservable : Observable<SoundState> = this.soundInterface.soundState
 
     /** Current sound progress */
-    val soundProgressObservable: Observable<SoundProgress> = this.soundInterface.soundProgress
+    val soundProgressObservable : Observable<SoundProgress> = this.soundInterface.soundProgress
 
     /** Sound total size */
-    val totalSize: Long = this.soundInterface.totalSize
+    val totalSize : Long = this.soundInterface.totalSize
 
     /** Sound current position */
-    var position: Long
+    var position : Long
         get() = this.soundInterface.position
         set(value)
         {
@@ -66,7 +66,7 @@ class Sound internal constructor(private val soundInterface: SoundInterface)
      *
      * @param loop The number of loops. By default, it loops "infinitely".
      */
-    fun loop(loop: Int = Int.MAX_VALUE)
+    fun loop(loop : Int = Int.MAX_VALUE)
     {
         this.loop = loop
         this.play()
@@ -105,18 +105,18 @@ class Sound internal constructor(private val soundInterface: SoundInterface)
      *
      * @param soundState The new sound state.
      */
-    private fun soundSateChanged(soundState: SoundState)
+    private fun soundSateChanged(soundState : SoundState)
     {
         when (soundState)
         {
             SoundState.PAUSED, SoundState.DESTROYED, SoundState.ERROR, SoundState.NOT_LAUNCHED -> return
-            SoundState.PLAYING ->
+            SoundState.PLAYING                                                                 ->
             {
                 this.wasPlaying = true
                 return
             }
 
-            SoundState.STOPPED ->
+            SoundState.STOPPED                                                                 ->
                 if (!this.wasPlaying)
                 {
                     return

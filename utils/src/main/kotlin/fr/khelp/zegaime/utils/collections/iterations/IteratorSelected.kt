@@ -5,20 +5,21 @@ import java.util.concurrent.atomic.AtomicBoolean
 /**
  * [Iterator] that filter elements of given [Iterator] via the [criteria]
  */
-class IteratorSelected<T : Any>(internal val criteria: (T) -> Boolean, internal val iterator: Iterator<T>) : Iterator<T>
+class IteratorSelected<T : Any>(internal val criteria : (T) -> Boolean,
+                                internal val iterator : Iterator<T>) : Iterator<T>
 {
     private val hasNext = AtomicBoolean(false)
-    private lateinit var currentValue: T
+    private lateinit var currentValue : T
 
     init
     {
         this.searchNext()
     }
 
-    override fun hasNext(): Boolean =
+    override fun hasNext() : Boolean =
         this.hasNext.get()
 
-    override fun next(): T
+    override fun next() : T
     {
         if (this.hasNext.get())
         {
@@ -32,7 +33,7 @@ class IteratorSelected<T : Any>(internal val criteria: (T) -> Boolean, internal 
 
     private fun searchNext()
     {
-        var current: T
+        var current : T
 
         while (this.iterator.hasNext())
         {

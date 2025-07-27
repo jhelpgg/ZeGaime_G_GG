@@ -7,7 +7,7 @@ package fr.khelp.zegaime.utils.extensions
  * @param footer String after the content
  * @return The string representation
  */
-fun FloatArray.string(header: String = "[", separator: String = ", ", footer: String = "]"): String
+fun FloatArray.string(header : String = "[", separator : String = ", ", footer : String = "]") : String
 {
     val stringBuilder = StringBuilder()
     stringBuilder.append(header)
@@ -27,7 +27,7 @@ fun FloatArray.string(header: String = "[", separator: String = ", ", footer: St
     return stringBuilder.toString()
 }
 
-fun FloatArray.same(other: FloatArray): Boolean
+fun FloatArray.same(other : FloatArray) : Boolean
 {
     val size = this.size
 

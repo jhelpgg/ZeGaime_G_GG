@@ -10,4 +10,4 @@ package fr.khelp.zegaime.resources.images
  * @property height The height of the thumbnail.
  * @constructor Creates a new image load thumbnail description.
  */
-data class ImageLoadThumbnail(val path: String, val width: Int, val height: Int) : ImageDescription
+data class ImageLoadThumbnail(val path : String, val width : Int, val height : Int) : ImageDescription

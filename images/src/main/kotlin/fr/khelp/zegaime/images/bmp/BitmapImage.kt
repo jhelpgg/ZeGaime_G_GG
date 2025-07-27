@@ -18,7 +18,7 @@ import java.util.Optional
  * @param bitmapHeader Bitmap header.
  * @param rasterImage Raster image.
  */
-class BitmapImage internal constructor(val bitmapHeader: BitmapHeader, val rasterImage: RasterImage)
+class BitmapImage internal constructor(val bitmapHeader : BitmapHeader, val rasterImage : RasterImage)
 {
     /**Image width*/
     val width = this.rasterImage.width()
@@ -39,7 +39,7 @@ class BitmapImage internal constructor(val bitmapHeader: BitmapHeader, val raste
  * @throws IOException If the stream not contains a valid bitmap header.
  */
 @Throws(IOException::class)
-fun readBitmapHeader(inputStream: InputStream, jumpHeader: Boolean = false) = BitmapHeader(inputStream, jumpHeader)
+fun readBitmapHeader(inputStream : InputStream, jumpHeader : Boolean = false) = BitmapHeader(inputStream, jumpHeader)
 
 /**
  * Read bitmap header from a file.
@@ -47,14 +47,14 @@ fun readBitmapHeader(inputStream: InputStream, jumpHeader: Boolean = false) = Bi
  * @param file File to read.
  * @return Optional that contains bitmap header if the file is a valid bitmap.
  */
-fun obtainBitmapHeader(file: File): Optional<BitmapHeader>
+fun obtainBitmapHeader(file : File) : Optional<BitmapHeader>
 {
     if (!file.exists() || file.isDirectory || !file.canRead())
     {
         return Optional.empty()
     }
 
-    var bitmapHeader: Optional<BitmapHeader> = Optional.empty()
+    var bitmapHeader : Optional<BitmapHeader> = Optional.empty()
 
     treatInputStream({ FileInputStream(file) },
                      { bitmapHeader = Optional.of(readBitmapHeader(it)) })
@@ -68,7 +68,7 @@ fun obtainBitmapHeader(file: File): Optional<BitmapHeader>
  * @param file File to read.
  * @return Optional that contains bitmap dimension if the file is a valid bitmap.
  */
-fun computeBitmapDimension(file: File) =
+fun computeBitmapDimension(file : File) =
     obtainBitmapHeader(file).ifElse({ Optional.of(Dimension(it.width, it.height)) },
                                     { Optional.empty() })
 
@@ -78,7 +78,7 @@ fun computeBitmapDimension(file: File) =
  * @param file File to test.
  * @return **`true`** if the file is a valid bitmap.
  */
-fun bitmap(file: File) = obtainBitmapHeader(file).isPresent
+fun bitmap(file : File) = obtainBitmapHeader(file).isPresent
 
 /**
  * Parse stream to bitmap image.
@@ -88,7 +88,7 @@ fun bitmap(file: File) = obtainBitmapHeader(file).isPresent
  * @throws IOException If the stream not contains a valid bitmap image.
  */
 @Throws(IOException::class)
-fun parseBitmap(inputStream: InputStream): BitmapImage
+fun parseBitmap(inputStream : InputStream) : BitmapImage
 {
     val bitmapHeader = readBitmapHeader(inputStream)
     val rasterImage = bitmapHeader.readRasterImage(inputStream)
@@ -101,14 +101,14 @@ fun parseBitmap(inputStream: InputStream): BitmapImage
  * @param file Bitmap image file.
  * @return An optional that contains the bitmap image if the file is a valid bitmap image.
  */
-fun loadBitmap(file: File): Optional<BitmapImage>
+fun loadBitmap(file : File) : Optional<BitmapImage>
 {
     if (!file.exists() || file.isDirectory || !file.canRead())
     {
         return Optional.empty()
     }
 
-    var bitmapImage: Optional<BitmapImage> = Optional.empty()
+    var bitmapImage : Optional<BitmapImage> = Optional.empty()
 
     treatInputStream({ FileInputStream(file) },
                      { bitmapImage = Optional.of(parseBitmap(it)) },

@@ -26,13 +26,13 @@ import javax.crypto.spec.DESKeySpec
  * @constructor Creates a new DES crypter.
  * @param password The password to use for encryption and decryption.
  */
-class CrypterDES(password: String)
+class CrypterDES(password : String)
 {
     companion object
     {
-        private fun computeKey(string: String): ByteArray
+        private fun computeKey(string : String) : ByteArray
         {
-            var hash: Long = 0
+            var hash : Long = 0
             string.toCharArray()
                 .forEach { hash = 31L * hash + it.code.toLong() }
             val key = ByteArray(8)
@@ -58,7 +58,7 @@ class CrypterDES(password: String)
      * @throws IOException On IO error.
      */
     @Throws(IOException::class)
-    fun encrypt(clearStream: InputStream, encryptedStream: OutputStream)
+    fun encrypt(clearStream : InputStream, encryptedStream : OutputStream)
     {
         this.desOperation(Cipher.ENCRYPT_MODE, clearStream, encryptedStream)
     }
@@ -71,7 +71,7 @@ class CrypterDES(password: String)
      * @throws IOException On IO error.
      */
     @Throws(IOException::class)
-    fun decrypt(encryptedStream: InputStream, clearStream: OutputStream)
+    fun decrypt(encryptedStream : InputStream, clearStream : OutputStream)
     {
         this.desOperation(Cipher.DECRYPT_MODE, encryptedStream, clearStream)
     }
@@ -83,7 +83,7 @@ class CrypterDES(password: String)
      * @return `true` if the password is valid, `false` otherwise.
      */
     @Synchronized
-    fun passwordValid(password: String): Boolean
+    fun passwordValid(password : String) : Boolean
     {
         // To avoid multiple attempt in short time, wait more and more time between each attempt
         val waitBeforeTest = this.timeBetweenAttempt - (System.currentTimeMillis() - this.lastPasswordCheckTime)
@@ -111,7 +111,7 @@ class CrypterDES(password: String)
      * @param other The other crypter.
      * @return `true` if the keys are the same, `false` otherwise.
      */
-    internal fun sameKey(other: CrypterDES) =
+    internal fun sameKey(other : CrypterDES) =
         this.key.same(other.key)
 
     /**
@@ -121,7 +121,7 @@ class CrypterDES(password: String)
      * @param outputStream Stream where write the result
      */
     @Throws(IOException::class)
-    private fun desOperation(mode: Int, inputStream: InputStream, outputStream: OutputStream)
+    private fun desOperation(mode : Int, inputStream : InputStream, outputStream : OutputStream)
     {
         val desKeySpec = DESKeySpec(this.key)
         val keyFactory = SecretKeyFactory.getInstance("DES")

@@ -9,7 +9,7 @@ import java.util.Objects
  * @param footer String after the content
  * @return The string representation
  */
-fun DoubleArray.string(header: String = "[", separator: String = ", ", footer: String = "]"): String
+fun DoubleArray.string(header : String = "[", separator : String = ", ", footer : String = "]") : String
 {
     val stringBuilder = StringBuilder()
     stringBuilder.append(header)
@@ -29,7 +29,7 @@ fun DoubleArray.string(header: String = "[", separator: String = ", ", footer: S
     return stringBuilder.toString()
 }
 
-fun DoubleArray.same(other: DoubleArray): Boolean
+fun DoubleArray.same(other : DoubleArray) : Boolean
 {
     val size = this.size
 
@@ -49,7 +49,7 @@ fun DoubleArray.same(other: DoubleArray): Boolean
     return true
 }
 
-val DoubleArray.hash: Int
+val DoubleArray.hash : Int
     get()
     {
         var hash = this.size

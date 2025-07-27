@@ -18,6 +18,6 @@ data object InterpolationSine : Interpolation
      * @param percent The value to interpolate, between 0 and 1.
      * @return The interpolated value.
      */
-    override operator fun invoke(percent: Double) =
+    override operator fun invoke(percent : Double) =
         (1.0 + sin(percent * PI - PI / 2.0)) / 2.0
 }

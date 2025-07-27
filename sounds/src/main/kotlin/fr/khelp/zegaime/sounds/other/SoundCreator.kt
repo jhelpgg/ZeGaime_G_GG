@@ -16,10 +16,10 @@ import javax.sound.sampled.DataLine.Info
  * @param file The sound file.
  * @return A pair of the created stream and clip.
  */
-internal fun createSound(file: File): Pair<AudioInputStream, Clip>
+internal fun createSound(file : File) : Pair<AudioInputStream, Clip>
 {
-    var audioInputStream: AudioInputStream? = null
-    var clip: Clip? = null
+    var audioInputStream : AudioInputStream? = null
+    var clip : Clip? = null
 
     try
     {
@@ -56,7 +56,7 @@ internal fun createSound(file: File): Pair<AudioInputStream, Clip>
 
         return Pair(audioInputStream, clip)
     }
-    catch (exception: Exception)
+    catch (exception : Exception)
     {
         if (clip != null)
         {
@@ -65,7 +65,7 @@ internal fun createSound(file: File): Pair<AudioInputStream, Clip>
                 clip.flush()
                 clip.close()
             }
-            catch (ignored: Exception)
+            catch (ignored : Exception)
             {
             }
         }
@@ -76,7 +76,7 @@ internal fun createSound(file: File): Pair<AudioInputStream, Clip>
             {
                 audioInputStream.close()
             }
-            catch (ignored: Exception)
+            catch (ignored : Exception)
             {
             }
         }

@@ -13,7 +13,7 @@ import java.io.InputStream
  * @property data The data of the sub-block.
  * @constructor Creates a new sub-block.
  */
-internal data class SubBlock(val size: Int, val data: ByteArray)
+internal data class SubBlock(val size : Int, val data : ByteArray)
 
 /**
  * An empty sub-block.
@@ -32,7 +32,7 @@ internal val EMPTY = SubBlock(0, ByteArray(0))
  * @throws IOException If the data does not correspond to a valid sub-block.
  */
 @Throws(IOException::class)
-internal fun readSubBlock(inputStream: InputStream): SubBlock
+internal fun readSubBlock(inputStream : InputStream) : SubBlock
 {
     val size = inputStream.read()
 

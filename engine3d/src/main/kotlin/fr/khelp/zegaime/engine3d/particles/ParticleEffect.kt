@@ -5,7 +5,7 @@ package fr.khelp.zegaime.engine3d.particles
  *
  * Add [ParticleNode] with [addParticleNode] to create one effect.
  *
- * **Creation example:**
+ * **Creation example**
  * ```kotlin
  * val particleEffect = ParticleEffect()
  * particleEffect.addParticleNode(myParticleNode)
@@ -21,14 +21,14 @@ class ParticleEffect
 {
     private val particleNodes = ArrayList<ParticleNode>()
     private val aliveParticles = ArrayList<Particle>()
-    private var statTime: Long = 0L
+    private var statTime : Long = 0L
 
     /**
      * Add a particle node generation in the particle effect.
      *
      * @param particleNode The particle node to add.
      */
-    fun addParticleNode(particleNode: ParticleNode)
+    fun addParticleNode(particleNode : ParticleNode)
     {
         synchronized(this.particleNodes)
         {
@@ -80,11 +80,11 @@ class ParticleEffect
      *
      * @return `true` if the effect is still alive, `false` otherwise.
      */
-    internal fun update(): Boolean
+    internal fun update() : Boolean
     {
         var alive = false
         val time = System.currentTimeMillis() - this.statTime
-        val collector: (Particle) -> Unit = { particle -> this.aliveParticles.add(particle) }
+        val collector : (Particle) -> Unit = { particle -> this.aliveParticles.add(particle) }
 
         synchronized(this.particleNodes)
         {
@@ -96,7 +96,7 @@ class ParticleEffect
                 }
             }
 
-            var particle: Particle
+            var particle : Particle
 
             for (index in this.aliveParticles.size - 1 downTo 0)
             {
