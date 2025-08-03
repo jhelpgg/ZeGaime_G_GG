@@ -8,8 +8,8 @@ import fr.khelp.zegaime.utils.texts.SimpleCharactersInterval
 /** The character as an interval */
 val Char.interval : CharactersInterval get() = SimpleCharactersInterval(this, this)
 
-/** Interval with the character in lower and upper case version */
-val Char.ignoreCaseInterval : CharactersInterval get() = this.toLowerCase().interval + this.toUpperCase()
+/** Interval with the character in a lower and upper case version */
+val Char.ignoreCaseInterval : CharactersInterval get() = this.lowercaseChar().interval + this.uppercaseChar()
 
 /**
  * Add character to an interval
@@ -20,19 +20,8 @@ operator fun Char.plus(charactersInterval : CharactersInterval) : CharactersInte
 /**
  * String representation in unicode `\uHHHH`
  */
-fun Char.toUnicode() : String
-{
-    val stringBuilder = StringBuilder(6)
-    stringBuilder.append(java.lang.Integer.toHexString(this.toInt()))
-
-    while (stringBuilder.length < 4)
-    {
-        stringBuilder.insert(0, '0')
-    }
-
-    stringBuilder.insert(0, "\\u")
-    return stringBuilder.toString()
-}
+fun Char.toUnicode() : String =
+    String.format("\\u%04x",this.code)
 
 val Char.regularExpression : RegularExpression get() = this.interval.regularExpression
 

@@ -8,17 +8,8 @@ package fr.khelp.zegaime.images
 enum class ImageFormat(val formatName : String)
 {
     /** Joint Photographic Experts Group format. */
-    JPEG("JPEG"),
+    JPEG("JPG"),
 
     /** Portable Network Graphics format. */
     PNG("PNG"),
-
-    /** Graphics Interchange Format. */
-    GIF("GIF"),
-
-    /** Bitmap format. */
-    BMP("BMP"),
-
-    /** Tagged Image File Format. */
-    TIFF("TIFF")
 }

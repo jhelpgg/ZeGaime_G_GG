@@ -167,11 +167,9 @@ class BoxUVCreator
     /**
      * Creates the box UV mapping.
      *
-     * For internal use only.
-     *
      * @return The created box UV mapping.
      */
-    internal operator fun invoke() : BoxUV =
+    operator fun invoke() : BoxUV =
         BoxUV(face = this.faceCreator(), back = this.backCreator(),
               top = this.topCreator(), bottom = this.bottomCreator(),
               left = this.leftCreator(), right = this.rightCreator())
@@ -235,11 +233,9 @@ class CrossUVCreator
     /**
      * Creates the cross UV mapping.
      *
-     * For internal use only.
-     *
      * @return The created cross UV mapping.
      */
-    internal operator fun invoke() : CrossUV =
+    operator fun invoke() : CrossUV =
         CrossUV(u1 = this.u1, u2 = this.u2,
                 v1 = this.v1, v2 = this.v2, v3 = this.v3)
 }

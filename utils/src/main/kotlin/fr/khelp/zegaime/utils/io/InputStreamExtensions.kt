@@ -99,3 +99,24 @@ fun InputStream.readByteArray() : ByteArray
 
 fun InputStream.readBigInteger() : BigInteger =
     BigInteger(this.readByteArray())
+
+/**
+ * Read a String from the stream
+ *
+ * @return String read
+ */
+fun InputStream.readString() : String {
+    val utf8 = this.readByteArray()
+
+    if(utf8.isEmpty()) {
+        return ""
+    }
+
+    return String(utf8, Charsets.UTF_8)
+}
+
+fun InputStream.readFloat() : Float =
+    Float.fromBits(this.readInt())
+
+fun InputStream.readBoolean() : Boolean =
+    this.read() > 0

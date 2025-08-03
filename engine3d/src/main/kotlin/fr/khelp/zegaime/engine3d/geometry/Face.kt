@@ -27,7 +27,7 @@ import org.lwjgl.opengl.GL11
  * @property size The number of vertices in the face.
  * @constructor Creates a new face. For internal use only.
  */
-class Face internal constructor() : Iterable<Vertex>
+class Face : Iterable<Vertex>
 {
     internal var barycenter : BarycenterPoint3D = BarycenterPoint3D()
     internal var virtualBox : VirtualBox = VirtualBox()

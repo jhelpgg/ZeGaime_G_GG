@@ -100,6 +100,21 @@ class Material
         this.twoSided = true
     }
 
+    fun copy(material : Material)
+    {
+        this.colorAmbient = material.colorAmbient
+        this.colorDiffuse = material.colorDiffuse
+        this.colorEmissive = material.colorEmissive
+        this.colorSpecular = material.colorSpecular
+        this.specularLevel = material.specularLevel
+        this.shininess = material.shininess
+        this.transparency = material.transparency
+        this.twoSided = material.twoSided
+        this.sphericRate = material.sphericRate
+        this.textureSpheric = material.textureSpheric
+        this.textureDiffuse = material.textureDiffuse
+    }
+
     /**
      * Prepare material for OpenGL render.
      *

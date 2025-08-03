@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm")
+    alias(libs.plugins.kotlinJvm)
 }
 
 group = "fr.khelp.zegaime"
@@ -49,7 +49,9 @@ dependencies {
     runtimeOnly(files("libs/lwjgl-openal/lwjgl-openal-natives-windows.jar"))
     runtimeOnly(files("libs/lwjgl-openal/lwjgl-openal-natives-windows-x86.jar"))
 
-    testImplementation(kotlin("test"))
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlin.test.junit5)
+    testImplementation(libs.junit.jupiter)
 }
 
 tasks.test {

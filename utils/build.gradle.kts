@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm")
+    alias(libs.plugins.kotlinJvm)
 }
 
 group = "fr.khelp.zegaime"
@@ -10,8 +10,10 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt")
-    testImplementation(kotlin("test"))
+    implementation(libs.kotlinx.coroutines.core)
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlin.test.junit5)
+    testImplementation(libs.junit.jupiter)
 }
 
 tasks.test {

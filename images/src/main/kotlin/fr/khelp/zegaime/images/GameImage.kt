@@ -155,7 +155,21 @@ class GameImage(val width : Int, val height : Int) : RasterImage,
      */
     fun save(outputStream : OutputStream, imageFormat : ImageFormat)
     {
-        ImageIO.write(this.image, imageFormat.formatName, outputStream)
+        when (imageFormat)
+        {
+            ImageFormat.JPEG ->
+            {
+                val bufferedImage = BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_RGB)
+                val graphics2d = bufferedImage.createGraphics()
+                graphics2d.drawImage(this.image, 0, 0, null)
+                ImageIO.write(bufferedImage, imageFormat.formatName, outputStream)
+                bufferedImage.flush()
+                graphics2d.dispose()
+            }
+
+            ImageFormat.PNG  ->
+                ImageIO.write(this.image, imageFormat.formatName, outputStream)
+        }
     }
 
     /**

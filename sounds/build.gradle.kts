@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm")
+    alias(libs.plugins.kotlinJvm)
 }
 
 group = "fr.khelp.zegaime"
@@ -12,8 +12,10 @@ repositories {
 dependencies {
     api(project(":utils"))
     implementation(files("libs/jl020.jar"))
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
-    testImplementation(kotlin("test"))
+    implementation(libs.kotlin.reflect)
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlin.test.junit5)
+    testImplementation(libs.junit.jupiter)
 }
 
 tasks.test {

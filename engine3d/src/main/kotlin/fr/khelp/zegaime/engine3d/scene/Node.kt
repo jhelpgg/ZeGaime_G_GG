@@ -74,26 +74,63 @@ open class Node(val id : String) : Iterable<Node>
         private var ID_PICKING = AtomicInteger(0)
     }
 
-    private var limitMinX = Float.NEGATIVE_INFINITY
-    private var limitMaxX = Float.POSITIVE_INFINITY
-    private var limitMinY = Float.NEGATIVE_INFINITY
-    private var limitMaxY = Float.POSITIVE_INFINITY
-    private var limitMinZ = Float.NEGATIVE_INFINITY
-    private var limitMaxZ = Float.POSITIVE_INFINITY
+    var limitMinX = Float.NEGATIVE_INFINITY
+        private set
 
-    private var limitMinAngleX = Float.NEGATIVE_INFINITY
-    private var limitMaxAngleX = Float.POSITIVE_INFINITY
-    private var limitMinAngleY = Float.NEGATIVE_INFINITY
-    private var limitMaxAngleY = Float.POSITIVE_INFINITY
-    private var limitMinAngleZ = Float.NEGATIVE_INFINITY
-    private var limitMaxAngleZ = Float.POSITIVE_INFINITY
+    var limitMaxX = Float.POSITIVE_INFINITY
+        private set
 
-    private var limitMinScaleX = Node.MIN_SCALE
-    private var limitMaxScaleX = Float.POSITIVE_INFINITY
-    private var limitMinScaleY = Node.MIN_SCALE
-    private var limitMaxScaleY = Float.POSITIVE_INFINITY
-    private var limitMinScaleZ = Node.MIN_SCALE
-    private var limitMaxScaleZ = Float.POSITIVE_INFINITY
+    var limitMinY = Float.NEGATIVE_INFINITY
+        private set
+
+    var limitMaxY = Float.POSITIVE_INFINITY
+        private set
+
+    var limitMinZ = Float.NEGATIVE_INFINITY
+        private set
+
+    var limitMaxZ = Float.POSITIVE_INFINITY
+        private set
+
+    //
+
+    var limitMinAngleX = Float.NEGATIVE_INFINITY
+        private set
+
+    var limitMaxAngleX = Float.POSITIVE_INFINITY
+        private set
+
+    var limitMinAngleY = Float.NEGATIVE_INFINITY
+        private set
+
+    var limitMaxAngleY = Float.POSITIVE_INFINITY
+        private set
+
+    var limitMinAngleZ = Float.NEGATIVE_INFINITY
+        private set
+
+    var limitMaxAngleZ = Float.POSITIVE_INFINITY
+        private set
+
+    //
+
+    var limitMinScaleX = Node.MIN_SCALE
+        private set
+
+    var limitMaxScaleX = Float.POSITIVE_INFINITY
+        private set
+
+    var limitMinScaleY = Node.MIN_SCALE
+        private set
+
+    var limitMaxScaleY = Float.POSITIVE_INFINITY
+        private set
+
+    var limitMinScaleZ = Node.MIN_SCALE
+        private set
+
+    var limitMaxScaleZ = Float.POSITIVE_INFINITY
+        private set
 
     /**
      * The X position of the node.

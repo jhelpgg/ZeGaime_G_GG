@@ -42,6 +42,11 @@ class Video internal constructor(val width : Int, val height : Int, val fps : In
      */
     val image : GameImage = GameImage(this.width, this.height)
 
+    /**
+     * Number images
+     */
+    val numberImage : Int = this.images.size
+
     private val progressSource = ObservableSource<VideoProgress>(VideoProgress(0L, this.totalMilliseconds))
 
     /**
@@ -123,6 +128,9 @@ class Video internal constructor(val width : Int, val height : Int, val fps : In
             }
         }
     }
+
+    fun image(imageIndex : Int) : GameImage =
+        this.images[imageIndex]
 
     /**
      * Must be called in synchronized lock block

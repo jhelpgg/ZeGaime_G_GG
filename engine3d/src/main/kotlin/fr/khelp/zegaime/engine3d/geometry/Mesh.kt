@@ -5,11 +5,6 @@ import fr.khelp.zegaime.engine3d.utils.BarycenterPoint3D
 
 class Mesh : Iterable<Face>
 {
-    companion object
-    {
-        fun provider() : Mesh = Mesh()
-    }
-
     private val faces = ArrayList<Face>()
     private val barycenter = BarycenterPoint3D()
     val center : Point3D get() = this.barycenter.barycenter()

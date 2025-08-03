@@ -1,11 +1,13 @@
 package fr.khelp.zegaime.engine3d.utils
 
+import fr.khelp.zegaime.engine3d.format.MaterialK3D
 import fr.khelp.zegaime.engine3d.render.Texture
 import fr.khelp.zegaime.engine3d.render.TextureGif
 import fr.khelp.zegaime.engine3d.render.TextureVideo
 import fr.khelp.zegaime.resources.Resources
 
 private val textures = HashMap<String, Texture>()
+private val materials = HashMap<String, MaterialK3D>()
 
 /**
  * Gets a texture from the resources.

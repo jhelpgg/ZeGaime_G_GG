@@ -16,7 +16,7 @@ class DirectorySource(private val directory : File) : ReferenceSource()
     {
         if (!this.directory.createDirectory())
         {
-            throw IllegalArgumentException("Can't crete/obtain directory : ${this.directory.absolutePath}")
+            throw IllegalArgumentException("Can't create/obtain directory : ${this.directory.absolutePath}")
         }
     }
 

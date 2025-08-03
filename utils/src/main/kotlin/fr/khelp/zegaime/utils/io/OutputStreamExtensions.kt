@@ -39,3 +39,23 @@ fun OutputStream.writeBigInteger(bigInteger : BigInteger)
 {
     this.writeByteArray(bigInteger.toByteArray())
 }
+
+/**
+ * Write a string to the stream
+ *
+ * @param string String to write
+ */
+fun OutputStream.writeString(string : String)
+{
+    this.writeByteArray(string.toByteArray(Charsets.UTF_8))
+}
+
+fun OutputStream.writeFloat(float : Float)
+{
+    this.writeInt(float.toBits())
+}
+
+fun OutputStream.writeBoolean(boolean : Boolean)
+{
+    this.write(if (boolean) 1 else 0)
+}

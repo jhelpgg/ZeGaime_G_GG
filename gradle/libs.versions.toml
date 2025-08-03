@@ -1,0 +1,19 @@
+[versions]
+kotlin = "2.2.0"
+junit = "5.10.1"
+kotlinxCoroutines = "1.8.0"
+kotlinReflect = "2.2.0"
+serializationJson = "1.9.0"
+
+[libraries]
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlin-reflect = { module="org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlinReflect" }
+kotlinx-serialization-json = { module="org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serializationJson" }
+
+#  kotlin("plugin.serialization") version "2.2.0"
+
+[plugins]
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

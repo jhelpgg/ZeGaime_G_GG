@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm")
+    alias(libs.plugins.kotlinJvm)
 }
 
 group = "fr.khelp.zegaime"
@@ -11,7 +11,9 @@ repositories {
 
 dependencies {
     api(project(":utils"))
-    testImplementation(kotlin("test"))
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlin.test.junit5)
+    testImplementation(libs.junit.jupiter)
 }
 
 tasks.test {

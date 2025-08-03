@@ -33,9 +33,9 @@ class DatabaseObjectTests
             "ID" EQUALS_ID testObject.databaseID
         }
 
-        Assertions.assertTrue(result.hasNext)
+        Assertions.assertTrue(result.hasNext())
         val retrieved = result.next()
-        Assertions.assertFalse(result.hasNext)
+        Assertions.assertFalse(result.hasNext())
         result.close()
         Assertions.assertEquals(testObject.name, retrieved.name)
         Assertions.assertEquals(testObject.age, retrieved.age)
@@ -54,21 +54,21 @@ class DatabaseObjectTests
             condition = Person::age UPPER_EQUALS 18
         }
 
-        Assertions.assertTrue(resultPersons.hasNext)
+        Assertions.assertTrue(resultPersons.hasNext())
         var person = resultPersons.next()
         Assertions.assertEquals(personArthur.name, person.name)
         Assertions.assertEquals(personArthur.age, person.age)
         Assertions.assertEquals(addressJumpStreet.street, person.address.street)
         Assertions.assertEquals(addressJumpStreet.number, person.address.number)
 
-        Assertions.assertTrue(resultPersons.hasNext)
+        Assertions.assertTrue(resultPersons.hasNext())
         person = resultPersons.next()
         Assertions.assertEquals(personDandy.name, person.name)
         Assertions.assertEquals(personDandy.age, person.age)
         Assertions.assertEquals(addressSpace.street, person.address.street)
         Assertions.assertEquals(addressSpace.number, person.address.number)
 
-        Assertions.assertFalse(resultPersons.hasNext)
+        Assertions.assertFalse(resultPersons.hasNext())
         resultPersons.close()
 
         /*--*/
@@ -76,11 +76,11 @@ class DatabaseObjectTests
         resultPersons = DatabaseObject.select<Person>(this.database) {
             condition = Person::address EQUALS addressJumpStreet
         }
-        Assertions.assertTrue(resultPersons.hasNext)
+        Assertions.assertTrue(resultPersons.hasNext())
         Assertions.assertEquals(personArthur, resultPersons.next())
-        Assertions.assertTrue(resultPersons.hasNext)
+        Assertions.assertTrue(resultPersons.hasNext())
         Assertions.assertEquals(personJoe, resultPersons.next())
-        Assertions.assertFalse(resultPersons.hasNext)
+        Assertions.assertFalse(resultPersons.hasNext())
         resultPersons.close()
     }
 }

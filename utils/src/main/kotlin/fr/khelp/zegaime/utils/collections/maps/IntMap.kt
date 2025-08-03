@@ -2,6 +2,7 @@ package fr.khelp.zegaime.utils.collections.maps
 
 import fr.khelp.zegaime.utils.collections.iterations.transform
 import fr.khelp.zegaime.utils.collections.lists.SortedArray
+import java.util.Optional
 
 /**
  * Map of integer to something
@@ -90,6 +91,38 @@ class IntMap<T> : Iterable<Pair<Int, T>>
     fun clear()
     {
         this.map.clear()
+    }
+
+    /**
+     * Get all `(key, value)` couple from value
+     */
+    fun fromValue(value : T, collector : (key : Int, value : T) -> Boolean)
+    {
+        for (element in this.map)
+        {
+            if (element.value == value)
+            {
+                if(!collector(element.key, element.value!!))
+                {
+                    return
+                }
+            }
+        }
+    }
+
+    /**
+     * Get first from value
+     */
+    fun firstFromValue(value : T) : Optional<Pair<Int, T>>
+    {
+        var response : Optional<Pair<Int, T>> = Optional.empty()
+
+        this.fromValue(value) { key, valueFound ->
+            response = Optional.of(Pair(key, valueFound))
+            false
+        }
+
+        return response
     }
 
     /**
