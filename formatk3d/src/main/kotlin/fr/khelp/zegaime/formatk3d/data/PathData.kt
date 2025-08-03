@@ -3,11 +3,20 @@ package fr.khelp.zegaime.formatk3d.data
 import fr.khelp.zegaime.engine3d.geometry.path.Path
 import kotlinx.serialization.Serializable
 
+/**
+ * Path data for save
+ * @param pathElements Path elements
+ */
 @Serializable
 data class PathData(val pathElements : List<PathElementData>)
 {
     companion object
     {
+        /**
+         * Create a new instance of PathData from a Path
+         * @param path Path to copy
+         * @return The new instance
+         */
         fun create(path : Path) : PathData
         {
             val pathElements = ArrayList<PathElementData>()
@@ -21,6 +30,9 @@ data class PathData(val pathElements : List<PathElementData>)
         }
     }
 
+    /**
+     * The Path
+     */
     val path : Path by lazy {
         val path = Path()
 

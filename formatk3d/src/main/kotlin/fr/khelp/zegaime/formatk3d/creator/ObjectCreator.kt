@@ -9,13 +9,24 @@ import fr.khelp.zegaime.formatk3d.data.NodeData
 import fr.khelp.zegaime.formatk3d.data.NodeType
 import fr.khelp.zegaime.formatk3d.data.ObjectData
 
+/**
+ * Object 3D creator
+ * @param name Object name
+ */
 class ObjectCreator(name : String) : NodeWithMaterialCreator(name)
 {
+    /** Indicates if wire frame is shown */
     var showWire : Boolean = false
+    /** Wire frame color */
     var wireColor : ColorData = DEFAULT_WIRE_FRAME_COLOR_DATA
 
+    /** Object mesh */
     private var mesh : MeshData = MeshData(emptyList<FaceData>())
 
+    /**
+     * Define the object mesh
+     * @param create Mesh creation lambda
+     */
     fun mesh(create : Mesh.() -> Unit)
     {
         val mesh = Mesh()
@@ -23,6 +34,10 @@ class ObjectCreator(name : String) : NodeWithMaterialCreator(name)
         this.mesh = MeshData(mesh)
     }
 
+    /**
+     * Convert to node data for save
+     * @return Node data for save
+     */
     override operator fun invoke() : NodeData =
         NodeData(name = this.name, nodeType = NodeType.OBJECT,
                  positionData = this.position, limitData = this.limits,

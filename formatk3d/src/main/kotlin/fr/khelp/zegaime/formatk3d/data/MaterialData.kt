@@ -4,6 +4,20 @@ import fr.khelp.zegaime.engine3d.render.Material
 import fr.khelp.zegaime.resources.Resources
 import kotlinx.serialization.Serializable
 
+/**
+ * Material data for save
+ * @param colorAmbient Ambient color
+ * @param colorDiffuse Diffuse color
+ * @param colorEmissive Emissive color
+ * @param colorSpecular Specular color
+ * @param specularLevel Specular level
+ * @param shininess Shininess
+ * @param transparency Transparency
+ * @param twoSided Two sided
+ * @param sphericRate Spheric rate
+ * @param textureDiffuse Diffuse texture
+ * @param textureSpheric Spheric texture
+ */
 @Serializable
 data class MaterialData(val colorAmbient : ColorData,
                         val colorDiffuse : ColorData,
@@ -17,6 +31,11 @@ data class MaterialData(val colorAmbient : ColorData,
                         val textureDiffuse : TextureData?,
                         val textureSpheric : TextureData?)
 {
+    /**
+     * Convert to material
+     * @param resources Resources to use
+     * @return The material
+     */
     fun material(resources : Resources) : Material
     {
         val material = Material()

@@ -9,11 +9,21 @@ import fr.khelp.zegaime.engine3d.geometry.path.element.PathQuadratic
 import java.util.Objects
 import kotlinx.serialization.Serializable
 
+/**
+ * Path element data for save
+ * @param pathElementType Path element type
+ * @param parameters Path element parameters
+ */
 @Serializable
 data class PathElementData(val pathElementType : PathElementType, val parameters : FloatArray)
 {
     companion object
     {
+        /**
+         * Create a new instance of PathElementData from a PathElement
+         * @param pathElement PathElement to copy
+         * @return The new instance
+         */
         fun create(pathElement : PathElement) : PathElementData =
             when (pathElement)
             {
@@ -42,6 +52,9 @@ data class PathElementData(val pathElementType : PathElementType, val parameters
             }
     }
 
+    /**
+     * The PathElement
+     */
     val pathElement : PathElement by lazy {
         when (this.pathElementType)
         {

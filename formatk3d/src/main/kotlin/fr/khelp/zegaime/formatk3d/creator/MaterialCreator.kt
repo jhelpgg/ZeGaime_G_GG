@@ -5,8 +5,12 @@ import fr.khelp.zegaime.formatk3d.data.ColorData
 import fr.khelp.zegaime.formatk3d.data.GRAY_DATA
 import fr.khelp.zegaime.formatk3d.data.LIGHT_GRAY_DATA
 
-class MaterialCreator()
+/**
+ * Material creator
+ */
+class MaterialCreator
 {
+    /** Ambient color */
     var colorAmbient : ColorData = BLACK_DATA
 
     /**Diffuse color*/

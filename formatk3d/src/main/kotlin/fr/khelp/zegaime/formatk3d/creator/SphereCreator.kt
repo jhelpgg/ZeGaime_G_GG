@@ -5,24 +5,36 @@ import fr.khelp.zegaime.formatk3d.data.NodeType
 import fr.khelp.zegaime.formatk3d.data.SphereData
 import kotlin.math.max
 
+/**
+ * Sphere creator
+ * @param name Sphere name
+ */
 class SphereCreator(name : String) : NodeWithMaterialCreator(name)
 {
+    /** Sphere number of slices */
     var slice : Int = 33
         set(value)
         {
             field = max(2, value)
         }
 
+    /** Sphere number of stacks */
     var stack : Int = 33
         set(value)
         {
             field = max(2, value)
         }
 
+    /** Sphere texture U multiplier */
     var multiplierU : Float = 1f
 
+    /** Sphere texture V multiplier */
     var multiplierV : Float = 1f
 
+    /**
+     * Convert to node data for save
+     * @return Node data for save
+     */
     override fun invoke() : NodeData =
         NodeData(name = this.name, nodeType = NodeType.SPHERE,
                  positionData = this.position, limitData = this.limits,

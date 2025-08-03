@@ -2,6 +2,24 @@ package fr.khelp.zegaime.formatk3d.data
 
 import kotlinx.serialization.Serializable
 
+/**
+ * Node data for save
+ * @param name Node name
+ * @param nodeType Node type
+ * @param positionData Node position
+ * @param limitData Node limits
+ * @param children Node children
+ * @param nodeWithMaterialData Node with material data
+ * @param objectData Object data
+ * @param objectCloneData Object clone data
+ * @param planeData Plane data
+ * @param boxData Box data
+ * @param sphereData Sphere data
+ * @param revolutionData Revolution data
+ * @param diceData Dice data
+ * @param swordData Sword data
+ * @param robotData Robot data
+ */
 @Serializable
 open class NodeData(val name : String, val nodeType : NodeType,
                     val positionData : NodePositionData, val limitData : NodeLimitData,
