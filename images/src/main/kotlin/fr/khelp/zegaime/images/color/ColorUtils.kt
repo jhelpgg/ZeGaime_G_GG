@@ -77,6 +77,30 @@ val Color.blue : Int
             is AYUV -> this.argb.blue
         }
 
+val Color.y : Int
+    get() =
+        when (this)
+        {
+            is ARGB -> this.toAyuv.y
+            is AYUV -> this.y
+        }
+
+val Color.u : Int
+    get() =
+        when (this)
+        {
+            is ARGB -> this.toAyuv.u
+            is AYUV -> this.u
+        }
+
+val Color.v : Int
+    get() =
+        when (this)
+        {
+            is ARGB -> this.toAyuv.v
+            is AYUV -> this.v
+        }
+
 fun argb(alpha : Int, red : Int, green : Int, blue : Int) : ARGB = ARGB(alpha, red, green, blue)
 fun argb(alpha : Float, red : Float, green : Float, blue : Float) : ARGB =
     ARGB((alpha * 255).toInt(), (red).toInt(), (green).toInt(), (blue).toInt())
@@ -97,4 +121,32 @@ fun Color.changBrightness(factor : Double) : Color
                 y = (ayuv.y * factor).toInt(),
                 u = ayuv.u,
                 v = ayuv.v)
+}
+
+val Color.semiVisible : Color
+    get() =
+        when (this)
+        {
+            is ARGB -> ARGB(128, this.red, this.green, this.blue)
+
+            is AYUV -> AYUV(128, this.y, this.u, this.v)
+        }
+
+val Color.invert : Color
+    get() =
+        when (this)
+        {
+            is ARGB -> ARGB(this.alpha, 255 - this.red, 255 - this.green, 255 - this.blue)
+
+            is AYUV -> AYUV(this.alpha, 255 - this.y, 255 - this.u, 255 - this.v)
+        }
+
+val Color.gray : Color
+    get() = gray(this.alpha, this.y)
+
+fun Color.contrast(contrast : Double) : Color
+{
+    val (a, y, u, v) = this.toAyuv
+    val yy = (y * contrast).toInt().coerceIn(0, 255)
+    return AYUV(a, yy, u, v)
 }

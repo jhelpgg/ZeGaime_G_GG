@@ -1,44 +1,71 @@
 package fr.jhelp.zegaime.main
 
+import fr.khelp.zegaime.engine3d.gui.component.GUIComponentEmpty
+import fr.khelp.zegaime.engine3d.gui.component.GUIComponentText
+import fr.khelp.zegaime.engine3d.gui.dsl.buttonText
+import fr.khelp.zegaime.engine3d.gui.dsl.constraintLayout
 import fr.khelp.zegaime.engine3d.window3DFull
-import fr.khelp.zegaime.formatk3d.creator.sceneCreator
-import fr.khelp.zegaime.formatk3d.filler.fill
-import fr.khelp.zegaime.formatk3d.loadScene
-import fr.khelp.zegaime.formatk3d.save
-import fr.khelp.zegaime.utils.io.deleteFull
-import fr.khelp.zegaime.utils.io.outsideDirectory
-import java.io.File
+import fr.khelp.zegaime.resources.CANCEL
+import fr.khelp.zegaime.resources.OK
+import fr.khelp.zegaime.resources.ResourcesText
 
 /**
  * Main function
  */
 fun main()
 {
-    val baseDirectory = File(outsideDirectory, "testK3D")
-    val directory = File(baseDirectory, "sceneSource")
-    val sceneCreator =
-        sceneCreator(directory) {
-            val witchFile = File("C:\\Users\\jhelp\\Pictures\\0bdc2852ac0b3c53d466b731a81ccc04.jpg")
-            storeImage("witch.jpg", witchFile)
+    window3DFull("Test") {
+        gui.constraintLayout {
+            val helloText = GUIComponentText()
+            helloText.keyText = ResourcesText.standardTextKey("Click on OK !")
 
-            material("witch") {
-                textureDiffuse = "witch.jpg"
+            val buttonOk = buttonText(OK)
+            buttonOk.click = { helloText.keyText = ResourcesText.standardTextKey("Ok clicked !") }
+
+            val buttonCancel = buttonText(CANCEL)
+            buttonCancel.click = { gui.visible = false }
+
+            val buttonSeparator = GUIComponentEmpty(1)
+
+            helloText.with {
+                horizontalWrapped
+                verticalWrapped
+
+                topAtParent
+                bottomAtTopOf(buttonOk)
+                leftAtParent
+                rightAtParent
             }
 
-            children {
-                box("box") {
-                    material = "witch"
-                }
+            buttonSeparator.with {
+                horizontalWrapped
+                verticalWrapped
+
+                topFree
+                bottomAtParent
+                leftAtParent
+                rightAtParent
+            }
+
+            buttonOk.with {
+                horizontalWrapped
+                verticalWrapped
+
+                topFree
+                bottomAtParent
+                leftAtParent
+                rightAtLeftOf(buttonSeparator)
+            }
+
+            buttonCancel.with {
+                horizontalWrapped
+                verticalWrapped
+
+                topFree
+                bottomAtParent
+                leftAtRightOf(buttonSeparator)
+                rightAtParent
             }
         }
-
-    val sceneK3d = File(baseDirectory, "scene.k3d")
-    sceneCreator.save(sceneK3d)
-
-    val destination = File(baseDirectory, "sceneDestination")
-    destination.deleteFull()
-    val sceneData = loadScene(sceneK3d, destination)
-    window3DFull("Test") {
-        scene.fill(destination, sceneData)
     }
 }

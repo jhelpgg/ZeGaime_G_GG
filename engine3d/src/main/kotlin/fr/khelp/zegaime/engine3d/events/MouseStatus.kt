@@ -23,5 +23,9 @@ enum class MouseStatus
     /**
      * The mouse is being dragged.
      */
-    DRAG
+    DRAG,
+
+    ENTER,
+
+    EXIT
 }

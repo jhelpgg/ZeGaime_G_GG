@@ -7,6 +7,8 @@ import fr.khelp.zegaime.images.color.base.Red
 /** Transparent color. */
 val TRANSPARENT : Color = 0.argb
 
+val SHADOW : Color = 0x40808080.argb
+
 /** Black color. */
 val BLACK : Color = gray(0)
 

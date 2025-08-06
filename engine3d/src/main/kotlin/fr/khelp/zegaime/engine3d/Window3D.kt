@@ -405,12 +405,15 @@ class Window3D private constructor()
             this.particleManager.draw()
 
             // Draw 2D objects over 3D
-            this.gui.update()
-            GL11.glDisable(GL11.GL_DEPTH_TEST)
-            GL11.glPushMatrix()
-            this.gui.plane.matrixRootToMe()
-            this.gui.plane.renderSpecific()
-            GL11.glPopMatrix()
+            if(this.gui.visible)
+            {
+                this.gui.update()
+                GL11.glDisable(GL11.GL_DEPTH_TEST)
+                GL11.glPushMatrix()
+                this.gui.plane.matrixRootToMe()
+                this.gui.plane.renderSpecific()
+                GL11.glPopMatrix()
+            }
         }
         catch (ignored : Exception)
         {
