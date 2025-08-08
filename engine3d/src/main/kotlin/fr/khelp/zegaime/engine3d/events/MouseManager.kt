@@ -5,6 +5,7 @@ import fr.khelp.zegaime.utils.tasks.delay
 import fr.khelp.zegaime.utils.tasks.future.Future
 import fr.khelp.zegaime.utils.tasks.observable.Observable
 import fr.khelp.zegaime.utils.tasks.observable.ObservableSource
+import fr.khelp.zegaime.utils.tasks.parallel
 import org.lwjgl.glfw.GLFW
 
 /**
@@ -235,29 +236,31 @@ class MouseManager internal constructor(private val gui : GUI)
 
     private fun pushMouseState(mouseStatus : MouseStatus)
     {
-        this.mouseStatus = mouseStatus
-        val mouseState = MouseState(mouseStatus,
-                                    this.mouseX, this.mouseY,
-                                    this.leftButtonDown, this.middleButtonDown, this.rightButtonDown,
-                                    this.shift, this.control, this.alt,
-                                    this.clicked)
-
-
-        if (!this.gui.mouseState(mouseState))
         {
-            this.mouseStateObservableData.value = mouseState
-        }
+            this.mouseStatus = mouseStatus
+            val mouseState = MouseState(mouseStatus,
+                                        this.mouseX, this.mouseY,
+                                        this.leftButtonDown, this.middleButtonDown, this.rightButtonDown,
+                                        this.shift, this.control, this.alt,
+                                        this.clicked)
 
-        if (mouseStatus == MouseStatus.MOVE || mouseStatus == MouseStatus.DRAG || this.clicked)
-        {
-            this.stayTimeOut?.cancel("Launch again")
-            this.stayTimeOut =
-                delay(MouseManager.STAY_TIMEOUT) {
-                    this.clicked = false
-                    this.pushMouseState(MouseStatus.STAY)
-                }
-        }
 
-        this.clicked = false
+            if (!this.gui.mouseState(mouseState))
+            {
+                this.mouseStateObservableData.value = mouseState
+            }
+
+            if (mouseStatus == MouseStatus.MOVE || mouseStatus == MouseStatus.DRAG || this.clicked)
+            {
+                this.stayTimeOut?.cancel("Launch again")
+                this.stayTimeOut =
+                    delay(MouseManager.STAY_TIMEOUT) {
+                        this.clicked = false
+                        this.pushMouseState(MouseStatus.STAY)
+                    }
+            }
+
+            this.clicked = false
+        }.parallel()
     }
 }

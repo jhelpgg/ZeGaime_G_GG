@@ -129,7 +129,7 @@ class GUI internal constructor()
      */
     internal fun mouseState(mouseState : MouseState) : Boolean
     {
-        if(!this.visible)
+        if (!this.visible)
         {
             return false
         }

@@ -85,7 +85,7 @@ class GUIGridLayout(numberColumn : Int) : GUILayout<GUIGridConstraint>()
                 x += celWidth + this.marginHorizontal
                 column = (column + 1) % this.numberColumn
 
-                if (column == 0)
+                if (column == 0 && line < numberLine - 1)
                 {
                     x = this.marginHorizontal
                     y += height + this.marginVertical

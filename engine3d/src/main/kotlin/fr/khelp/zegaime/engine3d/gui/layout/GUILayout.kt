@@ -22,6 +22,10 @@ abstract class GUILayout<C : GUIConstraints>
 
     internal fun mouseState(mouseState : MouseState) : Boolean
     {
+        if(mouseState.mouseStatus == MouseStatus.OUTSIDE) {
+            return false
+        }
+
         val x = mouseState.x
         val y = mouseState.y
 

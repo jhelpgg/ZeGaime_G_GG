@@ -63,16 +63,16 @@ class GUIComponentScroll(private val viewPort : GUIComponentPanel<*, *>) : GUICo
         graphics2D.setColor(GRAY)
 
         graphics2D.fillRoundRect(x + 32, y, viewPortWidth, 32, 16, 16)
-        graphics2D.drawImage((this.width - 32) / 2, y, GUIComponentScroll.up)
+        graphics2D.drawImage((this.width - 32) / 2, y, up)
 
         graphics2D.fillRoundRect(x + 32, y + height - 32, viewPortWidth, 32, 16, 16)
-        graphics2D.drawImage((this.width - 32) / 2, y + height - 32, GUIComponentScroll.down)
+        graphics2D.drawImage((this.width - 32) / 2, y + height - 32, down)
 
         graphics2D.fillRoundRect(x, y + 32, 32, viewPortHeight, 16, 16)
-        graphics2D.drawImage(x, (this.height - 32) / 2, GUIComponentScroll.left)
+        graphics2D.drawImage(x, (this.height - 32) / 2, left)
 
         graphics2D.fillRoundRect(x + width - 32, y + 32, 32, viewPortHeight, 16, 16)
-        graphics2D.drawImage(x + width - 32, (this.height - 32) / 2, GUIComponentScroll.right)
+        graphics2D.drawImage(x + width - 32, (this.height - 32) / 2, right)
 
         val transform = graphics2D.transform
         val clip = graphics2D.clip
