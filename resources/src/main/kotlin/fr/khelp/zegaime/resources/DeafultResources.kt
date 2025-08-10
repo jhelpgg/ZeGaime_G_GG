@@ -41,6 +41,9 @@ const val OPEN = "open"
 /** OK key */
 const val OK = "ok"
 
+/** Hint type text key */
+const val HINT_TYPE_TEXT = "hintTypeText"
+
 /** Warning image 16x16 */
 val WARNING_IMAGE_16 : GameImage get() = defaultResources.imageThumbnail("warning.png", 16, 16)
 

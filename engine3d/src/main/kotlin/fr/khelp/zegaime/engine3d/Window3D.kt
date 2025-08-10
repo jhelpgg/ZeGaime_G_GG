@@ -94,6 +94,10 @@ class Window3D private constructor()
                     window3D.keyboardManager.keyEvent(key, action)
                 }
 
+                GLFW.glfwSetCharCallback(window) { _, code->
+                    window3D.gui.keyFocusManager.receiveCharacter(code.toChar())
+                }
+
                 GLFW.glfwSetCursorEnterCallback(window) { _, entered ->
                     window3D.mouseManager.mouseEntered(entered)
                 }
@@ -172,8 +176,8 @@ class Window3D private constructor()
     var height : Int = 0
         private set
 
-    val gui = GUI()
     val keyboardManager : KeyboardManager = KeyboardManager()
+    val gui = GUI(this.keyboardManager)
     val mouseManager : MouseManager = MouseManager(this.gui)
     val joystickManager : JoystickManager = JoystickManager()
     val actionManager : ActionManager = ActionManager(this.keyboardManager, this.joystickManager)

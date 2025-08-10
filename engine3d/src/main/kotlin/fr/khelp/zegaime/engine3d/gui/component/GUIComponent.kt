@@ -94,8 +94,19 @@ abstract class GUIComponent
         this.drawIntern(graphics2D, margin)
     }
 
+    /**
+     * Draws the component's specific part
+     *
+     * @param graphics2D Graphics to use
+     * @param margin Component computed margin
+     */
     protected abstract fun drawIntern(graphics2D : Graphics2D, margin : GUIMargin)
 
+    /**
+     * Computes component's preferred size
+     *
+     * @return Computed component's preferred size
+     */
     fun preferredSize() : Dimension
     {
         if (this.background == StyleBackgroundTransparent)
@@ -116,5 +127,12 @@ abstract class GUIComponent
                          preferred.height + y + additional.top + additional.bottom)
     }
 
+    /**
+     * Computes component's specific preferred size with the computed margin
+     *
+     * @param margin Computed margin
+     *
+     * @return Computed component's preferred size
+     */
     protected abstract fun preferredSize(margin : GUIMargin) : Dimension
 }

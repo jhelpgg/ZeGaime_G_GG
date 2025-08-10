@@ -3,6 +3,7 @@ package fr.jhelp.zegaime.main
 import fr.khelp.zegaime.engine3d.gui.component.GUIComponentEmpty
 import fr.khelp.zegaime.engine3d.gui.component.GUIComponentImage
 import fr.khelp.zegaime.engine3d.gui.component.GUIComponentText
+import fr.khelp.zegaime.engine3d.gui.component.GUIComponentTextField
 import fr.khelp.zegaime.engine3d.gui.component.ImageConstraint
 import fr.khelp.zegaime.engine3d.gui.dsl.buttonText
 import fr.khelp.zegaime.engine3d.gui.dsl.constraintLayout
@@ -23,20 +24,9 @@ fun main()
 {
     window3DFull("Test") {
         val helloText = GUIComponentText()
-        helloText.keyText = ResourcesText.standardTextKey("""
-                Click on Ok !
-                Second line
-                An other line just for add lines
-                Whats upon a time, a line of text that's exists only to be there and do some test.
-                I knock, knock to the imagination door, to find a text to write.
-                Write a line or not write a line ? That is the question.
-                Theres a famous theory, more line you right, more line you get.
-                Hope this time is enough
-                Its funny, but not look enough
-                More and more
-                Did you know it exists at least one space where PI is exactly 4 ?
-                In a sphere you can draw a triangle with three right angles
-            """.trimIndent())
+        helloText.keyText = OK
+
+        val textField = GUIComponentTextField()
 
         val file = File("C:\\Users\\jhelp\\Pictures\\977253.jpg")
         val image = GUIComponentImage(image = GameImage.load(FileInputStream(file)),
@@ -67,14 +57,24 @@ fun main()
                 rightAtParent
             }
 
+            textField.with {
+                horizontalWrapped
+                verticalWrapped
+
+                topAtBottomOf(helloText)
+                bottomFree
+                leftAtParent
+                rightAtParent
+            }
+
             scroll.with {
                 horizontalExpanded
                 verticalExpanded
 
-                topAtBottomOf(helloText)
+                topAtBottomOf(textField)
                 bottomAtTopOf(buttonOk)
-                leftAtLeftOf(helloText)
-                rightAtRightOf(helloText)
+                leftAtLeftOf(textField)
+                rightAtRightOf(textField)
             }
 
             buttonSeparator.with {

@@ -1,11 +1,13 @@
 package fr.khelp.zegaime.engine3d.gui
 
+import fr.khelp.zegaime.engine3d.events.KeyboardManager
 import fr.khelp.zegaime.engine3d.events.MouseState
 import fr.khelp.zegaime.engine3d.gui.component.GUIComponentPanel
 import fr.khelp.zegaime.engine3d.gui.component.GUIDialog
 import fr.khelp.zegaime.engine3d.gui.dialogs.DialogColorChooser
 import fr.khelp.zegaime.engine3d.gui.dialogs.DialogMessage
 import fr.khelp.zegaime.engine3d.gui.dsl.GUIMenuBarCreator
+import fr.khelp.zegaime.engine3d.gui.focus.KeyFocusManager
 import fr.khelp.zegaime.engine3d.gui.layout.GUIConstraints
 import fr.khelp.zegaime.engine3d.gui.layout.GUILayout
 import fr.khelp.zegaime.engine3d.gui.layout.absolute.GUIAbsoluteConstraint
@@ -24,6 +26,7 @@ import fr.khelp.zegaime.images.font.DEFAULT_FONT
 import fr.khelp.zegaime.images.font.JHelpFont
 import fr.khelp.zegaime.resources.ResourcesText
 import fr.khelp.zegaime.resources.defaultTexts
+import fr.khelp.zegaime.utils.injection.inject
 import fr.khelp.zegaime.utils.tasks.synchro.Mutex
 
 /**
@@ -44,7 +47,7 @@ import fr.khelp.zegaime.utils.tasks.synchro.Mutex
  *
  * @constructor Creates a new GUI. For internal use only.
  */
-class GUI internal constructor()
+class GUI internal constructor(keyboardManager : KeyboardManager)
 {
     var layout : GUILayout<*> = GUIAbsoluteLayout()
         set(value)
@@ -71,6 +74,12 @@ class GUI internal constructor()
     private var menuBarPanel : GUIComponentPanel<*, *>? = null
     private var menuBarY = 0
     private var completeLayout : GUILayout<*> = GUIAbsoluteLayout()
+    internal val keyFocusManager = KeyFocusManager(keyboardManager)
+
+    init
+    {
+        inject<KeyFocusManager>(this.keyFocusManager)
+    }
 
     fun <C : GUIConstraints, L : GUILayout<C>> createDialog(layout : L) : GUIDialog<C, L> =
         GUIDialog<C, L>(GUIComponentPanel<C, L>(layout), this)
@@ -144,19 +153,32 @@ class GUI internal constructor()
         }
 
         val panel = panelNullable
+        val consumed =
+            if (panel != null)
+            {
+                val state = MouseState(mouseState.mouseStatus,
+                                       mouseState.x - panel.x - panel.margin.left,
+                                       mouseState.y - panel.y - panel.margin.top,
+                                       mouseState.leftButtonDown,
+                                       mouseState.middleButtonDown,
+                                       mouseState.rightButtonDown,
+                                       mouseState.shiftDown,
+                                       mouseState.controlDown,
+                                       mouseState.altDown,
+                                       mouseState.clicked)
+                panel.mouseState(state)
+            }
+            else
+            {
+                this.completeLayout.mouseState(mouseState)
+            }
 
-        if (panel != null)
+        if (!consumed && mouseState.leftButtonDown)
         {
-            val state = MouseState(mouseState.mouseStatus,
-                                   mouseState.x - panel.x - panel.margin.left,
-                                   mouseState.y - panel.y - panel.margin.top,
-                                   mouseState.leftButtonDown, mouseState.middleButtonDown, mouseState.rightButtonDown,
-                                   mouseState.shiftDown, mouseState.controlDown, mouseState.altDown,
-                                   mouseState.clicked)
-            return panel.mouseState(state)
+            this.keyFocusManager.lostFocus()
         }
 
-        return this.completeLayout.mouseState(mouseState)
+        return consumed
     }
 
     /**
