@@ -13,6 +13,7 @@ import fr.khelp.zegaime.images.GameImage
 import fr.khelp.zegaime.resources.CANCEL
 import fr.khelp.zegaime.resources.OK
 import fr.khelp.zegaime.resources.ResourcesText
+import fr.khelp.zegaime.utils.logs.debug
 import fr.khelp.zegaime.utils.tasks.delay
 import java.io.File
 import java.io.FileInputStream
@@ -36,7 +37,10 @@ fun main()
         }
 
         val buttonOk = buttonText(OK)
-        buttonOk.click = { helloText.keyText = ResourcesText.standardTextKey("Ok clicked !") }
+        buttonOk.click = { helloText.keyText = ResourcesText.standardTextKey("Ok clicked !")
+            this.gui.dialogFileChooser.onSelectFile = { file -> debug("Select : ", file.absolutePath) }
+            this.gui.dialogFileChooser.show()
+        }
 
         val buttonCancel = buttonText(CANCEL)
         buttonCancel.click = {

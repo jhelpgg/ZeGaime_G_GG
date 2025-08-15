@@ -5,6 +5,7 @@ import fr.khelp.zegaime.engine3d.events.MouseState
 import fr.khelp.zegaime.engine3d.gui.component.GUIComponentPanel
 import fr.khelp.zegaime.engine3d.gui.component.GUIDialog
 import fr.khelp.zegaime.engine3d.gui.dialogs.DialogColorChooser
+import fr.khelp.zegaime.engine3d.gui.dialogs.DialogFileChooser
 import fr.khelp.zegaime.engine3d.gui.dialogs.DialogMessage
 import fr.khelp.zegaime.engine3d.gui.dsl.GUIMenuBarCreator
 import fr.khelp.zegaime.engine3d.gui.focus.KeyFocusManager
@@ -35,7 +36,7 @@ import fr.khelp.zegaime.utils.tasks.synchro.Mutex
  * The GUI is a plane that is always facing the camera.
  * It can be used to display 2D elements on top of the 3D scene.
  *
- * **Creation example:**
+ * **Creation example: **
  * This class is not meant to be instantiated directly.
  * It is created by the `Window3D` class.
  *
@@ -49,6 +50,7 @@ import fr.khelp.zegaime.utils.tasks.synchro.Mutex
  */
 class GUI internal constructor(keyboardManager : KeyboardManager)
 {
+    /** GUI main layout */
     var layout : GUILayout<*> = GUIAbsoluteLayout()
         set(value)
         {
@@ -56,17 +58,27 @@ class GUI internal constructor(keyboardManager : KeyboardManager)
             this.completeLayout()
         }
 
+    /** Dialog for show a message */
     val dialogMessage = DialogMessage(this)
 
+    /** Whether the GUI is visible or not */
     var visible = true
+
+    /** Dialog for choose a file */
+    val dialogFileChooser : DialogFileChooser by lazy { DialogFileChooser(this) }
 
     /**
      * The plane that represents the GUI.
      */
     internal val plane = Plane("GUI")
 
-    private var width = -1
-    private var height = -1
+    /** GUI width */
+    var width = -1
+        private set
+
+    /** GUI height */
+    var height = -1
+        private set
     private val image by lazy { GameImage(this.width, this.height) }
     private val texture by lazy { Texture(this.image) }
     private val mutexDialog = Mutex()

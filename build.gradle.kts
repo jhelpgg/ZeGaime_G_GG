@@ -1,4 +1,5 @@
 plugins {
+    application
     alias(libs.plugins.kotlinJvm)
 }
 
@@ -21,4 +22,7 @@ tasks.test {
 }
 kotlin {
     jvmToolchain(17)
+}
+application {
+    mainClass.set("fr.jhelp.zegaime.main.MainKt")
 }

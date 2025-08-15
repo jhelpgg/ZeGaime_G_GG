@@ -214,4 +214,18 @@ class GUIComponentScroll(private val viewPort : GUIComponentPanel<*, *>) : GUICo
 
         return true
     }
+
+    /**
+     * Updates the scroll content
+     */
+    internal fun update()
+    {
+        val size = this.viewPort.preferredSize()
+        this.viewPort.x = 0
+        this.viewPort.y = 0
+        this.viewPort.width = size.width
+        this.viewPort.height = size.height
+        this.viewPort.relayoutWithPreferred()
+        this.margin = GUIMargin(4, 0, 0, 4)
+    }
 }

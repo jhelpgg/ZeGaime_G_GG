@@ -6,9 +6,19 @@ package fr.khelp.zegaime.images.font
 val DEFAULT_FONT = JHelpFont("Monospaced", 42)
 
 /**
+ * The default font. Small size
+ */
+val DEFAULT_FONT_SMALL = JHelpFont("Monospaced", 24)
+
+/**
  * The font used for text.
  */
 val TEXT_FONT = JHelpFont("Arial", 32)
+
+/**
+ * The font used for text. Small size
+ */
+val TEXT_FONT_SMALL = JHelpFont("Arial", 24)
 
 /**
  * The font used for button text.
