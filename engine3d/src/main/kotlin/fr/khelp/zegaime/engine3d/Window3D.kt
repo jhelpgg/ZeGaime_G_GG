@@ -23,6 +23,7 @@ import fr.khelp.zegaime.utils.tasks.flow.FlowSource
 import fr.khelp.zegaime.utils.tasks.parallel
 import fr.khelp.zegaime.utils.tasks.synchro.Locker
 import java.util.Optional
+import java.util.concurrent.atomic.AtomicBoolean
 import org.lwjgl.glfw.Callbacks
 import org.lwjgl.glfw.GLFW
 import org.lwjgl.glfw.GLFWErrorCallback
@@ -94,7 +95,7 @@ class Window3D private constructor()
                     window3D.keyboardManager.keyEvent(key, action)
                 }
 
-                GLFW.glfwSetCharCallback(window) { _, code->
+                GLFW.glfwSetCharCallback(window) { _, code ->
                     window3D.gui.keyFocusManager.receiveCharacter(code.toChar())
                 }
 
@@ -189,6 +190,7 @@ class Window3D private constructor()
     private val readyLocker = Locker()
     private val waitingCloseLock = Object()
     private var nodeDetect : Node? = null
+    private val closed = AtomicBoolean(false)
     private val nodePickedFlowData = FlowSource<Optional<Node>>()
     val nodePickedFlow : Flow<Optional<Node>> = this.nodePickedFlowData.flow
 
@@ -201,9 +203,12 @@ class Window3D private constructor()
             return
         }
 
-        PreferencesDatabase.close()
-        GLFW.glfwSetWindowShouldClose(this.windowId, true)
-        delay(128L) { synchronized(this.waitingCloseLock) { this.waitingCloseLock.notifyAll() } }
+        if (this.closed.compareAndSet(false, true))
+        {
+            PreferencesDatabase.close()
+            GLFW.glfwSetWindowShouldClose(this.windowId, true)
+            delay(128L) { synchronized(this.waitingCloseLock) { this.waitingCloseLock.notifyAll() } }
+        }
     }
 
     internal fun waitWindowClose()
@@ -409,7 +414,7 @@ class Window3D private constructor()
             this.particleManager.draw()
 
             // Draw 2D objects over 3D
-            if(this.gui.visible)
+            if (this.gui.visible)
             {
                 this.gui.update()
                 GL11.glDisable(GL11.GL_DEPTH_TEST)

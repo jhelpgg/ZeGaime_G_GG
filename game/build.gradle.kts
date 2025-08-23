@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     api(project(":formatk3d"))
+    api(project(":sounds"))
     testImplementation(libs.kotlin.test)
     testImplementation(libs.kotlin.test.junit5)
     testImplementation(libs.junit.jupiter)
