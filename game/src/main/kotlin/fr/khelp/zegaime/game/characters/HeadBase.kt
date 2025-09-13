@@ -1,5 +1,7 @@
 package fr.khelp.zegaime.game.characters
 
+import fr.khelp.zegaime.engine3d.dsl.path
+import fr.khelp.zegaime.engine3d.geometry.path.Path
 import fr.khelp.zegaime.engine3d.render.BLACK
 import fr.khelp.zegaime.engine3d.render.Color4f
 import fr.khelp.zegaime.engine3d.render.Material
@@ -8,6 +10,7 @@ import fr.khelp.zegaime.engine3d.resources.Eye
 import fr.khelp.zegaime.engine3d.resources.Mouth
 import fr.khelp.zegaime.engine3d.scene.Node
 import fr.khelp.zegaime.engine3d.scene.prebuilt.Plane
+import fr.khelp.zegaime.engine3d.scene.prebuilt.Revolution
 import fr.khelp.zegaime.engine3d.scene.prebuilt.Sphere
 import fr.khelp.zegaime.images.GameImage
 import fr.khelp.zegaime.images.color.Color
@@ -50,6 +53,13 @@ class HeadBase(id : String) : Node(id)
             path.closePath()
             path
         }
+
+        /** Nose revolution path */
+        private val nosePath : Path =
+            path {
+                move(0f, 0.5f)
+                quadratic(0.5f, -0.25f, 0f, -0.5f)
+            }
     }
 
     /** Left eye */
@@ -110,11 +120,11 @@ class HeadBase(id : String) : Node(id)
         this.skinMaterial.colorDiffuse = BLACK
         this.skinMaterial.colorEmissive = Color4f(this.skinColor)
 
-        val nose = Sphere("${id}.nose", 8, 8)
-        nose.scaleX = 0.234f
-        nose.scaleY = 0.123f
-        nose.scaleZ = 0.123f
-        nose.x = -1f
+        val nose = Revolution("${id}.nose", path = nosePath)
+        nose.scaleX = 0.456f
+        nose.scaleY = 0.345f
+        nose.scaleZ = 0.345f
+        nose.x = -0.987f
         nose.material = this.skinMaterial
         nose.materialForSelection = nose.material
         this.addChild(nose)
