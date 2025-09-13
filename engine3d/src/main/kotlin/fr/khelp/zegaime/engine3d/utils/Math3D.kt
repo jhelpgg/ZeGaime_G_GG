@@ -391,3 +391,24 @@ fun distance(point1 : Point3D, point2 : Point3D) : Float =
  */
 fun scalarProduct(x1 : Float, y1 : Float, z1 : Float, x2 : Float, y2 : Float, z2 : Float) : Point3D =
     Point3D(y1 * z2 - z1 * y2, z1 * x2 - x1 * z2, x1 * y2 - y1 * x2)
+
+/**
+ * Computes the scalar product of two vectors defined by three points.
+ * The vectors are created by subtracting the center point from the before and after points.
+ *
+ * @param xBefore X coordinate of the "before" point
+ * @param yBefore Y coordinate of the "before" point
+ * @param zBefore Z coordinate of the "before" point
+ * @param xCenter X coordinate of the center point
+ * @param yCenter Y coordinate of the center point
+ * @param zCenter Z coordinate of the center point
+ * @param xAfter X coordinate of the "after" point
+ * @param yAfter Y coordinate of the "after" point
+ * @param zAfter Z coordinate of the "after" point
+ * @return The scalar product of the two vectors (before-center) and (after-center)
+ */
+fun scalarProduct(xBefore : Float, yBefore : Float, zBefore : Float,
+                  xCenter : Float, yCenter : Float, zCenter : Float,
+                  xAfter : Float, yAfter : Float, zAfter : Float) : Point3D =
+    scalarProduct(x1 = xBefore - xCenter, y1 = yBefore - yCenter, z1 = zBefore - zCenter,
+                  x2 = xAfter - xCenter, y2 = yAfter - yCenter, z2 = zAfter - zCenter)
