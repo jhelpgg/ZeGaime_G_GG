@@ -9,7 +9,7 @@ import java.awt.Image
 /**
  * A graphics context that uses percentages for coordinates and dimensions.
  *
- * **Creation example:**
+ * **Creation example: **
  * This class is not meant to be instantiated directly.
  * It is provided by the `GameImage.drawPercent` method.
  *

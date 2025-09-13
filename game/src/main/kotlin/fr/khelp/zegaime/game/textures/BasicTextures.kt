@@ -5,7 +5,7 @@ import fr.khelp.zegaime.images.GameImage
 import fr.khelp.zegaime.images.TextAlignment
 import fr.khelp.zegaime.images.color.BLACK
 import fr.khelp.zegaime.images.color.WHITE
-import fr.khelp.zegaime.images.color.argb
+import fr.khelp.zegaime.images.color.rgb
 import fr.khelp.zegaime.images.drawText
 import fr.khelp.zegaime.images.font.JHelpFont
 import fr.khelp.zegaime.images.setColor
@@ -20,7 +20,7 @@ val numberedImage : GameImage by lazy {
         {
             for (x in 0 until 8)
             {
-                graphics2D.setColor(argb(1, x * 32, 128, y * 32))
+                graphics2D.setColor(rgb(x * 32, 128, y * 32))
                 graphics2D.fillRect(x * 64, y * 64, 64, 64)
 
                 graphics2D.setColor(WHITE)

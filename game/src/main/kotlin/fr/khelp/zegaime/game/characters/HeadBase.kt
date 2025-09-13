@@ -40,7 +40,7 @@ class HeadBase(id : String) : Node(id)
             path
         }
 
-        /** Inside hear path */
+        /** Inside ear path */
         private val insideEarPath : Path2D.Double by lazy {
             val path = Path2D.Double()
             path.moveTo(0.0, 256.0 - 64.0)
@@ -104,6 +104,7 @@ class HeadBase(id : String) : Node(id)
         val base = Sphere("${id}.base", 16, 16)
         base.scaleY = 1.234f
         base.material.textureDiffuse = this.textureFace
+        base.materialForSelection = base.material
         this.addChild(base)
 
         this.skinMaterial.colorDiffuse = BLACK
@@ -115,6 +116,7 @@ class HeadBase(id : String) : Node(id)
         nose.scaleZ = 0.123f
         nose.x = -1f
         nose.material = this.skinMaterial
+        nose.materialForSelection = nose.material
         this.addChild(nose)
 
         val rightEar = Plane("${id}.rightEar")
@@ -125,6 +127,7 @@ class HeadBase(id : String) : Node(id)
         rightEar.x = -0.5f
         rightEar.angleY = 45f
         rightEar.material.textureDiffuse = this.textureEar
+        rightEar.materialForSelection = rightEar.material
         this.addChild(rightEar)
 
         val leftEar = Plane("${id}.leftEar")
@@ -135,6 +138,7 @@ class HeadBase(id : String) : Node(id)
         leftEar.x = -0.5f
         leftEar.angleY = -45f
         leftEar.material = rightEar.material
+        leftEar.materialForSelection = leftEar.material
         this.addChild(leftEar)
 
         this.refresh()
